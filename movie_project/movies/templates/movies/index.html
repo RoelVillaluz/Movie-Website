@@ -2,19 +2,18 @@
 
 {% block body %}
     <h1>Popular Movies</h1>
-    {% if movies %}
-        <ul>
-            {% for movie in movies %}
-                <li>
-                    <h2>{{ movie }}</h2>
-                    <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}" width="300px" height="300px">
-                    <p>{{ movie.overview }}</p>
-                    <p>Release Date: {{ movie.release_date }}</p>
-                    <p>Rating: {{ movie.rating }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No movies found.</p>
-    {% endif %}
+    <div class="movie-list">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                {% for movie in movies %}
+                <div class="swiper-slide">
+                    <a href="{% url 'movie-detail' movie.pk %}">
+                        <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
+                    </a>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+    </div>
 {% endblock %}

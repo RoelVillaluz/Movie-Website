@@ -1,0 +1,7 @@
+{% extends 'movies/layout.html' %}
+
+{% block body %}
+    <h1>{{ movie.title }}</h1>
+    <img src="{{ movie.backdrop_path.url }}" alt="{{ movie.title }}" width="100%" height="500px" object-fit="cover">
+    <p>{{ movie.overview }}</p>
+{% endblock %}

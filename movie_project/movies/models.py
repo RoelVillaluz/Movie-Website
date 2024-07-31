@@ -20,6 +20,10 @@ class Movie(models.Model):
     poster_path = models.ImageField(upload_to="media")
     backdrop_path = models.ImageField(upload_to="media")
     release_date = models.DateField()
+    # genres = models.ManyToManyField('Genre')
 
     def __str__(self):
         return self.title
+    
+# class Genre(models.Model):
+#     name = models.CharField()
