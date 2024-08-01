@@ -9,7 +9,17 @@
     <link rel="stylesheet" href="{% static 'movies/styles.css' %}">
 </head>
 <body>
-    
+    <nav>
+        <div class="logo">MovieVerse</div>
+        <div class="buttons">
+            <ul>
+                <li><a href="">Sign In</a></li>
+                <li><a href="">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+    {% block body %}
+    {% endblock %}
 </body>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{% static 'movies/scripts.js' %}"></script>
