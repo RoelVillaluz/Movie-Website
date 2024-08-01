@@ -53,8 +53,7 @@ nav a {
     text-decoration: none;
 }
 
-
-.hero {
+.featured-movie {
     width: 100%;
     height: 90vh;
     position: relative;
@@ -62,17 +61,20 @@ nav a {
     font-family: "Bebas Neue", sans-serif;
 }
 
-.hero img {
+.featured-movie img {
     width: inherit;
     height: inherit;
     object-fit: cover;
     object-position: center;
     filter: brightness(0.71) contrast(0.94);
     transform-origin: center;
+}
+
+.featured-movie img.animate {
     animation: zoomAndFade 8s linear;
 }
 
-.hero::after {
+.featured-movie::after {
     position: absolute;
     content: '';
     bottom: 0;
@@ -82,27 +84,37 @@ nav a {
     background-image: linear-gradient(to top, rgb(20, 20, 20, 1) 0%, rgb(20, 20, 20, 0) 100%);
 }
 
-.hero .text {
+.featured-movie .text {
     position: absolute;
-    bottom: -10%;
-    left: 25%;
-    transform: translate(-50%, -50%);
+    bottom: 5%; 
+    left: 5%; 
+    color: white;
     text-transform: uppercase;
     letter-spacing: 2px;
     line-height: 1;
 }
 
-.hero .text h1 {
+.featured-movie .text h1 {
     font-size: 6rem;
-    animation: slideRight 0.5s ease-in-out;
 }
 
-.hero .text h3 {
+.featured-movie .text h3 {
     font-size: 4rem;
-    animation: slideUp 0.5s ease forwards;
 }
 
-.hero .text a {
+.animate-img {
+    animation: zoomAndFade 8s linear;
+}
+
+.animate-title {
+    animation: slideRight 8s ease-in-out forwards; /* animation for text h1 */
+}
+
+.animate-subtitle {
+    animation: slideUp 8s ease forwards; /* animation for text h3 */
+}
+
+.featured-movie .text a {
     padding: 12px 30px;
     margin-top: 10px;
     font-size: 1.1rem;
@@ -114,9 +126,10 @@ nav a {
     transform-origin: left;
     transition: 0.3s;
     overflow: hidden;
+    cursor: pointer;
 }
 
-.hero .text a:hover {
+.featured-movie .text a:hover {
     background-color: white;
     color: black;
 }
@@ -128,13 +141,16 @@ nav a {
 @keyframes zoomAndFade {
     0% {
         transform: scale(1.5);
+        opacity: 0;
+    }
+    10% {
         opacity: 1;
     }
-    90% {
-        transform: scale(1);
+    75% {
         opacity: 1;
     }
     100% {
+        transform: scale(1);
         opacity: 0;
     }
 }
@@ -144,20 +160,36 @@ nav a {
         opacity: 0;
         transform: translateX(-20%);
     }
-    100% {
+    10% {
         opacity: 1;
         transform: translateX(0%);
     }
- }
+    90% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-10%);
+        opacity: 0;
+    }
+}
 
 @keyframes slideUp {
     0% {
         transform: translateY(100%);
         opacity: 0;
     }
-    100% {
+    10% {
         transform: translateY(0);
         opacity: 1;
+    }
+    90% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(20);
+        opacity: 0;
     }
 }
 
