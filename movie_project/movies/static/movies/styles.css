@@ -92,6 +92,7 @@ nav a {
     text-transform: uppercase;
     letter-spacing: 2px;
     line-height: 1;
+    text-shadow: 0px 2px 4px rgb(22, 22, 22, .9);
 }
 
 .featured-movie .text h1 {
@@ -114,9 +115,14 @@ nav a {
     animation: slideUp 8s ease forwards; /* animation for text h3 */
 }
 
-.featured-movie .text a {
-    padding: 12px 30px;
+.featured-buttons {
+    display: flex;
+    align-items: center;
     margin-top: 10px;
+}
+
+.movie-link {
+    padding: 12px 30px;
     font-size: 1.1rem;
     text-decoration: none;
     background-color: rgb(20, 20, 20);
@@ -129,13 +135,18 @@ nav a {
     cursor: pointer;
 }
 
-.featured-movie .text a:hover {
+.movie-link:hover {
     background-color: white;
     color: black;
 }
 
 .movie-list {
     padding: 20px;
+}
+
+.movie-list h3 {
+    font-size: 1.5rem;
+    color: rgb(231, 231, 231);
 }
 
 @keyframes zoomAndFade {
@@ -237,11 +248,34 @@ nav a {
     align-items: center;
     height: 250px;
     width: 150px;
+    position: relative;
+    overflow: hidden;
 }
 
 .swiper-slide img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.swiper-slide i {
+    position: absolute;
+    font-size: 24px;
+    color: rgb(212, 212, 212);
+    display: none;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+}
+
+.swiper-slide:hover img {
+    opacity: 0.5; 
+}
+
+.swiper-slide:hover i {
+    display: block; 
 }

@@ -2,8 +2,8 @@
 
 {% block body %}
     <div class="movie">
-        <h1>{{ movie.title }}</h1>
         <img src="{{ movie.backdrop_path.url }}" alt="{{ movie.title }}" width="100%" height="500px" object-fit="cover">
+        <h1>{{ movie.title }}</h1>
         <p>{{ movie.overview }}</p>
     </div>
 {% endblock %}

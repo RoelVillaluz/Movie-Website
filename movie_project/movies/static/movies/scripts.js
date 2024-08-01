@@ -8,6 +8,7 @@ var swiper = new Swiper(".mySwiper", {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  // add movieData[clips] later
   const movieData = [
       {
           title: 'Spider-Man',
@@ -27,6 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
         image: 'media/media/backdrop_VJeYqoT.jpg',
         link: 'movies/179'
     },
+    {
+        title: 'Dune: Part Two',
+        image: 'media/media/backdrop_1NjmW80.jpg',
+        url: 'movies/131'
+    }
   ];
 
   let currentIndex = 0;

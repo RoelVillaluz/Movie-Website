@@ -7,7 +7,9 @@
             <div class="text">
                 <h1 id="movie-title">Spider-Man</h1>
                 <h3 id="movie-subtitle">Across the Spiderverse</h3>
-                <a href="movies/155" id="movie-link">View Details</a>
+                <div class="featured-buttons">
+                    <a href="movies/155" id="movie-link" class="movie-link">View Details</a>
+                </div>
             </div>
         </div>
     </section>
@@ -19,6 +21,7 @@
                 <div class="swiper-slide">
                     <a href="{% url 'movie-detail' movie.pk %}">
                         <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
+                        <i class="fa-solid fa-eye"></i>
                     </a>
                 </div>
               {% endfor %}
