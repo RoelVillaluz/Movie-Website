@@ -1,8 +1,11 @@
 {% extends 'movies/layout.html' %}
 
 {% block body %}
-    <h1>Popular Movies</h1>
+    <section class="hero">
+        <img src="media/media/poster_hdhrbd0.jpg" alt="">
+    </section>
     <div class="movie-list">
+        <h3>Popular Movies</h3>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
                 {% for movie in movies %}
@@ -14,6 +17,6 @@
               {% endfor %}
             </div>
             <div class="swiper-pagination"></div>
-          </div>
+        </div>
     </div>
 {% endblock %}
