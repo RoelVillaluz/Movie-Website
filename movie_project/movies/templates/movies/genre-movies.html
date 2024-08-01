@@ -1,0 +1,10 @@
+{% extends 'movies/layout.html' %}
+
+{% block title %}{{ genre.name }}{% endblock %}
+
+{% block body %}
+    <h1>Movies in {{ genre.name }}</h1>
+    {% for movie in movies %}
+        <h3>{{ movie.title }}</h3>
+    {% endfor %}
+{% endblock %}

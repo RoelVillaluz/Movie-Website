@@ -31,6 +31,7 @@ nav {
     padding: 8px 20px;
     width: 100%;
     z-index: 1000;
+    text-shadow: 0px 2px 2px rgba(20, 20, 20, .7);
 }
 
 nav .logo {
@@ -147,6 +148,92 @@ nav a {
 .movie-list h3 {
     font-size: 1.5rem;
     color: rgb(231, 231, 231);
+}
+
+.movie {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.movie-backdrop {
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+    filter: brightness(0.71) contrast(1.06) saturate(1.11);
+    animation: extendSides 1s forwards;
+}
+
+@keyframes extendSides {
+    0% {
+        width: 0%;
+        opacity: 0.5;
+    }
+    100% {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+.movie::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background-image: linear-gradient(to top, rgb(20, 20, 20, 1) 0%, rgb(20, 20, 20, 0) 100%);
+}
+
+.movie-details {
+    position: absolute;
+    z-index: 2;
+    bottom: 2%;
+    left: 2%;
+}
+
+.movie-title {
+    font-size: 6rem;
+    line-height: 6rem;
+    max-width: 70%;
+}
+
+.movie-genre-list {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.movie-genre {
+    padding: 4px 30px;
+    text-decoration: none;
+    border: solid 2px white;
+    border-radius: 30px;
+    font-size: 1.35rem;
+}
+
+.movie-overview {
+    max-width: 70%;
+    font-size: 1.5rem;
+}
+
+.movie-poster {
+    position: absolute;
+    z-index: 3;
+    width: 200px;
+    height: 300px;
+    transform: translate(-50%,-50%);
+    bottom: -20%;
+    right: 0%;
+    clip-path: polygon(15% 0, 70% 0%, 100% 0, 100% 85%, 85% 100%, 0 100%, 0% 70%, 0 15%);
+    box-shadow: 0px 0px 4px rgba(20, 20, 20, .1);
+}
+
+.movie-poster img {
+    height: inherit;
+    width: inherit;
+    object-fit: contain;
 }
 
 @keyframes zoomAndFade {

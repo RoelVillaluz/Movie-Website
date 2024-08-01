@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from autoslug import AutoSlugField
 
 # Create your models here.
 class User(AbstractUser):
@@ -20,71 +21,13 @@ class Movie(models.Model):
     poster_path = models.ImageField(upload_to="media")
     backdrop_path = models.ImageField(upload_to="media")
     release_date = models.DateField()
-    genres = models.ManyToManyField('Genre', blank=True)
+    genres = models.ManyToManyField('Genre', blank=True, related_name="movies")
 
     def __str__(self):
         return self.title
     
 class Genre(models.Model):
-    ACTION = 'Action'
-    COMEDY = 'Comedy'
-    DRAMA = 'Drama'
-    HORROR = 'Horror'
-    ROMANCE = 'Romance'
-    SCIFI = 'Sci-Fi'
-    THRILLER = 'Thriller'
-    ANIMATION = 'Animation'
-    MARVEL = 'Marvel'
-    DC = 'DC'
-    FANTASY = 'Fantasy'
-    MYSTERY = 'Mystery'
-    CRIME = 'Crime'
-    ADVENTURE = 'Adventure'
-    DOCUMENTARY = 'Documentary'
-    FAMILY = 'Family'
-    MUSICAL = 'Musical'
-    WESTERN = 'Western'
-    WAR = 'War'
-    HISTORY = 'History'
-    BIOGRAPHY = 'Biography'
-    SPORT = 'Sport'
-    MUSIC = 'Music'
-    SHORT = 'Short'
-    INDIE = 'Indie'
-    NOIR = 'Noir'
-    SUPERHERO = 'Superhero'
-
-    GENRE_CHOICES = [
-        (ACTION, 'Action'),
-        (COMEDY, 'Comedy'),
-        (DRAMA, 'Drama'),
-        (HORROR, 'Horror'),
-        (ROMANCE, 'Romance'),
-        (SCIFI, 'Sci-Fi'),
-        (THRILLER, 'Thriller'),
-        (ANIMATION, 'Animation'),
-        (MARVEL, 'Marvel'),
-        (DC, 'DC'),
-        (FANTASY, 'Fantasy'),
-        (MYSTERY, 'Mystery'),
-        (CRIME, 'Crime'),
-        (ADVENTURE, 'Adventure'),
-        (DOCUMENTARY, 'Documentary'),
-        (FAMILY, 'Family'),
-        (MUSICAL, 'Musical'),
-        (WESTERN, 'Western'),
-        (WAR, 'War'),
-        (HISTORY, 'History'),
-        (BIOGRAPHY, 'Biography'),
-        (SPORT, 'Sport'),
-        (MUSIC, 'Music'),
-        (SHORT, 'Short'),
-        (INDIE, 'Indie'),
-        (NOIR, 'Noir'),
-        (SUPERHERO, 'Superhero'),
-    ]
-
-    name = models.CharField(max_length=24, choices=GENRE_CHOICES)
+    name = models.CharField(max_length=24)
 
     def __str__(self):
         return self.name
