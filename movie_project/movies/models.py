@@ -14,7 +14,6 @@ class User(AbstractUser):
         related_name='custom_user_set',
         blank=True,
     )
-
 class Movie(models.Model):
     title = models.CharField(max_length=255)
     overview = models.TextField()
@@ -22,9 +21,15 @@ class Movie(models.Model):
     backdrop_path = models.ImageField(upload_to="media")
     release_date = models.DateField()
     genres = models.ManyToManyField('Genre', blank=True, related_name="movies")
+    actors = models.ManyToManyField('Actor', blank=True, related_name="movies")
+    hours = models.PositiveIntegerField(default=0)
+    minutes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
+    
+    def runtime(self):
+        return f"{self.hours} hours {self.minutes} minutes"
     
 class Genre(models.Model):
     name = models.CharField(max_length=24)
@@ -35,7 +40,13 @@ class Genre(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    rating = models.IntegerField(choices=[(i, i) for i in range(1, 11)])
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 101)])
 
     def __str__(self):
-        return f"{self.user}'s Review for {self.movie}: {self.rating} stars"
+        return f"{self.user}'s Review for {self.movie}: {self.rating}"
+
+class Actor(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name

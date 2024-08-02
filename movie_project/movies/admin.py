@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from .models import Movie, Genre, Review
+from .models import Actor, Movie, Genre, Review
 
 # Register your models here.
 admin.site.register(Genre)
 admin.site.register(Review)
+admin.site.register(Actor)
 
 class ReleaseYearListFilter(admin.SimpleListFilter):
     title = _('release year')
@@ -31,3 +32,9 @@ class MovieAdmin(admin.ModelAdmin):
         genres = obj.genres.all()[:3]
         return ', '.join([genre.name for genre in genres]) + ('...' if len(genres) > 3 else ' ')
     display_genres.short_description = 'Genres'
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == 'genres':
+            kwargs['queryset'] = Genre.objects.order_by('name')
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
+    # do the same later for movies, alphabetize movies for review model admin

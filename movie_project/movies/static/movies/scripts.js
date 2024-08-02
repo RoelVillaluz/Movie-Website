@@ -77,22 +77,29 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  const movieBackdropAnimation = document.querySelector('.movie-backdrop');
-  const movieTitle = document.querySelector('.movie-title');
-  const movieContainer = document.querySelector('.movie');
-  const moviePoster = document.querySelector('.movie-poster');
-  const genres = document.querySelectorAll('.movie-genre'); 
+    const movieContainer = document.querySelector('.movie');
+    const movieBackdropAnimation = document.querySelector('.movie-backdrop');
+    const movieTitle = document.querySelector('.movie-title');
+    const moviePoster = document.querySelector('.movie-poster');
+    const genres = document.querySelectorAll('.movie-genre'); 
 
-  movieBackdropAnimation.addEventListener('animationend', function() {
-      movieTitle.classList.add('animate');
-  });
+    movieBackdropAnimation.addEventListener('animationend', function() {
+        movieTitle.classList.add('animate');
+    });
 
-  movieTitle.addEventListener('animationend', function() {
-      genres.forEach((genre, index) => {
-          genre.style.animationDelay = `${index * 0.2}s`;
-          setTimeout(() => {
-              genre.classList.add('animate');
-          }, 100); // Slight delay to ensure animation starts correctly
-      });
-  });
+    document.body.classList.add('no-scroll');
+
+    movieTitle.addEventListener('animationend', function() {
+        genres.forEach((genre, index) => {
+            genre.style.animationDelay = `${index * 0.2}s`;
+            setTimeout(() => {
+                genre.classList.add('animate');
+            }, 100); // Slight delay to ensure animation starts correctly
+        });
+
+        genres[genres.length - 1].addEventListener('animationend', function() {
+            // Enable scrolling after the last genre animation ends
+            document.body.classList.remove('no-scroll');
+        }, { once: true }); // Ensure this only triggers once
+    });
 });

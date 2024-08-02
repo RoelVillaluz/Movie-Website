@@ -4,7 +4,7 @@ from django.db.models.query import QuerySet
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 import requests
-from .models import Movie, Genre
+from .models import Actor, Movie, Genre
 from .utils import fetch_tmdb_movies
 from django.views.generic import ListView, DetailView
 
@@ -31,7 +31,7 @@ class GenreDetailView(DetailView):
 
     def get_queryset(self):
         return Genre.objects.prefetch_related('movies')
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['movies'] = self.object.movies.all()
