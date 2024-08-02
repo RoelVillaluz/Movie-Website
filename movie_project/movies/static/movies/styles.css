@@ -109,11 +109,11 @@ nav a {
 }
 
 .animate-title {
-    animation: slideRight 8s ease-in-out forwards; /* animation for text h1 */
+    animation: slideRightAndFade 8s ease-in-out forwards; /* animation for text h1 */
 }
 
 .animate-subtitle {
-    animation: slideUp 8s ease forwards; /* animation for text h3 */
+    animation: slideUpAndFade 8s ease forwards; /* animation for text h3 */
 }
 
 .featured-buttons {
@@ -127,7 +127,7 @@ nav a {
     font-size: 1.1rem;
     text-decoration: none;
     background-color: rgb(20, 20, 20);
-    display: inline-block;
+    display: inline-block; 
     text-transform: capitalize;
     letter-spacing: 1px;
     transform-origin: left;
@@ -140,7 +140,6 @@ nav a {
     background-color: white;
     color: black;
 }
-
 .movie-list {
     padding: 20px;
 }
@@ -192,6 +191,22 @@ nav a {
     z-index: 2;
     bottom: 2%;
     left: 2%;
+    opacity: 0;
+}
+
+.movie-details.animate {
+    animation: slideRight 1s forwards;
+}
+
+@keyframes slideRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-20%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0%)
+    }
 }
 
 .movie-title {
@@ -228,6 +243,20 @@ nav a {
     right: 0%;
     clip-path: polygon(15% 0, 70% 0%, 100% 0, 100% 85%, 85% 100%, 0 100%, 0% 70%, 0 15%);
     box-shadow: 0px 0px 4px rgba(20, 20, 20, .1);
+    opacity: 0;
+    animation: slideUp 1s ease-in-out forwards;
+    animation-delay: 1.5s;
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translate(-50%,50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%,-50%);
+    }
 }
 
 .movie-poster img {
@@ -253,7 +282,7 @@ nav a {
     }
 }
 
-@keyframes slideRight {
+@keyframes slideRightAndFade {
     0% {
         opacity: 0;
         transform: translateX(-20%);
@@ -272,7 +301,7 @@ nav a {
     }
 }
 
-@keyframes slideUp {
+@keyframes slideUpAndFade {
     0% {
         transform: translateY(100%);
         opacity: 0;
