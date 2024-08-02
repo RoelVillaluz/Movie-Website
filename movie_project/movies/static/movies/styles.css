@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Teko:wght@300..700&display=swap');
 
 :root {
     --primary-color: rgb(22, 22, 22);
@@ -165,17 +166,6 @@ nav a {
     animation: extendSides 1s forwards;
 }
 
-@keyframes extendSides {
-    0% {
-        width: 0%;
-        opacity: 0.5;
-    }
-    100% {
-        width: 100%;
-        opacity: 1;
-    }
-}
-
 .movie::after {
     position: absolute;
     content: '';
@@ -191,28 +181,17 @@ nav a {
     z-index: 2;
     bottom: 2%;
     left: 2%;
-    opacity: 0;
-}
-
-.movie-details.animate {
-    animation: slideRight 1s forwards;
-}
-
-@keyframes slideRight {
-    0% {
-        opacity: 0;
-        transform: translateX(-20%);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(0%)
-    }
 }
 
 .movie-title {
     font-size: 6rem;
     line-height: 6rem;
     max-width: 70%;
+    opacity: 0;
+}
+
+.movie-title.animate {
+    animation: slideRight 1s forwards;
 }
 
 .movie-genre-list {
@@ -226,11 +205,18 @@ nav a {
     border: solid 2px white;
     border-radius: 30px;
     font-size: 1.35rem;
+    opacity: 0; 
+}
+
+.movie-genre.animate {
+    animation: slideRight 1s forwards;
 }
 
 .movie-overview {
     max-width: 70%;
-    font-size: 1.5rem;
+    font-size: 1.65rem;
+    font-family: 'Teko', sans-serif;
+    font-weight: 300;
 }
 
 .movie-poster {
@@ -248,6 +234,36 @@ nav a {
     animation-delay: 1.5s;
 }
 
+.movie-poster img {
+    height: inherit;
+    width: inherit;
+    object-fit: contain;
+}
+
+
+@keyframes extendSides {
+    0% {
+        width: 0%;
+        opacity: 0.5;
+    }
+    100% {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-20%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0%)
+    }
+}
+
+
 @keyframes slideUp {
     0% {
         opacity: 0;
@@ -257,12 +273,6 @@ nav a {
         opacity: 1;
         transform: translate(-50%,-50%);
     }
-}
-
-.movie-poster img {
-    height: inherit;
-    width: inherit;
-    object-fit: contain;
 }
 
 @keyframes zoomAndFade {
@@ -319,36 +329,6 @@ nav a {
         opacity: 0;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .swiper {
     width: 100%;

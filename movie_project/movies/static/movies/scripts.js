@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
           title: 'Dune: Part Two',
           image: 'media/media/backdrop_1NjmW80.jpg',
-          url: 'movies/131'
+          link: 'movies/131'
       }
     ];
 
@@ -76,10 +76,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-const movieBackdropAnimation = document.querySelector('.movie-backdrop')
-const movieDetails = document.querySelector('.movie-details')
-const moviePoster = document.querySelector('.movie-poster')
+document.addEventListener('DOMContentLoaded', function() {
+  const movieBackdropAnimation = document.querySelector('.movie-backdrop');
+  const movieTitle = document.querySelector('.movie-title');
+  const movieContainer = document.querySelector('.movie');
+  const moviePoster = document.querySelector('.movie-poster');
+  const genres = document.querySelectorAll('.movie-genre'); 
 
-movieBackdropAnimation.addEventListener('animationend', function() {
-  movieDetails.classList.add('animate')
-})
+  movieBackdropAnimation.addEventListener('animationend', function() {
+      movieTitle.classList.add('animate');
+  });
+
+  movieTitle.addEventListener('animationend', function() {
+      genres.forEach((genre, index) => {
+          genre.style.animationDelay = `${index * 0.2}s`;
+          setTimeout(() => {
+              genre.classList.add('animate');
+          }, 100); // Slight delay to ensure animation starts correctly
+      });
+  });
+});

@@ -16,6 +16,8 @@ class IndexListView(ListView):
     def get_queryset(self) -> QuerySet[Any]:
         queryset = Movie.objects.all()[:20]
         return queryset
+    
+    # Movie.objects.filter(release_date__gte='2024-1-1') for new movies later
 
 class MovieDetailView(DetailView):
     model = Movie
