@@ -28,9 +28,9 @@
             <h1>Cast</h1>
             <div class="cast-wrapper">
                 {% for actor in movie.actors.all %}
-                    <div class="actor">
+                    <div class="cast-actor">
                         <a href="{% url 'actor-detail' actor.pk %}"><img src="{{ actor.image.url }}" alt=""></a>
-                        <span class="actor-name">{{ actor }}</span>
+                        <span class="cast-actor-name">{{ actor }}</span>
                     </div>
                 {% endfor %}
             </div>

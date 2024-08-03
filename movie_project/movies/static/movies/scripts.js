@@ -129,3 +129,27 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(element);
     });
 });
+
+const menuBars = document.querySelector('.menu-bars');
+const sidebar = document.querySelector('.sidebar');
+const mainContent = document.querySelector('.main-content');
+
+function toggleSidebar() {
+    sidebar.classList.toggle('extended');
+    mainContent.classList.toggle('blurred', sidebar.classList.contains('extended')); 
+}
+
+menuBars.addEventListener('click', function(event) {
+    event.stopPropagation(); 
+    toggleSidebar();
+});
+
+document.addEventListener('click', function() {
+    if (sidebar.classList.contains('extended')) {
+        toggleSidebar(); 
+    }
+});
+
+sidebar.addEventListener('click', function(event) {
+    event.stopPropagation(); 
+});

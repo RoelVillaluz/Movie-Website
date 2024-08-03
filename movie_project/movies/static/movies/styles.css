@@ -31,7 +31,7 @@ nav {
     align-items: center;
     padding: 8px 20px;
     width: 100%;
-    z-index: 1000;
+    z-index: 998;
     text-shadow: 0px 2px 2px rgba(20, 20, 20, .7);
 }
 
@@ -61,25 +61,24 @@ nav li {
     aspect-ratio: 3/2.5;
     cursor: pointer;
     clip-path: polygon(15% 0, 70% 0%, 100% 0, 100% 85%, 85% 100%, 0 100%, 0% 70%, 0 15%);
+    z-index: 1001; 
 }
 
-.menu-bars::before {
+.menu-bars::before, .menu-bars::after {
     position: absolute;
     content: '';
     width: 80%;
     height: 3px;
     background-color: rgba(199, 199, 199, .7); 
+}
+
+.menu-bars::before {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .menu-bars::after {
-    position: absolute;
-    content: '';
-    width: 80%;
-    height: 3px;
-    background-color: rgba(199, 199, 199, .7); 
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -87,6 +86,29 @@ nav li {
 
 nav a {
     text-decoration: none;
+}
+
+.sidebar {
+    width: 0%; 
+    height: 100%; 
+    background-color: #f4f4f4; 
+    position: fixed;
+    top: 0;
+    right: 0;
+    transition: 0.3s;
+    z-index: 1000; 
+}
+
+.sidebar.extended {
+    width: 30%;
+}
+
+.main-content {
+    transition: 0.3s;
+}
+
+.blurred {
+    filter: blur(1px) brightness(0.26);
 }
 
 .featured-movie {
@@ -325,20 +347,15 @@ nav a {
     align-items: center;
 }
 
-.actor {
+.cast-actor {
     width: 200px;
     height: 400px;
     list-style-type: none;
     margin: 0px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     transition: transform 0.3s;
-    overflow: hidden; 
 }
 
-.actor img {
+.cast-actor img {
     height: 100%; 
     width: 100%; 
     object-fit: cover; 
@@ -348,12 +365,12 @@ nav a {
     transform-origin: bottom;
 }
 
-.actor:hover img {
+.cast-actor:hover img {
     filter: grayscale(0%) brightness(1) contrast(1.02);
     height: 100%;
 }
 
-.actor-name {
+.cast-actor-name {
     font-size: 1.1rem;
 }
 
