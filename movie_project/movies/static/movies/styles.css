@@ -292,6 +292,29 @@ nav a {
     font-size: 1.5rem;
 }
 
+.movie-rating {
+    display: flex;
+    align-items: center;
+}
+
+.movie-rating h3 {
+    font-size: 6rem;
+    margin-right: 40px;
+}
+
+.movie-rating span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12rem;
+    height: 12rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    color: black;
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
 .cast h1 {
     margin: 20px 10px;
     font-size: 3rem;
@@ -323,10 +346,6 @@ nav a {
     cursor: pointer;
     transition: 0.3s;
     transform-origin: bottom;
-}
-
-.actor:hover {
-    transform: scale(1.1); 
 }
 
 .actor:hover img {

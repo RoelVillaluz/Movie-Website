@@ -117,6 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('show');
                 observer.unobserve(entry.target); // Stop observing once the element is in view
+            } else {
+                entry.target.classList.remove('show');
             }
         });
     };

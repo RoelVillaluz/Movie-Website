@@ -1,6 +1,8 @@
+from django import db
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from autoslug import AutoSlugField
+from django.db.models import Avg
 
 # Create your models here.
 class User(AbstractUser):
@@ -14,6 +16,7 @@ class User(AbstractUser):
         related_name='custom_user_set',
         blank=True,
     )
+    
 class Movie(models.Model):
     title = models.CharField(max_length=255)
     overview = models.TextField()
@@ -31,6 +34,10 @@ class Movie(models.Model):
     def runtime(self):
         return f"{self.hours} hours {self.minutes} minutes"
     
+    def avg_rating(self):
+        avg_rating = self.reviews.aggregate(average=Avg('rating'))['average']
+        return avg_rating or 0
+    
 class Genre(models.Model):
     name = models.CharField(max_length=24)
 
@@ -39,7 +46,7 @@ class Genre(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 101)])
 
     def __str__(self):

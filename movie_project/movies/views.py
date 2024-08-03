@@ -35,3 +35,13 @@ class GenreDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['movies'] = self.object.movies.all()
         return context
+    
+class ActorDetailView(DetailView):
+    model = Actor
+    template_name = 'movies/actor-detail.html'
+    context_object_name = 'actor'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['movies'] = self.object.movies.all()
+        return context
