@@ -27,11 +27,14 @@
               {% endfor %}
             </div>
         </div>
-        <div>
-            <h1>Popular Genres</h1>
-            {% for genre in popular_genres %}
-                <h3>{{ genre }} - {{ genre.movie_count }}</h3>
-            {% endfor %}
+        <div class="popular-genres">
+            <h2>Popular Genres</h2>
+            <div class="genre-list" style="display: flex; align-items: center; justify-content: center;">
+                {% for genre, genre_info in genre_dict.items %}
+                    <h3>{{ genre_info.0 }}</h3>
+                    <img src="{{ genre_info.1}}" alt="" width="300px" height="200px">
+                {% endfor %}
+            </div>
         </div>
         <h3>New Movies</h3>
         <div class="swiper mySwiper">

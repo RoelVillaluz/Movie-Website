@@ -1,3 +1,4 @@
+import random
 from typing import Any
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
@@ -12,21 +13,31 @@ from django.db.models import Count
 
 today = date.today()
 one_month_before = today - relativedelta(months=1)
+ 
+def index(request):
+    movies = Movie.objects.all()[:20]
+    new_movies = Movie.objects.filter(release_date__gte=one_month_before)
+    popular_genres = Genre.objects.annotate(movie_count=Count('movies')).order_by('-movie_count')[:3]
 
-class IndexListView(ListView):
-    model = Movie
-    template_name = 'movies/index.html'
-    context_object_name = 'movies'
+    genre_dict = {}
 
-    def get_queryset(self) -> QuerySet[Any]:
-        queryset = Movie.objects.all()[:20]
-        return queryset
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['new_movies'] = Movie.objects.filter(release_date__gte=one_month_before)
-        context['popular_genres'] = Genre.objects.annotate(movie_count=Count('movies')).order_by('-movie_count')[:3]
-        return context
+    for genre in popular_genres:
+        movies_in_genre = genre.movies.all()
+        if movies_in_genre.exists():
+            random_movie = random.choice(movies_in_genre)
+            genre_dict[genre.name] = [genre.name, random_movie.poster_path.url]
+
+    for genre in popular_genres:
+        movies_in_genre = genre.movies.all()
+        random_movie = random.choice(movies_in_genre)
+        genre_dict[genre.name] = [genre.name, random_movie.poster_path.url]
+
+    return render(request, 'movies/index.html', {
+        'movies': movies,
+        'new_movies': new_movies,
+        'popular_genres': popular_genres,
+        'genre_dict': genre_dict
+    })
 
 class MovieDetailView(DetailView):
     model = Movie
