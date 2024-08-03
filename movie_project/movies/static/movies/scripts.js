@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
         movieTitle.classList.add('animate');
     });
 
-    document.body.classList.add('no-scroll');
+    // document.body.classList.add('no-scroll');
 
     movieTitle.addEventListener('animationend', function() {
         genres.forEach((genre, index) => {
@@ -101,5 +101,29 @@ document.addEventListener('DOMContentLoaded', function() {
             // Enable scrolling after the last genre animation ends
             document.body.classList.remove('no-scroll');
         }, { once: true }); // Ensure this only triggers once
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const hiddenElements = document.querySelectorAll('.hidden');
+    const observerOptions = {
+        root: null, // Use the viewport as the root
+        rootMargin: '0px',
+        threshold: 0.8 // Trigger when at least 80% of the element is visible
+    };
+
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target); // Stop observing once the element is in view
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    hiddenElements.forEach(element => {
+        observer.observe(element);
     });
 });

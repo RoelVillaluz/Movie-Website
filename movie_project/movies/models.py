@@ -47,6 +47,7 @@ class Review(models.Model):
 
 class Actor(models.Model):
     name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to="media", default="media/default.jfif")
 
     def __str__(self):
         return self.name

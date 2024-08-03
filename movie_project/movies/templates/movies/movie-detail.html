@@ -2,7 +2,7 @@
 
 {% block title %}{{ movie.title }}{% endblock %}
 {% block body %}
-    <div class="movie">
+    <section class="movie">
         <img class="movie-backdrop" src="{{ movie.backdrop_path.url }}" alt="{{ movie.title }}">
         <div class="movie-header">
             <h1 class="movie-title">{{ movie.title }}</h1>
@@ -15,8 +15,21 @@
         <div class="movie-poster">
             <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
         </div>
-    </div>
-    <div class="movie-details">
-        <div class="movie-overview">{{ movie.overview }}</div>
-    </div>
+    </section>
+    <section class="movie-details">
+        <div class="movie-overview hidden">
+            <p>{{ movie.overview }}</p>
+        </div>
+        <div class="cast hidden">
+            <h1>Cast</h1>
+            <div class="cast-wrapper">
+                {% for actor in movie.actors.all %}
+                    <div class="actor">
+                        <img src="{{ actor.image.url }}" alt="">
+                        <span class="actor-name">{{ actor }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}

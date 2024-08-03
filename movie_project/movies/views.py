@@ -5,7 +5,6 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 import requests
 from .models import Actor, Movie, Genre
-from .utils import fetch_tmdb_movies
 from django.views.generic import ListView, DetailView
 
 class IndexListView(ListView):
