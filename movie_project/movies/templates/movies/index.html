@@ -17,7 +17,7 @@
         <h3>Popular Movies</h3>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                {% for movie in movies %}
+                {% for movie in popular_movies %}
                 <div class="swiper-slide">
                     <a href="{% url 'movie-detail' movie.pk %}">
                         <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
@@ -54,6 +54,14 @@
                         <h3>{{ genre_info.0 }}</h3> 
                     </div>
                 </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="top-rated">
+        <h1>Top Rated Movies</h1>
+        <div class="top-rated-movies">
+            {% for movie in top_rated_movies %}
+                <h3>{{ movie }} - {{ movie.avg_rating|floatformat:2 }} {{ movie.review_count }} Reviews</h3>
             {% endfor %}
         </div>
     </div>

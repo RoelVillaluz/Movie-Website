@@ -29,7 +29,7 @@
         </div>
         <div class="movie-rating hidden">
             <h3>Rating: </h3>
-            <span>{{ movie.avg_rating }}%</span>
+            <span>{{ movie.avg_rating|floatformat:2 }}</span>
         </div>
         <div class="cast">
             <h1 class="hidden">Cast</h1>
