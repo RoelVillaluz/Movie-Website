@@ -59,3 +59,11 @@ class Actor(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Director(models.Model):
+    name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to="media", default="media/default.jfif")
+    movies = models.ManyToManyField(Movie, related_name="directors")
+
+    def __str__(self):
+        return self.name

@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100); // Slight delay to ensure animation starts correctly
         });
 
+
         genres[genres.length - 1].addEventListener('animationend', function() {
             // Enable scrolling after the last genre animation ends
             document.body.classList.remove('no-scroll');

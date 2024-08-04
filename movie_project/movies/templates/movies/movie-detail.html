@@ -11,7 +11,13 @@
                     <a href="{% url 'genre-detail' genre.pk %}" class="movie-genre">{{ genre }}</a>
                 {% endfor %}
             </div>
-            <p class="hidden">Release Date: {{ movie.release_date }}</p>
+            <div class="sub-info">
+                <p class="movie-date">Release Date: {{ movie.release_date }}</p>
+                <p class="movie-runtime">Runtime: {{ movie.runtime }}</p>
+            </div>
+        </div>
+        <div class="movie-buttons">
+            <button class="watch-later">Watch Later</button>
         </div>
         <div class="movie-poster">
             <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
@@ -35,6 +41,12 @@
                     </div>
                 {% endfor %}
             </div>
+        </div>
+        <div class="movie-director hidden">
+            {% for director in movie.directors.all %}
+                <img src="{{ director.image.url }}" alt="">
+                <h3 class="movie-director-name">{{ director }}</h3>
+            {% endfor %}
         </div>
     </section>
 {% endblock %}
