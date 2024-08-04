@@ -27,15 +27,6 @@
               {% endfor %}
             </div>
         </div>
-        <div class="popular-genres">
-            <h2>Popular Genres</h2>
-            <div class="genre-list" style="display: flex; align-items: center; justify-content: center;">
-                {% for genre, genre_info in genre_dict.items %}
-                    <h3>{{ genre_info.0 }}</h3>
-                    <img src="{{ genre_info.1}}" alt="" width="300px" height="200px">
-                {% endfor %}
-            </div>
-        </div>
         <h3>New Movies</h3>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
@@ -48,6 +39,22 @@
                 </div>
               {% endfor %}
             </div>
+        </div>
+    </div>
+    <div class="popular-genres">
+        <h2 class="hidden">Popular Genres</h2>
+        <div class="genre-list">
+            {% for genre, genre_info in genre_dict.items %}
+                <div class="genre-card hidden">
+                    <a href="{% url 'genre-detail' genre_info.2 %}"> 
+                        <img src="{{ genre_info.1}}" alt="">
+                    </a>
+                    <div class="genre-overlay">
+                        <!-- genre name -->
+                        <h3>{{ genre_info.0 }}</h3> 
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

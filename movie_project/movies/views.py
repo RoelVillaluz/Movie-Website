@@ -17,20 +17,16 @@ one_month_before = today - relativedelta(months=1)
 def index(request):
     movies = Movie.objects.all()[:20]
     new_movies = Movie.objects.filter(release_date__gte=one_month_before)
-    popular_genres = Genre.objects.annotate(movie_count=Count('movies')).order_by('-movie_count')[:3]
+    popular_genres = Genre.objects.annotate(movie_count=Count('movies')).order_by('-movie_count')[:4]
 
     genre_dict = {}
+    genre_set = set()
 
     for genre in popular_genres:
-        movies_in_genre = genre.movies.all()
-        if movies_in_genre.exists():
-            random_movie = random.choice(movies_in_genre)
-            genre_dict[genre.name] = [genre.name, random_movie.poster_path.url]
-
-    for genre in popular_genres:
-        movies_in_genre = genre.movies.all()
+        movies_in_genre = genre.movies.exclude(pk__in=genre_set)
         random_movie = random.choice(movies_in_genre)
-        genre_dict[genre.name] = [genre.name, random_movie.poster_path.url]
+        genre_dict[genre.name] = [genre.name, random_movie.backdrop_path.url, genre.pk, random_movie.title]
+        genre_set.add(random_movie.pk)
 
     return render(request, 'movies/index.html', {
         'movies': movies,
@@ -38,6 +34,13 @@ def index(request):
         'popular_genres': popular_genres,
         'genre_dict': genre_dict
     })
+
+# def search(request):
+#     q = request.get('')
+#     query = request.GET.get('q', '')
+#     series = Series.objects.filter(title__icontains=q)
+#     movies = Movie.objects.filter(title__icontains=q)
+
 
 class MovieDetailView(DetailView):
     model = Movie

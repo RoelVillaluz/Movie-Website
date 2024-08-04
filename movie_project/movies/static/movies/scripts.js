@@ -128,6 +128,17 @@ document.addEventListener('DOMContentLoaded', () => {
     hiddenElements.forEach(element => {
         observer.observe(element);
     });
+
+    const genreCards = document.querySelectorAll('.genre-card.hidden');
+
+    genreCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.25}s`;
+    });
+
+    const actorCards = document.querySelectorAll('.cast-actor.hidden')
+    actorCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.15}s`
+    })
 });
 
 const menuBars = document.querySelector('.menu-bars');
