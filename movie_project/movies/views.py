@@ -5,7 +5,7 @@ from django.db.models.query import QuerySet
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 import requests
-from .models import Actor, Movie, Genre
+from .models import Actor, Movie, Genre, Director
 from django.views.generic import ListView, DetailView
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -46,6 +46,17 @@ class MovieDetailView(DetailView):
     model = Movie
     template_name = 'movies/movie-detail.html'
     context_object_name = 'movie'
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        movie = self.get_object()
+        
+        director = movie.directors.first()
+        if director:
+            director_movies = director.movies.exclude(id=movie.id)
+            context['director_movies'] = director_movies
+            
+        return context
 
 class GenreListView(ListView):
     model = Genre

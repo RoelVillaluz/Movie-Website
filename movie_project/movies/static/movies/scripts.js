@@ -131,10 +131,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const genreCards = document.querySelectorAll('.genre-card.hidden');
+    let animationEndCount = 0;
+
+    function allAnimationsEnded() {
+        if (animationEndCount === genreCards.length) {
+            genreCards.forEach(card => {
+                card.style.pointerEvents = 'auto';
+            });
+        }
+    }
 
     genreCards.forEach((card, index) => {
         card.style.animationDelay = `${index * 0.25}s`;
+
+        card.addEventListener('animationend', function() {
+            animationEndCount++;
+            allAnimationsEnded();
+        });
     });
+
 
     const actorCards = document.querySelectorAll('.cast-actor.hidden')
     actorCards.forEach((card, index) => {

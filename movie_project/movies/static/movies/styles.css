@@ -123,7 +123,6 @@ nav a {
 
 .sidebar ul li {
     position: relative;
-
     cursor: pointer;
     transform-origin: left;
     transition: transform 0.3s;
@@ -133,6 +132,8 @@ nav a {
 .sidebar ul li a {
     color: black;
     text-decoration: none;
+    display: inline-block;
+
 }
 
 .sidebar ul li::after {
@@ -440,20 +441,21 @@ nav a {
 }
 
 .cast h1 {
-    margin: 20px 10px;
+    margin: 0px 10px;
     font-size: 3rem;
 }
 
 .cast-wrapper {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .cast-actor {
     width: 200px;
     height: 400px;
     list-style-type: none;
-    margin: 0px 10px;
+    margin: 30px 10px;
 }
 
 .cast-actor.show {
@@ -486,9 +488,7 @@ nav a {
     justify-content: center;
     flex-direction: column;
     position: relative;
-}
-.movie-director {
-    position: relative;
+    overflow: visible;
 }
 
 .movie-director::before, 
@@ -497,8 +497,8 @@ nav a {
     content: '';
     width: 45%; 
     height: 1px;
-    background-color: white;
-    top: 40%; 
+    background-color: rgb(202, 202, 202);
+    top: 50%; 
     transform: translateY(-50%); 
     z-index: -1;
     opacity: 0.5;
@@ -521,10 +521,12 @@ nav a {
     width: 90px;
     height: 90px;
     border-radius: 50%;
+    object-fit: cover;
+    filter: brightness(0.8) contrast(1.02);
 }
 
 .movie-director-name {
-
+    font-weight: 200;
 }
 
 .popular-genres {
@@ -548,6 +550,7 @@ nav a {
     position: relative;
     transform-origin: bottom;
     transition: flex 0.3s;
+    pointer-events: none;
 }
 
 .genre-card:hover {
