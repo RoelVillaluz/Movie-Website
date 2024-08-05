@@ -20,7 +20,7 @@ today = date.today()
 one_month_before = today - relativedelta(months=1)
  
 def index(request):
-    random_rating(30) # for populating reviews
+    # random_rating(30) # for populating reviews
     # create_users(10) # for populating users
     movies = Movie.objects.all()
     popular_movies = movies[:20]

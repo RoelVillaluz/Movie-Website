@@ -78,12 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', function() {
     const movieContainer = document.querySelector('.movie');
-    const movieBackdropAnimation = document.querySelector('.movie-backdrop');
+    const movieBackdrop = document.querySelector('.movie-backdrop');
     const movieTitle = document.querySelector('.movie-title');
     const moviePoster = document.querySelector('.movie-poster');
     const genres = document.querySelectorAll('.movie-genre'); 
 
-    movieBackdropAnimation.addEventListener('animationend', function() {
+    movieBackdrop.addEventListener('animationend', function() {
         movieTitle.classList.add('animate');
     });
 
