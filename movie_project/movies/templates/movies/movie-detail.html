@@ -53,12 +53,31 @@
         <div class="movie-director hidden">
             <h1>Director</h1>
             {% for director in movie.directors.all %}
-                <img src="{{ director.image.url }}" alt="">
+                <div class="image">
+                    <div class="line"></div>
+                    <img src="{{ director.image.url }}" alt="">
+                    <div class="line"></div>
+                </div>
                 <h3 class="movie-director-name">{{ director }}</h3>
             {% endfor %}
             <div class="movie-director-movies">
                 {% for movie in director_movies %}
                     <h3>{{ movie.title }}</h3>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="reviews">
+            <h1>Reviews</h1>
+            <div class="wrapper">
+                {% for review in top_reviews %}
+                <div class="top-review hidden">
+                    <h3>{{ review.rating }}/10 Stars</h3>
+                    <p>{{ review.description }}</p>
+                    <div class="user">
+                        <div class="line"></div>
+                        <span>{{ review.user }}</span>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>

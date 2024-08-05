@@ -39,6 +39,7 @@ def random_rating(num_of_reviews):
         Review.objects.create(
             user=random.choice(users),
             movie=random.choice(movies),
+            description=generate_random_string(255),
             rating=random.choices(ratings, weights=weights, k=1)[0],
         )
 

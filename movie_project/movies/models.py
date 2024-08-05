@@ -54,7 +54,6 @@ class Genre(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
-    
     description = models.TextField(max_length=255, blank=True, null=True)
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 11)])
 

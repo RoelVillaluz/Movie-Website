@@ -90,6 +90,8 @@ class MovieDetailView(DetailView):
 
         if len(movie_images) >= 2:
             context['overview_images'] = movie_images[:2]
+
+        context['top_reviews'] = movie.reviews.order_by('-rating').exclude(description__isnull=True).exclude(description__exact='')[:2]
             
         return context
 

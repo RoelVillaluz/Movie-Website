@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=News+Cycle:wght@400;700&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Electrolize&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 
 :root {
@@ -414,12 +415,13 @@ h3.marker::after {
 
 .movie-overview .images img {
     object-fit: cover;
-    filter: saturate(1) brightness(0.9) contrast(1.1); 
+    position: relative;
+    filter: saturate(1) brightness(0.8) contrast(1.1); 
     transition: 0.3s;
 }
 
 .movie-overview .images img:hover {
-    filter: saturate(1.2) brightness(1.1) contrast(1.1);
+    filter: saturate(1.2) brightness(1) contrast(1.1);
 }
 
 .movie-overview .images img.show {
@@ -489,6 +491,58 @@ h3.marker::after {
     font-weight: 700;
 }
 
+.reviews {
+    margin: 10rem 0rem;
+    height: 1000px;
+}
+
+.reviews h1 {
+    text-align: center;
+}
+
+.reviews .wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-top: 6rem;
+}
+
+.top-review {
+    flex: 1 1 auto;
+    max-width: 50%;
+    height: auto;
+}
+
+.top-review h3 {
+    font-family: "Lora", serif;
+    font-size: 2.25rem;
+    font-weight: 500;
+}
+
+.top-review p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+.top-review .user {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.top-review .user .line {
+    width: 100%;
+    margin-right: 10px;
+    height: 2px;
+    background-color: white;
+}
+
+.top-review .user span {
+    font-family: "Lora", serif;
+    font-size: 1.5rem;
+}
+
 .cast h1 {
     margin: 0px 10px;
     font-size: 3rem;
@@ -531,7 +585,7 @@ h3.marker::after {
 }
 
 .movie-director {
-    margin: 60px 0px;
+    margin: 10rem 0px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -540,38 +594,29 @@ h3.marker::after {
     overflow: visible;
 }
 
-.movie-director::before, 
-.movie-director::after {
-    position: absolute;
-    content: '';
-    width: 45%; 
-    height: 1px;
-    background-color: rgb(202, 202, 202);
-    top: 50%; 
-    transform: translateY(-50%); 
-    z-index: -1;
-    opacity: 0.5;
-}
-
-.movie-director::before {
-    left: 0; 
-}
-
-.movie-director::after {
-    right: 0; 
-    left: auto; 
-}
-
 .movie-director.show {
     animation: fadeIn 0.3s ease-in-out forwards;
 }
 
-.movie-director img {
+.movie-director .image {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    width: 100%; 
+}
+
+.movie-director .image .line {
+    flex: 1;
+    height: 2px;
+    background-color: white; 
+    opacity: 0.3;
+    margin: 0 15px;
+}
+
+.movie-director .image img {
     width: 90px;
-    height: 90px;
+    height: 90px; 
     border-radius: 50%;
-    object-fit: cover;
-    filter: brightness(0.8) contrast(1.02);
 }
 
 .movie-director-name {
