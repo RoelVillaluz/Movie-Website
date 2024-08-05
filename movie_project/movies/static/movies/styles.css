@@ -60,7 +60,7 @@ nav li {
     align-items: center;
     justify-content: center;
     height: 40px;
-    border: solid 2px rgba(199, 199, 199, .7);
+    border: solid 2px rgb(199, 199, 199);
     aspect-ratio: 3/2.5;
     cursor: pointer;
     clip-path: polygon(15% 0, 70% 0%, 100% 0, 100% 85%, 85% 100%, 0 100%, 0% 70%, 0 15%);
@@ -371,32 +371,6 @@ h3.marker::after {
     z-index: 3;
 }
 
-.watch-later {
-    font-family: "Bebas Neue", sans-serif;
-    padding: 10px 30px;
-    font-size: 1.1rem;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1); 
-    color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px); 
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    letter-spacing: 1px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    opacity: 0;
-    transition: background 0.3s ease, box-shadow 0.3s ease; 
-    animation: slideLeft 0.3s ease-in-out forwards;
-    animation-delay: 3.2s;
-}
-
-.watch-later:hover {
-    background: rgba(255, 255, 255, 0.2); 
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); 
-}
-
 .movie-poster {
     position: absolute;
     z-index: 3;
@@ -423,11 +397,72 @@ h3.marker::after {
     height: 100vh;
     width: 100%;
     padding: 8rem 4rem;
+    margin-top: 4rem;
 }
 
 .movie-overview {
+    display: flex;
     margin-bottom: 8rem;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+}
+
+.movie-overview .images {
+    flex: 1;
+    display: flex;
+    gap: 5%;
+}
+
+.movie-overview .images img {
+    object-fit: cover;
+    filter: saturate(1) brightness(0.9) contrast(1.1); 
+    transition: 0.3s;
+}
+
+.movie-overview .images img:hover {
+    filter: saturate(1.2) brightness(1.1) contrast(1.1);
+}
+
+.movie-overview .images img.show {
+    animation: slideDown 0.3s ease-in-out forwards;
+}
+
+.movie-overview .images img:nth-child(1) {
+    width: 250px; 
+    height: 300px;
+    animation-delay: 0.9s;
+}
+
+.movie-overview .images img:nth-child(2) {
+    width: 350px; 
+    height: 500px;
+    animation-delay: 1.1s;
+}
+
+.movie-overview .description {
+    margin-right: 5%;
+}
+
+.movie-overview .description h1 {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+
+.movie-overview .description p {
+    font-size: 1.3rem;
+}
+
+.add-watchlist-btn {
+    font-family: "News Cycle", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    background-color: white;
+    color: rgb(20, 20, 20);
+    padding: 8px 30px;
+    margin-top: 3rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 .movie-rating {
@@ -788,6 +823,17 @@ h3.marker::after {
     100% {
         transform: translateX(20px);
         opacity: 0;
+    }
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

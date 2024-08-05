@@ -41,6 +41,9 @@ class Movie(models.Model):
 class MovieImage(models.Model):
     movie = models.ForeignKey(Movie, related_name="images", on_delete=models.CASCADE)
     image = models.ImageField(upload_to="movie_images")
+
+    def __str__(self):
+        return f"{self.movie} Image"
     
 class Genre(models.Model):
     name = models.CharField(max_length=24)

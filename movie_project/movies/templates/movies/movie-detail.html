@@ -16,16 +16,24 @@
                 <p class="movie-runtime">Runtime: {{ movie.runtime }}</p>
             </div>
         </div>
-        <div class="movie-buttons">
-            <button class="watch-later">Watch Later</button>
-        </div>
         <div class="movie-poster">
             <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
         </div>
     </section>
     <section class="movie-details">
-        <div class="movie-overview hidden">
-            <p>{{ movie.overview }}</p>
+        <div class="movie-overview">
+            <div class="description hidden">
+                <h1>Overview</h1>
+                <p>{{ movie.overview }}</p>
+                <button class="add-watchlist-btn">Add to Watchlist</button>
+            </div>
+            {% if overview_images %}
+                <div class="images">
+                {% for image in overview_images %}
+                    <img src="{{ image.image.url }}" alt="" class="hidden">
+                {% endfor %}
+                </div>
+            {% endif %}
         </div>
         <div class="movie-rating hidden">
             <h3>Rating: </h3>

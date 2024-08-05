@@ -85,6 +85,11 @@ class MovieDetailView(DetailView):
         if director:
             director_movies = director.movies.exclude(id=movie.id)
             context['director_movies'] = director_movies
+
+        movie_images = movie.images.all()
+
+        if len(movie_images) >= 2:
+            context['overview_images'] = movie_images[:2]
             
         return context
 
