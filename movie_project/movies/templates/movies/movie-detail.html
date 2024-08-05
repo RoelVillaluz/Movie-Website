@@ -1,6 +1,6 @@
 {% extends 'movies/layout.html' %}
 
-{% block title %}{{ movie.title }}{% endblock %}
+{% block title %}MovieVerse - {{ movie.title }}{% endblock %}
 {% block body %}
     <section class="movie">
         <img class="movie-backdrop" src="{{ movie.backdrop_path.url }}" alt="{{ movie.title }}">
@@ -39,17 +39,23 @@
             <h3>Rating: </h3>
             <span>{{ movie.avg_rating|floatformat:2 }}</span>
         </div>
-        <div class="cast">
-            <h1 class="hidden">Cast</h1>
-            <div class="cast-wrapper">
-                {% for actor in movie.actors.all %}
-                    <div class="cast-actor hidden">
-                        <a href="{% url 'actor-detail' actor.pk %}"><img src="{{ actor.image.url }}" alt=""></a>
-                        <span class="cast-actor-name">{{ actor }}</span>
-                    </div>
-                {% endfor %}
+        {% if movie.cast %}
+            <div class="cast">
+                <h1 class="hidden">Cast</h1>
+                <div class="cast-wrapper">
+                    {% for actor in movie.actors.all %}
+                        <div class="cast-actor hidden">
+                            <a href="{% url 'actor-detail' actor.pk %}"><img src="{{ actor.image.url }}" alt=""></a>
+                            <span class="cast-actor-name">{{ actor }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
+        {% else %}
+        <div class="cast">
+            <h1 class="hidden">No Cast Added Yet</h1>
         </div>
+        {% endif %}
         {% if director %}
         <div class="movie-director hidden">
             <h1>Director</h1>
@@ -59,18 +65,20 @@
                 <div class="line"></div>
             </div>
             <h3 class="movie-director-name">{{ director }}</h3>
-            <div class="movie-director-movies">
-                <span>More movies from the director</span>
-                <div class="wrapper">
-                    {% if director_movies %}
-                        <div class="card hidden">
-                            <a href="{% url 'movie-detail' movie.pk %}">
-                                <img src="{{ movie.poster_path.url }}" alt="">
-                            </a>
-                        </div>
-                    {% endif %}
+            {% if director_movies %}
+                <div class="movie-director-movies">
+                    <span>More movies from the director</span>
+                    <div class="wrapper">
+                        {% for movie in director_movies %}
+                            <div class="card hidden">
+                                <a href="{% url 'movie-detail' movie.pk %}">
+                                    <img src="{{ movie.poster_path.url }}" alt="">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
         {% endif %}
         {% if top_reviews %}

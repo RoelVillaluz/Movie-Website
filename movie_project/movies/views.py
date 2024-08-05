@@ -23,6 +23,7 @@ def index(request):
     # random_rating(30) # for populating reviews
     # create_users(10) # for populating users
     movies = Movie.objects.all()
+
     popular_movies = movies[:20]
     new_movies = Movie.objects.filter(release_date__gte=one_month_before)
     popular_genres = Genre.objects.annotate(movie_count=Count('movies')).order_by('-movie_count')[:4]
@@ -40,6 +41,8 @@ def index(request):
                                               review_count=Count('reviews')
                                               ).order_by('-avg_rating', '-review_count'
                                               ).exclude(review_count__lt=3)[:5]
+    
+    just_added = movies.order_by('-id')[:20]
 
     return render(request, 'movies/index.html', {
         'movies': movies,
@@ -47,7 +50,8 @@ def index(request):
         'new_movies': new_movies,
         'popular_genres': popular_genres,
         'genre_dict': genre_dict,
-        'top_rated_movies': top_rated_movies
+        'top_rated_movies': top_rated_movies,
+        'just_added': just_added
     })
 
 # def search(request):
@@ -83,9 +87,11 @@ class MovieDetailView(DetailView):
         
         director = movie.directors.first()
         context['director'] = director
+        
         if director:
             director_movies = director.movies.exclude(id=movie.id)
-            context['director_movies'] = director_movies
+            if director_movies.exists():
+                context['director_movies'] = director_movies
 
         movie_images = movie.images.all()
 

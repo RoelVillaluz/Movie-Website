@@ -546,6 +546,10 @@ h3.marker::after {
     font-size: 1.5rem;
 }
 
+.cast {
+    margin-top: 20%;
+}
+
 .cast h1 {
     margin: 0px 10px;
     font-size: 3rem;

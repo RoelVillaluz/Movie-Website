@@ -4,7 +4,6 @@ from .models import Actor, Director, Movie, Genre, MovieImage, Review, User
 
 # Register your models here.
 admin.site.register(Genre)
-admin.site.register(Review)
 admin.site.register(Actor)
 admin.site.register(Director)
 admin.site.register(User)
@@ -41,3 +40,8 @@ class MovieAdmin(admin.ModelAdmin):
             kwargs['queryset'] = Genre.objects.order_by('name')
         return super().formfield_for_manytomany(db_field, request, **kwargs)
     # do the same later for movies, alphabetize movies for review model admin
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('movie', 'user', 'rating')
+    search_fields = ('movie__title', 'rating')

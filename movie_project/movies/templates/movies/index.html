@@ -40,6 +40,19 @@
               {% endfor %}
             </div>
         </div>
+        <h3 class="marker">Just Added</h3>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                {% for movie in just_added %}
+                <div class="swiper-slide">
+                    <a href="{% url 'movie-detail' movie.pk %}">
+                        <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
     </div>
     <div class="popular-genres">
         <h3 class="marker hidden">Popular Genres</h3>
