@@ -82,6 +82,7 @@ class MovieDetailView(DetailView):
         movie = self.get_object()
         
         director = movie.directors.first()
+        context['director'] = director
         if director:
             director_movies = director.movies.exclude(id=movie.id)
             context['director_movies'] = director_movies

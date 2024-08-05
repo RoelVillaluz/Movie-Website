@@ -155,6 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
     actorCards.forEach((card, index) => {
         card.style.animationDelay = `${index * 0.15}s`
     })
+
+    const relatedDirectorMovies = document.querySelectorAll('.movie-director-movies .card.hidden')
+    relatedDirectorMovies.forEach((movie,index) => {
+        movie.style.animationDelay = `${index * 0.15}s`
+    });
 });
 
 const menuBars = document.querySelector('.menu-bars');

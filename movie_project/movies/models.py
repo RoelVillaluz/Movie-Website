@@ -62,6 +62,8 @@ class Review(models.Model):
 
 class Actor(models.Model):
     name = models.CharField(max_length=50)
+    # bio = models.TextField()
+    # awards = models.ForeignKey(Award)
     image = models.ImageField(upload_to="media", default="media/default.jfif")
 
     def __str__(self):
@@ -69,6 +71,8 @@ class Actor(models.Model):
     
 class Director(models.Model):
     name = models.CharField(max_length=50)
+    # bio = models.TextField()
+    # awards = models.ForeignKey(Award)
     image = models.ImageField(upload_to="media", default="media/default.jfif")
     movies = models.ManyToManyField(Movie, related_name="directors")
 

@@ -50,36 +50,45 @@
                 {% endfor %}
             </div>
         </div>
+        {% if director %}
         <div class="movie-director hidden">
             <h1>Director</h1>
-            {% for director in movie.directors.all %}
-                <div class="image">
-                    <div class="line"></div>
-                    <img src="{{ director.image.url }}" alt="">
-                    <div class="line"></div>
-                </div>
-                <h3 class="movie-director-name">{{ director }}</h3>
-            {% endfor %}
+            <div class="image">
+                <div class="line"></div>
+                <img src="{{ director.image.url }}" alt="">
+                <div class="line"></div>
+            </div>
+            <h3 class="movie-director-name">{{ director }}</h3>
             <div class="movie-director-movies">
-                {% for movie in director_movies %}
-                    <h3>{{ movie.title }}</h3>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="reviews">
-            <h1>Reviews</h1>
-            <div class="wrapper">
-                {% for review in top_reviews %}
-                <div class="top-review hidden">
-                    <h3>{{ review.rating }}/10 Stars</h3>
-                    <p>{{ review.description }}</p>
-                    <div class="user">
-                        <div class="line"></div>
-                        <span>{{ review.user }}</span>
-                    </div>
+                <span>More movies from the director</span>
+                <div class="wrapper">
+                    {% if director_movies %}
+                        <div class="card hidden">
+                            <a href="{% url 'movie-detail' movie.pk %}">
+                                <img src="{{ movie.poster_path.url }}" alt="">
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
-                {% endfor %}
             </div>
         </div>
+        {% endif %}
+        {% if top_reviews %}
+            <div class="reviews">
+                <h1 class="hidden">Top Reviews</h1>
+                <div class="wrapper">
+                    {% for review in top_reviews %}
+                    <div class="top-review hidden">
+                        <h3>{{ review.rating }}/10 Stars</h3>
+                        <p>{{ review.description }}</p>
+                        <div class="user">
+                            <div class="line"></div>
+                            <span>{{ review.user }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
     </section>
 {% endblock %}
