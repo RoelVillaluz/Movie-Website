@@ -1032,6 +1032,99 @@ h3.marker::after {
     font-size: 3rem;
 }
 
+.profile {
+    display: flex;
+    padding: 40px;
+    margin-top: 4em;
+    align-items: start;
+}
+
+.profile-image {
+    flex: 0 0 400px; 
+    aspect-ratio: 1 / 1;
+    border: solid 5px white;
+}
+
+.profile-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile .details {
+    font-family: "News Cycle", sans-serif;
+    text-transform: uppercase;
+    margin-left: 30px;
+}
+
+.profile .details h1 {
+    font-size: 5rem;
+    max-width: 80%; 
+    line-height: 5.5rem;
+    letter-spacing: 4px;
+    color: rgb(219, 219, 219);
+}
+
+.profile .details .line {
+    width: 100%;
+    height: 2px;
+    margin: 20px 0px;
+    background-color: white;
+}
+
+.sub-details {
+    color: rgb(170, 170, 170);
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    margin-top: 10px;
+}
+
+.sub-details p:nth-child(1) {
+    margin-left: 0px;
+}
+
+.sub-details > * {
+    margin: 0px 15px;
+}
+
+.sub-details p {
+    font-size: 1.2rem;
+}
+
+.ranking {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(223, 245, 24);
+    padding: 10px 20px;
+    font-weight: 700;
+}
+
+.ranking span {
+    color: black;
+}
+
+.ranking  i {
+    color: black;
+    height: 20px;
+    width: 20px;
+    margin-top: 3px;
+    margin-left: 5px;
+}
+
+.bio {
+    margin-top: 20px;
+    text-transform: lowercase;
+    font-size: 1.1rem;
+}
+
+.profile-movie-list {
+    font-family: "News Cycle", sans-serif;
+    font-weight: 700;
+    padding: 30px;
+}
+
 @keyframes extendSides {
     0% {
         width: 0%;

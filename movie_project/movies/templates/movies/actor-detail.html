@@ -3,13 +3,33 @@
 {% block title %} {{ actor.name }} {% endblock %}
 
 {% block body %}
-    <div class="actor-container">
-        <h3>{{ actor }}</h3>
-        <ul>
-            {% for movie in movies %}
-                <li>{{ movie }}</li>
-            {% endfor %}
-        </ul>
-        see figma 1 for movie website in photoshop shit for reference
+    <div class="container">
+        <div class="wrapper">
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="{{ actor.image.url }}" alt="">
+                </div>
+                <div class="details">
+                    <h1>{{ actor.name }}</h1>
+                    <div class="sub-details">
+                        <p>Actor</p>
+                        <p>Movies ({{ actor.movies.count }})</p>
+                        <p>Awards (0)</p>
+                        <div class="ranking">
+                            <span>Top 50</span>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <p class="bio">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nobis! Eligendi labore quae pariatur cum, quas temporibus recusandae quibusdam magni illum nostrum molestiae consequuntur ipsum iusto nihil sed dolor aperiam.</p>
+                </div>
+            </div>
+            <div class="profile-movie-list">
+                <h1>Top Movies</h1>
+                {% for movie in movies %}
+                    <h3>{{ movie }}</h3>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}
