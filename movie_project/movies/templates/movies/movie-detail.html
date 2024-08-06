@@ -39,7 +39,7 @@
             <h3>Rating: </h3>
             <span>{{ movie.avg_rating|floatformat:2 }}</span>
         </div>
-        {% if movie.cast %}
+        {% if movie.actors.all %}
             <div class="cast">
                 <h1 class="hidden">Cast</h1>
                 <div class="cast-wrapper">
@@ -52,9 +52,9 @@
                 </div>
             </div>
         {% else %}
-        <div class="cast">
-            <h1 class="hidden">No Cast Added Yet</h1>
-        </div>
+            <div class="cast">
+                <h1 class="hidden">No Cast Added Yet</h1>
+            </div>
         {% endif %}
         {% if director %}
         <div class="movie-director hidden">
@@ -73,10 +73,15 @@
                             <div class="card hidden">
                                 <a href="{% url 'movie-detail' movie.pk %}">
                                     <img src="{{ movie.poster_path.url }}" alt="">
+                                    <div class="card-overlay">
+                                        <h3>{{ movie.title }}</h3>
+                                        <button>Add to Watchlist</button>
+                                    </div>
                                 </a>
                             </div>
                         {% endfor %}
                     </div>
+                    <a href="">View All</a>
                 </div>
             {% endif %}
         </div>

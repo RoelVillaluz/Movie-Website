@@ -33,7 +33,7 @@ def random_rating(num_of_reviews):
 
     # Define the ratings and their respective weights
     ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    weights = [1, 1, 2, 2, 2, 2, 3, 4, 5, 5]  # Higher weights for 7, 8, 9, 10 and lower for 1, 2
+    weights = [1, 1, 1, 1, 2, 2, 2, 3, 4, 5]  # Higher weights for 7, 8, 9, 10 and lower for 1, 2
 
     for i in range(num_of_reviews):
         Review.objects.create(

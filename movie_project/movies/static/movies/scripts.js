@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerOptions = {
         root: null, // Use the viewport as the root
         rootMargin: '0px',
-        threshold: 0.8 // Trigger when at least 80% of the element is visible
+        threshold: 0.5 // Trigger when at least 50% of the element is visible
     };
 
     const observerCallback = (entries, observer) => {
