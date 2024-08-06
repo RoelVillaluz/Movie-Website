@@ -1,0 +1,40 @@
+{% extends 'movies/layout.html' %}
+
+{% block title %} MovieVerse - Movies {% endblock %}
+    
+{% block body %}
+    <div class="container">
+        <aside class="filters">
+            <form action="">
+                <h3>Filters</h3>
+                <div class="searchbar">
+                    <input type="text" placeholder="Keywords">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <ul>
+                    <li>Genres<i class="fa-solid fa-angle-down"></i></li>
+                    <li>Rating<i class="fa-solid fa-angle-down"></i></li>
+                </ul>
+            </form>
+        </aside>
+        <section class="movies">
+            <div class="header">
+                <div class="line"></div>
+                <h1>Movies</h1>
+                <div class="line"></div>
+            </div>
+            <div class="sorters">
+                <form action="">
+                    
+                </form>
+            </div>
+            <div class="grid">
+                {% for movie in movies %}
+                    <div class="poster">
+                        <img src="{{ movie.poster_path.url }}" alt="">
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("movies/", views.MovieListView.as_view(), name="movie-list"),
     path("movies/<int:pk>", views.MovieDetailView.as_view(), name="movie-detail"),
+    path("genres/", views.GenreListView.as_view(), name='genre-list'),
     path("genres/<int:pk>", views.GenreDetailView.as_view(), name='genre-detail'),
     path("actors/<int:pk>", views.ActorDetailView.as_view(), name='actor-detail'),
 ]

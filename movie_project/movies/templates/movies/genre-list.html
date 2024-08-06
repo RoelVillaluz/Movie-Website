@@ -1,0 +1,12 @@
+{% extends 'movies/layout.html' %}
+
+{% block title %} MovieVerse Genres {% endblock %}
+    
+{% block body %}
+    <h1>Genres</h1>
+    <ul>
+        {% for genre in genres %}
+            <li>{{ genre }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -27,7 +27,7 @@ class ReleaseYearListFilter(admin.SimpleListFilter):
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     list_display = ('title', 'display_genres')
-    search_fields = ('title', 'display_genres')
+    search_fields = ('title', 'genres__name')
     list_filter = ('genres', ReleaseYearListFilter)
 
     def display_genres(self, obj):

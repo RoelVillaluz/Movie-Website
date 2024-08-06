@@ -75,6 +75,13 @@ class searchView(FormView):
         }
 
         return self.render_to_response(context)
+    
+class MovieListView(ListView):
+    model = Movie
+    template_name = 'movies/movie-list.html'
+    context_object_name = 'movies'
+
+    
 
 class MovieDetailView(DetailView):
     model = Movie

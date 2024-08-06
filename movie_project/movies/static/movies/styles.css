@@ -646,7 +646,6 @@ h3.marker::after {
     align-items: center;
     gap: 10px;
     margin-top: 20px;
-    margin-bottom: 10%;
 }
 
 .movie-director-movies .card {
@@ -717,6 +716,36 @@ h3.marker::after {
 .card-overlay button:hover {
     background-color: white;
     color: black;
+}
+
+.movie-director .link {
+    position: relative;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 5%;
+}
+
+.movie-director .link a {
+    text-decoration: none;
+    margin-right: 4px;
+}
+
+.movie-director .link::before {
+    position: absolute;
+    content: '';
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: white;
+    transition: 0.15s;
+    transform-origin: left;
+}
+
+.movie-director .link:hover::before {
+    width: 100%;
 }
 
 .popular-genres {
@@ -857,6 +886,115 @@ h3.marker::after {
 
 .top-rated-card .details .rating i {
     margin-right: 2px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px;
+    border-right: solid 1px rgba(255, 255, 255, 0.1);
+}
+
+.filters .searchbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters .searchbar i {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    z-index: 2;
+}
+
+.filters .searchbar input[type=text] {
+    background-color: rgb(43, 43, 43);
+    border: none;
+    outline: none;
+    font-size: .9rem;
+    width: 200px;
+    padding: 10px 15px;
+    padding-right: 30px;
+}
+
+.filters form h3 {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.filters form ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "News Cycle", sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    list-style-type: none;
+    margin: 20px 0px;
+    letter-spacing: 1px;
+    padding-top: 20px;
+    border-top: solid 1px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.filters form ul li:last-child {
+    padding-bottom: 20px;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+}
+
+.filters form ul li i {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.movies {
+    width: 100%;
+    height: 100%;
+    margin-top: 20%;
+}
+
+.movies .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.movies .header .line {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(218, 218, 218, 0.7);
+    margin: 20px;
+}
+
+.movies .header h1 {
+    font-size: 2rem;
+}
+
+.movies .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.movies .poster {
+    width: 200px;
+    height: 300px;
+}
+
+.movies img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 @keyframes extendSides {
