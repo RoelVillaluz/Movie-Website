@@ -61,7 +61,9 @@
             <h1>Director</h1>
             <div class="image">
                 <div class="line"></div>
-                <img src="{{ director.image.url }}" alt="">
+                <a href="{% url 'director-detail' director.pk %}">
+                    <img src="{{ director.image.url }}" alt="">
+                </a>
                 <div class="line"></div>
             </div>
             <h3 class="movie-director-name">{{ director }}</h3>

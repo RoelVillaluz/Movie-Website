@@ -142,3 +142,8 @@ class ActorDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['movies'] = self.object.movies.all()
         return context
+    
+class DirectorDetailView(DetailView):
+    model = Director
+    template_name = 'movies/director-detail.html'
+    context_object_name = 'director'

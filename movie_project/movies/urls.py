@@ -8,4 +8,5 @@ urlpatterns = [
     path("genres/", views.GenreListView.as_view(), name='genre-list'),
     path("genres/<int:pk>", views.GenreDetailView.as_view(), name='genre-detail'),
     path("actors/<int:pk>", views.ActorDetailView.as_view(), name='actor-detail'),
+    path("directors/<int:pk>", views.DirectorDetailView.as_view(), name='director-detail')
 ]
