@@ -80,8 +80,11 @@ class MovieListView(ListView):
     model = Movie
     template_name = 'movies/movie-list.html'
     context_object_name = 'movies'
+    form_class = searchForm
 
-    
+    def get_queryset(self):
+        queryset = Movie.objects.all().order_by('-id')
+        return queryset
 
 class MovieDetailView(DetailView):
     model = Movie
@@ -124,7 +127,10 @@ class GenreDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['movies'] = self.object.movies.all()
+
+        movies = self.object.movies.all()
+        context['movies'] = movies
+        context['main_image'] = movies.first().backdrop_path.url
         return context
     
 class ActorDetailView(DetailView):

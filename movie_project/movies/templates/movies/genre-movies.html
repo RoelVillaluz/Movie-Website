@@ -3,8 +3,15 @@
 {% block title %}{{ genre.name }}{% endblock %}
 
 {% block body %}
-    <h1>Movies in {{ genre.name }}</h1>
-    {% for movie in movies %}
-        <h3>{{ movie.title }}</h3>
-    {% endfor %}
+    <div class="genre-container">
+        <div class="header">
+            <img src="{{ main_image }}" alt="">
+        </div>
+        <div class="genre-movies">
+            <h1>{{ genre }}</h1>
+            {% for movie in movies %}
+                <h3>{{ movie }}</h3>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

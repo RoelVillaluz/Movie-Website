@@ -61,7 +61,7 @@ nav li {
     align-items: center;
     justify-content: center;
     height: 40px;
-    border: solid 2px rgb(199, 199, 199);
+    border: solid 2px rgb(255, 255, 255);
     aspect-ratio: 3/2.5;
     cursor: pointer;
     clip-path: polygon(15% 0, 70% 0%, 100% 0, 100% 85%, 85% 100%, 0 100%, 0% 70%, 0 15%);
@@ -73,7 +73,7 @@ nav li {
     content: '';
     width: 80%;
     height: 3px;
-    background-color: rgba(199, 199, 199, .7); 
+    background-color: rgb(255, 255, 255); 
 }
 
 .menu-bars::before {
@@ -890,18 +890,20 @@ h3.marker::after {
 
 .container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     height: 100vh;
+    overflow: auto;
 }
 
 .filters {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     height: 100vh;
     padding: 20px;
-    border-right: solid 1px rgba(255, 255, 255, 0.1);
+    position: sticky; 
+    top: 15%;
 }
 
 .filters .searchbar {
@@ -959,15 +961,18 @@ h3.marker::after {
 }
 
 .movies {
-    width: 100%;
+    flex: 1;
     height: 100%;
-    margin-top: 20%;
+    margin-top: 10%;
+    margin-right: 200px;
 }
 
 .movies .header {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 60px;
+    background-color: rgb(20, 20, 20); 
 }
 
 .movies .header .line {
@@ -983,7 +988,8 @@ h3.marker::after {
 
 .movies .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px; 
 }
 
 .movies .poster {
@@ -995,6 +1001,35 @@ h3.marker::after {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.genre-container {
+    width: 100%;
+    height: 100%;
+}
+
+.genre-container .header {
+    width: 100%;
+    height: 300px;
+}
+
+.genre-container .header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.8) grayscale(0.3);
+}
+
+.genre-container .genre-movies {
+    width: 100%;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.genre-container .genre-movies h1 {
+    text-align: center;
+    font-size: 3rem;
 }
 
 @keyframes extendSides {
