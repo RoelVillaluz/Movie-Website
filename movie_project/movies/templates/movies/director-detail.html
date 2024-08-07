@@ -3,5 +3,24 @@
 {% block title %} {{ director }} {% endblock %}
 
 {% block body %}
-
+    <div class="director-container">
+        <div class="wrapper">
+            <div class="director-image">
+                <span>01 Biography</span>
+                <img src="{{ director.image.url }}" alt="">
+            </div>
+            <div class="director-details">
+                <h1>{{ director.name }}</h1>
+                <div class="ranking">
+                    <span>#1</span>
+                    <p>In Directors</p>
+                </div>
+                <div class="buttons">
+                    <div class="follow-btn">Follow</div>
+                    <div class="follow-count">200,000 Followers</div>
+                </div>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci voluptatem veniam asperiores, autem numquam illum! Tenetur fugiat deserunt corporis eaque illo voluptatem et reprehenderit saepe dolor. Repellendus sed ipsam soluta.</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

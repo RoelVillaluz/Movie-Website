@@ -57,9 +57,7 @@ nav li {
 
 .menu-bars {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
     height: 40px;
     border: solid 2px rgb(255, 255, 255);
     aspect-ratio: 3/2.5;
@@ -1151,6 +1149,100 @@ h3.marker::after {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.director-container {
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    font-family: "News Cycle", sans-serif;
+}
+
+.director-container .wrapper {
+    margin-top: 15%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.director-image {
+    position: relative;
+    height: 400px;
+    width: 400px;
+    flex-shrink: 0;
+}
+
+.director-image span {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.director-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-top: 5px;
+}
+
+.director-details {
+    position: relative;
+    margin-left: 2%;
+}
+
+.director-details .ranking  {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 10%;
+    right: 10%;
+    width: 10rem;
+    height: 10rem;
+    padding: 2rem;
+    border-radius: 50%;
+    background-color: rgb(230, 230, 42);
+    text-align: center;
+}
+
+.director-details .ranking span {
+    font-size: 2rem;
+}
+
+.director-details .ranking p {
+    font-size: 0.75rem;
+    color: black;
+}
+
+.director-container h1 {
+    font-weight: 700;
+    font-size: 6rem;
+    max-width: 50%;
+    text-transform: uppercase;
+    line-height: 7rem;
+}
+
+.director-details .buttons {
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.director-details .follow-btn {
+    background-color: #e4e4e4;
+    color: rgb(20, 20, 20);
+    padding: 10px 60px;
+    border-radius: 5px;
+}
+
+.director-details .follow-count {
+    margin-left: 20px;
+
 }
 
 @keyframes extendSides {
