@@ -140,7 +140,9 @@ class ActorDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['movies'] = self.object.movies.all()
+        actor = self.get_object()
+        context['movies'] = actor.movies.all()
+        context['actor_rank'] = actor.get_rank()
         return context
     
 class DirectorDetailView(DetailView):

@@ -2,7 +2,8 @@ from django import db
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from autoslug import AutoSlugField
-from django.db.models import Avg
+from django.db.models import Avg, F, Window
+from django.db.models.functions import Rank
 
 # Create your models here.
 class User(AbstractUser):
@@ -62,13 +63,27 @@ class Review(models.Model):
 
 class Actor(models.Model):
     name = models.CharField(max_length=50)
-    # bio = models.TextField()
-    # awards = models.ForeignKey(Award)
     image = models.ImageField(upload_to="media", default="media/default.jfif")
+    bio = models.TextField(default="No bio yet")
 
     def __str__(self):
         return self.name
-    
+
+    def avg_movie_rating(self):
+        avg_rating = self.movies.aggregate(average=Avg('reviews__rating'))['average']
+        return avg_rating or 0
+
+    @staticmethod
+    def ranked_actors():
+        return Actor.objects.annotate(avg_rating=Avg('movies__reviews__rating')).order_by('-avg_rating')
+
+    def get_rank(self): # update later and add followers so rankings can be more objective and reduce number of ties
+        ranked_actors = Actor.ranked_actors().annotate(rank=Window(expression=Rank(), order_by=F('avg_rating').desc()))
+        for actor in ranked_actors:
+            if actor.pk == self.pk:
+                return actor.rank
+        return None
+
 class Director(models.Model):
     name = models.CharField(max_length=50)
     # bio = models.TextField()

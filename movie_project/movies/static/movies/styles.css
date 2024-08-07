@@ -1119,10 +1119,38 @@ h3.marker::after {
     font-size: 1.1rem;
 }
 
+.bio::first-letter {
+    text-transform: uppercase;
+}
+
 .profile-movie-list {
     font-family: "News Cycle", sans-serif;
     font-weight: 700;
     padding: 30px;
+}
+
+.profile-movie-list .wrapper {
+    display: flex;
+    margin-top: 20px;
+} 
+
+.profile-movie {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.profile-movie .image {
+    width: 200px;
+    height: 300px;
+    margin: 0px 10px;
+}
+
+.profile-movie img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 @keyframes extendSides {
