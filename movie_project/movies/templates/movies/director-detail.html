@@ -19,8 +19,29 @@
                     <div class="follow-btn">Follow</div>
                     <div class="follow-count">200,000 Followers</div>
                 </div>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci voluptatem veniam asperiores, autem numquam illum! Tenetur fugiat deserunt corporis eaque illo voluptatem et reprehenderit saepe dolor. Repellendus sed ipsam soluta.</p>
+                <p class="bio">{{ director.bio }}</p>
             </div>
         </div>
     </div>
+    <section class="known-for"> 
+        <h3>Known For</h3>
+        <div class="wrapper">
+            {% for movie in known_for %}
+                <div class="known-for-movie">
+                    <a href="{% url 'movie-detail' movie.pk %}">
+                        <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
+                    </a>
+                    <div class="overlay">
+                        <h3>{{ movie.title }}</h3>
+                        <p>{{ movie.release_date.year }}</p>
+                    </div>
+                    {% if movie.avg_rating %}
+                        <div class="rating">{{ movie.avg_rating|floatformat:1 }}</div>
+                    {% else %}
+                        <div class="rating">0</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

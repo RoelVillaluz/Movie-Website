@@ -38,6 +38,7 @@ class Movie(models.Model):
     def avg_rating(self):
         avg_rating = self.reviews.aggregate(average=Avg('rating'))['average']
         return avg_rating or 0
+
     
 class MovieImage(models.Model):
     movie = models.ForeignKey(Movie, related_name="images", on_delete=models.CASCADE)
@@ -64,7 +65,7 @@ class Review(models.Model):
 class Actor(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to="media", default="media/default.jfif")
-    bio = models.TextField(default="No bio yet")
+    bio = models.TextField(default="No bio yet.")
 
     def __str__(self):
         return self.name
@@ -86,7 +87,7 @@ class Actor(models.Model):
 
 class Director(models.Model):
     name = models.CharField(max_length=50)
-    # bio = models.TextField()
+    bio = models.TextField(default="No bio yet.")
     # awards = models.ForeignKey(Award)
     image = models.ImageField(upload_to="media", default="media/default.jfif")
     movies = models.ManyToManyField(Movie, related_name="directors")

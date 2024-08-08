@@ -1161,8 +1161,8 @@ h3.marker::after {
 .director-container .wrapper {
     margin-top: 15%;
     display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: start;
 }
 
 .director-image {
@@ -1190,6 +1190,10 @@ h3.marker::after {
 .director-details {
     position: relative;
     margin-left: 2%;
+}
+
+.director-details .bio {
+    font-size: 1.1rem;
 }
 
 .director-details .ranking  {
@@ -1242,7 +1246,73 @@ h3.marker::after {
 
 .director-details .follow-count {
     margin-left: 20px;
+}
 
+
+.known-for {
+    font-family: "News Cycle", sans-serif;
+    margin-top: 20px;
+    padding: 30px;
+}
+
+.known-for h3 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+.known-for .wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.known-for-movie {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.known-for-movie:first-child {
+    margin-right: 10px;
+}
+
+.known-for-movie:not(:first-child) {
+    margin: 0px 10px;
+}
+
+.known-for-movie img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.known-for-movie .overlay {
+    position: absolute;
+    bottom: 4%;
+    left: 4%;
+}
+
+.known-for-movie .overlay h3 {
+    font-size: 1.2rem;
+}
+
+.known-for-movie .overlay p {
+    color: rgb(224, 224, 224);
+}
+
+.known-for-movie .rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 4%;
+    right: 4%;
+    background-color: rgb(185, 185, 185);
+    color: rgb(31, 31, 31);
+    padding: 4px;
+    height: 40px;
+    width: 40px;
+    font-weight: 700;
 }
 
 @keyframes extendSides {
