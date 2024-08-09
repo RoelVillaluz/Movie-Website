@@ -205,3 +205,16 @@ document.addEventListener('click', function() {
 sidebar.addEventListener('click', function(event) {
     event.stopPropagation();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const thumbnail = document.querySelector('.video-container .thumbnail');
+    const video = document.querySelector('.video-container video');
+
+    thumbnail.addEventListener('click', function() {
+        thumbnail.style.display = 'none';  
+        video.style.display = 'block';     
+        video.play();                      
+    });
+
+    video.style.display = 'none'; // Start with the video hidden
+});

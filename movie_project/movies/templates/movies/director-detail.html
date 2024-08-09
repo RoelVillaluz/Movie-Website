@@ -49,6 +49,13 @@
             <div class="wrapper">
                 {% for video in videos %}
                     <div class="video-container">
+                        <div class="thumbnail">
+                            <img src="{{ video.thumbnail.url }}" alt="">
+                            <div class="thumbnail-overlay">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                        </div>
+                        <h3>{{ video.name }}</h3>
                         <video src="{{ video.video.url }}" type="video/mp4" controls></video>
                     </div>
                 {% endfor %}
