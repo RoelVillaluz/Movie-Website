@@ -207,8 +207,8 @@ sidebar.addEventListener('click', function(event) {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    const thumbnail = document.querySelector('.video-container .thumbnail');
-    const video = document.querySelector('.video-container video');
+    const thumbnail = document.querySelector('.main-video-container .thumbnail');
+    const video = document.querySelector('.main-video-container video');
 
     thumbnail.addEventListener('click', function() {
         thumbnail.style.display = 'none';  

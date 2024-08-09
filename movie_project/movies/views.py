@@ -153,6 +153,11 @@ class DirectorDetailView(DetailView):
     def get_context_data(self, **kwargs: Any):
         director = self.get_object()
         context = super().get_context_data(**kwargs)
+        
         context['known_for'] = director.movies.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')[:4]
-        context['videos'] = [video for movie in director.movies.all() for video in movie.videos.all()]
+        
+        videos = [video for movie in director.movies.all() for video in movie.videos.all()]
+        context['videos'] = videos
+        context['main_video'] = videos[0] if videos else None
+
         return context

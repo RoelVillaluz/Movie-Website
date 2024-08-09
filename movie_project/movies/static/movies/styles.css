@@ -475,17 +475,43 @@ h3.marker::after {
 }
 
 .add-watchlist-btn {
+    display: flex;
+    align-items: center;
     font-family: "News Cycle", sans-serif;
-    font-weight: 700;
+    margin-top: 3rem;
+}
+
+.add-watchlist-btn span {
+    font-weight: 200;
     font-size: 1rem;
     text-transform: uppercase;
-    background-color: white;
-    color: rgb(20, 20, 20);
-    padding: 8px 30px;
-    margin-top: 3rem;
-    border: none;
-    outline: none;
     cursor: pointer;
+    color: rgb(206, 206, 206);
+    transition: 0.3s;
+}
+
+.add-watchlist-btn span:hover {
+    color: white;
+}
+
+.add-watchlist-btn i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2%;
+    width: 60px;
+    height: 60px;
+    padding: 30px;
+    font-weight: 200;
+    border-radius: 50%;
+    border: solid 1px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-watchlist-btn i:hover {
+    background-color: white;
+    color: black;
 }
 
 .movie-rating {
@@ -513,8 +539,7 @@ h3.marker::after {
 }
 
 .reviews {
-    margin: 10rem 0rem;
-    height: 1000px;
+    margin-top: 60px;
 }
 
 .reviews h1 {
@@ -566,19 +591,31 @@ h3.marker::after {
     font-size: 1.5rem;
 }
 
+.ratings {
+    margin-top: 60px;
+    height: 600px;
+}
+
+.ratings .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: rgb(27, 27, 27);
+    color: white;
+}
+
 .cast {
     margin-top: 20%;
 }
 
 .cast h1 {
     margin: 0px 10px;
-    font-size: 3rem;
 }
 
 .cast-wrapper {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
 }
 
 .cast-actor {
@@ -1367,18 +1404,71 @@ h3.marker::after {
     margin-left: 10px;
 }
 
-.video-container {
-    width: 800px;
-    height: 400px;
+.main-video-container {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
     position: relative;
     margin-top: 30px;
 }
 
+.main-video-details {
+    margin-left: 20px;
+    flex: 1; 
+    min-width: 0;
+}
+
+.main-video-details h3 {
+    font-family: "Bebas Neue", sans-serif;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    font-size: 3rem;
+    margin-top: 10px;
+}
+
+.main-video-details h4 {
+    color: rgb(216, 216, 216);
+    font-size: 1.25rem;
+}
+
+.main-video-details p {
+    color: rgb(216, 216, 216);
+    font-size: 1.1rem;
+    margin: 10px 0px;
+}
+
+.main-video-details .link {
+    display: inline-block;
+    font-family: "Bebas Neue", sans-serif;
+    margin-top: 20px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.main-video-details .link:hover {
+    background-color: rgb(238, 255, 0);
+}
+
+.main-video-details .link a {
+    color: black;
+    text-decoration: none;
+}
+
+.main-video-details .link i {
+    color: black;
+    margin-left: 4px;
+}
+
 .thumbnail {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 800px;
+    height: 400px;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .thumbnail-overlay {
@@ -1418,7 +1508,7 @@ h3.marker::after {
     font-size: 1.25rem;
 }
 
-.video-container img {
+.main-video-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1429,7 +1519,7 @@ h3.marker::after {
     filter: brightness(0.8);
 }
 
-.video-container video  {
+.main-video-container video  {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1610,4 +1700,19 @@ h3.marker::after {
 
 .swiper-slide:hover i {
     display: block; 
+}
+
+
+@media (max-width: 991px) {
+    .cast-wrapper {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .cast h1 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+
 }

@@ -1,3 +1,4 @@
+from datetime import timezone
 import random
 from django import db
 from django.db import models
@@ -6,10 +7,9 @@ from autoslug import AutoSlugField
 from django.db.models import Avg, F, Window
 from django.db.models.functions import Rank
 from moviepy.editor import VideoFileClip
-from PIL import Image
-from django.core.files.base import ContentFile
-from io import BytesIO
-from PIL import Image
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+
 
 # Create your models here.
 class User(AbstractUser):
@@ -95,6 +95,7 @@ class Actor(models.Model):
     image = models.ImageField(upload_to="media", default="media/default.jfif")
     bio = models.TextField(default="No bio yet.")
 
+
     def __str__(self):
         return self.name
 
@@ -116,9 +117,61 @@ class Actor(models.Model):
 class Director(models.Model):
     name = models.CharField(max_length=50)
     bio = models.TextField(default="No bio yet.")
-    # awards = models.ForeignKey(Award)
     image = models.ImageField(upload_to="media", default="media/default.jfif")
     movies = models.ManyToManyField(Movie, related_name="directors")
 
     def __str__(self):
         return self.name
+    
+class Award(models.Model):
+    BEST_PICTURE = 'Best Picture'
+    BEST_DIRECTOR = 'Best Director'
+    BEST_ACTOR = 'Best Actor'
+    BEST_ACTRESS = 'Best Actress'
+    BEST_SUPPORTING_ACTOR = 'Best Supporting Actor'
+    BEST_SUPPORTING_ACTRESS = 'Best Supporting Actress'
+    BEST_CINEMATOGRAPHY = 'Best Cinematography'
+    BEST_FILM_EDITING = 'Best Film Editing'
+    BEST_PRODUCTION_DESIGN = 'Best Production Design'
+    BEST_COSTUME_DESIGN = 'Best Costume Design'
+    BEST_MAKEUP_HAIRSTYLING = 'Best Makeup and Hairstyling'
+    BEST_VISUAL_EFFECTS = 'Best Visual Effects'
+    BEST_ORIGINAL_SCORE = 'Best Original Score'
+    BEST_SOUND = 'Best Sound'
+
+    CATEGORY_CHOICES = [
+        (BEST_PICTURE, 'Best Picture'),
+        (BEST_DIRECTOR, 'Best Director'),
+        (BEST_ACTOR, 'Best Actor'),
+        (BEST_ACTRESS, 'Best Actress'),
+        (BEST_SUPPORTING_ACTOR, 'Best Supporting Actor'),
+        (BEST_SUPPORTING_ACTRESS, 'Best Supporting Actress'),
+        (BEST_CINEMATOGRAPHY, 'Best Cinematography'),
+        (BEST_FILM_EDITING, 'Best Film Editing'),
+        (BEST_PRODUCTION_DESIGN, 'Best Production Design'),
+        (BEST_COSTUME_DESIGN, 'Best Costume Design'),
+        (BEST_MAKEUP_HAIRSTYLING, 'Best Makeup and Hairstyling'),
+        (BEST_VISUAL_EFFECTS, 'Best Visual Effects'),
+        (BEST_ORIGINAL_SCORE, 'Best Original Score'),
+        (BEST_SOUND, 'Best Sound'),
+    ]
+
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='awards')  # Required field
+    actor = models.ForeignKey(Actor, on_delete=models.SET_NULL, null=True, blank=True, related_name='awards')  
+    director = models.ForeignKey(Director, on_delete=models.SET_NULL, null=True, blank=True, related_name='awards')  
+    winner = models.BooleanField(default=True) # winner by default, nominated only if false
+    year = models.PositiveIntegerField()
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default=BEST_PICTURE)
+
+    def __str__(self):
+        recipient = None
+
+        if self.actor:
+            recipient = self.actor.name
+        elif self.director:
+            recipient = self.director.name
+        elif self.movie:
+            recipient = self.movie.title
+
+        status = "Winner" if self.winner else "Nominee"
+        return f"{self.category} - {recipient} ({self.year}) [{status}]"

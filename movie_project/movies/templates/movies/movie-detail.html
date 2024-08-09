@@ -25,7 +25,10 @@
             <div class="description hidden">
                 <h1>Overview</h1>
                 <p>{{ movie.overview }}</p>
-                <button class="add-watchlist-btn">Add to Watchlist</button>
+                <div class="add-watchlist-btn">
+                    <span>Add to Watchlist</span>
+                    <i class="fa-solid fa-plus"></i>
+                </div>
             </div>
             {% if overview_images %}
                 <div class="images">
@@ -108,5 +111,10 @@
                 </div>
             </div>
         {% endif %}
+        <div class="ratings">
+            <div class="wrapper">
+                <span>Rating: {{ movie.avg_rating|floatformat:2 }}</span>
+            </div>
+        </div>
     </section>
 {% endblock %}

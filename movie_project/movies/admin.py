@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from .models import Actor, Director, Movie, Genre, MovieImage, MovieVideo, Review, User
+from .models import Actor, Award, Director, Movie, Genre, MovieImage, MovieVideo, Review, User
 
 # Register your models here.
 admin.site.register(Genre)
@@ -9,6 +9,7 @@ admin.site.register(Director)
 admin.site.register(User)
 admin.site.register(MovieImage)
 admin.site.register(MovieVideo)
+admin.site.register(Award)
 
 class ReleaseYearListFilter(admin.SimpleListFilter):
     title = _('release year')

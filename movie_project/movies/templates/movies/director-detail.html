@@ -6,7 +6,7 @@
     <div class="director-container">
         <div class="wrapper">
             <div class="director-image">
-                <span>01 Director Biography</span>
+                <span>Director Biography</span>
                 <img src="{{ director.image.url }}" alt="">
             </div>
             <div class="director-details">
@@ -23,7 +23,7 @@
             </div>
         </div>
         <section class="known-for"> 
-            <h3 class="marker">02 Known For</h3>
+            <h3 class="marker">Known For</h3>
             <div class="wrapper">
                 {% for movie in known_for %}
                     <div class="known-for-movie">
@@ -42,26 +42,35 @@
             </div>
         </section>
         <section class="credits">
-            <h3 class="marker">03 Credits</h3>
+            <h3 class="marker">Credits</h3>
         </section>
         <section class="videos">
-            <h3 class="marker">04 Videos</h3>
+            <h3 class="marker">Videos</h3>
             <div class="wrapper">
-                {% for video in videos %}
-                    <div class="video-container">
+                {% if main_video %}
+                    <div class="main-video-container">
                         <div class="thumbnail">
-                            <img src="{{ video.thumbnail.url }}" alt="">
+                            <img src="{{ main_video.thumbnail.url }}" alt="">
                             <div class="thumbnail-overlay">
                                 <i class="fa-solid fa-play"></i>
                             </div>
                             <div class="thumbnail-details">
-                                <h3>{{ video.name }}</h3>
-                                <p>{{ video.duration_formatted }}</p>
+                                <h3>{{ main_video.name }}</h3>
+                                <p>{{ main_video.duration_formatted }}</p>
                             </div>
                         </div>
-                        <video src="{{ video.video.url }}" type="video/mp4" controls></video>
+                        <video src="{{ main_video.video.url }}" type="video/mp4" controls></video>
+                        <div class="main-video-details">
+                            <h3>{{ main_video.movie }}</h3>
+                            <h4>{{ main_video.movie.release_date.year }}</h4>
+                            <p>{{ main_video.movie.overview }}</p>
+                            <div class="link">
+                                <a href="{% url 'movie-detail' main_video.movie.pk %}">View Details</a>
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                        </div>
                     </div>
-                {% endfor %}
+                {% endif %}            
             </div>
         </section>
     </div>
