@@ -1,10 +1,13 @@
 import random
 import string
+from django.conf import settings
 import requests
 import os
 from decouple import config
-
+from moviepy.editor import VideoFileClip
+from django.core.files import File
 from movies.models import Movie, Review, User
+from PIL import Image
 
 
 # def fetch_tmdb_movies(endpoint, params):

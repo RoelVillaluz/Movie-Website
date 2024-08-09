@@ -1,9 +1,15 @@
+import random
 from django import db
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from autoslug import AutoSlugField
 from django.db.models import Avg, F, Window
 from django.db.models.functions import Rank
+from moviepy.editor import VideoFileClip
+from PIL import Image
+from django.core.files.base import ContentFile
+from io import BytesIO
+from PIL import Image
 
 # Create your models here.
 class User(AbstractUser):
@@ -48,9 +54,46 @@ class MovieImage(models.Model):
         return f"{self.movie} Image"
     
 class MovieVideo(models.Model):
-    movie = models.ForeignKey(Movie, blank=True, null=True, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, related_name="videos", blank=True, null=True, on_delete=models.CASCADE)
     name = models.TextField()
     video = models.FileField(upload_to="videos", blank=True, null=True)
+    thumbnail = models.ImageField(upload_to="thumbnails", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    def generate_thumbnail_from_video(self):
+        if not self.video:
+            return
+
+        video_path = self.video.path
+        video = VideoFileClip(video_path)
+        
+        # Random timestamp
+        duration = video.duration
+        random_time = random.uniform(0, duration)
+        
+        # Extract a frame
+        frame = video.get_frame(random_time)
+        image = Image.fromarray(frame)
+        
+        # Save the image to a BytesIO object
+        thumb_io = BytesIO()
+        image.save(thumb_io, format='JPEG')
+        thumb_io.seek(0)
+
+        # Save the thumbnail to the model's thumbnail field
+        thumbnail_name = f"{self.name}_thumbnail.jpg"
+        self.thumbnail.save(thumbnail_name, ContentFile(thumb_io.read()), save=False)
+
+        # Close the BytesIO stream
+        thumb_io.close()
+
+    def save(self, *args, **kwargs):
+        # Generate a thumbnail from the video if it does not already exist
+        if self.video and not self.thumbnail:
+            self.generate_thumbnail_from_video()
+        super(MovieVideo, self).save(*args, **kwargs)
 
 class Genre(models.Model):
     name = models.CharField(max_length=24)

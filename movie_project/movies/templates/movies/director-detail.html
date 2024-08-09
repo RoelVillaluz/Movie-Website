@@ -46,6 +46,13 @@
         </section>
         <section class="videos">
             <h3 class="marker">04 Videos</h3>
+            <div class="wrapper">
+                {% for video in videos %}
+                    <div class="video-container">
+                        <video src="{{ video.video.url }}" type="video/mp4" controls></video>
+                    </div>
+                {% endfor %}
+            </div>
         </section>
     </div>
 {% endblock %}

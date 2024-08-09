@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render
 import requests
 
 from movies.utils import create_users, random_rating
-from .models import Actor, Movie, Genre, Director, Review, User
+from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -154,4 +154,5 @@ class DirectorDetailView(DetailView):
         director = self.get_object()
         context = super().get_context_data(**kwargs)
         context['known_for'] = director.movies.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')[:4]
+        context['videos'] = [video for movie in director.movies.all() for video in movie.videos.all()]
         return context
