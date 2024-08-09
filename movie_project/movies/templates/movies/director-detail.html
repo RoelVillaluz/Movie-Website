@@ -54,8 +54,11 @@
                             <div class="thumbnail-overlay">
                                 <i class="fa-solid fa-play"></i>
                             </div>
+                            <div class="thumbnail-details">
+                                <h3>{{ video.name }}</h3>
+                                <p>{{ video.duration_formatted }}</p>
+                            </div>
                         </div>
-                        <h3>{{ video.name }}</h3>
                         <video src="{{ video.video.url }}" type="video/mp4" controls></video>
                     </div>
                 {% endfor %}

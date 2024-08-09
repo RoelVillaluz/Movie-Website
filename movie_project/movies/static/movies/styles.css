@@ -1374,14 +1374,14 @@ h3.marker::after {
     margin-top: 30px;
 }
 
-.video-container .thumbnail {
+.thumbnail {
     position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
-.video-container .thumbnail-overlay {
+.thumbnail-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1391,7 +1391,7 @@ h3.marker::after {
     cursor: pointer;
 }
 
-.video-container .thumbnail-overlay i {
+.thumbnail-overlay i {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1403,8 +1403,19 @@ h3.marker::after {
     border: solid 1px white;
 }
 
-.video-container .thumbnail:hover img {
+.thumbnail:hover img {
     filter: brightness(0.5) blur(1px);
+}
+
+.thumbnail-details {
+    position: absolute;
+    bottom: 2%;
+    left: 2%;
+    z-index: 3;
+}
+
+.thumbnail-details h3 {
+    font-size: 1.25rem;
 }
 
 .video-container img {

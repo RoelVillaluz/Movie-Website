@@ -61,39 +61,19 @@ class MovieVideo(models.Model):
 
     def __str__(self):
         return self.name
-
-    def generate_thumbnail_from_video(self):
-        if not self.video:
-            return
-
-        video_path = self.video.path
-        video = VideoFileClip(video_path)
-        
-        # Random timestamp
-        duration = video.duration
-        random_time = random.uniform(0, duration)
-        
-        # Extract a frame
-        frame = video.get_frame(random_time)
-        image = Image.fromarray(frame)
-        
-        # Save the image to a BytesIO object
-        thumb_io = BytesIO()
-        image.save(thumb_io, format='JPEG')
-        thumb_io.seek(0)
-
-        # Save the thumbnail to the model's thumbnail field
-        thumbnail_name = f"{self.name}_thumbnail.jpg"
-        self.thumbnail.save(thumbnail_name, ContentFile(thumb_io.read()), save=False)
-
-        # Close the BytesIO stream
-        thumb_io.close()
-
-    def save(self, *args, **kwargs):
-        # Generate a thumbnail from the video if it does not already exist
-        if self.video and not self.thumbnail:
-            self.generate_thumbnail_from_video()
-        super(MovieVideo, self).save(*args, **kwargs)
+    
+    @property
+    def duration(self):
+        if self.video:
+            video = VideoFileClip(self.video.path)
+            return video.duration
+        return 0
+    
+    @property
+    def duration_formatted(self):
+        total_seconds = self.duration
+        minutes, seconds = divmod(int(total_seconds), 60)
+        return f"{minutes}m {seconds}s"
 
 class Genre(models.Model):
     name = models.CharField(max_length=24)
