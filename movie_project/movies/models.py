@@ -47,6 +47,11 @@ class MovieImage(models.Model):
     def __str__(self):
         return f"{self.movie} Image"
     
+class MovieVideo(models.Model):
+    movie = models.ForeignKey(Movie, blank=True, null=True, on_delete=models.CASCADE)
+    name = models.TextField()
+    video = models.FileField(upload_to="videos", blank=True, null=True)
+
 class Genre(models.Model):
     name = models.CharField(max_length=24)
 

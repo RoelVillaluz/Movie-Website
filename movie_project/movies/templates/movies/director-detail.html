@@ -6,7 +6,7 @@
     <div class="director-container">
         <div class="wrapper">
             <div class="director-image">
-                <span>01 Biography</span>
+                <span>01 Director Biography</span>
                 <img src="{{ director.image.url }}" alt="">
             </div>
             <div class="director-details">
@@ -22,26 +22,30 @@
                 <p class="bio">{{ director.bio }}</p>
             </div>
         </div>
-    </div>
-    <section class="known-for"> 
-        <h3>Known For</h3>
-        <div class="wrapper">
-            {% for movie in known_for %}
-                <div class="known-for-movie">
-                    <a href="{% url 'movie-detail' movie.pk %}">
-                        <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
-                    </a>
-                    <div class="overlay">
-                        <h3>{{ movie.title }}</h3>
-                        <p>{{ movie.release_date.year }}</p>
+        <section class="known-for"> 
+            <h3 class="marker">02 Known For</h3>
+            <div class="wrapper">
+                {% for movie in known_for %}
+                    <div class="known-for-movie">
+                        <a href="{% url 'movie-detail' movie.pk %}">
+                            <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
+                        </a>
+                        <div class="overlay">
+                            <h3>{{ movie.title }}</h3>
+                            <div class="sub-info">
+                                <span class="release-year">{{ movie.release_date.year }}</span>
+                                <span class="main-genre">{{ movie.genres.first }}</span>
+                            </div>
+                        </div>
                     </div>
-                    {% if movie.avg_rating %}
-                        <div class="rating">{{ movie.avg_rating|floatformat:1 }}</div>
-                    {% else %}
-                        <div class="rating">0</div>
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>
-    </section>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="credits">
+            <h3 class="marker">03 Credits</h3>
+        </section>
+        <section class="videos">
+            <h3 class="marker">04 Videos</h3>
+        </section>
+    </div>
 {% endblock %}
