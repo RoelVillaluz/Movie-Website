@@ -144,12 +144,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const actorCards = document.querySelectorAll('.cast-actor.hidden')
-    actorCards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.15}s`
-    })
+    applyAnimationDelay(actorCards, 0.15)
 
     const relatedDirectorMovies = document.querySelectorAll('.movie-director-movies .card.hidden')
-    relatedDirectorMovies.forEach((movie,index) => {
-        movie.style.animationDelay = `${index * 0.15}s`
-    });
+    applyAnimationDelay(relatedDirectorMovies, 0.15)
+
+    const galleryImages = document.querySelectorAll('.gallery .image')
+    applyAnimationDelay(galleryImages, 0.15)
 });
+
+function applyAnimationDelay(elements, delay) {
+    elements.forEach((element, index) => {
+        element.style.animationDelay = `${index * delay}s`;
+    });
+}

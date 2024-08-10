@@ -148,7 +148,7 @@
                 <h1 class="hidden">Gallery</h1>
                 <div class="wrapper">
                     {% for image in movie.images.all %}
-                        <div class="image">
+                        <div class="image hidden">
                             <img src="{{ image.image.url }}" alt="">
                         </div>
                     {% endfor %}
