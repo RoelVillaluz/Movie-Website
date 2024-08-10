@@ -7,6 +7,7 @@
 :root {
     font-family: "Electrolize", sans-serif;
     background-color: rgb(20, 20, 20);
+    --award-yellow: rgb(217, 255, 0);
 }
 
 * {
@@ -804,19 +805,47 @@ h3.marker::after {
 
 .movie-details .awards ul {
     margin-top: 40px;
+    list-style-type: none;
 }
 
 .movie-details .award-name {
-    font-size: 1.25rem;
-    margin-top: 50px
+    margin-top: 50px;
+}
+
+.movie-details .award-name h2 {
+    position: relative;
+    font-size: 2rem;
+    padding-left: 15px;
+}
+
+.movie-details .award-name h2::before {
+    position: absolute;
+    content: '';
+    top: 55%;
+    left: 0;
+    transform: translate(0%, -50%);
+    height: 60%;
+    width: 4px;
+    background-color: var(--award-yellow);
+}
+
+.movie-details .award-name span {
+    margin-left: 15px;
+}
+
+.movie-details .award-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap into multiple rows */
+    gap: 20px; /* Adjust spacing between items */
 }
 
 .movie-details .award-item {
+    flex: 1 1 calc(50% - 20px); /* Two columns with spacing taken into account */
+    box-sizing: border-box; /* Ensure padding and borders are included in the width */
     display: flex;
     align-items: center;
-    margin: 20px 0px;
+    margin-bottom: 20px; /* Adjust margin as needed */
 }
-
 .movie-details .award-item i {
     display: flex;
     justify-content: center;
@@ -830,7 +859,7 @@ h3.marker::after {
 }
 
 .movie-details .award-item i.winner {
-    background-color: #d6ff1f;
+    background-color: var(--award-yellow);
 }
 
 .movie-details .award-item i.nominee {
@@ -845,7 +874,6 @@ h3.marker::after {
     color: rgb(187, 187, 187);
     margin-left: 8px;
 }
-
 
 .popular-genres {
     padding: 20px;

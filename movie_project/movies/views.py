@@ -112,10 +112,14 @@ class MovieDetailView(DetailView):
         context['top_reviews'] = movie.reviews.order_by('-rating').exclude(description__isnull=True).exclude(description__exact='')[:2]
             
         # Group awards by name
-        awards_by_name = defaultdict(list)
-        for award in movie.awards.all():
+        awards_by_name = defaultdict(lambda: {'awards': [], 'win_count': 0, 'nomination_count': 0})
+        for award in movie.awards.all():  
             award_name = award.award_name
-            awards_by_name[award_name].append(award)
+            awards_by_name[award_name]['awards'].append(award)
+            
+            awards_by_name[award_name]['nomination_count'] += 1
+            if award.winner:
+                awards_by_name[award_name]['win_count'] += 1
         
         context['awards_by_name'] = dict(awards_by_name)
 
