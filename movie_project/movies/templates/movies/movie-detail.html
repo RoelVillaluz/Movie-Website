@@ -115,26 +115,26 @@
             <h1 class="hidden">Awards and Nominations</h1>
             <ul>
                 {% for award_name, award_data in awards_by_name.items %}
-                <li class="award-name hidden">
-                    <h2>{{ award_name }}</h2>
-                    <span>{{ award_data.win_count }} wins {{ award_data.nomination_count }} Nominations</span>
-                    <ul class="award-list">
-                        {% for award in award_data.awards %}
-                            <li class="award-item hidden">
-                                {% if award.winner %}
-                                    <i class="fa-solid fa-trophy winner"></i>
-                                {% else %}
-                                    <i class="fa-solid fa-award nominee"></i>
-                                {% endif %}
-                                <div class="award-details">
-                                    <h3>{{ award.category }}<span>({{ award.year }})</span></h3>
-                                    <p>{{ award.recipient }}</p>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
+                    <li class="award-name hidden">
+                        <h2>{{ award_name }}</h2>
+                        <span>{{ award_data.win_count }} wins {{ award_data.nomination_count }} Nominations</span>
+                        <ul class="award-list">
+                            {% for award in award_data.awards %}
+                                <li class="award-item hidden">
+                                    {% if award.winner %}
+                                        <i class="fa-solid fa-trophy winner"></i>
+                                    {% else %}
+                                        <i class="fa-solid fa-award nominee"></i>
+                                    {% endif %}
+                                    <div class="award-details">
+                                        <h3>{{ award.category }}<span>({{ award.year }})</span></h3>
+                                        <p>{{ award.recipient }}</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </section>

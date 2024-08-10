@@ -116,7 +116,7 @@ class MovieDetailView(DetailView):
         for award in movie.awards.all():  
             award_name = award.award_name
             awards_by_name[award_name]['awards'].append(award)
-            
+
             awards_by_name[award_name]['nomination_count'] += 1
             if award.winner:
                 awards_by_name[award_name]['win_count'] += 1
@@ -172,5 +172,7 @@ class DirectorDetailView(DetailView):
         videos = [video for movie in director.movies.all() for video in movie.videos.all()]
         context['videos'] = videos
         context['main_video'] = videos[0] if videos else None
+
+        context['awards'] = director.awards
 
         return context

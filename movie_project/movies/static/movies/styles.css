@@ -27,6 +27,20 @@ body {
     background-color: var(--primary-color);
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: white; 
+    height: 200px;
+    border-radius: 5px;
+}
+
 nav {
     font-family: "Bebas Neue", sans-serif;
     position: fixed;
@@ -238,11 +252,11 @@ nav a {
 }
 
 .animate-title {
-    animation: slideRightAndFadeOut 8s ease-in-out forwards; /* animation for text h1 */
+    animation: slideRightAndFadeOut 8s ease-in-out forwards; 
 }
 
 .animate-subtitle {
-    animation: slideUpAndFadeOut 8s ease forwards; /* animation for text h3 */
+    animation: slideUpAndFadeOut 8s ease forwards; 
 }
 
 .featured-buttons {
@@ -254,7 +268,7 @@ nav a {
 h3.marker {
     position: relative;
     display: inline-block;
-    margin-bottom: 10px;
+    margin: 10px 0px;
     margin-left: 12px;
 }
 
@@ -265,7 +279,7 @@ h3.marker::after {
     height: 100%;
     background-color: white;
     top: 0;
-    left: -10%;
+    left: -8%;
 }
 
 .movie-link {
@@ -763,6 +777,11 @@ h3.marker::after {
     min-height: 400px;
     padding: 60px;
     background-color: rgba(75, 75, 75, 0.1);
+    transition: 0.3s;
+}
+
+.top-review:hover {
+    background-color: rgba(75, 75, 75, 0.3);
 }
 
 .top-review h3 {
@@ -794,31 +813,30 @@ h3.marker::after {
     font-size: 1.5rem;
 }
 
-.movie-details .awards {
-    height: 1000px;
+.awards {
     margin-top: 100px;
 }
 
-.movie-details .awards h1 {
+.awards h1 {
     font-size: 3rem;
 }
 
-.movie-details .awards ul {
+.awards ul {
     margin-top: 40px;
     list-style-type: none;
 }
 
-.movie-details .award-name {
+.award-name {
     margin-top: 50px;
 }
 
-.movie-details .award-name h2 {
+.award-name h2 {
     position: relative;
     font-size: 2rem;
     padding-left: 15px;
 }
 
-.movie-details .award-name h2::before {
+.award-name h2::before {
     position: absolute;
     content: '';
     top: 55%;
@@ -829,24 +847,25 @@ h3.marker::after {
     background-color: var(--award-yellow);
 }
 
-.movie-details .award-name span {
+.award-name span {
     margin-left: 15px;
 }
 
-.movie-details .award-list {
+.award-list {
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap into multiple rows */
     gap: 20px; /* Adjust spacing between items */
 }
 
-.movie-details .award-item {
+.award-item {
     flex: 1 1 calc(50% - 20px); /* Two columns with spacing taken into account */
     box-sizing: border-box; /* Ensure padding and borders are included in the width */
     display: flex;
     align-items: center;
     margin-bottom: 20px; /* Adjust margin as needed */
 }
-.movie-details .award-item i {
+
+.award-item i {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -858,19 +877,19 @@ h3.marker::after {
     margin-right: 10px;
 }
 
-.movie-details .award-item i.winner {
+.award-item i.winner {
     background-color: var(--award-yellow);
 }
 
-.movie-details .award-item i.nominee {
+.award-item i.nominee {
     background-color: rgb(206, 189, 189);
 }
 
-.movie-details .award-item h3 {
+.award-item h3 {
     font-size: 1.35rem;
 }
 
-.movie-details .award-item span {
+.award-item span {
     color: rgb(187, 187, 187);
     margin-left: 8px;
 }
@@ -1294,7 +1313,7 @@ h3.marker::after {
 }
 
 .director-container .wrapper:first-child {
-    margin-top: 15%;
+    margin-top: 10%;
 }
 
 .director-image {

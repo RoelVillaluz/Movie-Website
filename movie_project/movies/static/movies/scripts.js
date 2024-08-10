@@ -218,3 +218,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     video.style.display = 'none'; // Start with the video hidden
 });
+
+const cursor = document.querySelector('.cursor')
+document.addEventListener('mousemove', e => {
+    cursor.setAttribute('style', `top: ${e.pageY}px; left: ${e.pageX}px;`)
+})
