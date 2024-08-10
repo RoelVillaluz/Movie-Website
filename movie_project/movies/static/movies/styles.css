@@ -538,72 +538,6 @@ h3.marker::after {
     font-weight: 700;
 }
 
-.reviews {
-    margin-top: 60px;
-}
-
-.reviews h1 {
-    text-align: center;
-}
-
-.reviews .wrapper {
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    gap: 3rem;
-    margin-top: 6rem;
-}
-
-.top-review {
-    flex: 1 1 auto;
-    max-width: 50%;
-    min-height: 400px;
-    padding: 60px;
-    background-color: rgba(75, 75, 75, 0.1);
-}
-
-.top-review h3 {
-    font-family: "Lora", serif;
-    font-size: 2.25rem;
-    font-weight: 500;
-}
-
-.top-review p {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-}
-
-.top-review .user {
-    display: flex;
-    align-items: center;
-    margin-top: 2rem;
-}
-
-.top-review .user .line {
-    width: 100%;
-    margin-right: 10px;
-    height: 2px;
-    background-color: white;
-}
-
-.top-review .user span {
-    font-family: "Lora", serif;
-    font-size: 1.5rem;
-}
-
-.ratings {
-    margin-top: 60px;
-    height: 600px;
-}
-
-.ratings .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: rgb(27, 27, 27);
-    color: white;
-}
 
 .cast {
     margin-top: 20%;
@@ -805,6 +739,113 @@ h3.marker::after {
 .movie-director .link:hover::before {
     width: 100%;
 }
+
+.reviews {
+    margin-top: 60px;
+}
+
+.reviews h1 {
+    text-align: center;
+}
+
+.reviews .wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-top: 6rem;
+}
+
+.top-review {
+    flex: 1 1 auto;
+    max-width: 50%;
+    min-height: 400px;
+    padding: 60px;
+    background-color: rgba(75, 75, 75, 0.1);
+}
+
+.top-review h3 {
+    font-family: "Lora", serif;
+    font-size: 2.25rem;
+    font-weight: 500;
+}
+
+.top-review p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+.top-review .user {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.top-review .user .line {
+    width: 100%;
+    margin-right: 10px;
+    height: 2px;
+    background-color: white;
+}
+
+.top-review .user span {
+    font-family: "Lora", serif;
+    font-size: 1.5rem;
+}
+
+.movie-details .awards {
+    height: 1000px;
+    margin-top: 100px;
+}
+
+.movie-details .awards h1 {
+    font-size: 3rem;
+}
+
+.movie-details .awards ul {
+    margin-top: 40px;
+}
+
+.movie-details .award-name {
+    font-size: 1.25rem;
+    margin-top: 50px
+}
+
+.movie-details .award-item {
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+}
+
+.movie-details .award-item i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(20, 20, 20);
+    width: 40px;
+    height: 40px;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.movie-details .award-item i.winner {
+    background-color: #d6ff1f;
+}
+
+.movie-details .award-item i.nominee {
+    background-color: rgb(206, 189, 189);
+}
+
+.movie-details .award-item h3 {
+    font-size: 1.35rem;
+}
+
+.movie-details .award-item span {
+    color: rgb(187, 187, 187);
+    margin-left: 8px;
+}
+
 
 .popular-genres {
     padding: 20px;

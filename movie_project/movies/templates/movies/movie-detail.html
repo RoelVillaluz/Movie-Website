@@ -111,10 +111,34 @@
                 </div>
             </div>
         {% endif %}
-        <div class="ratings">
-            <div class="wrapper">
-                <span>Rating: {{ movie.avg_rating|floatformat:2 }}</span>
-            </div>
+        <div class="awards">
+            <h1 class="hidden">Awards and Nominations</h1>
+            <ul>
+                {% for award_name, awards in awards_by_name.items %}
+                    <li class="award-name">
+                        <h2>{{ award_name }}</h2>
+                        <ul>
+                            {% for award in awards %}
+                                <li class="award-item">
+                                    {% if award.winner %}
+                                    <i class="fa-solid fa-trophy winner"></i>
+                                    <div class="award-details">
+                                        <h3>{{ award.category }}<span>({{ award.year }})</span></h3>
+                                        <p>{{ award.recipient }}</p>
+                                    </div>
+                                    {% else %}
+                                    <i class="fa-solid fa-award nominee"></i>
+                                    <div class="award-details">
+                                        <h3>{{ award.category }}</h3>
+                                        <p>{{ award.recipient }}</p>
+                                    </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </section>
 {% endblock %}

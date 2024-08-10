@@ -1,3 +1,4 @@
+from collections import defaultdict
 import random
 from typing import Any
 from django.db.models.base import Model as Model
@@ -110,6 +111,14 @@ class MovieDetailView(DetailView):
 
         context['top_reviews'] = movie.reviews.order_by('-rating').exclude(description__isnull=True).exclude(description__exact='')[:2]
             
+        # Group awards by name
+        awards_by_name = defaultdict(list)
+        for award in movie.awards.all():
+            award_name = award.award_name
+            awards_by_name[award_name].append(award)
+        
+        context['awards_by_name'] = dict(awards_by_name)
+
         return context
 
 class GenreListView(ListView):

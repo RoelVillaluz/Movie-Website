@@ -138,6 +138,7 @@ class Award(models.Model):
     BEST_VISUAL_EFFECTS = 'Best Visual Effects'
     BEST_ORIGINAL_SCORE = 'Best Original Score'
     BEST_SOUND = 'Best Sound'
+    BEST_ANIMATED_FEATURE = 'Best Animated Feature'
 
     CATEGORY_CHOICES = [
         (BEST_PICTURE, 'Best Picture'),
@@ -154,8 +155,22 @@ class Award(models.Model):
         (BEST_VISUAL_EFFECTS, 'Best Visual Effects'),
         (BEST_ORIGINAL_SCORE, 'Best Original Score'),
         (BEST_SOUND, 'Best Sound'),
+        (BEST_ANIMATED_FEATURE, 'Best Animated Feature'),
     ]
 
+    ACADEMY_AWARD = 'Academy Award'
+    BAFTA = 'BAFTA'
+    EMMY_AWARD = 'Emmy Award'
+    GOLDEN_GLOBE = 'Golden Globe'
+
+    AWARD_NAME_CHOICES = [
+        (ACADEMY_AWARD, 'Academy Award'),
+        (GOLDEN_GLOBE, 'Golden Globe'),
+        (BAFTA, 'BAFTA'),
+        (EMMY_AWARD, 'Emmy Award'),
+    ]
+
+    award_name = models.CharField(max_length=50, choices=AWARD_NAME_CHOICES, default=ACADEMY_AWARD)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='awards')  # Required field
     actor = models.ForeignKey(Actor, on_delete=models.SET_NULL, null=True, blank=True, related_name='awards')  
     director = models.ForeignKey(Director, on_delete=models.SET_NULL, null=True, blank=True, related_name='awards')  
@@ -163,15 +178,17 @@ class Award(models.Model):
     year = models.PositiveIntegerField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default=BEST_PICTURE)
 
-    def __str__(self):
-        recipient = None
-
+    def recipient(self):
         if self.actor:
             recipient = self.actor.name
         elif self.director:
             recipient = self.director.name
         elif self.movie:
             recipient = self.movie.title
+        return recipient
+
+    def __str__(self):
+        recipient = self.recipient()
 
         status = "Winner" if self.winner else "Nominee"
-        return f"{self.category} - {recipient} ({self.year}) [{status}]"
+        return f"{self.award_name} for {self.category} - {recipient} ({self.year}) [{status}]"
