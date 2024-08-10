@@ -899,6 +899,7 @@ h3.marker::after {
 
 .gallery {
     margin-top: 100px;
+    height: 1000px;
 }
 
 .gallery .wrapper {
@@ -1779,53 +1780,6 @@ h3.marker::after {
         transform: translateY(0);
     }
 }
-
-.swiper {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-
-.swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 250px;
-    width: 150px;
-    position: relative;
-    overflow: hidden;
-}
-
-.swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.3s ease;
-}
-
-.swiper-slide i {
-    position: absolute;
-    font-size: 24px;
-    color: rgb(212, 212, 212);
-    display: none;
-    z-index: 3;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease;
-}
-
-.swiper-slide:hover img {
-    opacity: 0.5; 
-}
-
-.swiper-slide:hover i {
-    display: block; 
-}
-
 
 @media (max-width: 991px) {
     .cast-wrapper {

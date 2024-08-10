@@ -18,7 +18,7 @@
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
                 {% for movie in popular_movies %}
-                <div class="swiper-slide">
+                <div class="swiper-slide index-swiper-slide">
                     <a href="{% url 'movie-detail' movie.pk %}">
                         <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
                         <i class="fa-solid fa-eye"></i>
@@ -31,7 +31,7 @@
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
                 {% for movie in new_movies %}
-                <div class="swiper-slide">
+                <div class="swiper-slide index-swiper-slide">
                     <a href="{% url 'movie-detail' movie.pk %}">
                         <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
                         <i class="fa-solid fa-eye"></i>
@@ -44,14 +44,14 @@
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
                 {% for movie in just_added %}
-                <div class="swiper-slide">
+                <div class="swiper-slide index-swiper-slide"> 
                     <a href="{% url 'movie-detail' movie.pk %}">
                         <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
                         <i class="fa-solid fa-eye"></i>
                     </a>
                 </div>
-              {% endfor %}
-            </div>
+                {% endfor %}
+            </div>            
         </div>
     </div>
     <div class="popular-genres">

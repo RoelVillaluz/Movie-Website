@@ -145,13 +145,24 @@
             <h3 class="hidden">No awards</h3>
             {% endif %}
             <div class="gallery">
-                <h1 class="hidden">Gallery</h1>
+                <!-- <h1 class="hidden">Gallery</h1>
                 <div class="wrapper">
                     {% for image in movie.images.all %}
                         <div class="image hidden">
                             <img src="{{ image.image.url }}" alt="">
                         </div>
                     {% endfor %}
+                </div> -->
+                <div class="swiper gallery-swiper">
+                    <div class="swiper-wrapper">
+                        {% for image in movie.images.all %}
+                            <div class="gallery-slide">
+                                <div class="image hidden">
+                                    <img src="{{ image.image.url }}" alt="">
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
