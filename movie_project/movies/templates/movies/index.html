@@ -189,4 +189,20 @@
             </div>
         </div>
     </section>
+
+    <!-- Popular Actors Section -->
+    <section class="popular-actors">
+        <div class="section-title">
+            <h3 class="marker">Popular Actors</h3>
+            <div class="section-link">
+                <a href="">View All</a>
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+        </div>
+        <ul>
+            {% for actor in popular_actors %}
+                <h3>{{ actor }}</h3>
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock %}

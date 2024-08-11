@@ -416,3 +416,7 @@ and only apply hover filter effect once all animations have stopped
     background-color: white;
     color: black;
 }
+
+.popular-actors {
+    padding: 30px;
+}

@@ -32,6 +32,8 @@ def index(request):
 
     popular_genres = Genre.objects.annotate(movie_count=Count('movies')).order_by('-movie_count')[:4]
 
+    popular_actors = Actor.ranked_actors()[:5]
+
     genre_dict = {}
     genre_set = set()
 
@@ -56,6 +58,7 @@ def index(request):
         'new_movies': new_movies,
         'upcoming_movies': upcoming_movies,
         'popular_genres': popular_genres,
+        'popular_actors': popular_actors,
         'genre_dict': genre_dict,
         'top_rated_movies': top_rated_movies,
         'just_added': just_added,
