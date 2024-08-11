@@ -39,3 +39,12 @@ const cursor = document.querySelector('.cursor')
 document.addEventListener('mousemove', e => {
     cursor.setAttribute('style', `top: ${e.pageY}px; left: ${e.pageX}px;`)
 })
+
+
+const galleryImages = document.querySelectorAll('.gallery img')
+galleryImages.forEach(image => {
+    image.addEventListener('click', function() {
+        const dataId = this.getAttribute('data-id')
+        console.log(dataId)
+    })
+})

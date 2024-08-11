@@ -4,6 +4,10 @@
     cursor: pointer;
 }
 
+.swiper-wrapper {
+    display: flex; 
+}
+
 .index-swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -42,4 +46,17 @@
 
 .index-swiper-slide:hover i { 
     display: block; 
+}
+
+.gallery-slide .image.show {
+    animation: fadeIn ease-in-out 1s forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

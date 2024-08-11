@@ -29,9 +29,10 @@ var swiper = new Swiper(".mySwiper", {
 
 var gallerySwiper = new Swiper(".gallery-swiper", {
   slidesPerView: 4,
-  spaceBetween: 5,
-  loop: true, 
+  spaceBetween: 5, 
+  loop: true,
   pagination: {
     clickable: true,
   },
+  slideClass: 'gallery-slide',
 });

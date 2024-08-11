@@ -148,6 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const relatedDirectorMovies = document.querySelectorAll('.movie-director-movies .card.hidden')
     applyAnimationDelay(relatedDirectorMovies, 0.15)
+
+    const topReviewCards = document.querySelectorAll('.top-review.hidden')
+    applyAnimationDelay(topReviewCards, 0.25)
 });
 
 function applyAnimationDelay(elements, delay) {

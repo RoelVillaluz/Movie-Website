@@ -123,6 +123,7 @@ nav li a:hover::before {
 nav a {
     text-decoration: none;
 }
+
 .sidebar {
     font-family: "Bebas Neue", sans-serif;
     width: 0;
@@ -195,115 +196,6 @@ nav a {
 
 .wrapper {
     display: flex;
-}
-
-.featured-movie {
-    width: 100%;
-    height: 90vh;
-    position: relative;
-    overflow: hidden; 
-    font-family: "Bebas Neue", sans-serif;
-}
-
-.featured-movie img {
-    width: inherit;
-    height: inherit;
-    object-fit: cover;
-    object-position: center;
-    filter: brightness(0.71) contrast(0.94);
-    transform-origin: center;
-}
-
-.featured-movie img.animate {
-    animation: zoomAndFade 8s linear;
-}
-
-.featured-movie::after {
-    position: absolute;
-    content: '';
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 10%;
-    background-image: linear-gradient(to top, rgb(20, 20, 20, 1) 0%, rgb(20, 20, 20, 0) 100%);
-}
-
-.featured-movie .text {
-    position: absolute;
-    bottom: 5%; 
-    left: 5%; 
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    line-height: 1;
-    text-shadow: 0px 2px 4px rgb(22, 22, 22, .9);
-}
-
-.featured-movie .text h1 {
-    font-size: 6rem;
-}
-
-.featured-movie .text h3 {
-    font-size: 4rem;
-}
-
-.animate-img {
-    animation: zoomAndFade 8s linear;
-}
-
-.animate-title {
-    animation: slideRightAndFadeOut 8s ease-in-out forwards; 
-}
-
-.animate-subtitle {
-    animation: slideUpAndFadeOut 8s ease forwards; 
-}
-
-.featured-buttons {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-}
-
-h3.marker {
-    position: relative;
-    display: inline-block;
-    margin: 10px 0px;
-    margin-left: 8px;
-    padding-left: 4px;
-}
-
-h3.marker::after {
-    position: absolute;
-    content: '';
-    width: 4px;
-    height: 100%;
-    background-color: white;
-    top: 0;
-    left: -8%;
-}
-
-.movie-link {
-    padding: 12px 30px;
-    font-size: 1.1rem;
-    text-decoration: none;
-    background-color: rgb(20, 20, 20);
-    display: inline-block; 
-    text-transform: capitalize;
-    letter-spacing: 1px;
-    transform-origin: left;
-    transition: 0.3s;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.movie-link:hover {
-    background-color: white;
-    color: black;
-}
-
-.movie-list {
-    padding: 20px;
 }
 
 .movie {
@@ -637,6 +529,11 @@ h3.marker::after {
     height: 90px; 
     border-radius: 50%;
     object-fit: cover;
+    transition: 0.3s;
+}
+
+.movie-director .image img:hover {
+    filter: brightness(0.6);
 }
 
 .movie-director-name {
@@ -898,12 +795,16 @@ h3.marker::after {
 }
 
 .gallery {
-    margin-top: 100px;
-    height: 1000px;
+    margin: 100px 0px;
 }
 
 .gallery .wrapper {
     flex-wrap: wrap;
+}
+
+.gallery .swiper-wrapper {
+    display: flex;
+    gap: 15px;
 }
 
 .gallery .image {
@@ -931,54 +832,6 @@ h3.marker::after {
     margin-bottom: 60px;
 }
 
-.popular-genres {
-    padding: 20px;
-}
-
-.popular-genres h2 {
-    margin-bottom: 20px;
-}
-
-.genre-list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.genre-card {
-    flex: 1;
-    margin: 5px;
-    height: 500px;
-    position: relative;
-    transform-origin: bottom;
-    transition: 0.3s;
-    pointer-events: none;
-}
-
-.genre-card.show {
-    animation: slideAndGrow 0.6s forwards;
-}
-
-.genre-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: brightness(0.86) contrast(1) saturate(0.88) sepia(0.2);
-    transition: 0.3s;
-}
-
-.genre-card:hover {
-    flex: 3;
-}
-
-.genre-card:hover img {
-    filter: brightness(1) contrast(1.1) saturate(1.2) sepia(0);
-}
-
-.genre-card:hover .genre-overlay h3 {
-    color: rgba(255, 255, 255, 1);
-}
 
 @keyframes slideAndGrow {
     0% {
