@@ -74,6 +74,59 @@
     margin-top: 10px;
 }
 
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-link {
+    position: relative;
+}
+
+.section-link::after {
+    position: absolute;
+    display: inline-block;
+    content: '';
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: white;
+    transition: 0.15s;
+    transform-origin: left;
+}
+
+.section-link:hover::after {
+    width: 100%;
+}
+
+.section-link:hover > * {
+    color: white;
+}
+
+.section-link a {
+    font-family: "News Cycle", sans-serif;
+    text-decoration: none;
+    font-weight: 700;
+    color: rgb(196, 196, 196);
+
+}
+
+.section-link i {
+    margin-left: 5px;
+    color: rgb(196, 196, 196);
+}
+
+.centered-section-title {
+    margin-bottom: 10px;
+}
+
+.centered-section-title p {
+    font-family: "News Cycle", sans-serif;
+    color: rgb(196, 196, 196);
+    font-weight: 700;
+}
 
 h1.marker {
     display: inline-block;
@@ -85,9 +138,9 @@ h1.marker::after {
     position: absolute;
     content: '';
     width: 100%;
-    height: 2px;
+    height: 3px;
     background-color: white;
-    bottom: -4px;
+    bottom: -10px;
     left: 0;
 }
 
@@ -144,6 +197,7 @@ h3.marker::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: 0.3s;
 }
 
 .genre-card {
@@ -165,7 +219,7 @@ h3.marker::after {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    filter: brightness(0.86) contrast(1);
+    filter: brightness(0.8) contrast(1);
     transition: 0.3s;
 }
 
@@ -174,7 +228,18 @@ h3.marker::after {
 }
 
 .genre-card:hover img {
-    filter: brightness(1) contrast(1.1) saturate(1.2) sepia(0);
+    filter: brightness(1) contrast(1.1) saturate(1.3);
+}
+
+/* Lower opacity to all other genre-cards when one is hovered 
+and only apply hover filter effect once all animations have stopped
+*/
+.genre-list:hover .genre-card.animation-complete:not(:hover) img {
+    opacity: 0.3;
+}
+
+.genre-list:hover .genre-card.animation-complete:not(:hover) .genre-overlay h3 {
+    opacity: 0;
 }
 
 .genre-card:hover .genre-overlay h3 {
@@ -187,14 +252,11 @@ h3.marker::after {
     text-align: center;
 }
 
-.movies-and-tv .wrapper {
-    height: 600px;
-}
-
 .movies-and-tv .image {
     position: relative;
     flex: 1;
     height: 100%;
+    height: 600px;
 }
 
 .movies-and-tv .image.show {
@@ -293,8 +355,8 @@ h3.marker::after {
 
 .award-winning {
     width: 100%;
-    height: 1000px;
     text-align: center;
+    margin-top: 100px;
 }
 
 .award-winning .main-image {
@@ -302,6 +364,10 @@ h3.marker::after {
     width: 100%;
     height: 500px;
     font-family: "News Cycle", sans-serif;
+}
+
+.award-winning .main-image.show {
+    animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 .award-winning .main-image img {

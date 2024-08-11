@@ -128,19 +128,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function allAnimationsEnded() {
         if (animationEndCount === genreCards.length) {
             genreCards.forEach(card => {
+                card.classList.add('animation-complete');
                 card.style.pointerEvents = 'auto';
             });
         }
     }
-
+    
     genreCards.forEach((card, index) => {
         card.style.animationDelay = `${index * 0.25}s`;
-
+    
         card.addEventListener('animationend', function() {
             animationEndCount++;
             allAnimationsEnded();
         });
     });
+    
 
 
     const actorCards = document.querySelectorAll('.cast-actor.hidden')

@@ -25,8 +25,11 @@ def index(request):
     # create_users(10) # for populating users
     movies = Movie.objects.all()
 
-    popular_movies = movies[:20]
-    new_movies = Movie.objects.filter(release_date__gte=one_month_before)
+    popular_movies = movies.annotate(review_count=Count('reviews')).order_by('-review_count')[:20]
+
+    new_movies = movies.filter(release_date__gte=one_month_before, release_date__lte=today)
+    upcoming_movies = movies.filter(release_date__gt=today)
+
     popular_genres = Genre.objects.annotate(movie_count=Count('movies')).order_by('-movie_count')[:4]
 
     genre_dict = {}
@@ -51,6 +54,7 @@ def index(request):
         'movies': movies,
         'popular_movies': popular_movies,
         'new_movies': new_movies,
+        'upcoming_movies': upcoming_movies,
         'popular_genres': popular_genres,
         'genre_dict': genre_dict,
         'top_rated_movies': top_rated_movies,
