@@ -71,18 +71,34 @@
         </div>
     </section>
     <section class="movies-and-tv">
-        <h2 class="marker">Discover</h2>
+        <h1 class="marker">Discover</h1>
         <div class="wrapper">
             <div class="image">
                 <img src="media/media/breaking bad.jpg" alt="">
-                <div class="overlay">
+                <div class="circle-label">
                     <h3>TV Series</h3>
+                </div>
+                <div class="overlay">
+                    <h2>Breaking Bad</h2>
+                    <div class="details">
+                        <p>Action</p>
+                        <p><i class="fa-solid fa-star"></i>9.5</p>
+                    </div>
                 </div>
             </div>
             <div class="image">
-                <img src="media/media/backdrop_pdmaK8R.jpg" alt="">
-                <div class="overlay">
+                <img src="{{ random_movie.backdrop_path.url }}" alt="">
+                <div class="circle-label">
                     <h3>Movies</h3>
+                </div>
+                <div class="overlay">
+                    <h2>{{ random_movie.title }}</h2>
+                    <div class="details">
+                        {% if random_movie.genres %}
+                            <p>{{ random_movie.genres.first }}</p>
+                        {% endif %}
+                        <p><i class="fa-solid fa-star"></i>{{ random_movie.avg_rating|floatformat:2 }}</p>
+                    </div>
                 </div>
             </div>
         </div>

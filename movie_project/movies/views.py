@@ -45,6 +45,8 @@ def index(request):
     
     just_added = movies.order_by('-id')[:20]
 
+    random_movie = random.choice(movies)
+
     return render(request, 'movies/index.html', {
         'movies': movies,
         'popular_movies': popular_movies,
@@ -52,7 +54,8 @@ def index(request):
         'popular_genres': popular_genres,
         'genre_dict': genre_dict,
         'top_rated_movies': top_rated_movies,
-        'just_added': just_added
+        'just_added': just_added,
+        "random_movie": random_movie
     })
 
 # def search(request):

@@ -1,4 +1,10 @@
+@import url('animations.css');
 
+:root {
+    font-family: "Electrolize", sans-serif;
+    background-color: rgb(20, 20, 20);
+    --award-yellow: rgb(217, 255, 0);
+}
 
 .featured-movie {
     width: 100%;
@@ -164,13 +170,13 @@ h3.marker::after {
     text-align: center;
 }
 
-.movies-and-tv h2 {
+.movies-and-tv h1 {
     display: inline-block;
     position: relative;
     margin-bottom: 20px;
 }
 
-.movies-and-tv h2::after {
+.movies-and-tv h1::after {
     position: absolute;
     content: '';
     width: 100%;
@@ -202,32 +208,82 @@ h3.marker::after {
     filter: brightness(1);
 }
 
-.movies-and-tv .overlay {
+.movies-and-tv .image:hover h3 {
+    opacity: 0;
+}
+
+.movies-and-tv .image:hover .overlay {
+    opacity: 1;
+}
+
+.movies-and-tv .circle-label {
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     z-index: 2;
+    pointer-events: none;
 }
 
-.movies-and-tv .image:hover .overlay h3 {
-    background-color: transparent;
-    border: solid 1px white;
-    color: white;
-}
-
-.movies-and-tv .overlay h3 {
+.movies-and-tv .circle-label h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     padding: 30px;
     border-radius: 50%;
     background-color: transparent;
     border: solid 1px white;
     color: white;
     transition: 0.3s;
+}
+
+.movies-and-tv .overlay {
+    position: absolute;
+    text-align: start;
+    bottom: 2%;
+    left: 2%;
+    opacity: 1;
+    transition: 0.3s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.movies-and-tv .overlay h2 {
+    width: 100%; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    margin-left: 4px; 
+    margin-bottom: 10px;
+    text-shadow: 0px 0px 10px rgb(20, 20, 20);
+}
+
+.movies-and-tv .overlay .details {
+    display: flex;
+    align-items: center;
+}
+
+.movies-and-tv .overlay .details p {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 2px rgb(20, 20, 20);
+    border-radius: 30px;
+    padding: 5px 15px;
+    font-weight: 700;
+    color: black;
+}
+
+.movies-and-tv .overlay .details p:nth-child(2) {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    background-color: var(--award-yellow);
+}
+
+.movies-and-tv .overlay .details i {
+    color: black;
+    margin-right: 6px;
 }
 
 .award-winning {
