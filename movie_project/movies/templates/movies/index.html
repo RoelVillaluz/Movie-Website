@@ -1,6 +1,7 @@
 {% extends 'movies/layout.html' %}
 
 {% block body %}
+    <!-- Hero Section -->
     <section class="hero">
         <div class="featured-movie">
             <img src="media/media/backdrop_VyAOcwH.jpg" alt="">
@@ -13,6 +14,8 @@
             </div>
         </div>
     </section>
+
+    <!-- Popular Movies Section -->
     <section class="movie-list">
         <h3 class="marker">Popular Movies</h3>
         <div class="swiper mySwiper">
@@ -24,9 +27,50 @@
                         <i class="fa-solid fa-eye"></i>
                     </a>
                 </div>
-              {% endfor %}
+                {% endfor %}
             </div>
         </div>
+    </section>
+
+    <!-- Movies and TV Section -->
+    <section class="movies-and-tv">
+        <h1 class="marker hidden">Movies and Tv</h1>
+        <div class="wrapper">
+            <div class="image hidden">
+                <a href="{% url 'movie-list' %}">
+                    <img src="{{ random_movie.backdrop_path.url }}" alt="">
+                </a>
+                <div class="circle-label">
+                    <h3>Movies</h3>
+                </div>
+                <div class="overlay">
+                    <h2>{{ random_movie.title }}</h2>
+                    <div class="details">
+                        {% if random_movie.genres %}
+                            <p>{{ random_movie.genres.first }}</p>
+                        {% endif %}
+                        <p><i class="fa-solid fa-star"></i>{{ random_movie.avg_rating|floatformat:2 }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="image hidden">
+                <img src="media/media/breaking bad.jpg" alt="">
+                <div class="circle-label">
+                    <h3>TV Series</h3>
+                </div>
+                <div class="overlay">
+                    <h2>Breaking Bad</h2>
+                    <div class="details">
+                        <p>Action</p>
+                        <p><i class="fa-solid fa-star"></i>9.5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Movies Section -->
+    <section class="movie-list">
         <h3 class="marker">New Movies</h3>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
@@ -37,9 +81,13 @@
                         <i class="fa-solid fa-eye"></i>
                     </a>
                 </div>
-              {% endfor %}
+                {% endfor %}
             </div>
         </div>
+    </section>
+
+    <!-- Just Added Section -->
+    <section class="movie-list">
         <h3 class="marker">Just Added</h3>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
@@ -54,6 +102,8 @@
             </div>            
         </div>
     </section>
+
+    <!-- Popular Genres Section -->
     <section class="popular-genres">
         <h3 class="marker hidden">Popular Genres</h3>
         <div class="genre-list">
@@ -63,48 +113,16 @@
                         <img src="{{ genre_info.1}}" alt="">
                     </a>
                     <div class="genre-overlay">
-                        <!-- genre name -->
                         <h3>{{ genre_info.0 }}</h3> 
                     </div>
                 </div>
             {% endfor %}
         </div>
     </section>
-    <section class="movies-and-tv">
-        <h1 class="marker">Discover</h1>
-        <div class="wrapper">
-            <div class="image">
-                <img src="media/media/breaking bad.jpg" alt="">
-                <div class="circle-label">
-                    <h3>TV Series</h3>
-                </div>
-                <div class="overlay">
-                    <h2>Breaking Bad</h2>
-                    <div class="details">
-                        <p>Action</p>
-                        <p><i class="fa-solid fa-star"></i>9.5</p>
-                    </div>
-                </div>
-            </div>
-            <div class="image">
-                <img src="{{ random_movie.backdrop_path.url }}" alt="">
-                <div class="circle-label">
-                    <h3>Movies</h3>
-                </div>
-                <div class="overlay">
-                    <h2>{{ random_movie.title }}</h2>
-                    <div class="details">
-                        {% if random_movie.genres %}
-                            <p>{{ random_movie.genres.first }}</p>
-                        {% endif %}
-                        <p><i class="fa-solid fa-star"></i>{{ random_movie.avg_rating|floatformat:2 }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+    <!-- Award-Winning Movies Section -->
     <section class="award-winning">
-        <h3 class="marker hidden" style="margin-left: 30px">Award Winning Movies</h3>
+        <h1 class="marker hidden" style="margin-left: 30px">Award Winning Movies</h1>
         <div class="wrapper">
             <div class="main-image">
                 <img src="media/movie_images/oppenheimer-look9.jpg" alt="">

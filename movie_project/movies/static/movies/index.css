@@ -74,6 +74,23 @@
     margin-top: 10px;
 }
 
+
+h1.marker {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+h1.marker::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    bottom: -4px;
+    left: 0;
+}
+
 h3.marker {
     position: relative;
     display: inline-block;
@@ -170,22 +187,6 @@ h3.marker::after {
     text-align: center;
 }
 
-.movies-and-tv h1 {
-    display: inline-block;
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.movies-and-tv h1::after {
-    position: absolute;
-    content: '';
-    width: 100%;
-    height: 2px;
-    background-color: white;
-    bottom: -4px;
-    left: 0;
-}
-
 .movies-and-tv .wrapper {
     height: 600px;
 }
@@ -194,6 +195,10 @@ h3.marker::after {
     position: relative;
     flex: 1;
     height: 100%;
+}
+
+.movies-and-tv .image.show {
+    animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 .movies-and-tv .image img {
@@ -289,6 +294,7 @@ h3.marker::after {
 .award-winning {
     width: 100%;
     height: 1000px;
+    text-align: center;
 }
 
 .award-winning .main-image {
