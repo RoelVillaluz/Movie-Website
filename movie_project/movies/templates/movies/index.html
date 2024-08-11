@@ -13,7 +13,7 @@
             </div>
         </div>
     </section>
-    <div class="movie-list">
+    <section class="movie-list">
         <h3 class="marker">Popular Movies</h3>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
@@ -53,8 +53,8 @@
                 {% endfor %}
             </div>            
         </div>
-    </div>
-    <div class="popular-genres">
+    </section>
+    <section class="popular-genres">
         <h3 class="marker hidden">Popular Genres</h3>
         <div class="genre-list">
             {% for genre, genre_info in genre_dict.items %}
@@ -69,31 +69,36 @@
                 </div>
             {% endfor %}
         </div>
-    </div>
-    <div class="top-rated">
-        <div class="top-rated-wrapper">
-            <h3 class="marker hidden">Top Rated Movies</h3>
-            {% for movie in top_rated_movies %}
-                <div class="top-rated-card hidden">
-                    <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
-                    <div class="details">
-                        <h3>{{ movie.title }}</h3>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i>
-                            <p>{{ movie.avg_rating|floatformat:2 }} | {{ movie.reviews.count }} Reviews</p>
-                        </div>
+    </section>
+    <section class="movies-and-tv">
+        <h2 class="marker">Discover</h2>
+        <div class="wrapper">
+            <div class="image">
+                <img src="media/media/breaking bad.jpg" alt="">
+                <div class="overlay">
+                    <h3>TV Series</h3>
+                </div>
+            </div>
+            <div class="image">
+                <img src="media/media/backdrop_pdmaK8R.jpg" alt="">
+                <div class="overlay">
+                    <h3>Movies</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="award-winning">
+        <h3 class="marker hidden" style="margin-left: 30px">Award Winning Movies</h3>
+        <div class="wrapper">
+            <div class="main-image">
+                <img src="media/movie_images/oppenheimer-look9.jpg" alt="">
+                <div class="overlay">
+                    <h1>Award Winning Movies</h1>
+                    <p>Discover top films celebrated globally for their excellence</p>
+                    <div class="link">
+                        <a href="">View Movies</a>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-        <!-- add another wrapper for top series later -->
-        </div>
-    </div>
-    <section class="award-winning" style="padding: 30px;">
-        <h3 class="marker hidden">Award Winners</h3>
-        <div class="wrapper">
-            <div class="oscar-image">
-                <img src="media/media/oscars-logo.jpg" alt="">
             </div>
         </div>
     </section>

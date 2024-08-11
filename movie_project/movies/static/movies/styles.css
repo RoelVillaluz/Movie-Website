@@ -371,6 +371,7 @@ nav a {
 
 .movie-overview .description {
     margin-right: 5%;
+    max-width: 60%;
 }
 
 .movie-overview .description h1 {
@@ -476,14 +477,14 @@ nav a {
     height: 100%; 
     width: 100%; 
     object-fit: cover; 
-    filter: grayscale(40%) brightness(0.6) contrast(1.02);
+    filter: grayscale(0.2) brightness(0.7) contrast(1.02);
     cursor: pointer;
     transition: 0.3s;
     transform-origin: bottom;
 }
 
 .cast-actor:hover img {
-    filter: grayscale(0%) brightness(1) contrast(1.02);
+    filter: grayscale(0) brightness(1) contrast(1.02);
     height: 100%;
 }
 
