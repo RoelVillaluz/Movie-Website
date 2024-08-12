@@ -1,3 +1,4 @@
+from collections import defaultdict
 import random
 import string
 from django.conf import settings
@@ -6,8 +7,50 @@ import os
 from decouple import config
 from moviepy.editor import VideoFileClip
 from django.core.files import File
-from movies.models import Movie, Review, User
+from movies.models import Actor, Movie, Review, User
 from PIL import Image
+from django.db.models import Avg, Count
+
+def get_popular_actors_and_movies():
+    """Get popular actors and their most popular movie."""
+    popular_actors_and_movie = defaultdict(list)
+    popular_actors = Actor.ranked_actors()[:5]
+
+    for actor in popular_actors:
+        most_popular_movie_of_actor = (
+            actor.movies.annotate(avg_rating=Avg('reviews__rating'))
+            .order_by('-avg_rating')
+            .values_list('title', flat=True)
+            .first()
+        )
+        if most_popular_movie_of_actor:
+            popular_actors_and_movie[actor].append(most_popular_movie_of_actor)
+    
+    return dict(popular_actors_and_movie)
+
+def get_genre_dict(popular_genres):
+    """Get a dictionary of popular genres and a random movie for each genre."""
+    genre_dict = {}
+    genre_set = set()
+
+    for genre in popular_genres:
+        movies_in_genre = genre.movies.exclude(pk__in=genre_set)
+        if movies_in_genre.exists():
+            random_movie = random.choice(movies_in_genre)
+            genre_dict[genre.name] = [
+                genre.name, random_movie.backdrop_path.url, genre.pk, random_movie.title
+            ]
+            genre_set.add(random_movie.pk)
+
+    return genre_dict
+
+def get_top_rated_movies(num_of_movies):
+    top_rated_movies = Movie.objects.annotate(
+        avg_rating=Avg('reviews__rating'),
+        review_count=Count('reviews')
+    ).order_by('-avg_rating', '-review_count').exclude(review_count__lt=3)[:num_of_movies]
+
+    return top_rated_movies
 
 
 # def fetch_tmdb_movies(endpoint, params):

@@ -199,10 +199,22 @@
                 <i class="fa-solid fa-angle-right"></i>
             </div>
         </div>
-        <ul>
-            {% for actor in popular_actors %}
-                <h3>{{ actor }}</h3>
+        <ol class="popular-actors-list">
+            {% for actor, movie in popular_actors_and_movie.items %}
+                <div class="item hidden">
+                    <div class="image">
+                        <a href="{% url 'actor-detail' actor.pk %}">
+                            <img src="{{ actor.image.url }}" alt="{{ actor }}">
+                        </a>
+                    </div>
+                    <h3>{{ actor }}</h3>
+                    <span>{{ movie.0 }}</span>
+                </div>
             {% endfor %}
-        </ul>
+        </ol>
     </section>
+    <h1 style="margin-top: 200px">Top Rated Movies</h1>
+    {% for movie in top_rated_movies %}
+        <h3>{{ movie }}</h3>
+    {% endfor %}
 {% endblock %}
