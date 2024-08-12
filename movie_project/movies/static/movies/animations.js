@@ -156,6 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const popularActorImages = document.querySelectorAll('.popular-actors-list .item')
     applyAnimationDelay(popularActorImages, 0.15)
+
+    const cards = document.querySelectorAll('.card')
+    applyAnimationDelay(cards, 0.15)
 });
 
 function applyAnimationDelay(elements, delay) {

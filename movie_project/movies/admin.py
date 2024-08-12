@@ -35,8 +35,8 @@ class ActorInline(admin.TabularInline):
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ('title', 'display_genres')
-    search_fields = ('title', 'genres__name')
+    list_display = ('title', 'display_genres', 'display_actors')
+    search_fields = ('title', 'genres__name', 'actors__name')
     list_filter = ('genres', ReleaseYearListFilter)
     inlines = [ActorInline]
 
@@ -45,6 +45,11 @@ class MovieAdmin(admin.ModelAdmin):
         genres = obj.genres.all()[:3]
         return ', '.join([genre.name for genre in genres]) + ('...' if len(genres) > 3 else ' ')
     display_genres.short_description = 'Genres'
+
+    def display_actors(self, obj):
+        actors = obj.actors.all()[:3]
+        return ', '.join([actor.name for actor in actors]) + ('...' if len(actors) > 3 else ' ')
+    display_actors.short_description = 'Actors'
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == 'genres':

@@ -14,7 +14,9 @@ from django.db.models import Avg, Count
 def get_popular_actors_and_movies():
     """Get popular actors and their most popular movie."""
     popular_actors_and_movie = defaultdict(list)
-    popular_actors = Actor.ranked_actors()[:5]
+    popular_actors = Actor.objects.annotate(
+        movie_review_count=Count('movies__reviews')
+        ).order_by('-movie_review_count')[:5]
 
     for actor in popular_actors:
         most_popular_movie_of_actor = (

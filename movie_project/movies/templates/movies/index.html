@@ -215,8 +215,31 @@
             {% endfor %}
         </ol>
     </section>
-    <h1 style="margin-top: 200px">Top Rated Movies</h1>
-    {% for movie in top_rated_movies %}
-        <h3>{{ movie }}</h3>
-    {% endfor %}
+    <section class="top-rated-movies">
+        <div class="section-title">
+            <h3 class="marker">Top Rated Movies</h3>
+            <div class="section-link">
+                <a href="">View All</a>
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+        </div>
+        <div class="wrapper">
+            <ol>
+                {% for movie in top_rated_movies %}
+                    <li>
+                        <div class="card">
+                            <div class="image">
+                                <a href="{% url 'movie-detail' movie.pk %}">
+                                    <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
+                                </a>
+                            </div>
+                            <div class="details">
+                                <h3>{{ movie.title }}</h3>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </section>
 {% endblock %}
