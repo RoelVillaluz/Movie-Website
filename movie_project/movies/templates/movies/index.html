@@ -235,6 +235,10 @@
                             </div>
                             <div class="details">
                                 <h3>{{ movie.title }}</h3>
+                                <div class="tags">
+                                    <div class="genre-tag">{{ movie.genres.first }}</div>
+                                    <div class="rating-tag"><i class="fa-solid fa-star"></i>{{ movie.avg_rating|floatformat:2 }}</div>
+                                </div>
                             </div>
                         </div>
                     </li>

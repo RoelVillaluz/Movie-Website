@@ -470,13 +470,15 @@ and only apply hover filter effect once all animations have stopped
 
 .top-rated-movies ol {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
     list-style: none;
     gap: 15px;
     margin-top: 20px;
     counter-reset: custom-counter; 
     transition: 0.3s;
     pointer-events: none;
+    width: 100%;
 
 }
 
@@ -493,7 +495,8 @@ and only apply hover filter effect once all animations have stopped
 }
 
 .top-rated-movies li {
-    flex: 1;
+    flex: 1 1 calc(20% - 15px); 
+    max-width: calc(20% - 15px); 
     position: relative;
     box-sizing: border-box;
 }
@@ -519,12 +522,12 @@ and only apply hover filter effect once all animations have stopped
 }
 
 .card {
-    height: 500px;
     position: relative;
 }
 
 .top-rated-movies .image {
-    height: 400px;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
 }
 
 .top-rated-movies .image img {
@@ -537,4 +540,36 @@ and only apply hover filter effect once all animations have stopped
 
 .top-rated-movies .card .details {
     margin-top: 10px;
+}
+
+.tags {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    
+}
+
+.tags > * {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 5px 15px;
+    border-radius: 30px;
+    color: black;
+}
+
+.genre-tag {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.rating-tag {
+    display: flex;
+    align-items: center;
+    background-color: var(--award-yellow);
+    gap: 5px;
+}
+
+.rating-tag i {
+    color: black;
 }
