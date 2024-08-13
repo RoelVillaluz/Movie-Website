@@ -199,7 +199,7 @@
                 <i class="fa-solid fa-angle-right"></i>
             </div>
         </div>
-        <ol class="popular-actors-list">
+        <ul class="popular-actors-list">
             {% for actor, movie in popular_actors_and_movie.items %}
                 <div class="item hidden">
                     <div class="image">
@@ -213,7 +213,7 @@
                     </div>
                 </div>
             {% endfor %}
-        </ol>
+        </ul>
     </section>
     <section class="top-rated-movies">
         <div class="section-title">
@@ -239,6 +239,9 @@
                                     <div class="genre-tag">{{ movie.genres.first }}</div>
                                     <div class="rating-tag"><i class="fa-solid fa-star"></i>{{ movie.avg_rating|floatformat:2 }}</div>
                                 </div>
+                            </div>
+                            <div class="watchlist-btn">
+                                <i class="fa-solid fa-bookmark"></i>
                             </div>
                         </div>
                     </li>
