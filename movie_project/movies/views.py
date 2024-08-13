@@ -32,7 +32,7 @@ def index(request):
     genre_dict = get_genre_dict(popular_genres)
     top_rated_movies = get_top_rated_movies(5)
 
-    just_added = movies.order_by('-id')[:20]
+    just_added = movies.order_by('-id').exclude(release_date__gt=today)[:20]
     random_movie = random.choice(movies)
 
     context = {

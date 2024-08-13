@@ -26,7 +26,7 @@ class User(AbstractUser):
     
 class Movie(models.Model):
     title = models.CharField(max_length=255)
-    overview = models.TextField()
+    overview = models.TextField(default="No overview yet")
     poster_path = models.ImageField(upload_to="media")
     backdrop_path = models.ImageField(upload_to="media")
     release_date = models.DateField()
