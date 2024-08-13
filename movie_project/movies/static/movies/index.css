@@ -429,6 +429,7 @@ and only apply hover filter effect once all animations have stopped
     margin-top: 20px;
     gap: 20px;
     pointer-events: none;
+    width: 100%;
 }
 
 .popular-actors-list:hover .item:not(:hover) img {
@@ -441,6 +442,7 @@ and only apply hover filter effect once all animations have stopped
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    flex: 1;
 }
 
 .popular-actors-list .item.show {
@@ -448,7 +450,6 @@ and only apply hover filter effect once all animations have stopped
 }
 
 .popular-actors-list .image {
-    width: 200px;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     overflow: hidden;
