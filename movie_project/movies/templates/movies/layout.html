@@ -16,7 +16,11 @@
         <a href = "{% url 'index' %}" class="logo">MovieVerse</a>
         <div class="buttons">
             <ul>
-                <li><a href="">Sign In</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Sign out</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Sign In</a></li>
+                {% endif %}
                 <li class="menu-bars"></li>
             </ul>
         </div>

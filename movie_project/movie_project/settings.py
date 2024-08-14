@@ -83,6 +83,8 @@ TEMPLATES = [
     },
 ]
 
+LOGIN_URL = '/login/'
+
 WSGI_APPLICATION = 'movie_project.wsgi.application'
 
 
