@@ -1,0 +1,632 @@
+@import url('animations.css');
+
+:root {
+    font-family: "Electrolize", sans-serif;
+    background-color: rgb(20, 20, 20);
+    --award-yellow: rgb(217, 255, 0);
+}
+
+.featured-movie {
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    overflow: hidden; 
+    font-family: "Bebas Neue", sans-serif;
+}
+
+.featured-movie img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.71) contrast(0.94);
+    transform-origin: center;
+}
+
+.featured-movie img.animate {
+    animation: zoomAndFade 8s linear;
+}
+
+.featured-movie::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    background-image: linear-gradient(to top, rgb(20, 20, 20, 1) 0%, rgb(20, 20, 20, 0) 100%);
+}
+
+.featured-movie .text {
+    position: absolute;
+    bottom: 5%; 
+    left: 5%; 
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1;
+    text-shadow: 0px 2px 4px rgb(22, 22, 22, .9);
+}
+
+.featured-movie .text h1 {
+    font-size: 6rem;
+}
+
+.featured-movie .text h3 {
+    font-size: 4rem;
+}
+
+.animate-img {
+    animation: zoomAndFade 8s linear;
+}
+
+.animate-title {
+    animation: slideRightAndFadeOut 8s ease-in-out forwards; 
+}
+
+.animate-subtitle {
+    animation: slideUpAndFadeOut 8s ease forwards; 
+}
+
+.featured-buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-link {
+    position: relative;
+}
+
+.section-link::after {
+    position: absolute;
+    display: inline-block;
+    content: '';
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: white;
+    transition: 0.15s;
+    transform-origin: left;
+}
+
+.section-link:hover::after {
+    width: 100%;
+}
+
+.section-link:hover > * {
+    color: white;
+}
+
+.section-link a {
+    font-family: "News Cycle", sans-serif;
+    text-decoration: none;
+    font-weight: 700;
+    color: rgb(196, 196, 196);
+
+}
+
+.section-link i {
+    margin-left: 5px;
+    color: rgb(196, 196, 196);
+}
+
+.centered-section-title {
+    margin-bottom: 10px;
+}
+
+.centered-section-title p {
+    font-family: "News Cycle", sans-serif;
+    color: rgb(196, 196, 196);
+    font-weight: 700;
+}
+
+h1.marker {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+h1.marker::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    bottom: -10px;
+    left: 0;
+}
+
+h3.marker {
+    position: relative;
+    display: inline-block;
+    margin: 10px 0px;
+    margin-left: 8px;
+    padding-left: 4px;
+}
+
+h3.marker::after {
+    position: absolute;
+    content: '';
+    width: 4px;
+    height: 100%;
+    background-color: white;
+    top: 0;
+    left: -8%;
+}
+
+.movie-link {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    background-color: rgb(20, 20, 20);
+    display: inline-block; 
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    transform-origin: left;
+    transition: 0.3s;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.movie-link:hover {
+    background-color: white;
+    color: black;
+}
+
+.movie-list {
+    padding: 20px;
+}
+
+.popular-genres {
+    padding: 20px;
+}
+
+.popular-genres h2 {
+    margin-bottom: 20px;
+}
+
+.genre-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.genre-card {
+    flex: 1;
+    margin: 5px;
+    height: 500px;
+    position: relative;
+    transform-origin: bottom;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.genre-card.show {
+    animation: slideAndGrow 0.6s forwards;
+}
+
+.genre-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.8) contrast(1);
+    transition: 0.3s;
+}
+
+.genre-card:hover {
+    flex: 3;
+}
+
+.genre-card:hover img {
+    filter: brightness(1) contrast(1.1) saturate(1.3);
+}
+
+/* Lower opacity to all other genre-cards when one is hovered 
+and only apply hover filter effect once all animations have stopped
+*/
+.genre-list:hover .genre-card.animation-complete:not(:hover) img {
+    opacity: 0.3;
+}
+
+.genre-list:hover .genre-card.animation-complete:not(:hover) .genre-overlay h3 {
+    opacity: 0;
+}
+
+.genre-card:hover .genre-overlay h3 {
+    color: rgba(255, 255, 255, 1);
+}
+
+.movies-and-tv {
+    width: 100%;
+    margin: 60px 0px;
+    text-align: center;
+}
+
+.movies-and-tv .image {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    height: 600px;
+}
+
+.movies-and-tv .image.show {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.movies-and-tv .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+    transition: 0.3s;
+}
+
+.movies-and-tv .image img:hover {
+    filter: brightness(1);
+}
+
+.movies-and-tv .image:hover h3 {
+    opacity: 0;
+}
+
+.movies-and-tv .image:hover .overlay {
+    opacity: 1;
+}
+
+.movies-and-tv .circle-label {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.movies-and-tv .circle-label h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 150px;
+    padding: 30px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: solid 1px white;
+    color: white;
+    transition: 0.3s;
+}
+
+.movies-and-tv .overlay {
+    position: absolute;
+    text-align: start;
+    bottom: 2%;
+    left: 2%;
+    opacity: 1;
+    transition: 0.3s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.movies-and-tv .overlay h2 {
+    width: 100%; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    margin-left: 4px; 
+    margin-bottom: 10px;
+    text-shadow: 0px 0px 10px rgb(20, 20, 20);
+}
+
+.movies-and-tv .overlay .details {
+    display: flex;
+    align-items: center;
+}
+
+.movies-and-tv .overlay .details p {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 2px rgb(20, 20, 20);
+    border-radius: 30px;
+    padding: 5px 15px;
+    font-weight: 700;
+    color: black;
+}
+
+.movies-and-tv .overlay .details p:nth-child(2) {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    background-color: var(--award-yellow);
+}
+
+.movies-and-tv .overlay .details i {
+    color: black;
+    margin-right: 6px;
+}
+
+.award-winning {
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.award-winning .main-image {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    font-family: "News Cycle", sans-serif;
+}
+
+.award-winning .main-image.show {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.award-winning .main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    filter: brightness(0.8);
+    transition: 0.3s;
+}
+
+.award-winning .main-image:hover img {
+    filter: brightness(0.4);
+}
+
+.award-winning .overlay {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    text-align: center;
+}
+
+.award-winning .overlay h1 {
+    font-size: 4rem;
+}
+
+.award-winning .overlay p {
+    font-size: 1.2rem;
+}
+
+.award-winning .link {
+    margin-top: 30px;
+}
+
+.award-winning .link a {
+    text-decoration: none;
+    padding: 10px 30px;
+    border: solid 1px rgb(201, 201, 201);
+    transition: 0.3s;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.award-winning .link a:hover {
+    background-color: white;
+    color: black;
+}
+
+.popular-actors {
+    padding: 30px;
+}
+
+.popular-actors-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    gap: 20px;
+    pointer-events: none;
+    width: 100%;
+}
+
+.popular-actors-list:hover .item:not(:hover) img {
+    opacity: 0.3;
+}
+
+.popular-actors-list:hover .item:not(:hover) .details {
+    opacity: 0;
+}
+
+.popular-actors-list .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    flex: 1;
+    height: 300px;
+}
+
+.popular-actors-list .item.show {
+    animation: fadeIn ease-in-out 1s forwards;
+}
+
+.popular-actors-list .image {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.popular-actors-list .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.3s;
+    pointer-events: auto;
+}
+
+.popular-actors-list .details {
+    flex-grow: 1;
+    transition: 0.3s;
+}
+
+.popular-actors-list .details h3 {
+    margin-bottom: 5px;
+}
+
+.popular-actors-list .details span {
+    color: rgb(161, 161, 161);
+}
+
+.top-rated-movies {
+    padding: 30px;
+}
+
+.top-rated-movies ol {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 15px;
+    margin-top: 20px;
+    counter-reset: custom-counter; 
+    transition: 0.3s;
+    pointer-events: none;
+    width: 100%;
+
+}
+
+.top-rated-movies ol:hover li:not(:hover) img {
+    opacity: 0.3;
+}
+
+.top-rated-movies ol:hover li:not(:hover) .details, 
+.top-rated-movies ol:hover li:not(:hover)::before,
+.top-rated-movies ol:hover li:not(:hover) .watchlist-btn
+{
+    opacity: 0;
+}
+
+
+.top-rated-movies li {
+    flex: 1 1 calc(20% - 15px); 
+    max-width: calc(20% - 15px); 
+    position: relative;
+    box-sizing: border-box;
+}
+
+.top-rated-movies li::before {
+    content: counter(custom-counter) ". ";
+    counter-increment: custom-counter; /* Increment counter */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+    background-color: white;
+    color: rgb(20, 20, 20);
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    z-index: 2;
+    transition: 0.3s;
+}
+
+.card {
+    position: relative;
+}
+
+.card .image {
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+}
+
+.card .image a {
+    pointer-events: none;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.3s;
+    pointer-events: auto;
+}
+
+.card .details {
+    margin-top: 10px;
+}
+
+.tags {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    
+}
+
+.tags > * {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 5px 15px;
+    border-radius: 30px;
+    color: black;
+}
+
+.genre-tag {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.rating-tag {
+    display: flex;
+    align-items: center;
+    background-color: var(--award-yellow);
+    gap: 5px;
+}
+
+.rating-tag i {
+    color: black;
+}
+
+.watchlist-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 2.5rem;
+    opacity: 0.5;
+    z-index: 2;
+    transition: opacity 0.3s;
+    pointer-events: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.watchlist-btn::before {
+    position: absolute;
+    content: '+';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    font-size: 1.5rem;
+    color: black;
+    opacity: 0.5;
+    transition: 0.3s;
+}
+
+.watchlist-btn:hover,
+.watchlist-btn:hover::before
+{
+    opacity: 1;
+}

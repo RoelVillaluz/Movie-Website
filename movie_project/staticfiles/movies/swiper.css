@@ -1,0 +1,62 @@
+.swiper {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.swiper-wrapper {
+    display: flex; 
+}
+
+.index-swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    width: 150px;
+    position: relative;
+    overflow: hidden;
+}
+
+.index-swiper-slide img { 
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.index-swiper-slide i { 
+    position: absolute;
+    font-size: 24px;
+    color: rgb(212, 212, 212);
+    display: none;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+}
+
+.index-swiper-slide:hover img { 
+    opacity: 0.5; 
+}
+
+.index-swiper-slide:hover i { 
+    display: block; 
+}
+
+.gallery-slide .image.show {
+    animation: fadeIn ease-in-out 1s forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

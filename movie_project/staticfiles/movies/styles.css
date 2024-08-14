@@ -1,0 +1,1504 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=News+Cycle:wght@400;700&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+@import url('animations.css');
+
+
+:root {
+    font-family: "Electrolize", sans-serif;
+    background-color: rgb(20, 20, 20);
+    --award-yellow: rgb(217, 255, 0);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: white;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background-color: var(--primary-color);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: white; 
+    height: 200px;
+    border-radius: 5px;
+}
+
+nav {
+    font-family: "Bebas Neue", sans-serif;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px;
+    width: 100%;
+    z-index: 998;
+    text-shadow: 0px 2px 2px rgba(20, 20, 20, .7);
+}
+
+nav .logo {
+    font-weight: 700;
+    font-size: 28px;
+}
+
+
+nav .buttons ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+}
+
+nav li {
+    margin: 0px 10px;
+    font-size: 18px;
+}
+
+nav li a {
+    position: relative;
+}
+
+nav li a::before {
+    position: absolute;
+    content: '';
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: white;
+    transition: 0.05s;
+}
+
+nav li a:hover::before {
+    width: 100%;
+}
+
+.menu-bars {
+    position: relative;
+    display: none;
+    height: 40px;
+    border: solid 2px rgb(255, 255, 255);
+    aspect-ratio: 3/2.5;
+    cursor: pointer;
+    clip-path: polygon(15% 0, 70% 0%, 100% 0, 100% 85%, 85% 100%, 0 100%, 0% 70%, 0 15%);
+    z-index: 1001; 
+}
+
+.menu-bars::before, .menu-bars::after {
+    position: absolute;
+    content: '';
+    width: 80%;
+    height: 3px;
+    background-color: rgb(255, 255, 255); 
+}
+
+.menu-bars::before {
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.menu-bars::after {
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+nav a {
+    text-decoration: none;
+}
+
+.sidebar {
+    font-family: "Bebas Neue", sans-serif;
+    width: 0;
+    height: 100%;
+    background-color: #f4f4f4;
+    position: fixed;
+    top: 0;
+    right: 0;
+    transition: width 0.3s;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden; 
+}
+
+.sidebar.extended {
+    width: 25%;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    font-size: 4rem;
+    opacity: 0;
+    transition: opacity 0.3s; 
+}
+
+.sidebar.extended ul {
+    opacity: 1;
+}
+
+.sidebar ul li {
+    position: relative;
+    cursor: pointer;
+    transform-origin: left;
+    transition: transform 0.3s;
+    margin: 2rem 0px;
+}
+
+.sidebar ul li a {
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+
+}
+
+.sidebar ul li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 4px;
+    background-color: black;
+    bottom: -4px;
+    left: 0;
+    transition: width 0.3s;
+}
+
+.sidebar ul li:hover::after {
+    width: 100%;
+}
+
+.main-content {
+    transition: 0.3s;
+}
+
+.blurred {
+    filter: blur(1px) brightness(0.26);
+}
+
+.wrapper {
+    display: flex;
+}
+
+.movie {
+    font-family: "Bebas Neue", sans-serif;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.no-scroll {
+    overflow: hidden !important;
+}
+
+.movie-backdrop {
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+    filter: brightness(0.71) contrast(1.06) saturate(1.11);
+    animation: extendSides 1s forwards;
+}
+
+.movie::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background-image: linear-gradient(to top, rgb(20, 20, 20, 1) 0%, rgb(20, 20, 20, 0) 100%);
+}
+
+.movie-header {
+    position: absolute;
+    z-index: 2;
+    bottom: 2%;
+    left: 2%;
+}
+
+.movie-title {
+    font-size: 6rem;
+    line-height: 6rem;
+    max-width: 70%;
+    opacity: 0;
+}
+
+.movie-title.animate {
+    animation: slideRight 1s forwards;
+}
+
+.movie-genre-list {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.movie-genre {
+    padding: 4px 30px;
+    text-decoration: none;
+    border: solid 2px white;
+    border-radius: 30px;
+    font-size: 1.35rem;
+    opacity: 0; 
+    transition: 0.3s;
+}
+
+.movie-genre:hover {
+    background-color: rgb(231, 216, 8);
+    border: solid 2px rgb(231, 216, 8);
+    color: black;
+}
+
+.movie-genre.animate {
+    animation: slideRight 1s forwards;
+}
+
+.sub-info {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.sub-info p {
+    opacity: 0;
+    animation: slideRight 0.7s ease-in-out forwards;
+    animation-delay: 3s;
+}
+
+.movie-date {
+    padding-right: 20px;
+    border-right: solid 4px white;
+}
+
+.movie-runtime {
+    margin-left: 20px;
+}
+
+.movie-buttons {
+    position: absolute;
+    top: 30%;
+    right: 10%;
+    z-index: 3;
+}
+
+.movie-poster {
+    position: absolute;
+    z-index: 3;
+    width: 200px;
+    height: 300px;
+    transform: translate(-50%,-50%);
+    bottom: -20%;
+    right: 0%;
+    clip-path: polygon(15% 0, 70% 0%, 100% 0, 100% 85%, 85% 100%, 0 100%, 0% 70%, 0 15%);
+    box-shadow: 0px 0px 4px rgba(20, 20, 20, .1);
+    opacity: 0;
+    animation: slideUp 1s ease-in-out forwards;
+    animation-delay: 1.5s;
+}
+
+.movie-poster img {
+    height: inherit;
+    width: inherit;
+    object-fit: contain;
+}
+
+.movie-details {
+    font-family: "News Cycle", sans-serif;
+    height: 100vh;
+    width: 100%;
+    padding: 8rem 4rem;
+    margin-top: 4rem;
+}
+
+.movie-overview {
+    display: flex;
+    margin-bottom: 8rem;
+    font-size: 1.25rem;
+}
+
+.movie-overview .images {
+    flex: 1;
+    display: flex;
+    gap: 5%;
+}
+
+.movie-overview .images img {
+    object-fit: cover;
+    position: relative;
+    filter: saturate(1) brightness(0.8) contrast(1.1); 
+    transition: 0.3s;
+}
+
+.movie-overview .images img:hover {
+    filter: saturate(1.2) brightness(1) contrast(1.1);
+}
+
+.movie-overview .images img.show {
+    animation: slideDown 0.3s ease-in-out forwards;
+}
+
+.movie-overview .images img:nth-child(1) {
+    width: 250px; 
+    height: 300px;
+    animation-delay: 0.9s;
+}
+
+.movie-overview .images img:nth-child(2) {
+    width: 350px; 
+    height: 500px;
+    animation-delay: 1.1s;
+}
+
+.movie-overview .description {
+    margin-right: 5%;
+    max-width: 60%;
+}
+
+.movie-overview .description h1 {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+
+.movie-overview .description p {
+    font-size: 1.3rem;
+}
+
+.add-watchlist-btn {
+    display: flex;
+    align-items: center;
+    font-family: "News Cycle", sans-serif;
+    margin-top: 3rem;
+}
+
+.add-watchlist-btn span {
+    font-weight: 200;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgb(206, 206, 206);
+    transition: 0.3s;
+}
+
+.add-watchlist-btn span:hover {
+    color: white;
+}
+
+.add-watchlist-btn i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2%;
+    width: 60px;
+    height: 60px;
+    padding: 30px;
+    font-weight: 200;
+    border-radius: 50%;
+    border: solid 1px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-watchlist-btn i:hover {
+    background-color: white;
+    color: black;
+}
+
+.movie-rating {
+    display: flex;
+    align-items: center;
+    letter-spacing: 2px;
+}
+
+.movie-rating h3 {
+    font-size: 6rem;
+    margin-right: 40px;
+}
+
+.movie-rating span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12rem;
+    height: 12rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    color: black;
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+
+.cast {
+    margin-top: 20%;
+}
+
+.cast h1 {
+    font-size: 2rem;
+    margin: 0px 10px;
+}
+
+.cast-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.cast-actor {
+    width: 200px;
+    height: 400px;
+    list-style-type: none;
+    margin: 30px 10px;
+}
+
+.cast-actor.show {
+    animation: slideRight 0.4s ease-in-out forwards;
+}
+
+.cast-actor img {
+    height: 100%; 
+    width: 100%; 
+    object-fit: cover; 
+    filter: grayscale(0.2) brightness(0.7) contrast(1.02);
+    cursor: pointer;
+    transition: 0.3s;
+    transform-origin: bottom;
+}
+
+.cast-actor:hover img {
+    filter: grayscale(0) brightness(1) contrast(1.02);
+    height: 100%;
+}
+
+.cast-actor-name {
+    font-size: 1.1rem;
+}
+
+.movie-director {
+    margin: 10rem 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.movie-director.show {
+    animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+.movie-director .image {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    width: 100%; 
+}
+
+.movie-director .image .line {
+    flex: 1;
+    height: 2px;
+    background-color: white; 
+    opacity: 0.3;
+    margin: 0 15px;
+}
+
+.movie-director .image .line.show {
+    animation: fadeUp 0.5s ease-in-out forwards;
+    animation-delay: 1s;
+}
+
+.movie-director .image img {
+    width: 90px;
+    height: 90px; 
+    border-radius: 50%;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.movie-director .image img:hover {
+    filter: brightness(0.6);
+}
+
+.movie-director-name {
+    font-weight: 200;
+    margin-bottom: 20px;
+}
+
+.movie-director-movies {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.movie-director-movies .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.movie-director-movies .card {
+    flex: 1;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.movie-director-movies .card-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    bottom: -100%;
+    left: 0;
+    z-index: 3;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: 0.3s;
+}
+
+.movie-director-movies .card:hover .card-overlay {
+    bottom: 0;
+}
+
+.movie-director-movies .card:hover img {
+    filter: blur(2px);
+}
+
+.movie-director-movies .card.show {
+    animation: fadeUp 0.3s ease-in-out forwards;
+}
+
+.movie-director-movies .card-overlay h3 {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.movie-director-movies .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.card-overlay button {
+    font-family: "News Cycle", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: 6px 12px;
+    margin-top: 20px;
+    border-radius: 2px;
+    backdrop-filter: blur(5px);
+    border: solid 1px white;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.card-overlay button:hover {
+    background-color: white;
+    color: black;
+}
+
+.movie-director .link {
+    position: relative;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 5%;
+}
+
+.movie-director .link a {
+    text-decoration: none;
+    margin-right: 4px;
+}
+
+.movie-director .link::before {
+    position: absolute;
+    content: '';
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: white;
+    transition: 0.15s;
+    transform-origin: left;
+}
+
+.movie-director .link:hover::before {
+    width: 100%;
+}
+
+.reviews {
+    margin-top: 60px;
+}
+
+.reviews h1 {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.reviews .wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-top: 6rem;
+}
+
+.top-review {
+    flex: 1 1 auto;
+    max-width: 50%;
+    min-height: 400px;
+    padding: 60px;
+    background-color: rgba(75, 75, 75, 0.1);
+    transition: 0.3s;
+}
+
+.top-review:hover {
+    background-color: rgba(75, 75, 75, 0.3);
+}
+
+.top-review h3 {
+    font-family: "Lora", serif;
+    font-size: 2.25rem;
+    font-weight: 500;
+}
+
+.top-review p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+.top-review .user {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.top-review .user .line {
+    width: 100%;
+    margin-right: 10px;
+    height: 2px;
+    background-color: white;
+}
+
+.top-review .user span {
+    font-family: "Lora", serif;
+    font-size: 1.5rem;
+}
+
+.awards {
+    margin-top: 100px;
+}
+
+.awards h1 {
+    font-size: 3rem;
+}
+
+.awards ul {
+    margin-top: 40px;
+    list-style-type: none;
+}
+
+.award-name {
+    margin-top: 50px;
+}
+
+.award-name h2 {
+    position: relative;
+    font-size: 2rem;
+    padding-left: 15px;
+}
+
+.award-name h2::before {
+    position: absolute;
+    content: '';
+    top: 55%;
+    left: 0;
+    transform: translate(0%, -50%);
+    height: 60%;
+    width: 4px;
+    background-color: var(--award-yellow);
+}
+
+.award-name span {
+    margin-left: 15px;
+}
+
+.award-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap into multiple rows */
+    gap: 20px; /* Adjust spacing between items */
+}
+
+.award-item {
+    flex: 1 1 calc(50% - 20px); /* Two columns with spacing taken into account */
+    box-sizing: border-box; /* Ensure padding and borders are included in the width */
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.award-item i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(20, 20, 20);
+    width: 40px;
+    height: 40px;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.award-item i.winner {
+    background-color: var(--award-yellow);
+}
+
+.award-item i.nominee {
+    background-color: rgb(206, 189, 189);
+}
+
+.award-item h3 {
+    font-size: 1.35rem;
+}
+
+.award-item span {
+    color: rgb(187, 187, 187);
+    margin-left: 8px;
+}
+
+.gallery {
+    margin: 100px 0px;
+}
+
+.gallery .wrapper {
+    flex-wrap: wrap;
+}
+
+.gallery .swiper-wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+.gallery .image {
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+    position: relative; 
+    margin: 5px;
+}
+
+.gallery .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+    transform-origin: center center; 
+}
+
+.gallery .image img:hover {
+    transform: scale(1.1);
+}
+
+.gallery h1 {
+    font-size: 3rem;
+    margin-bottom: 60px;
+}
+
+
+.genre-overlay {
+    position: absolute;
+    bottom: 1%;
+    right: 3%;
+}
+
+.genre-overlay h3 {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.75);
+    text-shadow: 0px 4px 8px rgb(20, 20, 20, .9);
+    transition: 0.3s;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.show {
+    animation: slideRight 1s forwards; 
+}
+
+.top-rated {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.top-rated-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.top-rated-card {
+    font-family: "News Cycle", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    background-color: rgb(48, 48, 48);
+    width: 400px;
+    height: 200px;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin: 5px 0px;
+}
+
+.top-rated-card img {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.top-rated-card .details {
+    flex: 1;
+    padding: 20px;
+}
+
+.top-rated-card .details h3 {
+    font-size: 2rem;
+}
+
+.top-rated-card .details .rating {
+    display: flex;
+    align-items: center;
+}
+
+.top-rated-card .details .rating i {
+    margin-right: 2px;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    height: 100vh;
+    overflow: auto;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px;
+    position: sticky; 
+    top: 15%;
+}
+
+.filters .searchbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters .searchbar i {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    z-index: 2;
+}
+
+.filters .searchbar input[type=text] {
+    background-color: rgb(43, 43, 43);
+    border: none;
+    outline: none;
+    font-size: .9rem;
+    width: 200px;
+    padding: 10px 15px;
+    padding-right: 30px;
+}
+
+.filters form h3 {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.filters form ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "News Cycle", sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    list-style-type: none;
+    margin: 20px 0px;
+    letter-spacing: 1px;
+    padding-top: 20px;
+    border-top: solid 1px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.filters form ul li:last-child {
+    padding-bottom: 20px;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+}
+
+.filters form ul li i {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.movies {
+    flex: 1;
+    height: 100%;
+    margin-top: 10%;
+    margin-right: 200px;
+}
+
+.movies .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+    background-color: rgb(20, 20, 20); 
+}
+
+.movies .header .line {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(218, 218, 218, 0.7);
+    margin: 20px;
+}
+
+.movies .header h1 {
+    font-size: 2rem;
+}
+
+.movies .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px; 
+}
+
+.movies .poster {
+    width: 200px;
+    height: 300px;
+}
+
+.movies img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.genre-container {
+    width: 100%;
+    height: 100%;
+}
+
+.genre-container .header {
+    width: 100%;
+    height: 300px;
+}
+
+.genre-container .header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.8) grayscale(0.3);
+}
+
+.genre-container .genre-movies {
+    width: 100%;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.genre-container .genre-movies h1 {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.profile {
+    display: flex;
+    padding: 40px;
+    margin-top: 4em;
+    align-items: start;
+}
+
+.profile-image {
+    flex: 0 0 400px; 
+    aspect-ratio: 1 / 1;
+    border: solid 5px white;
+}
+
+.profile-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile .details {
+    font-family: "News Cycle", sans-serif;
+    text-transform: uppercase;
+    margin-left: 30px;
+}
+
+.profile .details h1 {
+    font-size: 5rem;
+    max-width: 80%; 
+    line-height: 5.5rem;
+    letter-spacing: 4px;
+    color: rgb(219, 219, 219);
+}
+
+.profile .details .line {
+    width: 100%;
+    height: 2px;
+    margin: 20px 0px;
+    background-color: white;
+}
+
+.sub-details {
+    color: rgb(170, 170, 170);
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    margin-top: 10px;
+}
+
+.sub-details p:nth-child(1) {
+    margin-left: 0px;
+}
+
+.sub-details > * {
+    margin: 0px 15px;
+}
+
+.sub-details p {
+    font-size: 1.2rem;
+}
+
+.ranking {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(223, 245, 24);
+    padding: 10px 20px;
+    font-weight: 700;
+}
+
+.ranking span {
+    color: black;
+}
+
+.ranking  i {
+    color: black;
+    height: 20px;
+    width: 20px;
+    margin-top: 3px;
+    margin-left: 5px;
+}
+
+.bio {
+    margin-top: 20px;
+    text-transform: lowercase;
+    font-size: 1.1rem;
+}
+
+.bio::first-letter {
+    text-transform: uppercase;
+}
+
+.profile-movie-list {
+    font-family: "News Cycle", sans-serif;
+    font-weight: 700;
+    padding: 30px;
+}
+
+.profile-movie-list .wrapper {
+    display: flex;
+    margin-top: 20px;
+} 
+
+.profile-movie {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.profile-movie .image {
+    width: 200px;
+    height: 300px;
+    margin: 0px 10px;
+}
+
+.profile-movie img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.director-container {
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    font-family: "News Cycle", sans-serif;
+}
+
+.director-container .wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+}
+
+.director-container .wrapper:first-child {
+    margin-top: 10%;
+}
+
+.director-image {
+    position: relative;
+    height: 400px;
+    width: 400px;
+    flex-shrink: 0;
+}
+
+.director-image span {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.director-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-top: 5px;
+}
+
+.director-details {
+    position: relative;
+    margin-left: 2%;
+}
+
+.director-details .bio {
+    font-size: 1.1rem;
+}
+
+.director-details .ranking  {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 10%;
+    right: 10%;
+    width: 10rem;
+    height: 10rem;
+    padding: 2rem;
+    border-radius: 50%;
+    background-color: rgb(230, 230, 42);
+    text-align: center;
+}
+
+.director-container section:first-child {
+    margin-top: 0;
+}
+
+.director-container section:not(:first-child) {
+    margin: 100px 0px;
+}
+
+.director-details .ranking span {
+    font-size: 2rem;
+}
+
+.director-details .ranking p {
+    font-size: 0.75rem;
+    color: black;
+}
+
+.director-container h1 {
+    font-weight: 700;
+    font-size: 6rem;
+    max-width: 50%;
+    text-transform: uppercase;
+    line-height: 7rem;
+}
+
+.director-container h3 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+.director-details .buttons {
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.director-details .follow-btn {
+    background-color: #e4e4e4;
+    color: rgb(20, 20, 20);
+    padding: 10px 60px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.director-details .follow-btn:hover {
+    background-color: #d6ff1f;
+}
+
+.director-details .follow-count {
+    margin-left: 20px;
+}
+
+.known-for {
+    font-family: "News Cycle", sans-serif;
+    margin-top: 100px;
+}
+
+.known-for .wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.known-for-movie {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.known-for-movie::before {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background-image: linear-gradient(to top, rgba(20, 20, 20, 0.5) 50%, rgba(20, 20, 20, 0) 100%);
+}
+
+.known-for-movie:first-child {
+    margin-right: 10px;
+}
+
+.known-for-movie:not(:first-child) {
+    margin: 0px 10px;
+}
+
+.known-for-movie:hover img {
+    filter: brightness(0.9) saturate(1.1);
+}
+
+.known-for-movie img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.known-for-movie .overlay {
+    position: absolute;
+    bottom: 4%;
+    left: 4%;
+}
+
+.known-for-movie .overlay h3 {
+    font-size: 1.2rem;
+}
+
+.known-for-movie .overlay .sub-info {
+    display: flex;
+    align-items: center;
+}
+
+.known-for-movie .overlay .release-year {
+    color: rgb(224, 224, 224);
+}
+
+.known-for-movie .overlay .main-genre {
+    font-size: 0.85rem;
+    font-weight: 700;
+    background-color: rgba(219, 219, 219, 0.7);
+    color: rgb(32, 32, 32);
+    padding: 3px 15px;
+    border-radius: 30px;
+    margin-left: 10px;
+}
+
+.main-video-container {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+    margin-top: 30px;
+}
+
+.main-video-details {
+    margin-left: 20px;
+    flex: 1; 
+    min-width: 0;
+}
+
+.main-video-details h3 {
+    font-family: "Bebas Neue", sans-serif;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    font-size: 3rem;
+    margin-top: 10px;
+}
+
+.main-video-details h4 {
+    color: rgb(216, 216, 216);
+    font-size: 1.25rem;
+}
+
+.main-video-details p {
+    color: rgb(216, 216, 216);
+    font-size: 1.1rem;
+    margin: 10px 0px;
+}
+
+.main-video-details .link {
+    display: inline-block;
+    font-family: "Bebas Neue", sans-serif;
+    margin-top: 20px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.main-video-details .link:hover {
+    background-color: rgb(238, 255, 0);
+}
+
+.main-video-details .link a {
+    color: black;
+    text-decoration: none;
+}
+
+.main-video-details .link i {
+    color: black;
+    margin-left: 4px;
+}
+
+.thumbnail {
+    position: relative;
+    width: 800px;
+    height: 400px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.thumbnail-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    color: white;
+    cursor: pointer;
+}
+
+.thumbnail-overlay i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 60px;
+    padding: 40px;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    border: solid 1px white;
+}
+
+.thumbnail:hover img {
+    filter: brightness(0.5) blur(1px);
+}
+
+.thumbnail-details {
+    position: absolute;
+    bottom: 2%;
+    left: 2%;
+    z-index: 3;
+}
+
+.thumbnail-details h3 {
+    font-size: 1.25rem;
+}
+
+.main-video-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    transition: 0.3s;
+    cursor: pointer;
+    transition: 0.3s;
+    filter: brightness(0.8);
+}
+
+.main-video-container video  {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+@media (max-width: 991px) {
+    .cast-wrapper {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .cast h1 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+
+}

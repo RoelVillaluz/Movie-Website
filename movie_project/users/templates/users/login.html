@@ -9,16 +9,22 @@
 </head>
 <body>
     <div class="container">
-        <div class="image">
-            <img src="" alt="">
+        <div class="content-wrapper">
+            <div class="image">
+                <img src="{{ random_image.image.url }}" alt="Movie Image">
+                <div class="logo">MovieVerse</div>
+                <div class="overlay">
+                    <p>Your Ultimate Movie Companion</p>
+                </div>
+            </div>
+            <div class="form-list">
+                <h1>Welcome Back</h1>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Sign In</button>
+            </div>
         </div>
-        <div class="form-list">
-            <h1>Welcome Back</h1>
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Sign In</button>
-        </div>
-    </div>
+    </div>    
 </div>
 </body>
 </html>
