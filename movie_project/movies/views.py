@@ -20,10 +20,12 @@ import string
 today = date.today()
 one_month_before = today - relativedelta(months=1)
 
+movies = Movie.objects.all()
+
+
 def index(request):
     # random_rating(30) # for populating reviews
     # create_users(10)  # for populating users
-    movies = Movie.objects.all()
     popular_movies = movies.annotate(review_count=Count('reviews')).order_by('-review_count')[:20]
     new_movies = movies.filter(release_date__gte=one_month_before, release_date__lte=today)
     upcoming_movies = movies.filter(release_date__gt=today)
