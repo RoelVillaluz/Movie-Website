@@ -11,7 +11,8 @@ from movies.models import Movie, MovieImage, User
 
 
 movie_images = MovieImage.objects.all()
-random_image = random.choice(movie_images)
+random_image1 = random.choice(movie_images)
+random_image2 = random.choice(movie_images)
 
 # Create your views here.
 class CustomLoginView(LoginView):
@@ -24,7 +25,7 @@ class CustomLoginView(LoginView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['random_image'] = random_image
+        context['random_image'] = random_image1
         return context
     
 class CustomRegisterView(CreateView):
@@ -39,6 +40,11 @@ class CustomRegisterView(CreateView):
         login(self.request, user)
         return response
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['random_image'] = random_image2
+        return context
+
     
 def logout(request):
     auth_logout(request)

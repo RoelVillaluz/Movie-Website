@@ -1,0 +1,58 @@
+{% extends 'users/layout.html' %}
+
+{% block title %} Register {% endblock %}
+
+{% block body %}
+<div class="form-list">
+    <div class="header">
+        <h1>Create an Account</h1>
+        <p>Register to join our community.</p>
+    </div>
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" name="username" placeholder="Username" id="id_username" required>
+            <input type="email" name="email" placeholder="Email" id="id_email" required>
+            <input type="password" name="password1" placeholder="Password" id="id_password1" required>
+            <input type="password" name="password2" placeholder="Confirm Password" id="id_password2" required>
+        </div>
+        <button type="submit">Register</button>
+        <div class="social-signin-divider">
+            <div class="line"></div>
+            <p>or register with</p>
+            <div class="line"></div>
+        </div>
+        <div class="social-login-buttons">
+            <i class="fa-brands fa-google"></i>
+            <i class="fa-brands fa-facebook-f"></i>
+            <i class="fa-brands fa-apple"></i>
+            <i class="fa-brands fa-microsoft"></i>
+        </div>
+        <div class="form-footer-link">
+            <p>Already have an account?</p>
+            <a href="{% url 'login' %}">Sign In</a>
+        </div>
+        {% if form.errors %}
+            <div class="error-messages">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </form>
+</div>
+<div class="image">
+    <img src="{{ random_image.image.url }}" alt="Movie Image">
+    <div class="logo">
+        <a href="{% url 'index' %}">MovieVerse</a>
+    </div>
+    <div class="overlay">
+        <p>Your Ultimate Movie Companion</p>
+    </div>
+</div>
+{% endblock %}
