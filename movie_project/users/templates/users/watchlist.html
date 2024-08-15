@@ -3,4 +3,7 @@
 {% block title %} {{ user }}'s Watchlist {% endblock %}
 
 {% block body %}
+{% for movie in watchlist_movies %}
+    <li>{{ movie }}</li>
+{% endfor %}
 {% endblock %}
