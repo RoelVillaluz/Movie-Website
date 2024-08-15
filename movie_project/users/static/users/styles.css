@@ -112,6 +112,12 @@ input[type=password]
     margin-bottom: 10px;
 }
 
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: #797979; 
+    opacity: 1; 
+}
+
 .buttons * {
     width: 100%;
     padding: 10px;
@@ -193,6 +199,41 @@ button:hover {
 
 .social-login-buttons i:nth-child(4):hover {
     background-color: #00A4EF;
+}
+
+.form-footer-link {
+    display: flex;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    gap: 5px;
+}
+
+.form-footer-link p {
+    color: #222;
+}
+
+.form-footer-link a {
+    display: inline-block;
+    position: relative;
+    color: black;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.form-footer-link a::before {
+    position: absolute;
+    content: '';
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: black;
+    transform-origin: left;
+    transition: 0.1s;
+}
+
+.form-footer-link a:hover::before {
+    width: 100%;
 }
 
 .error-messages {

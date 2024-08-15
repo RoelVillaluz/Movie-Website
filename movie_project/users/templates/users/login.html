@@ -27,10 +27,8 @@
                 </div>
                 <form action="{% url 'login' %}" method="post">
                     {% csrf_token %}
-                    <div>
+                    <div class="input-group">
                         <input type="text" name="username" placeholder="Username" id="id_username" required>
-                    </div>
-                    <div>
                         <input type="password" name="password" placeholder="Password" id="id_password" required>
                     </div>
                     <button type="submit">Sign In</button>
@@ -44,6 +42,10 @@
                         <i class="fa-brands fa-facebook-f"></i>
                         <i class="fa-brands fa-apple"></i>
                         <i class="fa-brands fa-microsoft"></i>
+                    </div>
+                    <div class="form-footer-link">
+                        <p>Don't have an account yet?</p>
+                        <a href="">Register</a>
                     </div>
                     {% if form.errors %}
                         <div class="error-messages">
