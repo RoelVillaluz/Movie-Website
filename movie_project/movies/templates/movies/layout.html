@@ -17,12 +17,21 @@
         <div class="buttons">
             <ul>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}">Sign out</a></li>
+                    <li class="profile-menu">
+                        <div class="profile-icon">
+                            <span>{{ user.username }}</span>
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <ul class="dropdown-list">
+                            <li class="dropdown-item"><a href="">My Profile</a></li>
+                            <li class="dropdown-item"><a href="{% url 'logout' %}">Sign out</a></li>
+                        </ul>
+                    </li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Sign In</a></li>
                 {% endif %}
                 <li class="menu-bars"></li>
-            </ul>
+            </ul>            
         </div>
     </nav>
     <div class="main-content">

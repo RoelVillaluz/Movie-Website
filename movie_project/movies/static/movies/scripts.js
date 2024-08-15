@@ -48,3 +48,16 @@ galleryImages.forEach(image => {
         console.log(dataId)
     })
 })
+
+const profileMenu = document.querySelector('.profile-menu');
+const dropdownList = document.querySelector('.dropdown-list');
+
+profileMenu.addEventListener('click', function() {
+    dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
+})
+
+document.addEventListener('click', function(e) {
+    if (!profileMenu.contains(e.target)) {
+        dropdownList.style.display = 'none';
+    }
+})
