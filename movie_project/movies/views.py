@@ -6,8 +6,11 @@ from django.db.models.query import QuerySet
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 import requests
-
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.csrf import csrf_exempt
 from movies.utils import create_users, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating
+from users.models import Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
 from datetime import date
@@ -156,3 +159,32 @@ class DirectorDetailView(DetailView):
         })
 
         return context
+
+# @method_decorator(csrf_exempt, name='dispatch')
+# class AddWatchlistView(LoginRequiredMixin, View):
+#     login_url = 'login/'
+
+#     def post(self, request, movie_id):
+        
+@csrf_exempt
+def add_to_watchlist(request, id):
+    user = request.user
+    movie = Movie.objects.get(id=id)
+    
+    # Get or create the user's profile
+    profile, created = Profile.objects.get_or_create(user=user)
+    
+    # Access the watchlist from the profile
+    watchlist = profile.watchlist
+
+    if movie not in watchlist.movies.all():
+        watchlist.movies.add(movie)
+        watchlisted = True
+    else:
+        watchlist.movies.remove(movie)
+        watchlisted = False
+
+    watchlist.save()
+
+    return JsonResponse({'watchlisted': watchlisted})
+

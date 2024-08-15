@@ -67,16 +67,16 @@ nav .buttons ul:not(.dropdown-list) {
     list-style-type: none;
 }
 
-nav li:not(.dropdown-item) {
+.nav-item {
     margin: 0px 10px;
     font-size: 18px;
 }
 
-nav li a:not(.dropdown-item a) {
+.nav-item a {
     position: relative;
 }
 
-nav li a:not(.dropdown-item a)::before {
+.nav-item a::before {
     position: absolute;
     content: '';
     bottom: -4px;
@@ -107,13 +107,16 @@ nav li a:hover::before {
 .profile-icon {
     display: flex;
     align-items: center;
-    font-size: 20px;
     color: white;
     gap: 8px;
 }
 
+.profile-icon span {
+    font-size: 1.2rem;
+}
+
 .profile-icon i {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     border-radius: 50%;
     background-color: transparent;
     border: solid 1px white;
@@ -133,6 +136,7 @@ nav li a:hover::before {
 
 
 .dropdown-item a {
+    font-size: 1.1rem;
     display: block;
     padding: 10px 20px; 
     color: black;

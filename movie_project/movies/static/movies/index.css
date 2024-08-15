@@ -512,7 +512,6 @@ and only apply hover filter effect once all animations have stopped
     opacity: 0;
 }
 
-
 .top-rated-movies li {
     flex: 1 1 calc(20% - 15px); 
     max-width: calc(20% - 15px); 
@@ -610,6 +609,21 @@ and only apply hover filter effect once all animations have stopped
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+.watchlist-btn i {
+    transition: 0.3s;
+}
+
+.watchlist-btn.watchlisted i {
+    color: var(--award-yellow);
+}
+
+.watchlist-btn.watchlisted,
+.watchlist-btn.watchlisted::before
+{
+    opacity: 1;
+    content: '-';
 }
 
 .watchlist-btn::before {

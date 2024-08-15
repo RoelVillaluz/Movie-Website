@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login, logout as auth_logout
 from django.urls import reverse_lazy
+
+from users.models import Watchlist
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
 from movies.models import Movie, MovieImage, User
@@ -49,3 +51,11 @@ class CustomRegisterView(CreateView):
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect("/")
+
+
+class MyWatchlistView(ListView):
+    model = Watchlist
+    template_name = 'users/watchlist.html'
+    context_object_name = 'watchlist'
+
+

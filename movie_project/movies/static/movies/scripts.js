@@ -35,11 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
     video.style.display = 'none'; // Start with the video hidden
 });
 
-const cursor = document.querySelector('.cursor')
-document.addEventListener('mousemove', e => {
-    cursor.setAttribute('style', `top: ${e.pageY}px; left: ${e.pageX}px;`)
-})
-
 
 const galleryImages = document.querySelectorAll('.gallery img')
 galleryImages.forEach(image => {
@@ -61,3 +56,28 @@ document.addEventListener('click', function(e) {
         dropdownList.style.display = 'none';
     }
 })
+
+
+document.querySelectorAll('.watchlist-btn').forEach(btn => {
+    btn.onclick = function() {
+        addToWatchlist(btn);
+    }
+});
+
+
+function addToWatchlist(element) {
+    fetch(`/add_to_watchlist/${element.dataset.id}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.watchlisted) {
+                element.classList.add('watchlisted');
+                console.log("Added to watchlist")
+            } else {
+                element.classList.remove('watchlisted');
+                console.log("Removed from watchlist")
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}

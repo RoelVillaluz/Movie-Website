@@ -12,7 +12,8 @@ class Profile(models.Model):
         return self.user.username
     
 class Watchlist(models.Model):
-    movies = models.ManyToManyField(Movie, related_name="watchlists")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    movies = models.ManyToManyField(Movie, related_name="watchlists", null=True, blank=True)
 
     def __str__(self):
         return  f"{self.user}'s watchlist"
