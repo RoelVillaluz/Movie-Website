@@ -3,7 +3,10 @@
 {% block title %} {{ user }}'s Watchlist {% endblock %}
 
 {% block body %}
-{% for movie in watchlist_movies %}
-    <li>{{ movie }}</li>
-{% endfor %}
+<div class="watchlist-movies">
+    <h1>My Watchlist</h1>
+    {% for movie in watchlist_movies %}
+        <li>{{ movie }}</li>
+    {% endfor %}
+</div>
 {% endblock %}

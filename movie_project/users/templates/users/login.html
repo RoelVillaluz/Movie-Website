@@ -3,54 +3,58 @@
 {% block title %} Login {% endblock %}
 
 {% block body %}
-    <div class="image">
-        <img src="{{ random_image.image.url }}" alt="Movie Image">
-        <div class="logo">
-            <a href="{% url 'index' %}">MovieVerse</a>
+<div class="container">
+    <div class="content-wrapper">
+        <div class="image">
+            <img src="{{ random_image.image.url }}" alt="Movie Image">
+            <div class="logo">
+                <a href="{% url 'index' %}">MovieVerse</a>
+            </div>
+            <div class="overlay">
+                <p>Your Ultimate Movie Companion</p>
+            </div>
         </div>
-        <div class="overlay">
-            <p>Your Ultimate Movie Companion</p>
-        </div>
-    </div>
-    <div class="form-list">
-        <div class="header">
-            <h1>Welcome Back</h1>
-            <p>Sign in to access your account.</p>
-        </div>
-        <form action="{% url 'login' %}" method="post">
-            {% csrf_token %}
-            <div class="input-group">
-                <input type="text" name="username" placeholder="Username" id="id_username" required>
-                <input type="password" name="password" placeholder="Password" id="id_password" required>
+        <div class="form-list">
+            <div class="header">
+                <h1>Welcome Back</h1>
+                <p>Sign in to access your account.</p>
             </div>
-            <button type="submit">Sign In</button>
-            <div class="social-signin-divider">
-                <div class="line"></div>
-                <p>or sign in with</p>
-                <div class="line"></div>
-            </div>
-            <div class="social-login-buttons">
-                <i class="fa-brands fa-google"></i>
-                <i class="fa-brands fa-facebook-f"></i>
-                <i class="fa-brands fa-apple"></i>
-                <i class="fa-brands fa-microsoft"></i>
-            </div>
-            <div class="form-footer-link">
-                <p>Don't have an account yet?</p>
-                <a href="{% url 'register' %}">Register</a>
-            </div>
-            {% if form.errors %}
-                <div class="error-messages">
-                    {% for field in form %}
-                        {% for error in field.errors %}
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="Username" id="id_username" required>
+                    <input type="password" name="password" placeholder="Password" id="id_password" required>
+                </div>
+                <button type="submit">Sign In</button>
+                <div class="social-signin-divider">
+                    <div class="line"></div>
+                    <p>or sign in with</p>
+                    <div class="line"></div>
+                </div>
+                <div class="social-login-buttons">
+                    <i class="fa-brands fa-google"></i>
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-apple"></i>
+                    <i class="fa-brands fa-microsoft"></i>
+                </div>
+                <div class="form-footer-link">
+                    <p>Don't have an account yet?</p>
+                    <a href="{% url 'register' %}">Register</a>
+                </div>
+                {% if form.errors %}
+                    <div class="error-messages">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
                             <p>{{ error }}</p>
                         {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </form>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
     </div>
+</div>   
 {% endblock %}

@@ -81,15 +81,15 @@ function addToWatchlist(element, containsText = false) {
                 if (containsText) {
                     element.querySelector('span').textContent = 'Remove from Watchlist';
                     element.querySelector('button').textContent = '-';
-                    showNotification("Movie added to watchlist");
                 }
+            showNotification('1 Item Added', data.movie_image);
             } else {
                 element.classList.remove('watchlisted');
                 if (containsText) {
                     element.querySelector('span').textContent = 'Add to Watchlist';
                     element.querySelector('button').textContent = '+';
-                    showNotification("Movie removed from watchlist");
                 }
+            showNotification('1 Item Removed', data.movie_image);   
             }
         })
         .catch(error => {
@@ -97,18 +97,28 @@ function addToWatchlist(element, containsText = false) {
         });
 }
 
-function showNotification(message) {
+function showNotification(message, imageUrl) {
     let notification = document.querySelector('.notification');
-    
+
+    // Create the notification element if it doesn't exist
     if (!notification) {
         notification = document.createElement('div');
         notification.className = 'notification';
         document.body.appendChild(notification);
     }
 
-    notification.textContent = message;
+    // Set the inner HTML for the notification content
+    notification.innerHTML = `
+        <div class="notification-content">
+            <img src="${imageUrl}" alt="Movie Image" class="notification-image">
+            <div class="notification-message">${message}</div>
+        </div>
+    `;
+
+    // Display the notification
     notification.style.display = 'block';
 
+    // Hide the notification after 3 seconds
     setTimeout(() => {
         notification.style.display = 'none';
     }, 3000);

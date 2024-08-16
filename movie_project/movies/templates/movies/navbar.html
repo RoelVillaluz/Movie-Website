@@ -1,0 +1,23 @@
+<nav>
+    <a href = "{% url 'index' %}" class="logo">MovieVerse</a>
+    <div class="buttons">
+        <ul>
+            {% if user.is_authenticated %}
+                <li class="profile-menu">
+                    <div class="profile-icon">
+                        <span>{{ user.username }}</span>
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <ul class="dropdown-list">
+                        <li class="dropdown-item"><a href="">My Profile</a></li>
+                        <li class="dropdown-item"><a href="{% url 'watchlist' %}">My Watchlist</a></li>
+                        <li class="dropdown-item"><a href="{% url 'logout' %}">Sign out</a></li>
+                    </ul>
+                </li>
+            {% else %}
+                <li class="nav-item"><a href="{% url 'login' %}">Sign In</a></li>
+            {% endif %}
+            <li class="menu-bars"></li>
+        </ul>            
+    </div>
+</nav>

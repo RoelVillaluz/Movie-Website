@@ -186,5 +186,7 @@ def add_to_watchlist(request, id):
 
     watchlist.save()
 
-    return JsonResponse({'watchlisted': watchlisted})
+    return JsonResponse(
+        {'watchlisted': watchlisted, 
+         'movie_image': movie.poster_path.url})
 
