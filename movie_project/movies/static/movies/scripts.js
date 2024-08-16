@@ -58,18 +58,19 @@ document.addEventListener('click', function(e) {
 })
 
 
+// bookmark watchlist button
 document.querySelectorAll('.watchlist-btn').forEach(btn => {
     btn.onclick = function() {
         addToWatchlist(btn);
     }
 });
 
+// text and plus icon watchlist button
 document.querySelectorAll('.add-watchlist-btn').forEach(btn => {
     btn.onclick = function() {
-        addToWatchlist(btn, true)
+        addToWatchlist(btn, true);
     }
-})
-
+});
 
 function addToWatchlist(element, containsText = false) {
     fetch(`/add_to_watchlist/${element.dataset.id}/`)
@@ -79,17 +80,36 @@ function addToWatchlist(element, containsText = false) {
                 element.classList.add('watchlisted');
                 if (containsText) {
                     element.querySelector('span').textContent = 'Remove from Watchlist';
-                    element.querySelector('button').textContent = '-'
+                    element.querySelector('button').textContent = '-';
+                    showNotification("Movie added to watchlist");
                 }
             } else {
                 element.classList.remove('watchlisted');
                 if (containsText) {
                     element.querySelector('span').textContent = 'Add to Watchlist';
-                    element.querySelector('button').textContent = '+'
+                    element.querySelector('button').textContent = '+';
+                    showNotification("Movie removed from watchlist");
                 }
             }
         })
         .catch(error => {
             console.error('Error:', error);
         });
+}
+
+function showNotification(message) {
+    let notification = document.querySelector('.notification');
+    
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.className = 'notification';
+        document.body.appendChild(notification);
+    }
+
+    notification.textContent = message;
+    notification.style.display = 'block';
+
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 3000);
 }

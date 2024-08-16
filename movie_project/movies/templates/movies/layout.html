@@ -39,6 +39,9 @@
         {% block body %}
         {% endblock %}
     </div>
+
+    <div class="notification">{{ message }}</div>
+
     <aside class="sidebar">
         <ul>
             <li><a href="{% url 'movie-list' %}">Movies</a></li>

@@ -186,6 +186,17 @@ nav a {
     text-decoration: none;
 }
 
+.notification {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+    display: none;
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    z-index: 1000;
+}
+
 .sidebar {
     font-family: "Bebas Neue", sans-serif;
     width: 0;
@@ -512,7 +523,6 @@ nav a {
     font-size: 2.25rem;
     font-weight: 700;
 }
-
 
 .cast {
     margin-top: 20%;
