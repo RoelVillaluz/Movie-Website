@@ -25,10 +25,19 @@
             <div class="description hidden">
                 <h1>Overview</h1>
                 <p>{{ movie.overview }}</p>
-                <div class="add-watchlist-btn">
-                    <span>Add to Watchlist</span>
-                    <i class="fa-solid fa-plus"></i>
-                </div>
+                {% with user.profile.watchlist.movies.all as user_watchlist %}
+                    {% if movie in user_watchlist %}
+                        <div class="add-watchlist-btn watchlisted" data-id="{{ movie.id }}">
+                            <span>Remove from Watchlist</span>
+                            <button>-</button>
+                        </div>
+                    {% else %}
+                        <div class="add-watchlist-btn" data-id="{{ movie.id }}">
+                            <span>Add to Watchlist</span>
+                            <button>+</button>
+                        </div>
+                    {% endif %}
+                {% endwith %}
             </div>
             {% if overview_images %}
                 <div class="images">

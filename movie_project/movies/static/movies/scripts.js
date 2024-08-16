@@ -64,17 +64,29 @@ document.querySelectorAll('.watchlist-btn').forEach(btn => {
     }
 });
 
+document.querySelectorAll('.add-watchlist-btn').forEach(btn => {
+    btn.onclick = function() {
+        addToWatchlist(btn, true)
+    }
+})
 
-function addToWatchlist(element) {
+
+function addToWatchlist(element, containsText = false) {
     fetch(`/add_to_watchlist/${element.dataset.id}/`)
         .then(response => response.json())
         .then(data => {
             if (data.watchlisted) {
                 element.classList.add('watchlisted');
-                console.log("Added to watchlist")
+                if (containsText) {
+                    element.querySelector('span').textContent = 'Remove from Watchlist';
+                    element.querySelector('button').textContent = '-'
+                }
             } else {
                 element.classList.remove('watchlisted');
-                console.log("Removed from watchlist")
+                if (containsText) {
+                    element.querySelector('span').textContent = 'Add to Watchlist';
+                    element.querySelector('button').textContent = '+'
+                }
             }
         })
         .catch(error => {

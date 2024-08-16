@@ -461,11 +461,12 @@ nav a {
     transition: 0.3s;
 }
 
+.add-watchlist-btn.watchlisted span,
 .add-watchlist-btn span:hover {
     color: white;
 }
 
-.add-watchlist-btn i {
+.add-watchlist-btn button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -474,13 +475,16 @@ nav a {
     height: 60px;
     padding: 30px;
     font-weight: 200;
+    font-size: 1.5rem;
     border-radius: 50%;
     border: solid 1px rgba(255, 255, 255, 0.4);
     cursor: pointer;
     transition: 0.3s;
+    background-color: transparent;
 }
 
-.add-watchlist-btn i:hover {
+.add-watchlist-btn.watchlisted button,
+.add-watchlist-btn button:hover {
     background-color: white;
     color: black;
 }
