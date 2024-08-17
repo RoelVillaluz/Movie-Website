@@ -3,7 +3,9 @@
 :root {
     font-family: "Electrolize", sans-serif;
     background-color: rgb(20, 20, 20);
+    --low-red: red;
     --award-yellow: rgb(217, 255, 0);
+    --high-green: rgb(6, 221, 6);
 }
 
 .featured-movie {
@@ -588,8 +590,23 @@ and only apply hover filter effect once all animations have stopped
 .rating-tag {
     display: flex;
     align-items: center;
-    background-color: var(--award-yellow);
     gap: 5px;
+}
+
+.low-rating {
+    background-color: var(--low-red);
+}
+
+.medium-rating {
+    background-color: var(--award-yellow);
+}
+
+.high-rating {
+    background-color: var(--high-green);
+}
+
+.unrated {
+    background-color: rgb(255, 255, 255);
 }
 
 .rating-tag i {

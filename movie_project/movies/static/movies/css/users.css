@@ -60,6 +60,23 @@
     align-items: flex-start; 
 }
 
+.watchlist-item-details .title {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+
+.watchlist-item-details .counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    font-weight: 700;
+    border: solid 1px rgba(255, 255, 255, 0.7);
+    color: white;
+    margin-right: 10px;
+}
 
 .watchlist-item-details .movie-year {
     margin-left: 10px;
@@ -77,6 +94,6 @@
     list-style-type: none;
 }
 
-.watchlist-item-details .cast-list li {
+.watchlist-item-details .cast-list li, span {
     margin-top: 10px;
 }

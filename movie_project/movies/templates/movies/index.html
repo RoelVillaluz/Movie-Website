@@ -201,7 +201,7 @@
         </div>
         <ul class="popular-actors-list">
             {% for actor, movie in popular_actors_and_movie.items %}
-                <div class="item hidden">
+                <li class="item hidden">
                     <div class="image">
                         <a href="{% url 'actor-detail' actor.pk %}">
                             <img src="{{ actor.image.url }}" alt="{{ actor }}">
@@ -211,7 +211,7 @@
                         <h3>{{ actor }}</h3>
                         <span>{{ movie.0 }}</span>
                     </div>
-                </div>
+                </li>
             {% endfor %}
         </ul>
     </section>

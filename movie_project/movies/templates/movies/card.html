@@ -8,7 +8,20 @@
         <h3>{{ movie.title }}</h3>
         <div class="tags">
             <div class="genre-tag">{{ movie.genres.first }}</div>
-            <div class="rating-tag"><i class="fa-solid fa-star"></i>{{ movie.avg_rating|floatformat:2 }}</div>
+            <div class="
+                rating-tag 
+                {% if movie.avg_rating >= 8 %}
+                    high-rating
+                {% elif movie.avg_rating >= 6 %}
+                    medium-rating
+                {% elif movie.avg_rating < 6 and movie.avg_rating > 0 %}
+                    low-rating
+                {% elif movie.avg_rating == 0 %}
+                    unrated
+                {% endif %}">
+                <i class="fa-solid fa-star"></i>
+                {{ movie.avg_rating|floatformat:2 }}
+            </div>
         </div>
     </div>
     <!-- Watchlist Button -->
