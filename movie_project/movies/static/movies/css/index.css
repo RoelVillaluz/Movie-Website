@@ -571,7 +571,6 @@ and only apply hover filter effect once all animations have stopped
     align-items: center;
     gap: 5px;
     margin-top: 10px;
-    
 }
 
 .tags > * {
@@ -611,6 +610,13 @@ and only apply hover filter effect once all animations have stopped
 
 .rating-tag i {
     color: black;
+}
+
+.review-count {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    font-weight: 200;
+    margin-left: -10px;
 }
 
 .watchlist-btn {

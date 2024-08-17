@@ -58,13 +58,26 @@
                                 <i class="fa-solid fa-star"></i>
                                 {{ movie.avg_rating|floatformat:2 }}
                             </div>
+                            {% if movie.reviews.all %}
+                                <div class="review-count">({{ movie.reviews.count }}) reviews</div>
+                            {% else %}
+                                <div class="review-count">No reviews yet</div>
+                            {% endif %}
                         </div>
                         <p>{{ movie.overview }}</p>
+                        <div class="director">
+                            <h3>Director</h3>
+                            {% if movie.directors.all %}
+                                <span>{{ movie.directors.first }}</span>
+                            {% else %}
+                                <span>No director yet</span>
+                            {% endif %}
+                        </div>
                         <ul class="cast-list">
                             <h3>Cast</h3>
                             <div class="wrapper">
                                 {% if movie.actors.all %}
-                                    {% for actor in movie.actors.all %}
+                                    {% for actor in movie.actors.all|slice:":4" %}
                                         <li>{{ actor }}</li>
                                     {% endfor %}
                                 {% else %}

@@ -27,9 +27,6 @@
     font-weight: 200;
 }
 
-.watchlist-container {
-}
-
 .watchlist-item {
     display: flex;
     flex-wrap: wrap;
@@ -90,10 +87,21 @@
     line-height: 1.5rem;
 }
 
-.watchlist-item-details .cast-list {
-    list-style-type: none;
+.watchlist-item-details .director-and-cast {
+    display: flex;
+    align-items: center;
+    gap: 50px;
 }
 
-.watchlist-item-details .cast-list li, span {
-    margin-top: 10px;
+.watchlist-item-details .cast-list {
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+.watchlist-item-details .cast-list .wrapper {
+    gap: 10px;
+}
+
+.watchlist-item-details h3 {
+    margin: 10px 0px; 
 }
