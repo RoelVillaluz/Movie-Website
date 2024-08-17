@@ -5,15 +5,44 @@
 {% block body %}
 <section class="watchlist-section">
     <div class="header">
-        <h1>My Watchlist</h1>
+        <div>
+            <h1>My Watchlist</h1>
+            <h3>Your Movie Picks, All in One Place.</h3>
+        </div>
+        <div>
+            <h3>{{ watchlist_movies.count }} Titles</h3>
+        </div>
     </div>
     <div class="watchlist-container">
         <ol>
             {% for movie in watchlist_movies %}
                 <li class="watchlist-item">
-                    {% include 'movies/card.html' with movie=movie %}
+                    <div class="card">
+                        <div class="image">
+                            <a href="{% url 'movie-detail' movie.pk %}">
+                                <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
+                            </a>
+                        </div>
+                    </div>
                     <div class="watchlist-item-details">
+                        <h2>{{ movie.title }}<span class="movie-year">{{ movie.release_date.year }}</span></h2>
+                        <div class="tags">
+                            <div class="genre-tag">{{ movie.genres.first }}</div>
+                            <div class="rating-tag"><i class="fa-solid fa-star"></i>{{ movie.avg_rating|floatformat:2 }}</div>
+                        </div>
                         <p>{{ movie.overview }}</p>
+                        <ul class="cast-list">
+                            <h3>Cast</h3>
+                            <div class="wrapper">
+                                {% if movie.actors.all %}
+                                    {% for actor in movie.actors.all %}
+                                        <li>{{ actor }}</li>
+                                    {% endfor %}
+                                {% else %}
+                                    <span>No cast yet</span>
+                                {% endif %}
+                            </div>
+                        </ul>
                     </div>
                 </li>
             {% endfor %}

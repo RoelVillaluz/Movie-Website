@@ -3,8 +3,28 @@
 }
 
 .watchlist-section .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
     margin-top: 100px;
     margin-bottom: 50px;
+}
+
+.watchlist-section .header::before {
+    position: absolute;
+    content: '';
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: white;
+}
+
+.watchlist-section .header h3 {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 200;
 }
 
 .watchlist-container {
@@ -12,11 +32,51 @@
 
 .watchlist-item {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    border: solid 1px rgba(255, 255, 255, 0.1);
+    padding: 20px;
 }
 
 .watchlist-item .card {
     height: auto;
+    width: 100%;
+    max-width: 200px;
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+
+.watchlist-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.watchlist-item-details {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: flex-start; 
+}
+
+
+.watchlist-item-details .movie-year {
+    margin-left: 10px;
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.watchlist-item-details p {
+    margin: 20px 0px;
+    max-width: 75%;
+    line-height: 1.5rem;
+}
+
+.watchlist-item-details .cast-list {
+    list-style-type: none;
+}
+
+.watchlist-item-details .cast-list li {
+    margin-top: 10px;
 }
