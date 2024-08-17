@@ -9,6 +9,7 @@ import requests
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from movies.utils import create_users, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating
 from users.models import Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User

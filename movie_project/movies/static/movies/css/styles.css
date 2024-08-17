@@ -842,62 +842,11 @@ nav a {
     animation: slideRight 1s forwards; 
 }
 
-.top-rated {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px;
-}
-
-.top-rated-wrapper {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    flex-direction: column;
-}
-
-.top-rated-card {
-    font-family: "News Cycle", sans-serif;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    background-color: rgb(48, 48, 48);
-    width: 400px;
-    height: 200px;
-    font-size: 1rem;
-    border-radius: 5px;
-    margin: 5px 0px;
-}
-
-.top-rated-card img {
-    flex: 1;
-    width: 100%;
-    height: 100%;
-}
-
-.top-rated-card .details {
-    flex: 1;
-    padding: 20px;
-}
-
-.top-rated-card .details h3 {
-    font-size: 2rem;
-}
-
-.top-rated-card .details .rating {
-    display: flex;
-    align-items: center;
-}
-
-.top-rated-card .details .rating i {
-    margin-right: 2px;
-}
-
 .container {
     display: flex;
     align-items: flex-start;
     height: 100vh;
+    width: 100%;
     overflow: auto;
 }
 

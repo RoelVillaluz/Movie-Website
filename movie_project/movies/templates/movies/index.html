@@ -227,32 +227,7 @@
             <ol>
                 {% for movie in top_rated_movies %}
                     <li>
-                        <div class="card">
-                            <div class="image">
-                                <a href="{% url 'movie-detail' movie.pk %}">
-                                    <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
-                                </a>
-                            </div>
-                            <div class="details">
-                                <h3>{{ movie.title }}</h3>
-                                <div class="tags">
-                                    <div class="genre-tag">{{ movie.genres.first }}</div>
-                                    <div class="rating-tag"><i class="fa-solid fa-star"></i>{{ movie.avg_rating|floatformat:2 }}</div>
-                                </div>
-                            </div>
-                            <!-- Watchlist Button -->
-                            {% with user.profile.watchlist.movies.all as user_watchlist %}
-                                {% if movie in user_watchlist %}
-                                    <div class="watchlist-btn watchlisted" data-id="{{ movie.id }}">
-                                        <i class="fa-solid fa-bookmark"></i>
-                                    </div>
-                                {% else %}
-                                    <div class="watchlist-btn" data-id="{{ movie.id }}">
-                                        <i class="fa-solid fa-bookmark"></i>
-                                    </div>
-                                {% endif %}
-                            {% endwith %}
-                        </div>
+                        {% include 'movies/card.html' with movie=movie %}
                     </li>
                 {% endfor %}
             </ol>

@@ -12,6 +12,11 @@
     font-family: 'Electrolize', sans-serif;
 }
 
+:root {
+    --success: rgb(5, 236, 5);
+    --error:  red;
+}
+
 body {
     width: 100%;
     height: 100vh;
@@ -239,5 +244,15 @@ button:hover {
 
 .error-messages {
     margin-top: 10px;
-    color: red;
+    color: var(--error);
+}
+
+input:user-valid {
+    border-color: var(--success);
+    background-color: #e7f9e7;
+}
+
+input:user-invalid {
+    border-color: var(--error);
+    background-color: #f9e7e7;
 }

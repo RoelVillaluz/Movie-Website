@@ -1,0 +1,22 @@
+.watchlist-section {
+    padding: 20px;
+}
+
+.watchlist-section .header {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.watchlist-container {
+}
+
+.watchlist-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.watchlist-item .card {
+    height: auto;
+    flex: 1;
+}

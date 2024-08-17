@@ -3,10 +3,21 @@
 {% block title %} {{ user }}'s Watchlist {% endblock %}
 
 {% block body %}
-<div class="watchlist-movies">
-    <h1>My Watchlist</h1>
-    {% for movie in watchlist_movies %}
-        <li>{{ movie }}</li>
-    {% endfor %}
-</div>
+<section class="watchlist-section">
+    <div class="header">
+        <h1>My Watchlist</h1>
+    </div>
+    <div class="watchlist-container">
+        <ol>
+            {% for movie in watchlist_movies %}
+                <li class="watchlist-item">
+                    {% include 'movies/card.html' with movie=movie %}
+                    <div class="watchlist-item-details">
+                        <p>{{ movie.overview }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</section>
 {% endblock %}
