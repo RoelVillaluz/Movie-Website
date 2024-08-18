@@ -131,11 +131,24 @@ sortSelect.addEventListener('change', function() {
     sortForm.submit()
 })
 
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+document.querySelectorAll('input[type="checkbox"]').forEach(box => {
+    box.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default checkbox behavior
+        const parentForm = this.closest('form');
+        if (parentForm) {
+            parentForm.submit();
+        }
+    });
+});
 
-checkboxes.forEach(box => {
-    box.addEventListener('click', function() {
-        const parentForm = this.closest('form')
-        parentForm.submit()
-    })
-})
+const angleIcon = document.querySelector('.filter-sidebar i')
+const filterButtonList = document.querySelector('.filter-button-list')
+
+angleIcon.addEventListener('click', function() {
+    filterButtonList.classList.toggle('hidden')
+    if (filterButtonList.classList.contains('hidden')) {
+        angleIcon.className = 'fa-solid fa-angle-down';
+    } else {
+        angleIcon.className = 'fa-solid fa-angle-up';
+    }
+});

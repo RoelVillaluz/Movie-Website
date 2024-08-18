@@ -82,7 +82,7 @@ class MyWatchlistView(View):
         context = {
             'watchlist_movies': watchlist_movies,
             'sort_form': sort_form,
-            'available_genres': genres_with_movies,  # Keep the original genre list
-            'selected_genres': selected_genres  # To keep track of all selected genres
+            'available_genres': genres_with_movies,  
+            'selected_genres': selected_genres  
         }
         return render(request, self.template_name, context)

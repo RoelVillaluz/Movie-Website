@@ -22,15 +22,19 @@
     <div class="watchlist-container">
 
         <div class="filter-sidebar">
-            <h3>Genres ({{ available_genres|length }})</h3>
-            <form method="get" action="">
+            <h1>Filters</h1>
+            <h3>Genres ({{ available_genres|length }})<i class="fa-solid fa-angle-up"></i></h3>
+            <form class="filter-form" method="get" action="">
+                <ul class="filter-button-list">
                 {% for genre in available_genres.keys %}
-                    <div class="filter-button">
-                        <input type="checkbox" name="genre" value="{{ genre }}" id="genre-{{ genre.id }}"
+                    <li class="filter-button">
+                        <input type="checkbox" name="genre" value="{{ genre }}" 
+                        class="filter-checkbox" id="genre-{{ genre }}"
                         {% if genre in selected_genres %}checked{% endif %}>
-                        <label for="genre-{{ genre.id }}">{{ genre }}</label>
-                    </div>
+                        <label for="genre-{{ genre }}">{{ genre }}</label>
+                    </li>
                 {% endfor %}
+                </ul>
             </form>
         </div>
          
