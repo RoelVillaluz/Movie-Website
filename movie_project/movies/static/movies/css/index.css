@@ -5,7 +5,7 @@
     background-color: rgb(20, 20, 20);
     --low-red: red;
     --award-yellow: rgb(217, 255, 0);
-    --high-green: rgb(6, 221, 6);
+    --high-green: #1BF251;
 }
 
 .featured-movie {
