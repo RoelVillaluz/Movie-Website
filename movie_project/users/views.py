@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views import View
 
 from movies.forms import MovieSortForm
-from movies.utils import available_genres, sort
+from movies.utils import available_genres, filter_queryset, sort
 from users.models import Profile, Watchlist
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
@@ -65,13 +65,24 @@ class MyWatchlistView(View):
         watchlist = Watchlist.objects.get(user=user)
         watchlist_movies = watchlist.movies.all()
 
+        # Calculate available genres before applying filters
+        genres_with_movies = available_genres(watchlist_movies)
+
+        # Sorting logic
         sort_form = MovieSortForm(request.GET or None)
         if sort_form.is_valid():
             sort_by = sort_form.cleaned_data.get('sort_by')
             watchlist_movies = sort(watchlist_movies, sort_by)
 
-        context = {'watchlist_movies': watchlist_movies,
-                   'sort_form': sort_form,
-                   'available_genres': available_genres(watchlist_movies)
-                   }
+        # Filtering logic
+        selected_genres = request.GET.getlist('genre')
+        for genre_name in selected_genres:
+            watchlist_movies = filter_queryset(watchlist_movies, genre_name)
+
+        context = {
+            'watchlist_movies': watchlist_movies,
+            'sort_form': sort_form,
+            'available_genres': genres_with_movies,  # Keep the original genre list
+            'selected_genres': selected_genres  # To keep track of all selected genres
+        }
         return render(request, self.template_name, context)

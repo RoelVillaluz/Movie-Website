@@ -13,6 +13,8 @@ class MovieSortForm(forms.Form):
         ('rating_desc', 'Rating (Highest First)'),
         ('runtime_asc', 'Runtime (Shortest First)'),
         ('runtime_desc', 'Runtime (Longest First)'),
+        ('review_count_asc', 'Reviews (Most First)'),
+        ('review_count_desc', 'Reviews (Least First)'),
     ]
 
     sort_by = forms.ChoiceField(choices=SORT_CHOICES, required=False, label="Sort by")

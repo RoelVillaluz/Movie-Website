@@ -130,3 +130,12 @@ const sortSelect = document.querySelector('.sort-form select')
 sortSelect.addEventListener('change', function() {
     sortForm.submit()
 })
+
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+checkboxes.forEach(box => {
+    box.addEventListener('click', function() {
+        const parentForm = this.closest('form')
+        parentForm.submit()
+    })
+})

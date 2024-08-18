@@ -1,4 +1,5 @@
 from collections import defaultdict
+import math
 import random
 import string
 from django.conf import settings
@@ -32,15 +33,27 @@ def sort(queryset, sort_by):
         return queryset.order_by(F('hours') * 60 + F('minutes'))
     elif sort_by == 'runtime_desc':
         return queryset.order_by(-(F('hours') * 60 + F('minutes')))
+    elif sort_by == 'review_count_asc':
+        return queryset.annotate(review_count=Count('reviews')).order_by('-review_count')
+    elif sort_by == 'review_count_desc':
+        return queryset.annotate(review_count=Count('reviews')).order_by('review_count')
     return queryset
 
 def available_genres(queryset):
+    """Get only genres with movies for queryset"""
     genres_with_movies = defaultdict(list)
     for movie in queryset:
         for genre in movie.genres.all():
             genres_with_movies[genre.name].append(movie)
 
     return dict(genres_with_movies)
+
+
+def filter_queryset(queryset, genre_name=None):
+    if genre_name:
+        return queryset.filter(genres__name=genre_name)
+    return queryset
+    
 
 
 def get_popular_actors_and_movies():

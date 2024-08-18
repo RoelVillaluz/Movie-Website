@@ -20,12 +20,20 @@
     </form>
 
     <div class="watchlist-container">
+
         <div class="filter-sidebar">
             <h3>Genres ({{ available_genres|length }})</h3>
-            {% for genre in available_genres.keys %}
-                <li>{{ genre }}</li>
-            {% endfor %}
+            <form method="get" action="">
+                {% for genre in available_genres.keys %}
+                    <div class="filter-button">
+                        <input type="checkbox" name="genre" value="{{ genre }}" id="genre-{{ genre.id }}"
+                        {% if genre in selected_genres %}checked{% endif %}>
+                        <label for="genre-{{ genre.id }}">{{ genre }}</label>
+                    </div>
+                {% endfor %}
+            </form>
         </div>
+         
         <ol>
             {% for movie in watchlist_movies %}
                 <li class="watchlist-item">
