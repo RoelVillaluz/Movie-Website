@@ -7,9 +7,31 @@ import os
 from decouple import config
 from moviepy.editor import VideoFileClip
 from django.core.files import File
+from movies.forms import MovieSortForm
 from movies.models import Actor, Movie, Review, User
 from PIL import Image
 from django.db.models import Avg, Count
+
+from django.db.models import Avg, F
+
+def sort_movies(queryset, sort_by):
+    if sort_by == 'title_asc':
+        return queryset.order_by('title')
+    elif sort_by == 'title_desc':
+        return queryset.order_by('-title')
+    elif sort_by == 'release_date_asc':
+        return queryset.order_by('release_date')
+    elif sort_by == 'release_date_desc':
+        return queryset.order_by('-release_date')
+    elif sort_by == 'rating_asc':
+        return queryset.annotate(avg_rating=Avg('reviews__rating')).order_by('avg_rating')
+    elif sort_by == 'rating_desc':
+        return queryset.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')
+    elif sort_by == 'runtime_asc':
+        return queryset.order_by(F('hours') * 60 + F('minutes'))
+    elif sort_by == 'runtime_desc':
+        return queryset.order_by(-(F('hours') * 60 + F('minutes')))
+    return queryset
 
 def get_popular_actors_and_movies():
     """Get popular actors and their most popular movie."""
@@ -20,8 +42,8 @@ def get_popular_actors_and_movies():
 
     for actor in popular_actors:
         most_popular_movie_of_actor = (
-            actor.movies.annotate(avg_rating=Avg('reviews__rating'))
-            .order_by('-avg_rating')
+            actor.movies.annotate(review_count=Count('reviews'))
+            .order_by('-review_count')
             .values_list('title', flat=True)
             .first()
         )

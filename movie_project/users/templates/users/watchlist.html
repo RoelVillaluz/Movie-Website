@@ -6,13 +6,18 @@
 <section class="watchlist-section">
     <div class="header">
         <div>
-            <h1>My Watchlist</h1>
+            <h1>Watchlist</h1>
             <h3>Your Movie Picks, All in One Place.</h3>
         </div>
         <div>
             <h3>{{ watchlist_movies.count }} Titles</h3>
         </div>
     </div>
+
+    <!-- Sort form -->
+    <form method="get" class="sort-form">
+        {{ sort_form.as_p }}
+    </form>
 
     <div class="watchlist-container">
         <ol>
@@ -40,7 +45,7 @@
                     <div class="watchlist-item-details">
                         <div class="title">
                             <span class="counter">{{ forloop.counter }}.</span> 
-                            <h2>{{ movie.title }}</h2>
+                            <h2><a href="{% url 'movie-detail' movie.pk %}">{{ movie.title }}</a></h2>
                             <span class="movie-year">{{ movie.release_date.year }}</span>
                         </div>
                         <div class="tags">
@@ -67,8 +72,14 @@
                         <p>{{ movie.overview }}</p>
                         <div class="director">
                             <h3>Director</h3>
-                            {% if movie.directors.all %}
-                                <span>{{ movie.directors.first }}</span>
+                            {% if movie.directors.exists %}
+                                {% for director in movie.directors.all %}
+                                    {% if forloop.first %}
+                                        <span>
+                                            <a href="{% url 'director-detail' director.pk %}">{{ director }}</a>
+                                        </span>
+                                    {% endif %}
+                                {% endfor %}
                             {% else %}
                                 <span>No director yet</span>
                             {% endif %}
@@ -78,7 +89,9 @@
                             <div class="wrapper">
                                 {% if movie.actors.all %}
                                     {% for actor in movie.actors.all|slice:":4" %}
-                                        <li>{{ actor }}</li>
+                                        <li>
+                                            <a href="{% url 'actor-detail' actor.pk %}">{{ actor }}</a>
+                                        </li>
                                     {% endfor %}
                                 {% else %}
                                     <span>No cast yet</span>

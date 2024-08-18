@@ -10,7 +10,7 @@
         <div class="genre-movies">
             <h1>{{ genre }}</h1>
             {% for movie in movies %}
-                <h3>{{ movie }}</h3>
+                {% include 'movies/card.html' %}
             {% endfor %}
         </div>
     </div>

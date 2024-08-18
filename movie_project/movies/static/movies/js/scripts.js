@@ -123,3 +123,10 @@ function showNotification(message, imageUrl) {
         notification.style.display = 'none';
     }, 3000);
 }
+
+const sortForm = document.querySelector('.sort-form')
+const sortSelect = document.querySelector('.sort-form select')
+
+sortSelect.addEventListener('change', function() {
+    sortForm.submit()
+})

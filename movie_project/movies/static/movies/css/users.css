@@ -98,10 +98,50 @@
     margin-top: 20px;
 }
 
+.watchlist-item-details a {
+    position: relative;
+    text-decoration: none;
+}
+
+.watchlist-item-details a::before {
+    position: absolute;
+    content: '';
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: white;
+    transform-origin: left;
+    transition: 0.15s;
+}
+
+.watchlist-item-details a:hover::before {
+    width: 100%;
+}
+
 .watchlist-item-details .cast-list .wrapper {
     gap: 10px;
 }
 
 .watchlist-item-details h3 {
     margin: 10px 0px; 
+}
+
+.sort-form {
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+}
+
+.sort-form select {
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+}
+
+.sort-form option {
+    padding: 10px;
+    color: black;
+    font-size: 1.1rem;
 }

@@ -590,6 +590,7 @@ and only apply hover filter effect once all animations have stopped
     display: flex;
     align-items: center;
     gap: 5px;
+    background-color: rgb(255, 255, 255);
 }
 
 .low-rating {
@@ -602,10 +603,6 @@ and only apply hover filter effect once all animations have stopped
 
 .high-rating {
     background-color: var(--high-green);
-}
-
-.unrated {
-    background-color: rgb(255, 255, 255);
 }
 
 .rating-tag i {

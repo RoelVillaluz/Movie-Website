@@ -7,6 +7,8 @@ from django.contrib.auth import login, logout as auth_logout
 from django.urls import reverse_lazy
 from django.views import View
 
+from movies.forms import MovieSortForm
+from movies.utils import sort_movies
 from users.models import Profile, Watchlist
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
@@ -62,5 +64,13 @@ class MyWatchlistView(View):
         user = request.user
         watchlist = Watchlist.objects.get(user=user)
         watchlist_movies = watchlist.movies.all()
-        context = {'watchlist_movies': watchlist_movies}
+
+        sort_form = MovieSortForm(request.GET or None)
+        if sort_form.is_valid():
+            sort_by = sort_form.cleaned_data.get('sort_by')
+            watchlist_movies = sort_movies(watchlist_movies, sort_by)
+
+        context = {'watchlist_movies': watchlist_movies,
+                   'sort_form': sort_form
+                   }
         return render(request, self.template_name, context)
