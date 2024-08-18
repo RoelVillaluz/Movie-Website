@@ -7,14 +7,15 @@ import os
 from decouple import config
 from moviepy.editor import VideoFileClip
 from django.core.files import File
-from movies.forms import MovieSortForm
 from movies.models import Actor, Movie, Review, User
 from PIL import Image
 from django.db.models import Avg, Count
 
 from django.db.models import Avg, F
 
-def sort_movies(queryset, sort_by):
+movies = Movie.objects.all()
+
+def sort(queryset, sort_by):
     if sort_by == 'title_asc':
         return queryset.order_by('title')
     elif sort_by == 'title_desc':
@@ -32,6 +33,15 @@ def sort_movies(queryset, sort_by):
     elif sort_by == 'runtime_desc':
         return queryset.order_by(-(F('hours') * 60 + F('minutes')))
     return queryset
+
+def available_genres(queryset):
+    genres_with_movies = defaultdict(list)
+    for movie in queryset:
+        for genre in movie.genres.all():
+            genres_with_movies[genre.name].append(movie)
+
+    return dict(genres_with_movies)
+
 
 def get_popular_actors_and_movies():
     """Get popular actors and their most popular movie."""

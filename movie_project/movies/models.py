@@ -39,7 +39,7 @@ class Movie(models.Model):
         return self.title
     
     def runtime(self):
-        return f"{self.hours} hours {self.minutes} minutes"
+        return f"{self.hours}h {self.minutes}m"
     
     def avg_rating(self):
         avg_rating = self.reviews.aggregate(average=Avg('rating'))['average']

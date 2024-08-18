@@ -20,6 +20,12 @@
     </form>
 
     <div class="watchlist-container">
+        <div class="filter-sidebar">
+            <h3>Genres ({{ available_genres|length }})</h3>
+            {% for genre in available_genres.keys %}
+                <li>{{ genre }}</li>
+            {% endfor %}
+        </div>
         <ol>
             {% for movie in watchlist_movies %}
                 <li class="watchlist-item">
@@ -61,7 +67,11 @@
                                     unrated
                                 {% endif %}">
                                 <i class="fa-solid fa-star"></i>
-                                {{ movie.avg_rating|floatformat:2 }}
+                                {% if movie.avg_rating %}
+                                    {{ movie.avg_rating|floatformat:2 }}
+                                {% else %}
+                                    Unrated
+                                {% endif %}
                             </div>
                             {% if movie.reviews.all %}
                                 <div class="review-count">({{ movie.reviews.count }}) reviews</div>
@@ -69,6 +79,7 @@
                                 <div class="review-count">No reviews yet</div>
                             {% endif %}
                         </div>
+                        <p class="runtime">{{ movie.runtime }}</p>
                         <p>{{ movie.overview }}</p>
                         <div class="director">
                             <h3>Director</h3>
