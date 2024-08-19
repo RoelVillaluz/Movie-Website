@@ -143,14 +143,17 @@ checkboxes.forEach(box => {
     });
 });
 
-const angleIcon = document.querySelector('.filter-sidebar i')
-const filterButtonList = document.querySelector('.filter-button-list')
+const angleIcons = document.querySelectorAll('.filter-sidebar i');
 
-angleIcon.addEventListener('click', function() {
-    filterButtonList.classList.toggle('hidden')
-    if (filterButtonList.classList.contains('hidden')) {
-        angleIcon.className = 'fa-solid fa-angle-down';
-    } else {
-        angleIcon.className = 'fa-solid fa-angle-up';
-    }
+angleIcons.forEach(icon => {
+    icon.addEventListener('click', function() {
+        const filterButtonList = this.parentElement.nextElementSibling;
+        filterButtonList.classList.toggle('hidden');
+        
+        if (filterButtonList.classList.contains('hidden')) {
+            this.className = 'fa-solid fa-plus';
+        } else {
+            this.className = 'fa-solid fa-minus';
+        }
+    });
 });

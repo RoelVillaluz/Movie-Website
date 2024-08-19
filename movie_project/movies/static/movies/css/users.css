@@ -25,6 +25,7 @@
     margin-top: 10px;
     color: rgba(255, 255, 255, 1);
     font-weight: 200;
+    opacity: 0.7;
 }
 
 .watchlist-container {
@@ -143,6 +144,7 @@
 
 .sort-form select {
     padding: 10px;
+    margin-left: 10px;
     background-color: transparent;
     border: none;
     outline: none;
@@ -153,10 +155,11 @@
     appearance: none; 
     transition: 0.2s;
     border-radius: 5px;
+    background-color: rgb(53, 52, 52);
 }
 
 .sort-form select:hover {
-    background-color: rgb(53, 52, 52);
+    background-color: rgb(75, 75, 75);
 }
 
 .sort-form option {
@@ -181,11 +184,14 @@
     align-self: flex-start;
     max-height: calc(100vh - 20px); 
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 10px 0px;
+    display: block;
 }
 
-.watchlist-container ol {
-    flex: 6;
+.watchlist-container .content {
+    flex: 4;
+    margin-top: 10px;
 }
 
 .filter-sidebar {
@@ -243,7 +249,6 @@ input[type="checkbox"] {
 
 .filter-button:hover label {
     background-color: white;
-    color: black;
     font-weight: 700;
 }
 
@@ -255,4 +260,44 @@ input[type="checkbox"] {
     border-radius: 30px;
     padding: 10px 20px;
     transition: 0.3s;
+}
+
+.range {
+    display: flex;
+    align-items: center;
+    max-width: 70%;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.slider {
+    -webkit-appearance: none; /* Remove default styling */
+    flex: 3; /* Full width */
+    height: 5px; /* Slider height */
+    background: #ddd; /* Track background */
+    border-radius: 5px; /* Rounded corners */
+    outline: none; /* Remove outline */
+    position: relative;
+}
+
+.value {
+    flex: 1;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    font-weight: 700;
+    border-radius: 2px;
+    font-size: 0.8rem;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 15px; /* Thumb width */
+    height: 15px; /* Thumb height */
+    background: #ffffff; /* Thumb color */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Round thumb */
+    border: solid 1px black;
+    position: relative;
 }

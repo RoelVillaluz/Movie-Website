@@ -1,16 +1,34 @@
 <div class="filter-sidebar">
     <h1 class="filter-count">Filters</h1>
-    <h3>Genres ({{ available_genres|length }})<i class="fa-solid fa-angle-up"></i></h3>
     <form class="filter-form" method="get" action="">
+        <h3>Genres ({{ available_genres|length }})<i class="fa-solid fa-minus"></i></h3>
         <ul class="filter-button-list">
-        {% for genre in available_genres.keys %}
-            <li class="filter-button">
-                <input type="checkbox" name="genre" value="{{ genre }}" 
-                class="filter-checkbox" id="genre-{{ genre }}"
-                {% if genre in selected_genres %}checked{% endif %}>
-                <label for="genre-{{ genre }}">{{ genre }}</label>
-            </li>
-        {% endfor %}
+            {% for genre in available_genres.keys %}
+                <li class="filter-button">
+                    <input type="checkbox" name="genre" value="{{ genre }}" 
+                    class="filter-checkbox" id="genre-{{ genre }}"
+                    {% if genre in selected_genres %}checked{% endif %}>
+                    <label for="genre-{{ genre }}">{{ genre }}</label>
+                </li>
+            {% endfor %}
         </ul>
+        
+        <h3>Awards ({{ award_categories|length }})<i class="fa-solid fa-minus"></i></h3>
+        <ul class="filter-button-list">
+            {% for category in award_categories %}
+                <li class="filter-button">
+                    <input type="checkbox" class="filter-checkbox">
+                    <label>{{ category }}</label>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        <div>
+            <h3>Year</h3>
+            <div class="range">
+                <input type="range" id="rangeInput" name="volume" min="1990" max="2024" value="2024" class="slider">
+                <div class="value max">2024</div>
+            </div>
+        </div>
     </form>
 </div>

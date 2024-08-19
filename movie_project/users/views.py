@@ -12,7 +12,7 @@ from movies.utils import available_genres, filter_queryset, sort
 from users.models import Profile, Watchlist
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
-from movies.models import Movie, MovieImage, User
+from movies.models import Award, Movie, MovieImage, User
 
 
 movie_images = MovieImage.objects.all()
@@ -79,10 +79,14 @@ class MyWatchlistView(View):
         for genre_name in selected_genres:
             watchlist_movies = filter_queryset(watchlist_movies, genre_name)
 
+
+        award_categories = Award.objects.values_list('category', flat=True).distinct()
+
         context = {
             'watchlist_movies': watchlist_movies,
             'sort_form': sort_form,
             'available_genres': genres_with_movies,  
-            'selected_genres': selected_genres  
+            'selected_genres': selected_genres,
+            'award_categories': award_categories
         }
         return render(request, self.template_name, context)
