@@ -8,7 +8,7 @@ import os
 from decouple import config
 from moviepy.editor import VideoFileClip
 from django.core.files import File
-from movies.models import Actor, Movie, Review, User
+from movies.models import Actor, Award, Movie, Review, User
 from PIL import Image
 from django.db.models import Avg, Count
 
@@ -46,14 +46,30 @@ def available_genres(queryset):
         for genre in movie.genres.all():
             genres_with_movies[genre.name].append(movie)
 
-    return dict(genres_with_movies)
+    genres_with_movies = dict(sorted(genres_with_movies.items()))
+
+    return genres_with_movies
+
+def available_award_categories(queryset):
+    """ Get only award categories with movies for queryset """
+    categories_with_movies = defaultdict(list)
+    award_categories_with_winners = Award.objects.filter(movie__in=queryset, winner=True).values_list('category', flat=True).distinct()
+
+    for movie in queryset:
+        for award in movie.awards.filter(category__in=award_categories_with_winners):
+            categories_with_movies[award.category].append(movie)
+
+    categories_with_movies = sorted(dict(categories_with_movies))
+
+    return categories_with_movies
 
 
-def filter_queryset(queryset, genre_name=None):
+def filter_queryset(queryset, genre_name=None, award_category=None):
     if genre_name:
         return queryset.filter(genres__name=genre_name)
+    elif award_category:
+        return queryset.filter(awards__category=award_category)
     return queryset
-    
 
 
 def get_popular_actors_and_movies():

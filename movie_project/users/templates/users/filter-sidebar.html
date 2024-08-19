@@ -13,12 +13,14 @@
             {% endfor %}
         </ul>
         
-        <h3>Awards ({{ award_categories|length }})<i class="fa-solid fa-minus"></i></h3>
+        <h3>Awards ({{ award_categories_with_winners|length }})<i class="fa-solid fa-minus"></i></h3>
         <ul class="filter-button-list">
-            {% for category in award_categories %}
+            {% for category in award_categories_with_winners %}
                 <li class="filter-button">
-                    <input type="checkbox" class="filter-checkbox">
-                    <label>{{ category }}</label>
+                    <input type="checkbox" name="award_category" value="{{ category }}"
+                    class="filter-checkbox" id="award-{{ category }}"
+                    {% if category in selected_award_categories %}checked{% endif %}>
+                    <label for="award-{{ category }}">{{ category }}</label>
                 </li>
             {% endfor %}
         </ul>
@@ -26,7 +28,7 @@
         <div>
             <h3>Year</h3>
             <div class="range">
-                <input type="range" id="rangeInput" name="volume" min="1990" max="2024" value="2024" class="slider">
+                <input type="range" id="rangeInput" name="year" min="1990" max="2024" value="2024" class="slider">
                 <div class="value max">2024</div>
             </div>
         </div>

@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views import View
 
 from movies.forms import MovieSortForm
-from movies.utils import available_genres, filter_queryset, sort
+from movies.utils import available_award_categories, available_genres, filter_queryset, sort
 from users.models import Profile, Watchlist
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
@@ -65,8 +65,9 @@ class MyWatchlistView(View):
         watchlist = Watchlist.objects.get(user=user)
         watchlist_movies = watchlist.movies.all()
 
-        # Calculate available genres before applying filters
+        # Calculate available genres and award categories with winners before applying filters
         genres_with_movies = available_genres(watchlist_movies)
+        award_categories_with_winners = available_award_categories(watchlist_movies)
 
         # Sorting logic
         sort_form = MovieSortForm(request.GET or None)
@@ -76,17 +77,27 @@ class MyWatchlistView(View):
 
         # Filtering logic
         selected_genres = request.GET.getlist('genre')
+        selected_award_categories = request.GET.getlist('award_category')
+
+        # Apply genre filters dynamically
         for genre_name in selected_genres:
-            watchlist_movies = filter_queryset(watchlist_movies, genre_name)
+            watchlist_movies = filter_queryset(watchlist_movies, genre_name=genre_name)
 
+        # Apply award category filters dynamically
+        for award_category in selected_award_categories:
+            watchlist_movies = filter_queryset(watchlist_movies, award_category=award_category)
 
-        award_categories = Award.objects.values_list('category', flat=True).distinct()
+        # Get distinct award categories where the movie is a winner
+        award_categories = Award.objects.filter(winner=True).values_list('category', flat=True).distinct()
 
         context = {
             'watchlist_movies': watchlist_movies,
             'sort_form': sort_form,
             'available_genres': genres_with_movies,  
+            'award_categories_with_winners': award_categories_with_winners,
             'selected_genres': selected_genres,
-            'award_categories': award_categories
+            'award_categories': award_categories,
+            'selected_award_categories': selected_award_categories,
         }
         return render(request, self.template_name, context)
+
