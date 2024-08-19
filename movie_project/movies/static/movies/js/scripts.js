@@ -131,7 +131,9 @@ sortSelect.addEventListener('change', function() {
     sortForm.submit()
 })
 
-document.querySelectorAll('input[type="checkbox"]').forEach(box => {
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+checkboxes.forEach(box => {
     box.addEventListener('click', function(event) {
         event.preventDefault(); // Prevent default checkbox behavior
         const parentForm = this.closest('form');

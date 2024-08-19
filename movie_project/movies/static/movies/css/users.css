@@ -241,6 +241,12 @@ input[type="checkbox"] {
     font-weight: 700;
 }
 
+.filter-button:hover label {
+    background-color: white;
+    color: black;
+    font-weight: 700;
+}
+
 .filter-button label {
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 1);
@@ -248,4 +254,5 @@ input[type="checkbox"] {
     border: solid 1px rgba(255, 255, 255, 0.7);
     border-radius: 30px;
     padding: 10px 20px;
+    transition: 0.3s;
 }
