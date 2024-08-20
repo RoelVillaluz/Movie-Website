@@ -24,6 +24,19 @@
                 </li>
             {% endfor %}
         </ul>
+
+        <h3>Actors ({{ actors_with_movies|length }})<i class="fa-solid fa-minus"></i></h3>
+        <ul class="filter-button-list">
+            {% for actor in actors_with_movies %}
+                <li class="filter-button">
+                    <input type="checkbox" name="actor" value="{{ actor.name }}" 
+                    class="filter-checkbox" id="actor-{{ actor.name }}" 
+                    {% if actor.name in selected_actors %}checked{% endif %}>
+                    <label for="actor-{{ actor.name }}">{{ actor.name }}</label>
+                </li>
+            {% endfor %}
+        </ul>
+
         
         <div>
             <h3>Year</h3>

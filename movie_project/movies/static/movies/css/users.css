@@ -137,7 +137,6 @@
     margin: 10px 0px; 
 }
 
-
 .form-wrapper {
     display: flex;
     align-items: center;
@@ -154,9 +153,8 @@
 
 .search-form i {
     position: absolute;
-    color: black;
     top: 50%;
-    left: 15%;
+    left: 10%;
     transform: translate(-50%, -50%);
 }
 
@@ -172,7 +170,8 @@
     border: none;
     outline: none;
     font-size: 1.1rem;
-    color: black;
+    background-color: transparent;
+    border-bottom: solid 2px white;
 }
 
 .sort-form {

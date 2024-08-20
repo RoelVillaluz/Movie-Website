@@ -4,8 +4,9 @@ class SearchForm(forms.Form):
     query = forms.CharField(
         label="Search",
         max_length=50,
+        required=False,
         widget=forms.TextInput(attrs={
-            'placeholder': 'Search movies...'
+            'placeholder': 'Search'
         })
     )
 

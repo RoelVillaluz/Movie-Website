@@ -63,13 +63,24 @@ def available_award_categories(queryset):
 
     return categories_with_movies
 
+def available_actors(queryset):
+    """ Get only actors with movies for queryset """
+    actors_in_queryset = defaultdict(list)
+    for movie in queryset:
+        for actor in movie.actors.all():
+            actors_in_queryset[actor].append(movie)
 
-def filter_queryset(queryset, genre_name=None, award_category=None):
+    return actors_in_queryset
+
+def filter_queryset(queryset, genre_name=None, award_category=None, actor=None):
     if genre_name:
-        return queryset.filter(genres__name=genre_name)
-    elif award_category:
-        return queryset.filter(awards__category=award_category)
+        queryset = queryset.filter(genres__name=genre_name)
+    if award_category:
+        queryset = queryset.filter(awards__category=award_category)
+    if actor:
+        queryset = queryset.filter(actors__name=actor)
     return queryset
+
 
 
 def get_popular_actors_and_movies():

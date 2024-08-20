@@ -21,18 +21,8 @@
         {% include 'users/filter-sidebar.html' %}
     
         <div class="content">
-            <div class="form-wrapper">
-                <!-- Search form -->
-                <form method="get" class="search-form">
-                    {{ search_form }}
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </form>
-        
-                <!-- Sort form -->
-                <form method="get" class="sort-form">
-                    {{ sort_form.as_p }}
-                </form>
-            </div>
+            
+            {% include 'users/form-wrapper.html' %} 
     
             <ol>
                 {% for movie in watchlist_movies %}
