@@ -18,7 +18,6 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count, Avg
 from django.views.generic.edit import FormView
-from .forms import searchForm
 import string
 
 today = date.today()
@@ -56,21 +55,10 @@ def index(request):
 
     return render(request, 'movies/index.html', context)
 
-# Use the search view as is with a minor adjustment for consistency
-class SearchView(FormView):
-    template_name = 'movies/search-results.html'
-    form_class = searchForm
-
-    def form_valid(self, form):
-        query = form.cleaned_data['query']
-        movies = Movie.objects.filter(title__icontains=query)
-        return self.render_to_response({'query': query, 'movies': movies})
-
 class MovieListView(ListView):
     model = Movie
     template_name = 'movies/movie-list.html'
     context_object_name = 'movies'
-    form_class = searchForm
 
     def get_queryset(self):
         return Movie.objects.all().order_by('-id')

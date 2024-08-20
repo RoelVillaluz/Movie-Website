@@ -1,7 +1,13 @@
 from django import forms
 
-class searchForm(forms.Form):
-    query = forms.CharField(label="Search", max_length=50)
+class SearchForm(forms.Form):
+    query = forms.CharField(
+        label="Search",
+        max_length=50,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Search movies...'
+        })
+    )
 
 class MovieSortForm(forms.Form):
     SORT_CHOICES = [

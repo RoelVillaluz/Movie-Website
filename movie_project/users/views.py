@@ -7,7 +7,7 @@ from django.contrib.auth import login, logout as auth_logout
 from django.urls import reverse_lazy
 from django.views import View
 
-from movies.forms import MovieSortForm
+from movies.forms import MovieSortForm, SearchForm
 from movies.utils import available_award_categories, available_genres, filter_queryset, sort
 from users.models import Profile, Watchlist
 from .forms import CustomUserCreationForm
@@ -65,6 +65,12 @@ class MyWatchlistView(View):
         watchlist = Watchlist.objects.get(user=user)
         watchlist_movies = watchlist.movies.all()
 
+        # Search functionality
+        search_form = SearchForm(request.GET or None)
+        if search_form.is_valid():
+            query = search_form.cleaned_data.get('query')
+            watchlist_movies = watchlist_movies.filter(title__icontains=query)
+
         # Calculate available genres and award categories with winners before applying filters
         genres_with_movies = available_genres(watchlist_movies)
         award_categories_with_winners = available_award_categories(watchlist_movies)
@@ -92,6 +98,7 @@ class MyWatchlistView(View):
 
         context = {
             'watchlist_movies': watchlist_movies,
+            'search_form': search_form, 
             'sort_form': sort_form,
             'available_genres': genres_with_movies,  
             'award_categories_with_winners': award_categories_with_winners,
@@ -100,4 +107,3 @@ class MyWatchlistView(View):
             'selected_award_categories': selected_award_categories,
         }
         return render(request, self.template_name, context)
-

@@ -19,12 +19,21 @@
     <div class="watchlist-container">
 
         {% include 'users/filter-sidebar.html' %}
-         
+    
         <div class="content">
-            <!-- Sort form -->
-        <form method="get" class="sort-form">
-            {{ sort_form.as_p }}
-        </form>
+            <div class="form-wrapper">
+                <!-- Search form -->
+                <form method="get" class="search-form">
+                    {{ search_form }}
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </form>
+        
+                <!-- Sort form -->
+                <form method="get" class="sort-form">
+                    {{ sort_form.as_p }}
+                </form>
+            </div>
+    
             <ol>
                 {% for movie in watchlist_movies %}
                     <li class="watchlist-item">
@@ -114,6 +123,7 @@
             </ol>
         </div>
     </div>
+    
     
 </section>
 {% endblock %}
