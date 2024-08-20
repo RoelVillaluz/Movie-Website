@@ -1,6 +1,8 @@
 <div class="filter-sidebar">
     <h1 class="filter-count">Filters</h1>
     <form class="filter-form" method="get" action="">
+
+        <!-- Genre Filter -->
         <h3>Genres ({{ available_genres|length }})<i class="fa-solid fa-minus"></i></h3>
         <ul class="filter-button-list">
             {% for genre in available_genres.keys %}
@@ -13,6 +15,7 @@
             {% endfor %}
         </ul>
         
+        <!-- Award Category Filter -->
         <h3>Awards ({{ award_categories_with_winners|length }})<i class="fa-solid fa-minus"></i></h3>
         <ul class="filter-button-list">
             {% for category in award_categories_with_winners %}
@@ -25,6 +28,7 @@
             {% endfor %}
         </ul>
 
+        <!-- Actor Filter -->
         <h3>Actors ({{ actors_with_movies|length }})<i class="fa-solid fa-minus"></i></h3>
         <ul class="filter-button-list">
             {% for actor in actors_with_movies %}
@@ -37,6 +41,11 @@
             {% endfor %}
         </ul>
 
+        <div>
+            <label for="upcoming">Show Upcoming Movies</label>
+            <input type="checkbox" id="upcoming" name="upcoming" value="on"
+                {% if upcoming == 'on' %}checked{% endif %}>
+        </div>
         
         <div>
             <h3>Year</h3>

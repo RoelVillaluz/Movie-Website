@@ -1,4 +1,5 @@
 from collections import defaultdict
+from datetime import date
 import math
 import random
 import string
@@ -13,6 +14,7 @@ from PIL import Image
 from django.db.models import Avg, Count
 
 from django.db.models import Avg, F
+today = date.today()
 
 movies = Movie.objects.all()
 
@@ -81,6 +83,9 @@ def filter_queryset(queryset, genre_name=None, award_category=None, actor=None):
         queryset = queryset.filter(actors__name=actor)
     return queryset
 
+
+def toggle_upcoming(queryset):
+    return queryset.filter(release_date__gt=today)
 
 
 def get_popular_actors_and_movies():

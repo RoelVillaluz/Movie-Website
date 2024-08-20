@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views import View
 
 from movies.forms import MovieSortForm, SearchForm
-from movies.utils import available_actors, available_award_categories, available_genres, filter_queryset, sort
+from movies.utils import available_actors, available_award_categories, available_genres, filter_queryset, sort, toggle_upcoming
 from users.models import Profile, Watchlist
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
@@ -87,16 +87,21 @@ class MyWatchlistView(View):
         selected_award_categories = request.GET.getlist('award_category')
         selected_actors = request.GET.getlist('actor')
 
-        # Apply genre filters dynamically
+        # Apply genre filters 
         for genre_name in selected_genres:
             watchlist_movies = filter_queryset(watchlist_movies, genre_name=genre_name)
 
-        # Apply award category filters dynamically
+        # Apply award category filters 
         for award_category in selected_award_categories:
             watchlist_movies = filter_queryset(watchlist_movies, award_category=award_category)
 
+        # Apply actor filters 
         for actor in selected_actors:
             watchlist_movies = filter_queryset(watchlist_movies, actor=actor)
+
+        # Toggle upcoming movies filter
+        if request.GET.get('upcoming', 'off') == 'on':
+            watchlist_movies = toggle_upcoming(watchlist_movies)
 
         # Get distinct award categories where the movie is a winner
         award_categories = Award.objects.filter(winner=True).values_list('category', flat=True).distinct()
@@ -111,6 +116,7 @@ class MyWatchlistView(View):
             'award_categories': award_categories,
             'selected_award_categories': selected_award_categories,
             'actors_with_movies': actors_with_movies,
-            'selected_actors': selected_actors
+            'selected_actors': selected_actors,
+            'upcoming': request.GET.get('upcoming', 'off')
         }
         return render(request, self.template_name, context)
