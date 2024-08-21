@@ -10,6 +10,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from movies.forms import SearchForm
 from movies.utils import create_users, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating
 from users.models import Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
@@ -148,12 +149,6 @@ class DirectorDetailView(DetailView):
         })
 
         return context
-
-# @method_decorator(csrf_exempt, name='dispatch')
-# class AddWatchlistView(LoginRequiredMixin, View):
-#     login_url = 'login/'
-
-#     def post(self, request, movie_id):
         
 @csrf_exempt
 def add_to_watchlist(request, id):
@@ -179,3 +174,19 @@ def add_to_watchlist(request, id):
         {'watchlisted': watchlisted, 
          'movie_image': movie.poster_path.url})
 
+class SearchView(View):
+    form_class = SearchForm
+    
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(request.GET)
+        movies = None  # Initialize movies to None to avoid undefined variable issues
+        
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            if query:
+                movies = Movie.objects.filter(title__icontains=query)
+        
+        return render(request, 'movies/search.html', {
+            'form': form,
+            'movies': movies
+        })

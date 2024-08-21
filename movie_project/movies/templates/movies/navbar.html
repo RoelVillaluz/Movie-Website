@@ -1,5 +1,14 @@
 <nav>
-    <a href = "{% url 'index' %}" class="logo">MovieVerse</a>
+    <a href="{% url 'index' %}" class="logo">MovieVerse</a>
+    
+    <!-- Search Form -->
+    <div class="nav-search-form">
+        <form method="GET" action="{% url 'search' %}">
+            <input type="text" name="query" placeholder="Search..." value="{{ search_form.query.value|default:'' }}">
+            <button type="submit"><i class="fa-solid fa-search"></i></button>
+        </form>
+    </div>
+    
     <div class="buttons">
         <ul>
             {% if user.is_authenticated %}
@@ -9,7 +18,7 @@
                         <i class="fa-regular fa-user"></i>
                     </div>
                     <ul class="dropdown-list">
-                        <li class="dropdown-item"><a href="">My Profile</a></li>
+                        <li class="dropdown-item"><a href="#">My Profile</a></li>
                         <li class="dropdown-item"><a href="{% url 'watchlist' %}">My Watchlist</a></li>
                         <li class="dropdown-item"><a href="{% url 'logout' %}">Sign out</a></li>
                     </ul>
