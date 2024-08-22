@@ -186,7 +186,7 @@ class SearchView(View):
             if query:
                 movies = Movie.objects.filter(title__icontains=query)
         
-        return render(request, 'movies/search.html', {
+        return render(request, 'movies/search_results.html', {
             'form': form,
             'movies': movies
         })

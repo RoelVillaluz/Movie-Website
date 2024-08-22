@@ -17,8 +17,13 @@ nav .logo {
     text-decoration: none;
 }
 
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-nav .buttons ul:not(.dropdown-list) {
+.nav-controls ul:not(.dropdown-list) {
     display: flex;
     align-items: center;
     list-style-type: none;
@@ -48,6 +53,17 @@ nav .buttons ul:not(.dropdown-list) {
 
 nav li a:hover::before {
     width: 100%;
+}
+
+.nav-searchbar input {
+    padding: 10px;
+    background-color: transparent;
+    border: solid 1px white;
+    outline: none;
+}
+
+.nav-searchbar input::placeholder {
+    color: white;
 }
 
 .profile-menu {

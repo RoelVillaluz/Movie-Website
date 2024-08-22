@@ -10,5 +10,5 @@ urlpatterns = [
     path("actors/<int:pk>", views.ActorDetailView.as_view(), name='actor-detail'),
     path("directors/<int:pk>", views.DirectorDetailView.as_view(), name='director-detail'),
     path('add_to_watchlist/<int:id>/', views.add_to_watchlist, name='add_to_watchlist'),
-    path('search/', views.SearchView.as_view(), name='search'),
+    path('search_results/', views.SearchView.as_view(), name='search_results'),
 ]
