@@ -1,7 +1,9 @@
-.watchlist-section,
-.search-results-section 
-{
+.watchlist-section {
     padding: 20px;
+}
+
+.search-results-container {
+    display: flex;
 }
 
 .watchlist-section .header,

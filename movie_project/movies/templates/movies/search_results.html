@@ -10,15 +10,12 @@
         <div class="search-results-container">
 
             <div class="content">
-                <ol>
+                <ol class="search-result-list">
                     <h3 class="marker">Movies</h3>
-                    {% for movie in movies %}
-
-                        {% include 'movies/movie-list-item.html' %}
-                        
-                    {% endfor %}
+                    
                 </ol>
             </div>
+            <!-- see search results page idea in downloads -->
         </div>
     </section>
 {% endblock %}
