@@ -1,0 +1,24 @@
+{% extends 'movies/layout.html' %}
+
+{% block title %} Search Results for {{ query }} {% endblock %}
+
+{% block body %}
+    <section class="search-results-section">
+        <div class="header">
+            <h1>Search Results for "{{ query }}"</h1>
+        </div>
+        <div class="search-results-container">
+
+            <div class="content">
+                <ol>
+                    <h3 class="marker">Movies</h3>
+                    {% for movie in movies %}
+
+                        {% include 'movies/movie-list-item.html' %}
+                        
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </section>
+{% endblock %}

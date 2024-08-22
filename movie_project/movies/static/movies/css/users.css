@@ -1,8 +1,12 @@
-.watchlist-section {
+.watchlist-section,
+.search-results-section 
+{
     padding: 20px;
 }
 
-.watchlist-section .header {
+.watchlist-section .header,
+.search-results-section .header
+{
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -11,6 +15,7 @@
     margin-bottom: 50px;
 }
 
+.search-results-section .header::before,
 .watchlist-section .header::before {
     position: absolute;
     content: '';
@@ -28,11 +33,12 @@
     opacity: 0.7;
 }
 
-.watchlist-container {
+.watchlist-container
+{
     display: flex;
 }
 
-.watchlist-item {
+.movie-list-item {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 20px;
@@ -40,7 +46,7 @@
     padding: 20px;
 }
 
-.watchlist-item .card {
+.movie-list-item .card {
     height: auto;
     width: 100%;
     max-width: 200px;
@@ -48,13 +54,13 @@
     margin-right: 20px;
 }
 
-.watchlist-item img {
+.movie-list-item img {
     width: 100%;
     height: auto;
     object-fit: cover;
 }
 
-.watchlist-item-details {
+.movie-list-item-details {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -62,13 +68,13 @@
     align-items: flex-start; 
 }
 
-.watchlist-item-details .title {
+.movie-list-item-details .title {
     display: flex;
     align-items: flex-end;
     margin-bottom: 10px;
 }
 
-.watchlist-item-details .counter {
+.movie-list-item-details .counter {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,40 +86,40 @@
     margin-right: 10px;
 }
 
-.watchlist-item-details .movie-year {
+.movie-list-item-details .movie-year {
     margin-left: 10px;
     font-size: 1.25rem;
     color: rgba(255, 255, 255, 0.7);
 }
 
-.watchlist-item-details p {
+.movie-list-item-details p {
     margin: 10px 0px;
     max-width: 75%;
     line-height: 1.5rem;
 }
 
-.watchlist-item-details p.runtime {
+.movie-list-item-details p.runtime {
     color: rgb(201, 201, 201);
     margin-top: 20px;
 }
 
-.watchlist-item-details .director-and-cast {
+.movie-list-item-details .director-and-cast {
     display: flex;
     align-items: center;
     gap: 50px;
 }
 
-.watchlist-item-details .cast-list {
+.movie-list-item-details .cast-list {
     list-style-type: none;
     margin-top: 20px;
 }
 
-.watchlist-item-details a {
+.movie-list-item-details a {
     position: relative;
     text-decoration: none;
 }
 
-.watchlist-item-details a::before {
+.movie-list-item-details a::before {
     position: absolute;
     content: '';
     width: 0%;
@@ -125,15 +131,15 @@
     transition: 0.15s;
 }
 
-.watchlist-item-details a:hover::before {
+.movie-list-item-details a:hover::before {
     width: 100%;
 }
 
-.watchlist-item-details .cast-list .wrapper {
+.movie-list-item-details .cast-list .wrapper {
     gap: 10px;
 }
 
-.watchlist-item-details h3 {
+.movie-list-item-details h3 {
     margin: 10px 0px; 
 }
 

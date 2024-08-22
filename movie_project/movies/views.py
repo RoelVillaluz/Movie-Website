@@ -25,7 +25,7 @@ today = date.today()
 one_month_before = today - relativedelta(months=1)
 
 movies = Movie.objects.all()
-
+actors = Actor.objects.all()
 
 def index(request):
     # random_rating(30) # for populating reviews
@@ -185,8 +185,11 @@ class SearchView(View):
             query = form.cleaned_data['query']
             if query:
                 movies = Movie.objects.filter(title__icontains=query)
+                actors = Actor.objects.filter(name__icontains=query)
         
         return render(request, 'movies/search_results.html', {
             'form': form,
-            'movies': movies
+            'movies': movies,
+            'actors': actors,
+            'query': query
         })
