@@ -10,12 +10,19 @@
         <div class="search-results-container">
 
             <div class="content">
+                <!-- Movie results -->
                 <h3 class="marker">Movies ({{ movies.count }})</h3>
                 <ul class="search-result-list">
                     {% for movie in movies %}
                         <li>{% include 'movies/card.html' %}</li>
                     {% endfor %}
                 </ul>
+
+                <!-- Actor results -->
+                <h3 class="marker">Actors ({{ actors.count }})</h3>
+
+                <!-- Director results -->
+                 <h3 class="marker">Directors ({{ directors.count}})</h3>
             </div>
             <!-- see search results page idea in downloads -->
         </div>
