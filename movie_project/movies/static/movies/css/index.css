@@ -568,6 +568,7 @@ and only apply hover filter effect once all animations have stopped
 
 .tags {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 5px;
     margin-top: 10px;

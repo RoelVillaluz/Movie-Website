@@ -2,13 +2,7 @@
     padding: 20px;
 }
 
-.search-results-container {
-    display: flex;
-}
-
-.watchlist-section .header,
-.search-results-section .header
-{
+.watchlist-section .header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -17,7 +11,6 @@
     margin-bottom: 50px;
 }
 
-.search-results-section .header::before,
 .watchlist-section .header::before {
     position: absolute;
     content: '';
