@@ -186,18 +186,27 @@ class SearchView(View):
             selected_filter = request.GET.get('filter')  # Changed to a single filter
             
             if query:
+            # Create a dictionary to map filters to their corresponding querysets
+                filters = {
+                    'movies': Movie.objects.filter(title__icontains=query).order_by('title'),
+                    'actors': Actor.objects.filter(name__icontains=query).order_by('name'),
+                    'directors': Director.objects.filter(name__icontains=query).order_by('name')
+                }
+
                 # Apply the filter based on the selected filter type
-                if selected_filter == 'all' or not selected_filter:
-                    movies = Movie.objects.filter(title__icontains=query)
-                    actors = Actor.objects.filter(name__icontains=query)
-                    directors = Director.objects.filter(name__icontains=query)
-                else:
+                if selected_filter in filters:
                     if selected_filter == 'movies':
-                        movies = Movie.objects.filter(title__icontains=query)
-                    if selected_filter == 'actors':
-                        actors = Actor.objects.filter(name__icontains=query)
-                    if selected_filter == 'directors':
-                        directors = Director.objects.filter(name__icontains=query)
+                        movies = filters['movies']
+                    elif selected_filter == 'actors':
+                        actors = filters['actors']
+                    elif selected_filter == 'directors':
+                        directors = filters['directors']
+                else:
+                    # If 'all' or no filter is selected, retrieve all types
+                    movies = filters['movies']
+                    actors = filters['actors']
+                    directors = filters['directors']
+
         
         return render(request, 'movies/search_results.html', {
             'form': form,
