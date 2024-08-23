@@ -6,6 +6,56 @@
     display: flex;
 }
 
+.search-results-section .header span {
+    color: rgb(98, 196, 253);
+}
+
+.search-filters {
+    display: flex;
+    background-color: rgb(20, 20, 20);
+    list-style-type: none;
+    gap: 5px;
+    margin-bottom: 40px;
+}
+
+.search-filters span {
+    margin-right: 10px;
+}
+
+.search-results-container .marker {
+    margin-top: 2rem;
+}
+
+.search-results-container .content {
+    flex: 4;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.load-more-btn {
+    font-family: "Electrolize", sans-serif;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgb(46, 46, 46);
+    color: rgb(180, 180, 180);
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.load-more-btn i {
+    color: rgb(180, 180, 180);
+    margin-left: 0.5rem;
+}
+
 .search-results-section .header {
     display: flex;
     justify-content: space-between;
@@ -32,10 +82,63 @@
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 10px;
+    padding-bottom: 20px;
+    pointer-events: none;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
 }
 
 .search-result-list li {
     width: calc((100% / 5) - 10px);
     height: auto;
     margin: 20px 0px;
+    transition: 0.3s; 
+    pointer-events: auto;
+}
+
+.search-result-list:hover li:not(:hover) img {
+    opacity: 0.3;
+}
+
+.search-result-list:hover li:not(:hover) .details, 
+.search-result-list:hover li:not(:hover)::before,
+.search-result-list:hover li:not(:hover) .watchlist-btn
+{
+    opacity: 0;
+}
+
+.person {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.person .image {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.person .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.3s;
+    pointer-events: auto;
+}
+
+.person .details {
+    flex-grow: 1;
+    transition: 0.3s;
+}
+
+.person .details h3 {
+    margin-bottom: 5px;
+}
+
+.popular-actors-list .details span {
+    color: rgb(161, 161, 161);
 }

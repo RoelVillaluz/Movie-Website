@@ -18,8 +18,7 @@ from django.views.generic import ListView, DetailView
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count, Avg
-from django.views.generic.edit import FormView
-import string
+
 
 today = date.today()
 one_month_before = today - relativedelta(months=1)

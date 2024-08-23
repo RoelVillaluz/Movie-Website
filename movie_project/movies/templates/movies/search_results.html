@@ -5,26 +5,87 @@
 {% block body %}
     <section class="search-results-section">
         <div class="header">
-            <h1>Search Results for "{{ query }}"</h1>
+            <h1>Search Results for <span>"{{ query }}"</span></h1>
         </div>
         <div class="search-results-container">
 
             <div class="content">
+
+                <!-- Search filters -->
+                <ul class="search-filters">
+                    <span>Show Results For: </span>
+                    <li class="filter-button">
+                        <input type="checkbox" class="filter-checkbox" name="all" value="all">
+                        <label for="all">All</label>
+                    </li>
+                    <li class="filter-button">
+                        <input type="checkbox" class="filter-checkbox" name="movies" value="movies">
+                        <label for="movies">Movies</label>
+                    </li>
+                    <li class="filter-button">
+                        <input type="checkbox" class="filter-checkbox" name="actors" value="actors">
+                        <label for="actors">Actors</label>
+                    </li>
+                    <li class="filter-button">
+                        <input type="checkbox" class="filter-checkbox" name="directors" value="directors">
+                        <label for="directors">Directors</label>
+                    </li>
+                    <li class="filter-button">
+                        <input type="checkbox" class="filter-checkbox" name="lists" value="lists">
+                        <label for="lists">Lists</label>
+                    </li>
+                    <li class="filter-button">
+                        <input type="checkbox" class="filter-checkbox" name="reviews" value="reviews">
+                        <label for="reviews">Reviews</label>
+                    </li>
+                </ul>
+
                 <!-- Movie results -->
                 <h3 class="marker">Movies ({{ movies.count }})</h3>
                 <ul class="search-result-list">
                     {% for movie in movies %}
                         <li>{% include 'movies/card.html' %}</li>
                     {% endfor %}
+                    <div class="button-container">
+                        <button class="load-more-btn">Load More<i class="fa-solid fa-angle-down"></i></button>
+                    </div>
                 </ul>
 
                 <!-- Actor results -->
                 <h3 class="marker">Actors ({{ actors.count }})</h3>
+                <ul class="search-result-list">
+                    {% for actor in actors %}
+                        <li class="person">
+                            <div class="image">
+                                <a href="{% url 'actor-detail' actor.pk %}">
+                                    <img src="{{ actor.image.url }}" alt="">
+                                </a>
+                            </div>
+                            <div class="details">
+                                <h3>{{ actor }}</h3>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
 
                 <!-- Director results -->
-                 <h3 class="marker">Directors ({{ directors.count}})</h3>
+                <h3 class="marker">Directors ({{ directors.count}})</h3>
+                <ul class="search-result-list">
+                    {% for director in directors %}
+                        <li class="person">
+                            <div class="image">
+                                <a href="{% url 'director-detail' director.pk %}">
+                                    <img src="{{ director.image.url }}" alt="">
+                                </a>
+                            </div>
+                            <div class="details">
+                                <h3>{{ director }}</h3>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
-            <!-- see search results page idea in downloads -->
         </div>
+
     </section>
 {% endblock %}

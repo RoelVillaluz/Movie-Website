@@ -9,7 +9,7 @@ import os
 from decouple import config
 from moviepy.editor import VideoFileClip
 from django.core.files import File
-from movies.models import Actor, Award, Movie, Review, User
+from movies.models import Actor, Award, Director, Movie, Review, User
 from PIL import Image
 from django.db.models import Avg, Count
 
@@ -28,9 +28,9 @@ def sort(queryset, sort_by):
     elif sort_by == 'release_date_desc':
         return queryset.order_by('-release_date')
     elif sort_by == 'rating_asc':
-        return queryset.annotate(avg_rating=Avg('reviews__rating')).order_by('avg_rating')
+        return queryset.annotate(avg_rating=Avg('reviews__rating'), review_count=Count('reviews')).order_by('avg_rating', 'review_count')
     elif sort_by == 'rating_desc':
-        return queryset.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')
+        return queryset.annotate(avg_rating=Avg('reviews__rating'), review_count=Count('reviews')).order_by('-avg_rating', '-review_count')
     elif sort_by == 'runtime_asc':
         return queryset.order_by(F('hours') * 60 + F('minutes'))
     elif sort_by == 'runtime_desc':
@@ -131,6 +131,21 @@ def get_top_rated_movies(num_of_movies):
 
     return top_rated_movies
 
+def get_active_filters(selected_filters, filter_types):
+    """
+    Returns a dictionary where the keys are filter types and the values are booleans indicating
+    whether each filter is active based on the user's selection.
+    """
+    active_filters = {}
+    filter_all = 'all' in selected_filters
+
+    for filter_type in filter_types:
+        active_filters[filter_type] = filter_all or filter_type in selected_filters
+
+    return active_filters
+
+
+
 
 # def fetch_tmdb_movies(endpoint, params):
 #     api_token = config('API_TOKEN')
@@ -145,7 +160,6 @@ def get_top_rated_movies(num_of_movies):
 #     else:
 #         return []  
 
-# # Example usage
 # if __name__ == "__main__":
 #     endpoint = "movie/popular"
 #     params = {"language": "en-US", "page": 1}

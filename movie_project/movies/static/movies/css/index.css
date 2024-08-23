@@ -566,6 +566,10 @@ and only apply hover filter effect once all animations have stopped
     margin-top: 10px;
 }
 
+.card .details h3 {
+    max-width: 90%;
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
