@@ -178,19 +178,32 @@ class SearchView(View):
     
     def get(self, request, *args, **kwargs):
         form = self.form_class(request.GET)
-        movies = None  # Initialize movies to None to avoid undefined variable issues
+        query = ''
+        movies = actors = directors = None
         
         if form.is_valid():
-            query = form.cleaned_data['query']
+            query = form.cleaned_data.get('query', '')
+            selected_filter = request.GET.get('filter')  # Changed to a single filter
+            
             if query:
-                movies = Movie.objects.filter(title__icontains=query)
-                actors = Actor.objects.filter(name__icontains=query)
-                directors = Director.objects.filter(name__icontains=query)
+                # Apply the filter based on the selected filter type
+                if selected_filter == 'all' or not selected_filter:
+                    movies = Movie.objects.filter(title__icontains=query)
+                    actors = Actor.objects.filter(name__icontains=query)
+                    directors = Director.objects.filter(name__icontains=query)
+                else:
+                    if selected_filter == 'movies':
+                        movies = Movie.objects.filter(title__icontains=query)
+                    if selected_filter == 'actors':
+                        actors = Actor.objects.filter(name__icontains=query)
+                    if selected_filter == 'directors':
+                        directors = Director.objects.filter(name__icontains=query)
         
         return render(request, 'movies/search_results.html', {
             'form': form,
             'movies': movies,
             'actors': actors,
             'directors': directors,
-            'query': query
+            'query': query,
+            'selected_filter': selected_filter
         })

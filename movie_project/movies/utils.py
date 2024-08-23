@@ -131,22 +131,6 @@ def get_top_rated_movies(num_of_movies):
 
     return top_rated_movies
 
-def get_active_filters(selected_filters, filter_types):
-    """
-    Returns a dictionary where the keys are filter types and the values are booleans indicating
-    whether each filter is active based on the user's selection.
-    """
-    active_filters = {}
-    filter_all = 'all' in selected_filters
-
-    for filter_type in filter_types:
-        active_filters[filter_type] = filter_all or filter_type in selected_filters
-
-    return active_filters
-
-
-
-
 # def fetch_tmdb_movies(endpoint, params):
 #     api_token = config('API_TOKEN')
 #     url = f"https://api.themoviedb.org/3/{endpoint}"
