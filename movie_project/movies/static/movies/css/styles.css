@@ -261,9 +261,6 @@ nav a {
     display: flex;
     align-items: center;
     font-size: 1.1rem;
-}
-
-.sub-info p {
     opacity: 0;
     animation: slideRight 0.7s ease-in-out forwards;
     animation-delay: 3s;
@@ -681,6 +678,8 @@ nav a {
 .top-review p {
     font-size: 1.2rem;
     margin-top: 1rem;
+    overflow-wrap: break-word; /* Ensures that long words will wrap to the next line */
+    word-wrap: break-word; /* Legacy support for older browsers */
 }
 
 .top-review .user {
