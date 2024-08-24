@@ -1327,7 +1327,8 @@ nav a {
 }
 
 .all-movie-list li {
-    width: calc(100% / 5);
+    width: calc((100% / 5) - 10px);
+    margin: 0px 5px;
     margin-bottom: 3rem;
 }
 

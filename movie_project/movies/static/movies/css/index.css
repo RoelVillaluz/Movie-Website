@@ -541,6 +541,44 @@ and only apply hover filter effect once all animations have stopped
     transition: 0.3s;
 }
 
+@keyframes skeleton-loading {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+.skeleton {
+    background-size: 200% 100%;
+    animation: skeleton-loading 2s infinite linear;
+}
+
+/* Skeleton state styling */
+.skeleton .image {
+    background-color: #e0e0e0; 
+    width: 100%; 
+    height: auto; 
+}
+
+.skeleton .image img {
+    display: none; /* Hide the image in skeleton state */
+}
+
+.skeleton .tags > * {
+    background-color: #e0e0e0;
+    color: #e0e0e0;
+}
+
+.skeleton .rating-tag i {
+    color: #e0e0e0;
+}
+
+.skeleton .watchlist-btn {
+    display: none;
+}
+
 .card {
     position: relative;
 }
