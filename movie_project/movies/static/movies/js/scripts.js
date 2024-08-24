@@ -124,32 +124,44 @@ function showNotification(message, imageUrl) {
     }, 3000);
 }
 
-const sortForm = document.querySelector('.sort-form')
-const sortSelect = document.querySelector('.sort-form select')
+document.addEventListener('DOMContentLoaded', () => {
+    // Radio button event listener
+    const radioBtns = document.querySelectorAll('input[type="radio"]');
+    radioBtns.forEach(btn => {
+        btn.addEventListener('change', function() {
+            this.form.submit()
+        });
+    });
 
-sortSelect.addEventListener('change', function() {
-    sortForm.submit()
-})
+    // Sorting form submission
+    const sortForm = document.querySelector('.sort-form');
+    const sortSelect = document.querySelector('.sort-form select');
 
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    if (sortForm && sortSelect) {
+        sortSelect.addEventListener('change', function() {
+            sortForm.submit();
+        });
+    }
 
-checkboxes.forEach(box => {
-    box.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default checkbox behavior
-        const parentForm = this.closest('form');
-        if (parentForm) {
-            parentForm.submit();
-        }
+    // Checkbox event listener
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    
+    checkboxes.forEach(box => {
+        box.addEventListener('click', function(event) {
+            // Only prevent default behavior for specific cases
+            if (this.checked) {
+                event.preventDefault(); // Prevent default checkbox behavior
+            }
+            const parentForm = this.closest('form');
+            if (parentForm) {
+                parentForm.submit();
+            }
+        });
     });
 });
 
 
-const radioBtns = document.querySelectorAll('.filter-radio');
-    radioBtns.forEach(btn => {
-        btn.addEventListener('change', function() {
-            this.form.submit();
-        });
-    });
+
 
 const angleIcons = document.querySelectorAll('.filter-sidebar i');
 
