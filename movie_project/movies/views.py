@@ -10,8 +10,8 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from movies.forms import SearchForm
-from movies.utils import available_actors, available_award_categories, available_genres, create_users, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating
+from movies.forms import MovieSortForm, SearchForm
+from movies.utils import available_actors, available_award_categories, available_genres, create_users, filter_queryset, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating, sort
 from users.models import Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
@@ -60,22 +60,58 @@ class MovieListView(ListView):
     template_name = 'movies/movie-list.html'
     context_object_name = 'movies'
 
-    movies = Movie.objects.all().order_by('-id')
-
     def get_queryset(self):
-        return movies
+        return Movie.objects.all().order_by('-id')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        movies = self.get_queryset()
+
+        # Calculate available genres, actors, and award categories with winners before applying filters
         genres_with_movies = available_genres(movies)
         award_categories_with_winners = available_award_categories(movies)
         actors_with_movies = available_actors(movies)
 
-        
+        # Filtering logic
+        selected_genres = self.request.GET.getlist('genre')
+        selected_award_categories = self.request.GET.getlist('award_category')
+        selected_actors = self.request.GET.getlist('actor')
+
+        # Apply genre filters 
+        for genre_name in selected_genres:
+            movies = filter_queryset(movies, genre_name=genre_name)
+
+        # Apply award category filters 
+        for award_category in selected_award_categories:
+            movies = filter_queryset(movies, award_category=award_category)
+
+        # Apply actor filters 
+        for actor in selected_actors:
+            movies = filter_queryset(movies, actor=actor)
+
+        # search form
+        search_form = SearchForm(self.request.GET or None)
+        if search_form.is_valid():
+            query = search_form.cleaned_data.get('query')
+            movies = movies.filter(title__icontains=query)
+
+        # Sorting logic using the request object
+        sort_form = MovieSortForm(self.request.GET or None)
+        if sort_form.is_valid():
+            sort_by = sort_form.cleaned_data.get('sort_by')
+            movies = sort(movies, sort_by)
+
+        # Update context with the necessary data
         context.update({
+            'movies': movies,  
             'available_genres': genres_with_movies,
             'award_categories_with_winners': award_categories_with_winners,
-            'actors_with_movies': actors_with_movies
+            'actors_with_movies': actors_with_movies,
+            'selected_genres': selected_genres,
+            'selected_award_categories': selected_award_categories,
+            'selected_actors': selected_actors,
+            'search_form': search_form,
+            'sort_form': sort_form  
         })
         return context
 

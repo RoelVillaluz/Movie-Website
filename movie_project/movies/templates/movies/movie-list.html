@@ -10,8 +10,9 @@
         <div class="content">
 
             <!-- add form wrapper here later -->
+             {% include 'users/form-wrapper.html' %}
 
-            <ul class="movie-list">
+            <ul class="all-movie-list">
                 {% for movie in movies %}
                     <li>
                         {% include 'movies/card.html' %}

@@ -1319,14 +1319,14 @@ nav a {
     cursor: pointer;
 }
 
-.movie-list {
+.all-movie-list {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     list-style-type: none;
 }
 
-.movie-list li {
+.all-movie-list li {
     width: calc(100% / 5);
     margin-bottom: 3rem;
 }
