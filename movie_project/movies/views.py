@@ -180,33 +180,31 @@ class SearchView(View):
         form = self.form_class(request.GET)
         query = ''
         movies = actors = directors = None
+        selected_filter = request.GET.get('filter', 'all')  # Default to 'all' if no filter is provided
         
         if form.is_valid():
             query = form.cleaned_data.get('query', '')
-            selected_filter = request.GET.get('filter')  # Changed to a single filter
-            
-            if query:
+
             # Create a dictionary to map filters to their corresponding querysets
-                filters = {
-                    'movies': Movie.objects.filter(title__icontains=query).order_by('title'),
-                    'actors': Actor.objects.filter(name__icontains=query).order_by('name'),
-                    'directors': Director.objects.filter(name__icontains=query).order_by('name')
-                }
+            filters = {
+                'movies': Movie.objects.filter(title__icontains=query).order_by('title'),
+                'actors': Actor.objects.filter(name__icontains=query).order_by('name'),
+                'directors': Director.objects.filter(name__icontains=query).order_by('name')
+            }
 
-                # Apply the filter based on the selected filter type
-                if selected_filter in filters:
-                    if selected_filter == 'movies':
-                        movies = filters['movies']
-                    elif selected_filter == 'actors':
-                        actors = filters['actors']
-                    elif selected_filter == 'directors':
-                        directors = filters['directors']
-                else:
-                    # If 'all' or no filter is selected, retrieve all types
+            # Apply the filter based on the selected filter type
+            if selected_filter in filters:
+                if selected_filter == 'movies':
                     movies = filters['movies']
+                elif selected_filter == 'actors':
                     actors = filters['actors']
+                elif selected_filter == 'directors':
                     directors = filters['directors']
-
+            else:
+                # If 'all' or an unknown filter is selected, retrieve all types
+                movies = filters['movies']
+                actors = filters['actors']
+                directors = filters['directors']
         
         return render(request, 'movies/search_results.html', {
             'form': form,

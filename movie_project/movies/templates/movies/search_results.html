@@ -18,32 +18,25 @@
                     <ul class="search-filters">
                         <span>Show Results For: </span>
                         <li class="filter-button">
-                            <input type="radio" class="filter-checkbox" id="all" name="filter" value="all" {% if selected_filter == 'all' %}checked{% endif %}>
+                            <input type="radio" class="filter-radio" id="all" name="filter" value="all" {% if selected_filter == 'all' %}checked{% endif %}>
                             <label for="all">All</label>
                         </li>
                         <li class="filter-button">
-                            <input type="radio" class="filter-checkbox" id="movies" name="filter" value="movies" {% if selected_filter == 'movies' %}checked{% endif %}>
+                            <input type="radio" class="filter-radio" id="movies" name="filter" value="movies" {% if selected_filter == 'movies' %}checked{% endif %}>
                             <label for="movies">Movies</label>
                         </li>
                         <li class="filter-button">
-                            <input type="radio" class="filter-checkbox" id="actors" name="filter" value="actors" {% if selected_filter == 'actors' %}checked{% endif %}>
+                            <input type="radio" class="filter-radio" id="actors" name="filter" value="actors" {% if selected_filter == 'actors' %}checked{% endif %}>
                             <label for="actors">Actors</label>
                         </li>
                         <li class="filter-button">
-                            <input type="radio" class="filter-checkbox" id="directors" name="filter" value="directors" {% if selected_filter == 'directors' %}checked{% endif %}>
+                            <input type="radio" class="filter-radio" id="directors" name="filter" value="directors" {% if selected_filter == 'directors' %}checked{% endif %}>
                             <label for="directors">Directors</label>
-                        </li>
-                        <li class="filter-button">
-                            <input type="radio" class="filter-checkbox" id="lists" name="filter" value="lists" {% if selected_filter == 'lists' %}checked{% endif %}>
-                            <label for="lists">Lists</label>
-                        </li>
-                        <li class="filter-button">
-                            <input type="radio" class="filter-checkbox" id="reviews" name="filter" value="reviews" {% if selected_filter == 'reviews' %}checked{% endif %}>
-                            <label for="reviews">Reviews</label>
                         </li>
                     </ul>        
                     <button type="submit">Submit</button>            
                 </form>
+                
                 
 
                 <!-- Movie results -->

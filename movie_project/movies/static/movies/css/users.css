@@ -275,11 +275,12 @@ input[type="checkbox"] {
     color: rgb(20, 20, 20); 
 }
 
-.filter-checkbox {
+.filter-checkbox, .filter-radio {
     display: none;
 }
 
-.filter-checkbox:checked + label {
+.filter-checkbox:checked + label,
+.filter-radio:checked + label {
     background-color: white;
     color: rgb(20, 20, 20);
     font-weight: 700;

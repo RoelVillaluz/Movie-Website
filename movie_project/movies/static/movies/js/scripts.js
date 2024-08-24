@@ -143,6 +143,14 @@ checkboxes.forEach(box => {
     });
 });
 
+
+const radioBtns = document.querySelectorAll('.filter-radio');
+    radioBtns.forEach(btn => {
+        btn.addEventListener('change', function() {
+            this.form.submit();
+        });
+    });
+
 const angleIcons = document.querySelectorAll('.filter-sidebar i');
 
 angleIcons.forEach(icon => {
