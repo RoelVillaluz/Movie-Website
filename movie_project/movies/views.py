@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from movies.forms import SearchForm
-from movies.utils import create_users, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating
+from movies.utils import available_actors, available_award_categories, available_genres, create_users, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating
 from users.models import Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
@@ -60,8 +60,24 @@ class MovieListView(ListView):
     template_name = 'movies/movie-list.html'
     context_object_name = 'movies'
 
+    movies = Movie.objects.all().order_by('-id')
+
     def get_queryset(self):
-        return Movie.objects.all().order_by('-id')
+        return movies
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        genres_with_movies = available_genres(movies)
+        award_categories_with_winners = available_award_categories(movies)
+        actors_with_movies = available_actors(movies)
+
+        
+        context.update({
+            'available_genres': genres_with_movies,
+            'award_categories_with_winners': award_categories_with_winners,
+            'actors_with_movies': actors_with_movies
+        })
+        return context
 
 class MovieDetailView(DetailView):
     model = Movie

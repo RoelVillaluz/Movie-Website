@@ -847,114 +847,11 @@ nav a {
     height: 100vh;
     width: 100%;
     overflow: auto;
-}
-
-.filters {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    height: 100vh;
     padding: 20px;
-    position: sticky; 
-    top: 15%;
 }
 
-.filters .searchbar {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.filters .searchbar i {
-    position: absolute;
-    top: 10px;
-    right: 8px;
-    z-index: 2;
-}
-
-.filters .searchbar input[type=text] {
-    background-color: rgb(43, 43, 43);
-    border: none;
-    outline: none;
-    font-size: .9rem;
-    width: 200px;
-    padding: 10px 15px;
-    padding-right: 30px;
-}
-
-.filters form h3 {
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.filters form ul li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: "News Cycle", sans-serif;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.9);
-    text-transform: uppercase;
-    list-style-type: none;
-    margin: 20px 0px;
-    letter-spacing: 1px;
-    padding-top: 20px;
-    border-top: solid 1px rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-}
-
-.filters form ul li:last-child {
-    padding-bottom: 20px;
-    border-bottom: solid 1px rgba(255, 255, 255, 0.3);
-}
-
-.filters form ul li i {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.movies {
-    flex: 1;
-    height: 100%;
-    margin-top: 10%;
-    margin-right: 200px;
-}
-
-.movies .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 60px;
-    background-color: rgb(20, 20, 20); 
-}
-
-.movies .header .line {
-    width: 100%;
-    height: 2px;
-    background-color: rgba(218, 218, 218, 0.7);
-    margin: 20px;
-}
-
-.movies .header h1 {
-    font-size: 2rem;
-}
-
-.movies .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px; 
-}
-
-.movies .poster {
-    width: 200px;
-    height: 300px;
-}
-
-.movies img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.content {
+    flex: 4;
 }
 
 .genre-container {
@@ -1420,6 +1317,18 @@ nav a {
     height: 100%;
     object-fit: cover;
     cursor: pointer;
+}
+
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    list-style-type: none;
+}
+
+.movie-list li {
+    width: calc(100% / 5);
+    margin-bottom: 3rem;
 }
 
 @media (max-width: 991px) {

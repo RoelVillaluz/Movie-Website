@@ -4,39 +4,20 @@
     
 {% block body %}
     <div class="container">
-        <aside class="filters">
-            <form action="">
-                <h3>Filters</h3>
-                <div class="searchbar">
-                    <input type="text" placeholder="Search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <ul>
-                    <li>Genres<i class="fa-solid fa-angle-down"></i></li>
-                    <li>Rating<i class="fa-solid fa-angle-down"></i></li>
-                </ul>
-            </form>
-        </aside>
-        <section class="movies">
-            <div class="header">
-                <div class="line"></div>
-                <h1>Movies</h1>
-                <div class="line"></div>
-            </div>
-            <div class="sorters">
-                <form action="">
-                    
-                </form>
-            </div>
-            <div class="grid">
+
+        {% include 'users/filter-sidebar.html' %}
+
+        <div class="content">
+
+            <!-- add form wrapper here later -->
+
+            <ul class="movie-list">
                 {% for movie in movies %}
-                    <div class="poster">
-                        <a href="{% url 'movie-detail' movie.pk %}">
-                            <img src="{{ movie.poster_path.url }}" alt="">
-                        </a>
-                    </div>
+                    <li>
+                        {% include 'movies/card.html' %}
+                    </li>
                 {% endfor %}
-            </div>
-        </section>
+            </ul>
+        </div>
     </div>
 {% endblock %}

@@ -160,9 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
-
-
 const angleIcons = document.querySelectorAll('.filter-sidebar i');
 
 angleIcons.forEach(icon => {
