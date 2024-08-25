@@ -132,24 +132,74 @@ nav li a:hover::before {
 
 .suggestions-box {
     font-family: "Electrolize", sans-serif;
-    border: 1px solid #ccc;
-    background-color: #fff;
+    background-color: rgb(44, 44, 44);
     position: absolute;
     width: inherit;
-    max-height: 350px;
-    overflow-y: auto;
+    min-height: 500px;
+    max-height: 1000px;
     z-index: 1000;
     display: none; 
     margin-top: 10px;
+    border-radius: 5px;
+    overflow-y: auto;
 }
 
-.suggestion-item {
-    padding: 20px 10px;
-    cursor: pointer;
-    color: black;
+.suggestions-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-weight: 700;
+    color: white;
     text-shadow: none;
 }
 
+.suggestions-header .count {
+    font-size: 0.75rem;
+    margin-left: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: rgb(70, 70, 70);
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: flex-start;
+    width: inherit;
+    height: auto;
+    padding: 10px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: 0.3s;
+}
+
 .suggestion-item:hover {
-    background-color: #f0f0f0;
+    background-color: rgb(78, 78, 78);
+}
+
+.suggestion-item .image {
+    flex: 0 0 60px; 
+    margin-right: 10px; 
+}
+
+.suggestion-item .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.suggestion-item .details h3 {
+    color: white;
+}
+
+.suggestion-item .details .tags > * {
+    font-family: "Electrolize", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.suggestion-item .details .genre-tag {
+    display: inline-block;
+    padding: 5px 15px;
+    color: white;
+    border-radius: 30px;
 }

@@ -17,7 +17,7 @@ from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
 from datetime import date
 from dateutil.relativedelta import relativedelta
-from django.db.models import Count, Avg
+from django.db.models import Count, Avg, Prefetch
 
 
 today = date.today()
@@ -271,15 +271,34 @@ class SearchView(View):
 class SearchSuggestionsView(View):
     def get(self, request, *args, **kwargs):
         query = request.GET.get('query', '')
-        suggestions = []
 
         if query:
-            movie_suggestions = Movie.objects.filter(title__icontains=query).values_list('title', flat=True)[:5]
-            actor_suggestions = Actor.objects.filter(name__icontains=query).values_list('name', flat=True)[:5]
-            director_suggestions = Director.objects.filter(name__icontains=query).values_list('name', flat=True)[:5]
+            movie_suggestions = Movie.objects.filter(title__icontains=query).prefetch_related(
+                Prefetch('genres', queryset=Genre.objects.all())
+            )[:2]
+
+            actor_suggestions = Actor.objects.filter(name__icontains=query).values_list('name', flat=True)[:2]
+            director_suggestions = Director.objects.filter(name__icontains=query).values_list('name', flat=True)[:1]
+
+        movie_results = []
+        for movie in movie_suggestions:
+            # Get all genres for the movie
+            all_genres = [genre.name for genre in movie.genres.all()]
+            avg_rating = movie.avg_rating()
+            # Choose only the first genre
+            genre = all_genres[0] if all_genres else 'None' 
+            
+            movie_results.append({
+                'title': movie.title,
+                'avg_rating': avg_rating,
+                'poster_path': movie.poster_path.url,
+                'genre': genre  
+            })
+
 
         return JsonResponse({
-            'movies': list(movie_suggestions),
+            'movies': movie_results,
+            'movie_count': len(movie_results),
             'actors': list(actor_suggestions),
             'directors': list(director_suggestions)
         })

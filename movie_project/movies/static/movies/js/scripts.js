@@ -186,12 +186,36 @@ const searchInput = document.querySelector('input[name="query"]');
             .then(response => response.json())
             .then(data => {
                 suggestionsBox.innerHTML = ''
+
+                const header = document.createElement('div');
+                header.classList.add('suggestions-header');
+                header.innerHTML = `
+                    <p>Movies</p>
+                    <span class="count">${data.movie_count}</span>
+                `
+                suggestionsBox.appendChild(header);
+
+
                 data.movies.forEach(movie => {
-                    const suggestionDiv = document.createElement('div')
-                    suggestionDiv.classList.add('suggestion-item')
-                    suggestionDiv.textContent = 'Movie: ' + movie
-                    suggestionsBox.appendChild(suggestionDiv)
-                })
+                    const suggestionDiv = document.createElement('div');
+                    suggestionDiv.classList.add('suggestion-item');
+
+                    suggestionDiv.innerHTML = `
+                        <div class="image">
+                            <img src="${movie.poster_path}">
+                        </div>
+                        <div class="details">
+                            <h3>${movie.title}</h3>
+                            <div class="tags">
+                                <div class="genre-tag">${movie.genre}</div>
+                                <div class="rating-tag">
+                                    <i class="fa-solid fa-star"></i>
+                                    ${movie.avg_rating.toFixed(2)}
+                                </div>
+                            </div>
+                        </div>`
+                    suggestionsBox.appendChild(suggestionDiv);
+                });
             })
             suggestionsBox.style.display = 'block';
         }
