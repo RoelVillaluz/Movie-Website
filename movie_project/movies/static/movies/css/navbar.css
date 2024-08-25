@@ -124,3 +124,23 @@ nav li a:hover::before {
 .dropdown-item a:hover {
     background-color: rgb(238, 238, 238); /* Background color applies to the full width */
 }
+
+.suggestions-box {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    position: absolute;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none; /* Initially hidden */
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}

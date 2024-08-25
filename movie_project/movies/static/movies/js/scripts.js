@@ -176,9 +176,37 @@ angleIcons.forEach(icon => {
 });
 
 
-const searchInput = document.querySelector('input [name="query"]');
-const suggestionsBox = document.getElementById('suggestions-box')
+const searchInput = document.querySelector('input[name="query"]');
+    const suggestionsBox = document.getElementById('suggestions-box');
 
-searchInput.addEventListener('input', function() {
-    const query = this.value;
-})
+    searchInput.addEventListener('input', function() {
+        const query = this.value;
+        if (query.length > 1) {
+            fetch(`/search-suggestions/?query=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsBox.innerHTML = '';
+                    data.suggestions.forEach(suggestion => {
+                        const suggestionDiv = document.createElement('div');
+                        suggestionDiv.textContent = suggestion;
+                        suggestionDiv.classList.add('suggestion-item');
+                        suggestionDiv.addEventListener('click', () => {
+                            searchInput.value = suggestion;
+                            suggestionsBox.innerHTML = '';
+                            document.querySelector('form').submit();
+                        });
+                        suggestionsBox.appendChild(suggestionDiv);
+                    });
+                    suggestionsBox.style.display = 'block';
+                });
+        } else {
+            suggestionsBox.innerHTML = '';
+            suggestionsBox.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!searchInput.contains(event.target) && !suggestionsBox.contains(event.target)) {
+            suggestionsBox.style.display = 'none';
+        }
+    });

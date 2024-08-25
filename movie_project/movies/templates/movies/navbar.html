@@ -3,9 +3,9 @@
     
     <div class="nav-controls">
          <!-- Search Form -->
-        <div class="nav-searchbar">
+         <div class="nav-searchbar">
             <form method="GET" action="{% url 'search_results' %}">
-                <input type="text" name="query" placeholder="Search..." value="{{ search_form.query.value|default:'' }}">
+                <input type="text" name="query" autocomplete="off" placeholder="Search..." value="{{ search_form.query.value|default:'' }}">
             </form>
             <div id="suggestions-box" class="suggestions-box"></div>
         </div>
