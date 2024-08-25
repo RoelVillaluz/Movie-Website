@@ -1,6 +1,6 @@
 {% extends 'movies/layout.html' %}
 
-{% block title %} MovieVerse - Movies {% endblock %}
+{% block title %} MovieVerse - All Movies {% endblock %}
     
 {% block body %}
     <div class="container">
@@ -9,8 +9,7 @@
 
         <div class="content">
 
-            <!-- add form wrapper here later -->
-             {% include 'users/form-wrapper.html' %}
+            {% include 'users/form-wrapper.html' %}
 
             <ul class="all-movie-list">
                 {% for movie in movies %}
@@ -19,6 +18,7 @@
                     </li>
                 {% endfor %}
             </ul>
+
         </div>
     </div>
 {% endblock %}

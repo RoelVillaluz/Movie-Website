@@ -101,6 +101,8 @@ class MovieListView(ListView):
             sort_by = sort_form.cleaned_data.get('sort_by')
             movies = sort(movies, sort_by)
 
+        movies = movies.distinct()
+
         # Update context with the necessary data
         context.update({
             'movies': movies,  

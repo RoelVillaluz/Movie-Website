@@ -1319,17 +1319,36 @@ nav a {
     cursor: pointer;
 }
 
+.content {
+    padding-top: 5%;
+}
+
+.content .form-wrapper {
+    padding: 0px 20px;
+}
+
 .all-movie-list {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     list-style-type: none;
+    margin-left: 20px;
+    padding-right: 10%;
 }
 
 .all-movie-list li {
-    width: calc((100% / 5) - 10px);
-    margin: 0px 5px;
+    width: calc((100% / 4) - 15px);
+    margin: 0px 7px;
     margin-bottom: 3rem;
+}
+
+.all-movie-list li .details h3 {
+    font-size: 1rem;
+}
+
+.all-movie-list li .details .tags > * {
+    font-size: 0.75rem;
+    margin-bottom: 5px;
 }
 
 @media (max-width: 991px) {

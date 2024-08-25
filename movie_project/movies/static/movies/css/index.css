@@ -3,7 +3,7 @@
 :root {
     font-family: "Electrolize", sans-serif;
     background-color: rgb(20, 20, 20);
-    --low-red: red;
+    --low-red: rgb(255, 25, 25);
     --award-yellow: rgb(217, 255, 0);
     --high-green: #1BF251;
 }
@@ -541,38 +541,70 @@ and only apply hover filter effect once all animations have stopped
     transition: 0.3s;
 }
 
+
 @keyframes skeleton-loading {
     0% {
-        background-position: -200px 0;
+        background-color: rgb(70, 70, 70); 
+    }
+    50% {
+        background-color: rgb(114, 114, 114); 
     }
     100% {
-        background-position: calc(200px + 100%) 0;
+        background-color: rgb(70, 70, 70); 
     }
 }
 
-.skeleton {
-    background-size: 200% 100%;
-    animation: skeleton-loading 2s infinite linear;
+@keyframes skeleton-show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
-/* Skeleton state styling */
+li.show {
+    animation: skeleton-show 0.5s forwards;
+}
+
 .skeleton .image {
-    background-color: #e0e0e0; 
+    background-color: rgb(70, 70, 70); 
     width: 100%; 
     height: auto; 
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton h3 {
+    display: none;
+}
+
+.skeleton .title-placeholder {
+    background-color: rgb(70, 70, 70); 
+    width: 90%; 
+    height: 20px;
+    border-radius: 4px; 
+    margin: 10px 0px; 
+    display: inline-block; 
+    animation: skeleton-loading 3s infinite linear;
 }
 
 .skeleton .image img {
-    display: none; /* Hide the image in skeleton state */
+    display: none; 
 }
 
-.skeleton .tags > * {
-    background-color: #e0e0e0;
-    color: #e0e0e0;
+.skeleton .genre-tag,
+.skeleton .rating-tag
+{
+    display: none;
 }
 
-.skeleton .rating-tag i {
-    color: #e0e0e0;
+.skeleton .tag-placeholder {
+    display: inline-block;
+    background-color: rgb(70, 70, 70); 
+    width: 4em;
+    height: 1.25rem;
+    margin-top: -5px;
+    animation: skeleton-loading 3s infinite linear;
 }
 
 .skeleton .watchlist-btn {
@@ -622,6 +654,10 @@ and only apply hover filter effect once all animations have stopped
     padding: 5px 15px;
     border-radius: 30px;
     color: black;
+}
+
+.tag-placeholder {
+    display: none;
 }
 
 .genre-tag {

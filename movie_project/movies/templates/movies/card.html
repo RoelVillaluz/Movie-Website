@@ -6,15 +6,19 @@
     </div>
     <div class="details">
         <h3>{{ movie.title }}</h3>
+
+        <!-- Skeleton placeholder for title -->
+        <div class="title-placeholder"></div>
+        
         <div class="tags">
             <div class="genre-tag">{{ movie.genres.first }}</div>
             <div class="
                 rating-tag 
                 {% if movie.avg_rating >= 8 %}
                     high-rating
-                {% elif movie.avg_rating >= 6 %}
+                {% elif movie.avg_rating >= 5 %}
                     medium-rating
-                {% elif movie.avg_rating < 6 and movie.avg_rating > 0 %}
+                {% elif movie.avg_rating < 5 and movie.avg_rating > 0 %}
                     low-rating
                 {% elif movie.avg_rating == 0 %}
                     unrated
@@ -22,6 +26,11 @@
                 <i class="fa-solid fa-star"></i>
                 {{ movie.avg_rating|floatformat:2 }}
             </div>
+            
+            <!-- Skeleton placeholder for tags -->
+            <div class="tag-placeholder"></div>
+            <div class="tag-placeholder"></div>
+
         </div>
     </div>
     <!-- Watchlist Button -->

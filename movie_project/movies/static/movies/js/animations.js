@@ -98,7 +98,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Intersection Observer setup
     const hiddenElements = document.querySelectorAll('.hidden');
+    const skeletonElements = document.querySelectorAll('.skeleton')
     const observerOptions = {
         root: null, // Use the viewport as the root
         rootMargin: '0px',
@@ -109,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('show');
+                entry.target.classList.remove('skeleton'); // Remove the skeleton class
                 observer.unobserve(entry.target); // Stop observing once the element is in view
             } else {
                 entry.target.classList.remove('show');
@@ -122,6 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(element);
     });
 
+    skeletonElements.forEach(element => {
+        observer.observe(element);
+    })
+
+    // Animation handling
     const genreCards = document.querySelectorAll('.genre-card.hidden');
     let animationEndCount = 0;
 
@@ -133,36 +141,48 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-    
+
     genreCards.forEach((card, index) => {
         card.style.animationDelay = `${index * 0.25}s`;
-    
+
         card.addEventListener('animationend', function() {
             animationEndCount++;
             allAnimationsEnded();
         });
     });
-    
 
+    // Function to apply animation delay
+    const applyAnimationDelay = (elements, delay) => {
+        elements.forEach((element, index) => {
+            element.style.animationDelay = `${index * delay}s`;
+        });
+    };
 
-    const actorCards = document.querySelectorAll('.cast-actor.hidden')
-    applyAnimationDelay(actorCards, 0.15)
+    const actorCards = document.querySelectorAll('.cast-actor.hidden');
+    applyAnimationDelay(actorCards, 0.15);
 
-    const relatedDirectorMovies = document.querySelectorAll('.movie-director-movies .card.hidden')
-    applyAnimationDelay(relatedDirectorMovies, 0.15)
+    const relatedDirectorMovies = document.querySelectorAll('.movie-director-movies .card.hidden');
+    applyAnimationDelay(relatedDirectorMovies, 0.15);
 
-    const topReviewCards = document.querySelectorAll('.top-review.hidden')
-    applyAnimationDelay(topReviewCards, 0.25)
+    const topReviewCards = document.querySelectorAll('.top-review.hidden');
+    applyAnimationDelay(topReviewCards, 0.25);
 
-    const popularActorImages = document.querySelectorAll('.popular-actors-list .item')
-    applyAnimationDelay(popularActorImages, 0.15)
+    const popularActorImages = document.querySelectorAll('.popular-actors-list .item');
+    applyAnimationDelay(popularActorImages, 0.15);
 
-    const cards = document.querySelectorAll('.card')
-    applyAnimationDelay(cards, 0.15)
+    const cards = document.querySelectorAll('.card');
+    applyAnimationDelay(cards, 0.15);
 });
 
 function applyAnimationDelay(elements, delay) {
     elements.forEach((element, index) => {
         element.style.animationDelay = `${index * delay}s`;
+    });
+}
+
+function removeSkeletonClass() {
+    const skeletonItems = document.querySelectorAll('.skeleton');
+    skeletonItems.forEach(item => {
+        item.classList.remove('skeleton');
     });
 }
