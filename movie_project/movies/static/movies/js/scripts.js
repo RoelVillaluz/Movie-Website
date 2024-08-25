@@ -178,6 +178,7 @@ angleIcons.forEach(icon => {
 
 const searchInput = document.querySelector('input[name="query"]');
     const suggestionsBox = document.getElementById('suggestions-box');
+    const link = '/search_results/?query='
 
     searchInput.addEventListener('input', function() {
         const query = this.value;
@@ -190,8 +191,14 @@ const searchInput = document.querySelector('input[name="query"]');
                 const header = document.createElement('div');
                 header.classList.add('suggestions-header');
                 header.innerHTML = `
-                    <p>Movies</p>
-                    <span class="count">${data.movie_count}</span>
+                    <div style="display:flex; align-items:center;">
+                        <p>Movies</p>
+                        <span class="count">${data.movie_count}</span>
+                    </div>
+                    <div style="display:flex; align-items:center;">
+                        <a href="${link}${query}&filter=movies" class="view-all">View All</a>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </div>
                 `
                 suggestionsBox.appendChild(header);
 
@@ -201,21 +208,32 @@ const searchInput = document.querySelector('input[name="query"]');
                     suggestionDiv.classList.add('suggestion-item');
 
                     suggestionDiv.innerHTML = `
-                        <div class="image">
-                            <img src="${movie.poster_path}">
-                        </div>
-                        <div class="details">
-                            <h3>${movie.title}</h3>
-                            <div class="tags">
-                                <div class="genre-tag">${movie.genre}</div>
-                                <div class="rating-tag">
-                                    <i class="fa-solid fa-star"></i>
-                                    ${movie.avg_rating.toFixed(2)}
+                        <a href="/movies/${movie.id}">
+                            <div class="image">
+                                <img src="${movie.poster_path}">
+                            </div>
+                            <div class="details">
+                                <h3>${movie.title}</h3>
+                                <p>${movie.year}</p>
+                                <div class="tags">
+                                    <div class="genre-tag">${movie.genre}</div>
+                                    <div class="rating-tag">
+                                        <i class="fa-solid fa-star"></i>
+                                        ${movie.avg_rating.toFixed(2)}
+                                    </div>
                                 </div>
                             </div>
-                        </div>`
+                        </a>
+                    `
                     suggestionsBox.appendChild(suggestionDiv);
                 });
+                // footer for the suggestion box
+                const SuggestionsBoxFooter =  document.createElement('div')
+                SuggestionsBoxFooter.classList.add('suggestion-box-footer')
+                SuggestionsBoxFooter.innerHTML = `
+                    <a href="${link}${query}">See All Results for <span>"${query}"</span></a>
+                `
+                suggestionsBox.appendChild(SuggestionsBoxFooter)
             })
             suggestionsBox.style.display = 'block';
         }

@@ -273,9 +273,13 @@ class SearchSuggestionsView(View):
         query = request.GET.get('query', '')
 
         if query:
-            movie_suggestions = Movie.objects.filter(title__icontains=query).prefetch_related(
+            # Get all matching movies without limiting the results
+            all_matching_movies = Movie.objects.filter(title__icontains=query).prefetch_related(
                 Prefetch('genres', queryset=Genre.objects.all())
-            )[:2]
+            )
+
+            # Get the first 3 matching movies
+            movie_suggestions = all_matching_movies[:3]
 
             actor_suggestions = Actor.objects.filter(name__icontains=query).values_list('name', flat=True)[:2]
             director_suggestions = Director.objects.filter(name__icontains=query).values_list('name', flat=True)[:1]
@@ -289,16 +293,20 @@ class SearchSuggestionsView(View):
             genre = all_genres[0] if all_genres else 'None' 
             
             movie_results.append({
+                'id': movie.id,
                 'title': movie.title,
                 'avg_rating': avg_rating,
+                'year': movie.release_date.year,
                 'poster_path': movie.poster_path.url,
                 'genre': genre  
             })
 
+        # Calculate the total number of matching movies
+        total_matching_movies = all_matching_movies.count()
 
         return JsonResponse({
             'movies': movie_results,
-            'movie_count': len(movie_results),
+            'movie_count': total_matching_movies,  # Use total count here
             'actors': list(actor_suggestions),
             'directors': list(director_suggestions)
         })

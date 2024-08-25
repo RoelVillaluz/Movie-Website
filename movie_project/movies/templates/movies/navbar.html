@@ -1,15 +1,19 @@
 <nav>
     <a href="{% url 'index' %}" class="logo">MovieVerse</a>
 
-    <!-- Search Form -->
-    <div class="nav-searchbar">
-        <form method="GET" action="{% url 'search_results' %}">
-            <input type="text" name="query" autocomplete="off" placeholder="Search..." value="{{ search_form.query.value|default:'' }}">
-        </form>
-        <div id="suggestions-box" class="suggestions-box"></div>
-    </div>
+    
     
     <div class="nav-controls">
+
+        <!-- Search Form -->
+        <div class="nav-searchbar">
+            <form method="GET" action="{% url 'search_results' %}">
+                <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+                <input type="text" name="query" autocomplete="off" value="{{ search_form.query.value|default:'' }}">
+            </form>
+            <div id="suggestions-box" class="suggestions-box"></div>
+        </div>
+
         <ul>
             {% if user.is_authenticated %}
                 <li class="profile-menu">
