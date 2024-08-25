@@ -278,7 +278,8 @@ class SearchSuggestionsView(View):
             actor_suggestions = Actor.objects.filter(name__icontains=query).values_list('name', flat=True)[:5]
             director_suggestions = Director.objects.filter(name__icontains=query).values_list('name', flat=True)[:5]
 
-            # Combine suggestions
-            suggestions = list(movie_suggestions) + list(actor_suggestions) + list(director_suggestions)
-
-        return JsonResponse({'suggestions': suggestions})
+        return JsonResponse({
+            'movies': list(movie_suggestions),
+            'actors': list(actor_suggestions),
+            'directors': list(director_suggestions)
+        })

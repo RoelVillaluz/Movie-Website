@@ -127,23 +127,27 @@ nav li a:hover::before {
 }
 
 .dropdown-item a:hover {
-    background-color: rgb(238, 238, 238); /* Background color applies to the full width */
+    background-color: rgb(238, 238, 238); 
 }
 
 .suggestions-box {
+    font-family: "Electrolize", sans-serif;
     border: 1px solid #ccc;
     background-color: #fff;
     position: absolute;
-    width: 100%;
-    max-height: 150px;
+    width: inherit;
+    max-height: 350px;
     overflow-y: auto;
     z-index: 1000;
-    display: none; /* Initially hidden */
+    display: none; 
+    margin-top: 10px;
 }
 
 .suggestion-item {
-    padding: 10px;
+    padding: 20px 10px;
     cursor: pointer;
+    color: black;
+    text-shadow: none;
 }
 
 .suggestion-item:hover {

@@ -183,25 +183,17 @@ const searchInput = document.querySelector('input[name="query"]');
         const query = this.value;
         if (query.length > 1) {
             fetch(`/search-suggestions/?query=${query}`)
-                .then(response => response.json())
-                .then(data => {
-                    suggestionsBox.innerHTML = '';
-                    data.suggestions.forEach(suggestion => {
-                        const suggestionDiv = document.createElement('div');
-                        suggestionDiv.textContent = suggestion;
-                        suggestionDiv.classList.add('suggestion-item');
-                        suggestionDiv.addEventListener('click', () => {
-                            searchInput.value = suggestion;
-                            suggestionsBox.innerHTML = '';
-                            document.querySelector('form').submit();
-                        });
-                        suggestionsBox.appendChild(suggestionDiv);
-                    });
-                    suggestionsBox.style.display = 'block';
-                });
-        } else {
-            suggestionsBox.innerHTML = '';
-            suggestionsBox.style.display = 'none';
+            .then(response => response.json())
+            .then(data => {
+                suggestionsBox.innerHTML = ''
+                data.movies.forEach(movie => {
+                    const suggestionDiv = document.createElement('div')
+                    suggestionDiv.classList.add('suggestion-item')
+                    suggestionDiv.textContent = 'Movie: ' + movie
+                    suggestionsBox.appendChild(suggestionDiv)
+                })
+            })
+            suggestionsBox.style.display = 'block';
         }
     });
 
