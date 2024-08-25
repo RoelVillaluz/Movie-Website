@@ -7,6 +7,7 @@
             <form method="GET" action="{% url 'search_results' %}">
                 <input type="text" name="query" placeholder="Search..." value="{{ search_form.query.value|default:'' }}">
             </form>
+            <div id="suggestions-box" class="suggestions-box"></div>
         </div>
         <ul>
             {% if user.is_authenticated %}

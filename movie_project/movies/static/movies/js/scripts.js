@@ -174,3 +174,11 @@ angleIcons.forEach(icon => {
         }
     });
 });
+
+
+const searchInput = document.querySelector('input [name="query"]');
+const suggestionsBox = document.getElementById('suggestions-box')
+
+searchInput.addEventListener('input', function() {
+    const query = this.value;
+})

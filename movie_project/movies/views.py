@@ -23,10 +23,8 @@ from django.db.models import Count, Avg
 today = date.today()
 one_month_before = today - relativedelta(months=1)
 
-movies = Movie.objects.all()
-actors = Actor.objects.all()
-
 def index(request):
+    movies = Movie.objects.all()
     # random_rating(30) # for populating reviews
     # create_users(10)  # for populating users
     popular_movies = movies.annotate(review_count=Count('reviews')).order_by('-review_count')[:20]
@@ -259,12 +257,28 @@ class SearchView(View):
                 movies = filters['movies']
                 actors = filters['actors']
                 directors = filters['directors']
-        
+
         return render(request, 'movies/search_results.html', {
             'form': form,
             'movies': movies,
             'actors': actors,
             'directors': directors,
             'query': query,
-            'selected_filter': selected_filter
+            'selected_filter': selected_filter,
         })
+    
+
+class SearchSuggestionsView(View):
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('query', '')
+        suggestions = []
+
+        if query:
+            movie_suggestions = Movie.objects.filter(title__icontains=query).values_list('title', flat=True)[:5]
+            actor_suggestions = Actor.objects.filter(name__icontains=query).values_list('name', flat=True)[:5]
+            director_suggestions = Director.objects.filter(name__icontains=query).values_list('name', flat=True)[:5]
+
+            # Combine suggestions
+            suggestions = list(movie_suggestions) + list(actor_suggestions) + list(director_suggestions)
+
+        return JsonResponse({'suggestions': suggestions})
