@@ -233,14 +233,32 @@ nav li a:hover::before {
 }
 
 .suggestion-item .image {
-    flex: 0 0 60px; 
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
-.suggestion-item .image img {
+.suggestion-item .movie-image {
+    flex: 0 0 50px; 
+}
+
+.suggestion-item .movie-image img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.suggestion-item .actor-image {
+    flex: 0 0 50px; 
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; 
+    overflow: hidden; 
+}
+
+.suggestion-item .actor-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; 
 }
 
 .suggestion-item .details h3 {
@@ -254,6 +272,13 @@ nav li a:hover::before {
     font-weight: 200;
     color: rgb(209, 209, 209);
     margin-bottom: 5px;
+}
+
+.suggestion-item .details h4 {
+    font-size: 0.9rem;
+    font-weight: 200;
+    margin-top: -3px;
+    color: rgb(209, 209, 209);
 }
 
 .suggestion-item .details .tags {

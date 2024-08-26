@@ -281,9 +281,12 @@ class SearchSuggestionsView(View):
             )
 
             # Get the first 3 matching movies
-            movie_suggestions = all_matching_movies[:3]
+            movie_suggestions = all_matching_movies[:2]
 
-            actor_suggestions = Actor.objects.filter(name__icontains=query)[:2]
+            all_matching_actors = Actor.objects.filter(name__icontains=query)
+            actor_suggestions = all_matching_actors[:2]
+
+            
             director_suggestions = Director.objects.filter(name__icontains=query).values_list('name', flat=True)[:1]
 
             for movie in movie_suggestions:
@@ -308,15 +311,18 @@ class SearchSuggestionsView(View):
             actor_results = [{
                 'id': actor.id,
                 'name': actor.name,
+                'image': actor.image.url,
                 'most_popular_movie': actor_movie,
             } for actor, actor_movie in actor_and_most_popular_movie.items()]
 
-        # Calculate the total number of matching movies
+        # Calculate the total number of matching searches
         total_matching_movies = all_matching_movies.count()
+        total_matching_actors = all_matching_actors.count()
 
         return JsonResponse({
             'movies': movie_results,
             'movie_count': total_matching_movies,  
             'actors': actor_results,
+            'actor_count': total_matching_actors,
             'directors': list(director_suggestions)
         })

@@ -198,7 +198,7 @@ const searchInput = document.querySelector('input[name="query"]');
 
                     suggestionDiv.innerHTML = `
                         <a href="/movies/${movie.id}">
-                            <div class="image">
+                            <div class="image movie-image">
                                 <img src="${movie.poster_path}">
                             </div>
                             <div class="details">
@@ -213,23 +213,25 @@ const searchInput = document.querySelector('input[name="query"]');
                                 </div>
                             </div>
                         </a>
-                    `
+                    `;
                     suggestionsBox.appendChild(suggestionDiv);
                 });
+
+                createCategoryHeader('Actors', data.actor_count, 'actors', query);
 
                 // for actor suggestion item
                 data.actors.forEach(actor => {
                     const suggestionDiv = document.createElement('div');
                     suggestionDiv.classList.add('suggestion-item');
-                
+                    
                     suggestionDiv.innerHTML = `
                         <a href="/actors/${actor.id}">
-                            <div class="image">
-                                <!-- Add image or placeholder here -->
+                            <div class="image actor-image">
+                                <img src="${actor.image}">
                             </div>
                             <div class="details">
                                 <h3>${actor.name}</h3>
-                                <span>${actor.most_popular_movie}</span>
+                                <h4>${actor.most_popular_movie}</h4>
                             </div>
                         </a>
                     `;
