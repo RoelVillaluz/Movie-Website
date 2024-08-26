@@ -227,6 +227,24 @@ const searchInput = document.querySelector('input[name="query"]');
                     `
                     suggestionsBox.appendChild(suggestionDiv);
                 });
+                data.actors.forEach(actor => {
+                    const suggestionDiv = document.createElement('div');
+                    suggestionDiv.classList.add('suggestion-item');
+                
+                    suggestionDiv.innerHTML = `
+                        <a href="/actors/${actor.id}">
+                            <div class="image">
+                                <!-- Add image or placeholder here -->
+                            </div>
+                            <div class="details">
+                                <h3>${actor.name}</h3>
+                                <span>${actor.most_popular_movie}</span>
+                            </div>
+                        </a>
+                    `;
+                    suggestionsBox.appendChild(suggestionDiv);
+                });
+
                 // footer for the suggestion box
                 const SuggestionsBoxFooter =  document.createElement('div')
                 SuggestionsBoxFooter.classList.add('suggestion-box-footer')

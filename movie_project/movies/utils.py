@@ -107,6 +107,22 @@ def get_popular_actors_and_movies():
     
     return dict(popular_actors_and_movie)
 
+def get_actors_and_most_popular_movie(actors):
+    actor_and_most_popular_movie = {}
+
+    for actor in actors:
+        most_popular_movie_of_actor = (
+            actor.movies.annotate(review_count=Count('reviews'))
+            .order_by('-review_count')
+            .values_list('title', flat=True)
+            .first()
+        )
+        if most_popular_movie_of_actor:
+            actor_and_most_popular_movie[actor] = most_popular_movie_of_actor
+
+    return actor_and_most_popular_movie
+
+
 def get_genre_dict(popular_genres):
     """Get a dictionary of popular genres and a random movie for each genre."""
     genre_dict = {}

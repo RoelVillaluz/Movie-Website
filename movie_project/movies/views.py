@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from movies.forms import MovieSortForm, SearchForm
-from movies.utils import available_actors, available_award_categories, available_genres, create_users, filter_queryset, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating, sort
+from movies.utils import available_actors, available_award_categories, available_genres, create_users, filter_queryset, get_actors_and_most_popular_movie, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating, sort
 from users.models import Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
@@ -272,6 +272,8 @@ class SearchSuggestionsView(View):
     def get(self, request, *args, **kwargs):
         query = request.GET.get('query', '')
 
+        movie_results = []
+        actor_results = []
         if query:
             # Get all matching movies without limiting the results
             all_matching_movies = Movie.objects.filter(title__icontains=query).prefetch_related(
@@ -281,32 +283,40 @@ class SearchSuggestionsView(View):
             # Get the first 3 matching movies
             movie_suggestions = all_matching_movies[:3]
 
-            actor_suggestions = Actor.objects.filter(name__icontains=query).values_list('name', flat=True)[:2]
+            actor_suggestions = Actor.objects.filter(name__icontains=query)[:2]
             director_suggestions = Director.objects.filter(name__icontains=query).values_list('name', flat=True)[:1]
 
-        movie_results = []
-        for movie in movie_suggestions:
-            # Get all genres for the movie
-            all_genres = [genre.name for genre in movie.genres.all()]
-            avg_rating = movie.avg_rating()
-            # Choose only the first genre
-            genre = all_genres[0] if all_genres else 'None' 
-            
-            movie_results.append({
-                'id': movie.id,
-                'title': movie.title,
-                'avg_rating': avg_rating,
-                'year': movie.release_date.year,
-                'poster_path': movie.poster_path.url,
-                'genre': genre  
-            })
+            for movie in movie_suggestions:
+                # Get all genres for the movie
+                all_genres = [genre.name for genre in movie.genres.all()]
+                avg_rating = movie.avg_rating()
+                # Choose only the first genre
+                genre = all_genres[0] if all_genres else 'None'
+
+                movie_results.append({
+                    'id': movie.id,
+                    'title': movie.title,
+                    'avg_rating': avg_rating,
+                    'year': movie.release_date.year,
+                    'poster_path': movie.poster_path.url,
+                    'genre': genre  
+                })
+
+            # Get actor suggestions and their most popular movie
+            actor_and_most_popular_movie = get_actors_and_most_popular_movie(actor_suggestions)
+
+            actor_results = [{
+                'id': actor.id,
+                'name': actor.name,
+                'most_popular_movie': actor_movie,
+            } for actor, actor_movie in actor_and_most_popular_movie.items()]
 
         # Calculate the total number of matching movies
         total_matching_movies = all_matching_movies.count()
 
         return JsonResponse({
             'movies': movie_results,
-            'movie_count': total_matching_movies,  # Use total count here
-            'actors': list(actor_suggestions),
+            'movie_count': total_matching_movies,  
+            'actors': actor_results,
             'directors': list(director_suggestions)
         })
