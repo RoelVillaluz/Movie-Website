@@ -6,7 +6,7 @@
     </div>
     <div class="details">
         <h3>{{ movie.title }}</h3>
-
+        <h4>{{ movie.release_date.year }}</h4>
         <!-- Skeleton placeholder for title -->
         <div class="title-placeholder"></div>
         
@@ -26,7 +26,7 @@
                 <i class="fa-solid fa-star"></i>
                 {{ movie.avg_rating|floatformat:2 }}
             </div>
-            
+                        
             <!-- Skeleton placeholder for tags -->
             <div class="tag-placeholder"></div>
             <div class="tag-placeholder"></div>

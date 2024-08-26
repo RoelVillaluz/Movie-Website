@@ -640,6 +640,12 @@ li.show {
     max-width: 90%;
 }
 
+.card .details h4 {
+    margin-top: 5px;
+    font-weight: 200;
+    color: rgb(177, 177, 177);
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;

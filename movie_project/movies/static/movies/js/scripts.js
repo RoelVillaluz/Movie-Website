@@ -188,54 +188,22 @@ const searchInput = document.querySelector('input[name="query"]');
             .then(data => {
                 suggestionsBox.innerHTML = ''
 
-                // Create headers for movies and actors dynamically
+                // Create header for movie search suggestions
                 createCategoryHeader('Movies', data.movie_count, 'movies', query);
 
                 // for movie suggestion item
                 data.movies.forEach(movie => {
-                    const suggestionDiv = document.createElement('div');
-                    suggestionDiv.classList.add('suggestion-item');
-
-                    suggestionDiv.innerHTML = `
-                        <a href="/movies/${movie.id}">
-                            <div class="image movie-image">
-                                <img src="${movie.poster_path}">
-                            </div>
-                            <div class="details">
-                                <h3>${movie.title}</h3>
-                                <p>${movie.year}</p>
-                                <div class="tags">
-                                    <div class="genre-tag">${movie.genre}</div>
-                                    <div class="rating-tag">
-                                        <i class="fa-solid fa-star"></i>
-                                        ${movie.avg_rating.toFixed(2)}
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    `;
-                    suggestionsBox.appendChild(suggestionDiv);
+                    const movieSuggestion = createSuggestionItem('movie', movie) 
+                    suggestionsBox.appendChild(movieSuggestion);
                 });
 
+                // Create header for actor search suggestions
                 createCategoryHeader('Actors', data.actor_count, 'actors', query);
 
                 // for actor suggestion item
                 data.actors.forEach(actor => {
-                    const suggestionDiv = document.createElement('div');
-                    suggestionDiv.classList.add('suggestion-item');
-                    
-                    suggestionDiv.innerHTML = `
-                        <a href="/actors/${actor.id}">
-                            <div class="image actor-image">
-                                <img src="${actor.image}">
-                            </div>
-                            <div class="details">
-                                <h3>${actor.name}</h3>
-                                <h4>${actor.most_popular_movie}</h4>
-                            </div>
-                        </a>
-                    `;
-                    suggestionsBox.appendChild(suggestionDiv);
+                    const actorSuggestion = createSuggestionItem('actor', actor) 
+                    suggestionsBox.appendChild(actorSuggestion)
                 });
 
                 // footer for the suggestion box
@@ -253,7 +221,7 @@ const searchInput = document.querySelector('input[name="query"]');
     function createCategoryHeader(category, itemCount, filter, query) {
         const header = document.createElement('div');
         header.classList.add('suggestions-header');
-        header.innerHTML = header.innerHTML = 
+        header.innerHTML = 
         `<div style="display:flex; align-items:center;">
             <p>${category}</p>
             <span class="count">${itemCount}</span>
@@ -264,6 +232,49 @@ const searchInput = document.querySelector('input[name="query"]');
         </div>
         `
         suggestionsBox.appendChild(header);
+    }
+
+    function createSuggestionItem(type, item) {
+        const suggestionDiv = document.createElement('div');
+        suggestionDiv.classList.add('suggestion-item');
+    
+        let itemContent = '';
+    
+        if (type === 'movie') {
+            itemContent = `
+                <a href="/movies/${item.id}">
+                    <div class="image movie-image">
+                        <img src="${item.poster_path}" alt="${item.title}">
+                    </div>
+                    <div class="details">
+                        <h3>${item.title}</h3>
+                        <p>${item.year}</p>
+                        <div class="tags">
+                            <div class="genre-tag">${item.genre}</div>
+                            <div class="rating-tag">
+                                <i class="fa-solid fa-star"></i>
+                                ${item.avg_rating.toFixed(2)}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            `;
+        } else if (type === 'actor') {
+            itemContent = `
+                <a href="/actors/${item.id}">
+                    <div class="image actor-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="details">
+                        <h3>${item.name}</h3>
+                        <h4>${item.most_popular_movie}</h4>
+                    </div>
+                </a>
+            `;
+        }
+    
+        suggestionDiv.innerHTML = itemContent;
+        return suggestionDiv;
     }
 
     document.addEventListener('click', function(event) {

@@ -18,8 +18,7 @@ class MovieSortForm(forms.Form):
         ('rating_desc', 'Rating (Highest First)'),
         ('release_date_asc', 'Release Date (Oldest First)'),
         ('release_date_desc', 'Release Date (Newest First)'),
-        ('review_count_asc', 'Reviews (Most First)'),
-        ('review_count_desc', 'Reviews (Least First)'),
+        ('popularity', 'Popularity'),
         ('runtime_asc', 'Runtime (Shortest First)'),
         ('runtime_desc', 'Runtime (Longest First)'),
     ]

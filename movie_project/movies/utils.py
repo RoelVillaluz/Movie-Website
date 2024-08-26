@@ -16,8 +16,6 @@ from django.db.models import Avg, Count
 from django.db.models import Avg, F
 today = date.today()
 
-movies = Movie.objects.all()
-
 def sort(queryset, sort_by):
     if sort_by == 'title_asc':
         return queryset.order_by('title')
@@ -35,10 +33,8 @@ def sort(queryset, sort_by):
         return queryset.order_by(F('hours') * 60 + F('minutes'))
     elif sort_by == 'runtime_desc':
         return queryset.order_by(-(F('hours') * 60 + F('minutes')))
-    elif sort_by == 'review_count_asc':
+    elif sort_by == 'popularity':
         return queryset.annotate(review_count=Count('reviews')).order_by('-review_count')
-    elif sort_by == 'review_count_desc':
-        return queryset.annotate(review_count=Count('reviews')).order_by('review_count')
     return queryset
 
 def available_genres(queryset):
@@ -192,3 +188,28 @@ def create_users(num_users):
 def generate_random_string(length):
     letters_and_digits = string.ascii_letters + string.digits
     return ''.join(random.choice(letters_and_digits) for i in range(length))
+
+
+# def populate_user_review(user, movie_id, actor_id, director_id):
+#     users = User.objects.all()
+#     user = random.choice(users)
+
+#     movies = Movie.objects.all()
+#     movie = random.choice(movies)
+
+#     actors = movie.actors.all()
+#     actor = random.choice(actors)
+
+#     directors = movie.directors.all()
+#     director = random.choice(director)
+
+#     positive_adjectives = []
+#     negative_adjectives = []
+#     sentences = ['f"{movie}"']
+
+#     Review.objects.create(
+#         user=user,
+#         movie=movie,
+#         description=description,
+#         rating=rating
+#     )

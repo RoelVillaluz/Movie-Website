@@ -444,13 +444,15 @@ nav a {
 .cast-wrapper {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .cast-actor {
-    width: 200px;
+    flex: 1 1 calc((100% / 6) - 10px);
     height: 400px;
     list-style-type: none;
-    margin: 30px 10px;
+    margin: 30px 0px;
 }
 
 .cast-actor.show {
@@ -461,7 +463,7 @@ nav a {
     height: 100%; 
     width: 100%; 
     object-fit: cover; 
-    filter: grayscale(0.2) brightness(0.7) contrast(1.02);
+    filter: grayscale(0.5) brightness(0.7) contrast(1.02);
     cursor: pointer;
     transition: 0.3s;
     transform-origin: bottom;
@@ -650,7 +652,7 @@ nav a {
 
 .reviews .wrapper {
     display: flex;
-    align-items: start;
+    align-items: stretch;
     justify-content: space-between;
     gap: 3rem;
     margin-top: 6rem;
