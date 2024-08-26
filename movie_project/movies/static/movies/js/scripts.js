@@ -188,21 +188,10 @@ const searchInput = document.querySelector('input[name="query"]');
             .then(data => {
                 suggestionsBox.innerHTML = ''
 
-                const header = document.createElement('div');
-                header.classList.add('suggestions-header');
-                header.innerHTML = `
-                    <div style="display:flex; align-items:center;">
-                        <p>Movies</p>
-                        <span class="count">${data.movie_count}</span>
-                    </div>
-                    <div style="display:flex; align-items:center;">
-                        <a href="${link}${query}&filter=movies" class="view-all">View All</a>
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                `
-                suggestionsBox.appendChild(header);
+                // Create headers for movies and actors dynamically
+                createCategoryHeader('Movies', data.movie_count, 'movies', query);
 
-
+                // for movie suggestion item
                 data.movies.forEach(movie => {
                     const suggestionDiv = document.createElement('div');
                     suggestionDiv.classList.add('suggestion-item');
@@ -227,6 +216,8 @@ const searchInput = document.querySelector('input[name="query"]');
                     `
                     suggestionsBox.appendChild(suggestionDiv);
                 });
+
+                // for actor suggestion item
                 data.actors.forEach(actor => {
                     const suggestionDiv = document.createElement('div');
                     suggestionDiv.classList.add('suggestion-item');
@@ -256,6 +247,22 @@ const searchInput = document.querySelector('input[name="query"]');
             suggestionsBox.style.display = 'block';
         }
     });
+
+    function createCategoryHeader(category, itemCount, filter, query) {
+        const header = document.createElement('div');
+        header.classList.add('suggestions-header');
+        header.innerHTML = header.innerHTML = 
+        `<div style="display:flex; align-items:center;">
+            <p>${category}</p>
+            <span class="count">${itemCount}</span>
+        </div>
+        <div style="display:flex; align-items:center;">
+            <a href="${link}${query}&filter=${filter}" class="view-all">View All</a>
+            <i class="fa-solid fa-angle-right"></i>
+        </div>
+        `
+        suggestionsBox.appendChild(header);
+    }
 
     document.addEventListener('click', function(event) {
         if (!searchInput.contains(event.target) && !suggestionsBox.contains(event.target)) {
