@@ -24,7 +24,6 @@ today = date.today()
 one_month_before = today - relativedelta(months=1)
 
 def index(request):
-    populate_user_review()
     movies = Movie.objects.all()
     # random_rating(30) # for populating reviews
     # create_users(10)  # for populating users
@@ -35,6 +34,7 @@ def index(request):
     popular_actors_and_movie = get_popular_actors_and_movies()
     genre_dict = get_genre_dict(popular_genres)
     top_rated_movies = get_top_rated_movies(5)
+    most_popular_reviews = Review.objects.annotate(like_count=Count('likes')).order_by('-like_count')[:5]
 
     just_added = movies.order_by('-id').exclude(release_date__gt=today)[:20]
     random_movie = random.choice(movies)
@@ -50,6 +50,7 @@ def index(request):
         'top_rated_movies': top_rated_movies,
         'just_added': just_added,
         'random_movie': random_movie,
+        'most_popular_reviews': most_popular_reviews
     }
 
     return render(request, 'movies/index.html', context)
@@ -130,7 +131,7 @@ class MovieDetailView(DetailView):
             'director': director,
             'director_movies': director.movies.exclude(id=movie.id) if director else None,
             'overview_images': movie.images.all()[:2] if movie.images.count() >= 2 else None,
-            'top_reviews': movie.reviews.order_by('-rating').exclude(description__isnull=True, description__exact='')[:2],
+            'top_reviews': movie.reviews.order_by('-rating')[:2],
             'awards_by_name': self.get_awards_by_name(movie),
         })
 

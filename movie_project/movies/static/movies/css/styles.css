@@ -449,7 +449,7 @@ nav a {
 }
 
 .cast-actor {
-    flex: 1 1 calc((100% / 6) - 10px);
+    flex: 0 0 calc((100% / 6) - 10px);
     height: 400px;
     list-style-type: none;
     margin: 30px 0px;

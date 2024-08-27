@@ -749,3 +749,8 @@ li.show {
 {
     opacity: 1;
 }
+
+
+.popular-reviews {
+    padding: 20px;
+}

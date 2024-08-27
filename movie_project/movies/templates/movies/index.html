@@ -233,4 +233,21 @@
             </ol>
         </div>
     </section>
+
+    <section class="popular-reviews">
+        <div class="section-title hidden">
+            <h3 class="marker">Popular Reviews</h3>
+        </div>
+        <div class="wrapper">
+            <ul>
+                {% for review in most_popular_reviews %}
+                    <li>
+                        <h3>{{ review.movie.title }}</h3>
+                        <p>{{ review.rating }}</p>
+                        <p>{{ review.likes.count }} Likes</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
 {% endblock %}
