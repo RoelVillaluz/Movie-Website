@@ -34,7 +34,7 @@ def index(request):
     popular_actors_and_movie = get_popular_actors_and_movies()
     genre_dict = get_genre_dict(popular_genres)
     top_rated_movies = get_top_rated_movies(5)
-    most_popular_reviews = Review.objects.annotate(like_count=Count('likes')).order_by('-like_count')[:5]
+    most_popular_reviews = Review.objects.annotate(like_count=Count('likes')).order_by('-like_count').exclude(like_count__lt=1)[:5]
 
     just_added = movies.order_by('-id').exclude(release_date__gt=today)[:20]
     random_movie = random.choice(movies)

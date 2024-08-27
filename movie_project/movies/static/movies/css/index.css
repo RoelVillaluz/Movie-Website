@@ -751,6 +751,85 @@ li.show {
 }
 
 
-.popular-reviews {
+.popular-reviews-section {
     padding: 20px;
+}
+
+.popular-reviews-section ul {
+    list-style-type: none;
+}
+
+.popular-reviews-section li {
+    display: flex;
+    align-items: flex-start; 
+    padding: 20px 0px; 
+    border-bottom: solid 1px rgb(102, 102, 102);
+}
+
+.popular-reviews-section img {
+    width: 10%;
+    height: auto; 
+    object-fit: contain; 
+}
+
+.popular-reviews-section .details {
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.popular-reviews-section h3 {
+    font-size: 1.2rem;
+}
+
+.popular-reviews-section .user {
+    display: flex;
+    align-items: center;
+    margin-top: 1.1rem;
+}
+
+.popular-reviews-section .rating-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    margin-left: 10px;
+    border-radius: 30px;
+    color: black;
+    font-weight: 700;
+}
+
+.popular-reviews-section .rating-tag i {
+    margin-bottom: 3px;
+}
+
+.popular-reviews-section .user .fa-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    padding: 1em;
+    font-size: 0.7rem;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    background-color: rgb(240, 240, 240);
+    color: rgb(168, 168, 168);
+}
+
+.popular-reviews-section .user .username {
+    color: rgb(226, 226, 226);
+    font-size: 0.9em;
+}
+
+.popular-reviews-section p {
+    margin-top: 1em;
+    color: rgb(231, 231, 231);
+    line-height: 1.25em;
+}
+
+.popular-reviews-section .like-count {
+    margin-top: 15px;
+}
+
+.popular-reviews-section .like-count > * {
+    color: rgb(226, 226, 226);
 }

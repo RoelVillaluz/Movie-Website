@@ -234,7 +234,7 @@
         </div>
     </section>
 
-    <section class="popular-reviews">
+    <section class="popular-reviews-section">
         <div class="section-title hidden">
             <h3 class="marker">Popular Reviews</h3>
         </div>
@@ -242,9 +242,33 @@
             <ul>
                 {% for review in most_popular_reviews %}
                     <li>
-                        <h3>{{ review.movie.title }}</h3>
-                        <p>{{ review.rating }}</p>
-                        <p>{{ review.likes.count }} Likes</p>
+                        <img src="{{ review.movie.poster_path.url }}" alt="">
+                        <div class="details">
+                            <h3>{{ review.movie.title }}</h3>
+                            <div class="user">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="username">{{ review.user }}</span>
+                                <div class="
+                                    rating-tag 
+                                    {% if review.rating >= 8 %}
+                                        high-rating
+                                    {% elif review.rating >= 5 %}
+                                        medium-rating
+                                    {% elif review.rating < 5 and review.rating > 0 %}
+                                        low-rating
+                                    {% elif review.rating == 0 %}
+                                        unrated
+                                    {% endif %}">
+                                    <i class="fa-solid fa-star"></i>
+                                    {{ review.rating|floatformat:1 }}
+                                </div>
+                            </div>
+                            <p>"{{ review.description }}"</p>
+                            <div class="like-count">
+                                <i class="fa-solid fa-heart"></i>
+                                <span>{{ review.likes.count }} likes</span>
+                            </div>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>
