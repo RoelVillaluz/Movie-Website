@@ -190,26 +190,66 @@ def generate_random_string(length):
     return ''.join(random.choice(letters_and_digits) for i in range(length))
 
 
-# def populate_user_review(user, movie_id, actor_id, director_id):
-#     users = User.objects.all()
-#     user = random.choice(users)
+def populate_user_review():
+    users = User.objects.all()
+    user = random.choice(users)
 
-#     movies = Movie.objects.all()
-#     movie = random.choice(movies)
+    movies = Movie.objects.all()        
 
-#     actors = movie.actors.all()
-#     actor = random.choice(actors)
+    # Define adjectives for various review categories
+    horrible_adjectives = ["terrible", "awful", "dreadful", "horrific", "atrocious", "abysmal", "painful", "disastrous", "unwatchable", "disgraceful"]
+    mediocre_adjectives = ["average", "unremarkable", "mediocre", "so-so", "passable", "lackluster", "forgettable", "bland", "ordinary", "underwhelming"]
+    good_adjectives = ["good", "decent", "enjoyable", "pleasant", "solid", "entertaining", "satisfying", "well-executed", "worthwhile", "pleasing"]
+    amazing_adjectives = ["amazing", "captivating", "brilliant", "outstanding", "exceptional", "fantastic", "incredible", "remarkable", "spectacular", "impressive"]
 
-#     directors = movie.directors.all()
-#     director = random.choice(director)
+    # Define review templates for each category
+    horrible_templates = [
+        lambda movie: f'I can barely recommend "{movie.title}". It was {random.choice(horrible_adjectives)} and left much to be desired.',
+        lambda movie: f'"{movie.title}" was a letdown. The experience was {random.choice(horrible_adjectives)} and not worth your time.',
+        lambda movie: f'Watching "{movie.title}" was a {random.choice(horrible_adjectives)} ordeal. I struggled to stay engaged.',
+        lambda movie: f'Unfortunately, "{movie.title}" is a {random.choice(horrible_adjectives)} film that fails to deliver on any front.',
+        lambda movie: f'"{movie.title}" was {random.choice(horrible_adjectives)}. Even the acting couldn’t save this disaster.'
+    ]
 
-#     positive_adjectives = []
-#     negative_adjectives = []
-#     sentences = ['f"{movie}"']
+    mediocre_templates = [
+        lambda movie: f'"{movie.title}" was {random.choice(mediocre_adjectives)}—it didn’t blow me away, but it wasn’t terrible either.',
+        lambda movie: f'I’d describe "{movie.title}" as {random.choice(mediocre_adjectives)}. It has its moments, but overall it’s quite average.',
+        lambda movie: f'"{movie.title}" left me feeling {random.choice(mediocre_adjectives)}. It’s not a waste of time, but it’s not particularly memorable.',
+        lambda movie: f'The film "{movie.title}" was {random.choice(mediocre_adjectives)} at best. There are better ways to spend your time.',
+        lambda movie: f'"{movie.title}" is {random.choice(mediocre_adjectives)}—it’s an okay movie that lacks excitement.'
+    ]
 
-#     Review.objects.create(
-#         user=user,
-#         movie=movie,
-#         description=description,
-#         rating=rating
-#     )
+    good_templates = [
+        lambda movie: f'I enjoyed "{movie.title}" quite a bit. It’s a {random.choice(good_adjectives)} film with some solid performances.',
+        lambda movie: f'"{movie.title}" was a pleasant surprise. I found it to be {random.choice(good_adjectives)} and worth the watch.',
+        lambda movie: f'"{movie.title}" delivers a {random.choice(good_adjectives)} experience. It’s not perfect, but it’s definitely enjoyable.',
+        lambda movie: f'The film "{movie.title}" was {random.choice(good_adjectives)}—a nice mix of engaging plot and good acting.',
+        lambda movie: f'Overall, "{movie.title}" was {random.choice(good_adjectives)}. It’s a decent choice for a movie night.'
+    ]
+
+    amazing_templates = [
+        lambda movie: f'"{movie.title}" is nothing short of {random.choice(amazing_adjectives)}. It captivated me from start to finish.',
+        lambda movie: f'Without a doubt, "{movie.title}" is an {random.choice(amazing_adjectives)} masterpiece. It exceeded all my expectations.',
+        lambda movie: f'I was blown away by "{movie.title}". It’s a {random.choice(amazing_adjectives)} film that deserves high praise.',
+        lambda movie: f'The film "{movie.title}" is a {random.choice(amazing_adjectives)} example of great cinema. It’s a must-watch.',
+        lambda movie: f'"{movie.title}" was absolutely {random.choice(amazing_adjectives)}. The direction, acting, and story were all top-notch.'
+    ]
+
+    # Loop through each movie and create a review
+    for movie in movies:
+        rating = random.randint(1, 10)
+        if rating <= 2:
+            description = random.choice(horrible_templates)(movie)
+        elif rating <= 4:
+            description = random.choice(mediocre_templates)(movie)
+        elif rating <= 7:
+            description = random.choice(good_templates)(movie)
+        else:
+            description = random.choice(amazing_templates)(movie)
+
+        Review.objects.create(
+            user=user,
+            movie=movie,
+            description=description,
+            rating=rating
+        )

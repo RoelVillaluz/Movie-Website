@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from movies.forms import MovieSortForm, SearchForm
-from movies.utils import available_actors, available_award_categories, available_genres, create_users, filter_queryset, get_actors_and_most_popular_movie, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, random_rating, sort
+from movies.utils import available_actors, available_award_categories, available_genres, create_users, filter_queryset, get_actors_and_most_popular_movie, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, populate_user_review, random_rating, sort
 from users.models import Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
@@ -24,6 +24,7 @@ today = date.today()
 one_month_before = today - relativedelta(months=1)
 
 def index(request):
+    populate_user_review()
     movies = Movie.objects.all()
     # random_rating(30) # for populating reviews
     # create_users(10)  # for populating users
