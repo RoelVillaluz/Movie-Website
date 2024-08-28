@@ -789,6 +789,7 @@ li.show {
 }
 
 .main-review h3 {
+    max-width: 75%;
     color: #D9D9D9;
     font-size: 1.75rem;
 }

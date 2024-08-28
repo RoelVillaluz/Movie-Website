@@ -118,6 +118,17 @@ function likeReview(element) {
     .catch(error => console.error("Error:", error));
 }
 
+const starContainer = document.querySelector('.stars');
+const rating = parseFloat(starContainer.getAttribute('data-id'));
+
+for (let i = 0; i < rating; i++) {  // Change '>' to '<'
+    const star = document.createElement('div');
+    star.classList.add('star');
+    starContainer.insertBefore(star, starContainer.querySelector('h4'));
+}
+
+
+
 function showNotification(message, imageUrl) {
     let notification = document.querySelector('.notification');
 
