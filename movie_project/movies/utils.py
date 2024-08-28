@@ -253,3 +253,10 @@ def populate_user_review():
             description=description,
             rating=rating
         )
+
+def populate_review_likes():
+    users = User.objects.all()
+    reviews = Review.objects.all()
+    for user in users:
+        review = random.choice(reviews)
+        review.likes.add(user)
