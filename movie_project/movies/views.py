@@ -230,6 +230,26 @@ def add_to_watchlist(request, id):
         {'watchlisted': watchlisted, 
          'movie_image': movie.poster_path.url})
 
+def like_review(request, id):
+    user = request.user
+    review = Review.objects.get(id=id)
+
+
+    if user not in review.likes.all():
+        review.likes.add(user)
+        liked = True
+    else:
+        review.likes.remove(user)
+        liked = False
+    
+    like_count = review.likes.count()
+
+    review.save()
+    return JsonResponse({
+        'liked': liked,
+        'like_count': like_count
+    })
+
 class SearchView(View):
     form_class = SearchForm
     
