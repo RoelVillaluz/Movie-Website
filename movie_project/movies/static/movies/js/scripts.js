@@ -72,6 +72,12 @@ document.querySelectorAll('.add-watchlist-btn').forEach(btn => {
     }
 });
 
+document.querySelectorAll('#like-btn').forEach(btn => {
+    btn.onclick = function() {
+        likeReview(btn)
+    }
+})
+
 function addToWatchlist(element, containsText = false) {
     fetch(`/add_to_watchlist/${element.dataset.id}/`)
         .then(response => response.json())
@@ -95,6 +101,21 @@ function addToWatchlist(element, containsText = false) {
         .catch(error => {
             console.error('Error:', error);
         });
+}
+
+function likeReview(element) {
+    fetch(`/like_review/${element.dataset.id}/`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.liked) {
+            element.classList.add('liked')
+        } else {
+            element.classList.remove('liked')
+        }
+        const likeCountSpan = element.closest('.like-count').querySelector('span');
+        likeCountSpan.textContent = `${data.like_count} likes`;
+    })
+    .catch(error => console.error("Error:", error));
 }
 
 function showNotification(message, imageUrl) {

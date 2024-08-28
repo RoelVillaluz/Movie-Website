@@ -232,19 +232,17 @@ def add_to_watchlist(request, id):
 
 def like_review(request, id):
     user = request.user
-    review = Review.objects.get(id=id)
+    review = get_object_or_404(Review, id=id)
 
-
-    if user not in review.likes.all():
-        review.likes.add(user)
-        liked = True
-    else:
+    if user in review.likes.all():
         review.likes.remove(user)
         liked = False
+    else:
+        review.likes.add(user)
+        liked = True
     
     like_count = review.likes.count()
 
-    review.save()
     return JsonResponse({
         'liked': liked,
         'like_count': like_count

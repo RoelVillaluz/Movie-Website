@@ -263,7 +263,11 @@
                             <span>{{ main_review.user }}</span>
                         </div>
                         <div class="like-count">
-                            <i class="fa-solid fa-heart"></i>
+                            {% if user in main_review.likes.all %}
+                                <i class="fa-solid fa-heart liked" id="like-btn" data-id="{{ main_review.id }}"></i>
+                            {% else %}
+                                <i class="fa-solid fa-heart" id="like-btn" data-id="{{ main_review.id }}"></i>
+                            {% endif %}
                             <span>{{ main_review.likes.count }} likes</span>
                         </div>
                     </div>

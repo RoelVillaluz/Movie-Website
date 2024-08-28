@@ -758,6 +758,7 @@ li.show {
 
 .main-review {
     display: flex;
+    align-items: flex-start;
     flex: 1;
     max-width: 70%;
     padding: 20px;
@@ -775,6 +776,8 @@ li.show {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    flex-wrap: wrap;
+    flex: 1;
 }
 
 .main-review img {
@@ -782,6 +785,7 @@ li.show {
     height: auto;
     object-fit: contain;
     border: solid 2px white;
+    flex-shrink: 0;
 }
 
 .main-review h3 {
@@ -834,13 +838,24 @@ li.show {
 .main-review .like-count {
     display: flex;
     align-items: center;
-    margin-top: 20px;
-    gap: 10px;
+    margin-top: 10px;
+    gap: 5px;
     color: #919191;
 }
 
 .main-review .like-count i {
     color: #919191;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.main-review .like-count i:hover,
+.main-review .like-count i.liked
+{
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
 }
 
 .main-review a {
