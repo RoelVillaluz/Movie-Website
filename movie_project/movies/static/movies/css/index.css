@@ -575,7 +575,9 @@ li.show {
     animation: skeleton-loading 3s infinite linear;
 }
 
-.skeleton h3 {
+.skeleton h3,
+.skeleton h4
+{
     display: none;
 }
 

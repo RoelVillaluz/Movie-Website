@@ -96,11 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { once: true }); // Ensure this only triggers once
     });
 });
-
 document.addEventListener('DOMContentLoaded', () => {
     // Intersection Observer setup
-    const hiddenElements = document.querySelectorAll('.hidden');
-    const skeletonElements = document.querySelectorAll('.skeleton')
     const observerOptions = {
         root: null, // Use the viewport as the root
         rootMargin: '0px',
@@ -121,43 +118,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    hiddenElements.forEach(element => {
-        observer.observe(element);
-    });
+    // Observe hidden and skeleton elements
+    const elementsToObserve = document.querySelectorAll('.hidden, .skeleton');
+    elementsToObserve.forEach(element => observer.observe(element));
 
-    skeletonElements.forEach(element => {
-        observer.observe(element);
-    })
-
-    // Animation handling
+    // Animation handling for genre cards
     const genreCards = document.querySelectorAll('.genre-card.hidden');
     let animationEndCount = 0;
-
-    function allAnimationsEnded() {
-        if (animationEndCount === genreCards.length) {
-            genreCards.forEach(card => {
-                card.classList.add('animation-complete');
-                card.style.pointerEvents = 'auto';
-            });
-        }
-    }
 
     genreCards.forEach((card, index) => {
         card.style.animationDelay = `${index * 0.25}s`;
 
-        card.addEventListener('animationend', function() {
+        card.addEventListener('animationend', () => {
             animationEndCount++;
-            allAnimationsEnded();
+            if (animationEndCount === genreCards.length) {
+                genreCards.forEach(card => {
+                    card.classList.add('animation-complete');
+                    card.style.pointerEvents = 'auto';
+                });
+            }
         });
     });
 
-    // Function to apply animation delay
+    // Function to apply animation delay to a set of elements
     const applyAnimationDelay = (elements, delay) => {
         elements.forEach((element, index) => {
             element.style.animationDelay = `${index * delay}s`;
         });
     };
 
+    // Apply animation delays to various element groups
     const actorCards = document.querySelectorAll('.cast-actor.hidden');
     applyAnimationDelay(actorCards, 0.15);
 
@@ -180,9 +170,6 @@ function applyAnimationDelay(elements, delay) {
     });
 }
 
-function removeSkeletonClass() {
-    const skeletonItems = document.querySelectorAll('.skeleton');
-    skeletonItems.forEach(item => {
-        item.classList.remove('skeleton');
-    });
-}
+window.addEventListener('load', () => {
+    pageHasLoaded = true;
+});
