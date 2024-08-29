@@ -35,8 +35,7 @@ def index(request):
     genre_dict = get_genre_dict(popular_genres)
     top_rated_movies = get_top_rated_movies(5)
 
-    main_review = Review.objects.annotate(like_count=Count('likes')).order_by('-like_count').exclude(like_count__lt=1).first()
-    most_popular_reviews = Review.objects.annotate(like_count=Count('likes')).order_by('-like_count').exclude(like_count__lt=1, id=main_review.id)[:5]
+    most_popular_reviews = Review.objects.annotate(like_count=Count('likes')).order_by('-like_count').exclude(like_count__lt=1)[:2]
 
     just_added = movies.order_by('-id').exclude(release_date__gt=today)[:20]
     random_movie = random.choice(movies)
@@ -52,7 +51,6 @@ def index(request):
         'top_rated_movies': top_rated_movies,
         'just_added': just_added,
         'random_movie': random_movie,
-        'main_review': main_review,
         'most_popular_reviews': most_popular_reviews
     }
 

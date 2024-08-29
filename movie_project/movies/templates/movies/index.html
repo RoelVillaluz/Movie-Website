@@ -238,33 +238,37 @@
         <div class="centered-section-title hidden">
             <h1 class="marker">Popular Reviews</h1>
         </div>
-        <div class="wrapper">
-            <div class="main-review">
-                <img src="{{ main_review.movie.poster_path.url }}" alt="">
-                <div class="details">
-                    <div>
-                        <h3>{{ main_review.movie.title }}</h3>
-                        <div class="stars" data-id="{{ main_review.rating }}">
-                            <!-- Stars go here -->
-                            <h4>{{ main_review.rating }}/10</h4>
-                        </div>
-                        <p>"{{ main_review.description }}"</p>
-                        <div class="review-user">
-                            <div class="line"></div>
-                            <span>{{ main_review.user }}</span>
-                        </div>
-                        <div class="like-count">
-                            {% if user in main_review.likes.all %}
-                                <i class="fa-solid fa-heart liked" id="like-btn" data-id="{{ main_review.id }}"></i>
-                            {% else %}
-                                <i class="fa-solid fa-heart" id="like-btn" data-id="{{ main_review.id }}"></i>
-                            {% endif %}
-                            <span>{{ main_review.likes.count }} likes</span>
+        <ul class="wrapper">
+            {% for popular_review in most_popular_reviews %}
+                <li class="popular-review">
+                    <img src="{{ popular_review.movie.poster_path.url }}" alt="">
+                    <div class="details">
+                        <div>
+                            <h3>{{ popular_review.movie.title }}</h3>
+                            <div class="stars" data-id="{{ popular_review.rating }}">
+                                <!-- Stars go here -->
+                                <h4>{{ popular_review.rating }}/10</h4>
+                            </div>
+                            <p>"{{ popular_review.description }}"</p>
+                            <div class="review-user">
+                                <div class="line"></div>
+                                <span>{{ popular_review.user }}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                                <div class="like-count">
+                                    {% if user in popular_review.likes.all %}
+                                        <i class="fa-solid fa-heart liked" id="like-btn" data-id="{{ popular_review.id }}"></i>
+                                    {% else %}
+                                        <i class="fa-solid fa-heart" id="like-btn" data-id="{{ popular_review.id }}"></i>
+                                    {% endif %}
+                                    <span>{{ popular_review.likes.count }} likes</span>
+                                </div>
+                                <a href="{% url 'movie-detail' popular_review.movie.pk %}">View Movie<i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                    <a href="{% url 'movie-detail' main_review.movie.pk %}">View Movie<i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
+                </li>
+            {% endfor %}
+        </ul>
     </section>
 {% endblock %}
