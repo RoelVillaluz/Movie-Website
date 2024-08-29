@@ -239,6 +239,16 @@ const searchInput = document.querySelector('input[name="query"]');
                     suggestionsBox.appendChild(actorSuggestion)
                 });
 
+                // Create header for director search suggestions
+                createCategoryHeader('Directors', data.director_count, 'directors', query);
+
+                // for actor suggestion item
+                data.directors.forEach(director => {
+                    const directorSuggestion = createSuggestionItem('director', director)
+                    suggestionsBox.appendChild(directorSuggestion)
+                })
+
+
                 // footer for the suggestion box
                 const SuggestionsBoxFooter =  document.createElement('div')
                 SuggestionsBoxFooter.classList.add('suggestion-box-footer')
@@ -301,6 +311,17 @@ const searchInput = document.querySelector('input[name="query"]');
                     <div class="details">
                         <h3>${item.name}</h3>
                         <h4>${item.most_popular_movie}</h4>
+                    </div>
+                </a>
+            `;
+        } else if (type === 'director') {
+            itemContent = `
+                <a href="/directors/${item.id}">
+                    <div class="image actor-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="details">
+                        <h3>${item.name}</h3>
                     </div>
                 </a>
             `;

@@ -295,6 +295,8 @@ class SearchSuggestionsView(View):
 
         movie_results = []
         actor_results = []
+        director_results = []
+
         if query:
             # Get all matching movies without limiting the results
             all_matching_movies = Movie.objects.filter(title__icontains=query).prefetch_related(
@@ -307,8 +309,8 @@ class SearchSuggestionsView(View):
             all_matching_actors = Actor.objects.filter(name__icontains=query)
             actor_suggestions = all_matching_actors[:2]
 
-            
-            director_suggestions = Director.objects.filter(name__icontains=query).values_list('name', flat=True)[:1]
+            all_matching_directors = Director.objects.filter(name__icontains=query)
+            director_suggestions = all_matching_directors[:1]  
 
             for movie in movie_suggestions:
                 # Get all genres for the movie
@@ -336,14 +338,23 @@ class SearchSuggestionsView(View):
                 'most_popular_movie': actor_movie,
             } for actor, actor_movie in actor_and_most_popular_movie.items()]
 
+            # Get director suggestions
+            director_results = [{
+                'id': director.id,
+                'name': director.name,
+                'image': director.image.url,  
+            } for director in director_suggestions]
+
         # Calculate the total number of matching searches
         total_matching_movies = all_matching_movies.count()
         total_matching_actors = all_matching_actors.count()
+        total_matching_directors = all_matching_directors.count()
 
         return JsonResponse({
             'movies': movie_results,
             'movie_count': total_matching_movies,  
             'actors': actor_results,
             'actor_count': total_matching_actors,
-            'directors': list(director_suggestions)
+            'directors': director_results,
+            'director_count': total_matching_directors
         })
