@@ -27,7 +27,9 @@
             <ol>
                 {% for movie in watchlist_movies %}
 
-                    {% include 'movies/movie-list-item.html' %}
+                    <li class="skeleton">
+                        {% include 'movies/movie-list-item.html' %}
+                    </li>
 
                 {% endfor %}
             </ol>
