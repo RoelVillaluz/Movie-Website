@@ -1,4 +1,4 @@
-<li class="movie-list-item">
+<li class="movie-list-item skeleton">
     <div class="card">
         <div class="image">
             <a href="{% url 'movie-detail' movie.pk %}">
@@ -23,6 +23,10 @@
             <span class="counter">{{ forloop.counter }}.</span> 
             <h2><a href="{% url 'movie-detail' movie.pk %}">{{ movie.title }}</a></h2>
             <span class="movie-year">{{ movie.release_date.year }}</span>
+
+            <!-- Skeleton placeholder for title -->
+            <div class="title-placeholder"></div>
+            
         </div>
         <div class="tags">
             <div class="genre-tag">{{ movie.genres.first }}</div>
@@ -48,9 +52,21 @@
             {% else %}
                 <div class="review-count">No reviews yet</div>
             {% endif %}
+
+            <!-- Skeleton placeholder for tags -->
+            <div class="tag-placeholder"></div>
+            <div class="tag-placeholder"></div>
+
         </div>
         <p class="runtime">{{ movie.runtime }}</p>
         <p>{{ movie.overview }}</p>
+
+        <div class="overview-placeholder">
+            <div class="line-placeholder"></div>
+            <div class="line-placeholder"></div>
+            <div class="line-placeholder last"></div>
+        </div>
+
         <div class="director">
             <h3>Director</h3>
             {% if movie.directors.exists %}

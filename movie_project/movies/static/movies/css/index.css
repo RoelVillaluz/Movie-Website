@@ -575,8 +575,13 @@ li.show {
     animation: skeleton-loading 3s infinite linear;
 }
 
+/* for movie card skeleton */
 .skeleton h3,
-.skeleton h4
+.skeleton h4,
+.skeleton p,
+.skeleton span,
+.skeleton .genre-tag,
+.skeleton .rating-tag
 {
     display: none;
 }
@@ -593,12 +598,6 @@ li.show {
 
 .skeleton .image img {
     display: none; 
-}
-
-.skeleton .genre-tag,
-.skeleton .rating-tag
-{
-    display: none;
 }
 
 .skeleton .tag-placeholder {
