@@ -249,12 +249,14 @@
                                 <!-- Stars go here -->
                                 <h4>{{ popular_review.rating }}/10</h4>
                             </div>
-                            <p>"{{ popular_review.description }}"</p>
+                            {% if popular_review.description %}
+                                <p>"{{ popular_review.description }}"</p>
+                            {% endif %}
                             <div class="review-user">
                                 <div class="line"></div>
                                 <span>{{ popular_review.user }}</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items:center; margin-top: 20px;">
                                 <div class="like-count">
                                     {% if user in popular_review.likes.all %}
                                         <i class="fa-solid fa-heart liked" id="like-btn" data-id="{{ popular_review.id }}"></i>

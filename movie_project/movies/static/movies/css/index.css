@@ -206,7 +206,7 @@ h3.marker::after {
 .genre-card {
     flex: 1;
     margin: 5px;
-    height: 500px;
+    height: 75vh;
     position: relative;
     transform-origin: bottom;
     transition: 0.3s;

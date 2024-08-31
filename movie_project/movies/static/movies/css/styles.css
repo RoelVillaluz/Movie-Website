@@ -450,7 +450,7 @@ nav a {
 
 .cast-actor {
     flex: 0 0 calc((100% / 6) - 10px);
-    height: 400px;
+    height: 60vh;
     list-style-type: none;
     margin: 30px 0px;
 }
