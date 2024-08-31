@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from movies.forms import MovieSortForm, SearchForm
-from movies.utils import available_actors, available_award_categories, available_genres, filter_queryset, get_actors_and_most_popular_movie, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, sort
+from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, get_actors_and_most_popular_movie, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, sort
 from users.models import Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
@@ -69,7 +69,7 @@ class MovieListView(ListView):
         movies = self.get_queryset()
 
         # Calculate available genres, actors, and award categories with winners before applying filters
-        genres_with_movies = available_genres(movies)
+        genres_with_movies = get_available_genres(movies)
         award_categories_with_winners = available_award_categories(movies)
         actors_with_movies = available_actors(movies)
 
@@ -151,6 +151,20 @@ class GenreListView(ListView):
     model = Genre
     context_object_name = 'genres'
     template_name = 'movies/genre-list.html'
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+
+        movies = Movie.objects.all()
+        available_genres = get_available_genres(movies)
+        all_genres = Genre.objects.all()
+
+        context.update({
+            'available_genres': available_genres,
+            'genres_and_movies': get_genre_dict(all_genres)
+        })
+
+        return context
 
 class GenreDetailView(DetailView):
     model = Genre

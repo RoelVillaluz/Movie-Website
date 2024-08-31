@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views import View
 
 from movies.forms import MovieSortForm, SearchForm
-from movies.utils import available_actors, available_award_categories, available_genres, filter_queryset, sort, toggle_upcoming
+from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, sort, toggle_upcoming
 from users.models import Profile, Watchlist
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
@@ -72,7 +72,7 @@ class MyWatchlistView(View):
             watchlist_movies = watchlist_movies.filter(title__icontains=query)
 
         # Calculate available genres and award categories with winners before applying filters
-        genres_with_movies = available_genres(watchlist_movies)
+        genres_with_movies = get_available_genres(watchlist_movies)
         award_categories_with_winners = available_award_categories(watchlist_movies)
         actors_with_movies = available_actors(watchlist_movies)
 

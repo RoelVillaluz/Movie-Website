@@ -37,7 +37,7 @@ def sort(queryset, sort_by):
         return queryset.annotate(review_count=Count('reviews')).order_by('-review_count')
     return queryset
 
-def available_genres(queryset):
+def get_available_genres(queryset):
     """Get only genres with movies for queryset"""
     genres_with_movies = defaultdict(list)
     for movie in queryset:
@@ -119,12 +119,12 @@ def get_actors_and_most_popular_movie(actors):
     return actor_and_most_popular_movie
 
 
-def get_genre_dict(popular_genres):
+def get_genre_dict(genres):
     """Get a dictionary of popular genres and a random movie for each genre."""
     genre_dict = {}
     genre_set = set()
 
-    for genre in popular_genres:
+    for genre in genres:
         movies_in_genre = genre.movies.exclude(pk__in=genre_set)
         if movies_in_genre.exists():
             random_movie = random.choice(movies_in_genre)

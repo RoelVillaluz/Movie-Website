@@ -3,10 +3,14 @@
 {% block title %} MovieVerse Genres {% endblock %}
     
 {% block body %}
-    <h1>Genres</h1>
-    <ul>
-        {% for genre in genres %}
-            <li>{{ genre }}</li>
-        {% endfor %}
-    </ul>
+    <section class="all-genres-list">
+        <div class="header">
+            <h1>Genres</h1>
+        </div>
+        <ul>
+            {% for genre, genre_info in genres_and_movies.items %}
+                <li>{{ genre }}: {{ genre_info.3 }}</li>
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock %}
