@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import OrderedDict, defaultdict
 import random
 from typing import Any
 from django.db.models.base import Model as Model
@@ -155,15 +155,25 @@ class GenreListView(ListView):
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
 
-        movies = Movie.objects.all()
+        movies = Movie.objects.exclude(release_date__gt=today)
         available_genres = get_available_genres(movies)
         all_genres = Genre.objects.all()
-        random_image = random.choice(movies)
+        random_images = random.sample(list(movies), 5)
+
+        # Group genres by the first letter
+        first_letter_and_genre = defaultdict(list)
+        for genre in available_genres:
+            first_letter = genre[0].upper()
+            first_letter_and_genre[first_letter].append(genre)
+
+        # Sort the dictionary by the first letter
+        first_letter_and_genre = OrderedDict(sorted(first_letter_and_genre.items()))
 
         context.update({
             'available_genres': available_genres,
             'genres_and_movies': get_genre_dict(all_genres),
-            'random_image': random_image
+            'random_images': random_images,
+            'first_letter_and_genre': first_letter_and_genre
         })
 
         return context

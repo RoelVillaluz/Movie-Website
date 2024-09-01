@@ -9,7 +9,7 @@ import os
 from decouple import config
 from moviepy.editor import VideoFileClip
 from django.core.files import File
-from movies.models import Actor, Award, Director, Movie, Review, User
+from movies.models import Actor, Award, Director, Genre, Movie, Review, User
 from PIL import Image
 from django.db.models import Avg, Count
 
