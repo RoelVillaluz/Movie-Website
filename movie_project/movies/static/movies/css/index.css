@@ -204,6 +204,7 @@ h3.marker::after {
 }
 
 .genre-card {
+    list-style-type: none;
     flex: 1;
     margin: 5px;
     height: 75vh;

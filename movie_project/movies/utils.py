@@ -133,7 +133,9 @@ def get_genre_dict(genres):
             ]
             genre_set.add(random_movie.pk)
 
-    return genre_dict
+    sorted_genre_dict = dict(sorted(genre_dict.items()))
+
+    return sorted_genre_dict
 
 def get_top_rated_movies(num_of_movies):
     top_rated_movies = Movie.objects.annotate(

@@ -5,11 +5,19 @@
 {% block body %}
     <section class="all-genres-list">
         <div class="header">
-            <h1>Genres</h1>
+            <img src="{{ random_image.backdrop_path.url }}" alt="">
+            <div class="overlay">
+                <h1>All Genres</h1>
+            </div>
         </div>
         <ul>
             {% for genre, genre_info in genres_and_movies.items %}
-                <li>{{ genre }}: {{ genre_info.3 }}</li>
+                <li>
+                    <a href="{% url 'genre-detail' genre_info.2 %}">
+                        <img src="{{ genre_info.1 }}" alt="">
+                        <h1>{{ genre_info.0 }}</h1>
+                    </a>
+                </li>
             {% endfor %}
         </ul>
     </section>

@@ -158,10 +158,12 @@ class GenreListView(ListView):
         movies = Movie.objects.all()
         available_genres = get_available_genres(movies)
         all_genres = Genre.objects.all()
+        random_image = random.choice(movies)
 
         context.update({
             'available_genres': available_genres,
-            'genres_and_movies': get_genre_dict(all_genres)
+            'genres_and_movies': get_genre_dict(all_genres),
+            'random_image': random_image
         })
 
         return context

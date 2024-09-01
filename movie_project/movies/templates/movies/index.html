@@ -133,18 +133,18 @@
                 <i class="fa-solid fa-angle-right"></i>
             </div>
         </div>
-        <div class="genre-list">
+        <ul class="genre-list">
             {% for genre, genre_info in genre_dict.items %}
-                <div class="genre-card hidden">
+                <li class="genre-card hidden">
                     <a href="{% url 'genre-detail' genre_info.2 %}"> 
                         <img src="{{ genre_info.1}}" alt="">
                     </a>
                     <div class="genre-overlay">
                         <h3>{{ genre_info.0 }}</h3> 
                     </div>
-                </div>
+                </li>
             {% endfor %}
-        </div>
+        </ul>
     </section>
 
     <!-- Award-Winning Movies Section -->

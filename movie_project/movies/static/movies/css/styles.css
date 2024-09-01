@@ -1353,6 +1353,69 @@ nav a {
     margin-bottom: 5px;
 }
 
+.all-genres-list .header {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+}
+
+.all-genres-list .header::before {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background-image: linear-gradient(to top, rgb(20, 20, 20, 1) 0%, rgb(20, 20, 20, 0) 100%);
+    z-index: 1;
+}
+
+.all-genres-list .header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8);
+}
+
+.all-genres-list .header .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.all-genres-list .header .overlay h1 {
+    font-size: 6rem;
+    text-shadow: 4px 4px 8px rgba(20, 20, 20, 0.7);
+}
+
+.all-genres-list ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+    list-style-type: none;
+}
+
+.all-genres-list li {
+    width: calc((100% / 3) - 10px);
+    margin-bottom: 2rem;
+}
+
+.all-genres-list li a {
+    text-decoration: none;
+}
+
+.all-genres-list li img {
+    width: 100%;
+    height: 100%;
+}
+
+.all-genres-list li h1 {
+    margin: 0.5em 0em;
+}
+
 @media (max-width: 991px) {
     .cast-wrapper {
         flex-wrap: wrap;
