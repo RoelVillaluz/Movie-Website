@@ -14,16 +14,6 @@
                 <h1>All Genres</h1>
             </div>
         </div>  
-        <!-- <ul>
-            {% for genre, genre_info in genres_and_movies.items %}
-                <li>
-                    <a href="{% url 'genre-detail' genre_info.2 %}">
-                        <img src="{{ genre_info.1 }}" alt="">
-                        <h1>{{ genre_info.0 }}</h1>
-                    </a>
-                </li>
-            {% endfor %}
-        </ul> -->
         <ul>
             {% for first_letter, genre_list in first_letter_and_genre.items %}
                 <h3 class="first-letter">{{ first_letter }}</h3>

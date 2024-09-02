@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Django and Open in Edge",
+            "type": "shell",
+            "command": "python manage.py runserver",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "isBackground": true,
+            "dependsOn": [
+                "Open in Edge"
+            ]
+        },
+        {
+            "label": "Open in Edge",
+            "type": "shell",
+            "command": "start msedge http://127.0.0.1:8000",
+            "problemMatcher": [],
+            "isBackground": true
+        }
+    ]
+}
