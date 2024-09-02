@@ -155,23 +155,28 @@ class GenreListView(ListView):
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
 
+        first_letter_and_genre = defaultdict(list)
+        genre_set = set()
+        genres = Genre.objects.all()
+
+
+        # get random movie images for genre page header
         movies = Movie.objects.exclude(release_date__gt=today)
-        available_genres = get_available_genres(movies)
-        all_genres = Genre.objects.all()
         random_images = random.sample(list(movies), 5)
 
-        # Group genres by the first letter
-        first_letter_and_genre = defaultdict(list)
-        for genre in available_genres:
-            first_letter = genre[0].upper()
-            first_letter_and_genre[first_letter].append(genre)
+        # dictionary for first letters and genre 
+        for genre in genres:
+            movies_in_genre = genre.movies.exclude(pk__in=genre_set)
+            if movies_in_genre.exists():
+                first_letter = genre.name[0].upper()
+                random_movie = random.choice(movies_in_genre)
+                genre_info = [genre.name, random_movie.backdrop_path.url, genre.pk]
+                first_letter_and_genre[first_letter].append(genre_info)
+                genre_set.add(random_movie.pk)
 
-        # Sort the dictionary by the first letter
         first_letter_and_genre = OrderedDict(sorted(first_letter_and_genre.items()))
 
         context.update({
-            'available_genres': available_genres,
-            'genres_and_movies': get_genre_dict(all_genres),
             'random_images': random_images,
             'first_letter_and_genre': first_letter_and_genre
         })

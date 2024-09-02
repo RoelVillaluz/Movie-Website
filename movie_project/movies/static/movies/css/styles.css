@@ -1403,6 +1403,24 @@ nav a {
     z-index: 3;
 }
 
+.all-genres-list .header .overlay h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    font-style: italic;
+    text-transform: uppercase;
+    background-color: white;
+    color: black;
+    padding: 1rem 4rem;
+    transform: rotate(-5deg);
+    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+}
+
+.all-genres-list ul {
+    padding: 20px;
+    list-style-type: none;
+    margin-top: 3rem;
+}
+
 .first-letter {
     display: flex;
     align-items: center;
@@ -1414,31 +1432,19 @@ nav a {
     height: 3rem;
     margin: 5px;
     clip-path: polygon(20% 0%, 80% 0%, 100% 0, 100% 80%, 80% 100%, 0 100%, 0% 80%, 0% 20%);
-
 }
 
-.all-genres-list .header .overlay h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    background-color: white;
-    color: black;
-    padding: 1rem 4rem;
-    transform: rotate(-5deg);
-    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
-}
-
-.all-genres-list ul {
+.first-letter-wrapper {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 20px;
-    list-style-type: none;
+    padding: 1rem;
 }
 
 .all-genres-list li {
-    width: calc((100% / 3) - 10px);
+    position: relative;
+    flex: 0 0 calc((100% / 3) - 10px);
     margin-bottom: 2rem;
 }
 
@@ -1449,10 +1455,29 @@ nav a {
 .all-genres-list li img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }
 
 .all-genres-list li h1 {
+    display: inline-block;
+    position: relative;
     margin: 0.5em 0em;
+}
+
+.all-genres-list li h1::before {
+    position: absolute;
+    content: '';
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: white;
+    transform-origin: left;
+    transition: 0.3s;
+}
+
+.all-genres-list li:hover h1::before {
+    width: 100%;
 }
 
 @media (max-width: 991px) {
