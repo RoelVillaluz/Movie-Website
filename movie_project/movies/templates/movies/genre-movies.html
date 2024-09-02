@@ -9,9 +9,13 @@
         </div>
         <div class="genre-movies">
             <h1>{{ genre }}</h1>
-            {% for movie in movies %}
-                {% include 'movies/card.html' %}
-            {% endfor %}
+            <ul>
+                {% for movie in movies %}
+                    <li>
+                        {% include 'movies/card.html' %}
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 {% endblock %}

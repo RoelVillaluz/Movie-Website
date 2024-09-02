@@ -170,7 +170,7 @@ class GenreListView(ListView):
             if movies_in_genre.exists():
                 first_letter = genre.name[0].upper()
                 random_movie = random.choice(movies_in_genre)
-                genre_info = [genre.name, random_movie.backdrop_path.url, genre.pk]
+                genre_info = [genre.name, random_movie.backdrop_path.url, genre.pk, genre.movies.count]
                 first_letter_and_genre[first_letter].append(genre_info)
                 genre_set.add(random_movie.pk)
 
