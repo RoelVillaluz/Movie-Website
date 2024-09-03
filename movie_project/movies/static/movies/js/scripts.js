@@ -336,3 +336,30 @@ const searchInput = document.querySelector('input[name="query"]');
             suggestionsBox.style.display = 'none';
         }
     });
+
+document.getElementById('list-view-btn').addEventListener('click', function() {
+    console.log("List view button clicked");
+    window.location.search = '?view=list';
+});
+
+document.getElementById('grid-view-btn').addEventListener('click', function() {
+    console.log("Grid view button clicked");
+    window.location.search = '?view=grid';
+});
+
+window.onload = function() {
+    const params = new URLSearchParams(window.location.search);
+    const viewMode = params.get('view') || 'list';
+
+    const watchlist = document.querySelector('.watchlist-container ol')
+
+    console.log("Current view mode:", viewMode);
+
+    if (viewMode === 'grid') {
+        document.getElementById('grid-view-btn').classList.add('active');
+        watchlist.classList.add('grid')
+    } else {
+        document.getElementById('list-view-btn').classList.add('active');
+        watchlist.classList.remove('grid')
+    }
+};

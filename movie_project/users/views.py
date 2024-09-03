@@ -65,6 +65,8 @@ class MyWatchlistView(View):
         watchlist = Watchlist.objects.get(user=user)
         watchlist_movies = watchlist.movies.all()
 
+        view_mode = request.GET.get('view', 'list')
+
         # Search functionality
         search_form = SearchForm(request.GET or None)
         if search_form.is_valid():
@@ -117,6 +119,7 @@ class MyWatchlistView(View):
             'selected_award_categories': selected_award_categories,
             'actors_with_movies': actors_with_movies,
             'selected_actors': selected_actors,
-            'upcoming': request.GET.get('upcoming', 'off')
+            'upcoming': request.GET.get('upcoming', 'off'),
+            'view_mode': view_mode 
         }
         return render(request, self.template_name, context)

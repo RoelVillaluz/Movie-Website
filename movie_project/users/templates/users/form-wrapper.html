@@ -1,12 +1,20 @@
 <div class="form-wrapper">
     <!-- Search form -->
     <form method="get" class="search-form" autocomplete="off"> 
+        <input type="hidden" name="view" value="{{ view_mode }}">
         {{ search_form }}
         <i class="fa-solid fa-magnifying-glass"></i>
     </form>
 
     <!-- Sort form -->
     <form method="get" class="sort-form">
+        <input type="hidden" name="view" value="{{ view_mode }}">
         {{ sort_form.as_p }}
     </form>
+
+    <!-- layout buttons -->
+    <div class="layout-buttons">
+        <i class="fa-solid fa-list" id="list-view-btn"></i>
+        <i class="fa-solid fa-grip" id="grid-view-btn"></i>
+    </div>
 </div>

@@ -2,6 +2,8 @@
     <h1 class="filter-count">Filters</h1>
     <form class="filter-form" method="get" action="">
 
+        <input type="hidden" name="view" value="{{ view_mode }}">
+
         <!-- Genre Filter -->
         <h3>Genres ({{ available_genres|length }})<i class="fa-solid fa-minus"></i></h3>
         <ul class="filter-button-list">

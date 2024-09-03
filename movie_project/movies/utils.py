@@ -68,6 +68,8 @@ def available_actors(queryset):
         for actor in movie.actors.all():
             actors_in_queryset[actor].append(movie)
 
+    actors_in_queryset = dict(sorted(actors_in_queryset.items(), key=lambda x: x[0].name))    
+
     return actors_in_queryset
 
 def filter_queryset(queryset, genre_name=None, award_category=None, actor=None):

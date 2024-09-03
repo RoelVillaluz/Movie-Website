@@ -26,14 +26,18 @@
     
             <ol>
                 {% for movie in watchlist_movies %}
-
-                    {% include 'movies/movie-list-item.html' %}
-
+                    {% if view_mode == 'grid' %}
+                        <li class="skeleton">
+                            {% include 'movies/card.html' %}
+                        </li>
+                    {% else %}
+                        {% include 'movies/movie-list-item.html' %}
+                    {% endif %}
                 {% endfor %}
             </ol>
+
         </div>
     </div>
-    
     
 </section>
 {% endblock %}

@@ -255,6 +255,25 @@
     font-size: 1.1rem;
 }
 
+.layout-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 1rem;
+}
+
+.layout-buttons i {
+    font-size: 1.35rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.layout-buttons i:hover,
+.layout-buttons i.active
+{
+    color: rgb(112, 112, 112);
+}
+
 .watchlist-container {
     display: flex;
     align-items: stretch;
@@ -283,6 +302,18 @@
     list-style-type: none;
 }
 
+.watchlist-container ol.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-left: 3%;
+}
+
+.watchlist-container ol.grid li {
+    flex: 0 0 calc((100% / 4) - 20px);
+    margin-bottom: 2rem;
+}
+
 .filter-sidebar h1 {
     border-bottom: solid 1px rgba(255, 255, 255, 0.3);
     padding-bottom: 10px;
@@ -298,7 +329,6 @@
 
 .filter-sidebar h3 i {
     color: rgba(255, 255, 255, 0.7);
-
     margin-left: 10px;
     cursor: pointer;
 }
