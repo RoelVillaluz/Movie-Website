@@ -12,9 +12,11 @@
         {{ sort_form.as_p }}
     </form>
 
-    <!-- layout buttons -->
+    <!-- Conditionally render layout buttons -->
+    {% if show_layout_buttons %}
     <div class="layout-buttons">
         <i class="fa-solid fa-list" id="list-view-btn" data-view="list"></i>
         <i class="fa-solid fa-grip" id="grid-view-btn" data-view="grid"></i>
     </div>
+    {% endif %}
 </div>

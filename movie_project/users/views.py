@@ -12,6 +12,7 @@ from movies.utils import available_actors, available_award_categories, get_avail
 from users.models import Profile, Watchlist
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
+from django.db.models import Q
 from movies.models import Award, Movie, MovieImage, User
 
 
@@ -89,24 +90,37 @@ class MyWatchlistView(View):
         selected_award_categories = request.GET.getlist('award_category')
         selected_actors = request.GET.getlist('actor')
 
-        # Apply genre filters 
-        for genre_name in selected_genres:
-            watchlist_movies = filter_queryset(watchlist_movies, genre_name=genre_name)
+        filters = Q()
 
-        # Apply award category filters 
-        for award_category in selected_award_categories:
-            watchlist_movies = filter_queryset(watchlist_movies, award_category=award_category)
+        # Add genre filters 
+        if selected_genres:
+            genre_q = Q()
+            for genre_name in selected_genres:
+                genre_q |= Q(genres__name=genre_name)
+            filters |= genre_q
 
-        # Apply actor filters 
-        for actor in selected_actors:
-            watchlist_movies = filter_queryset(watchlist_movies, actor=actor)
+        # Add award category filters 
+        if selected_award_categories:
+            award_q = Q()
+            for award_category in selected_award_categories:
+                award_q |= Q(awards__category=award_category, awards__winner=True)
+            filters |= award_q
 
-        # Toggle upcoming movies filter
-        if request.GET.get('upcoming', 'off') == 'on':
-            watchlist_movies = toggle_upcoming(watchlist_movies)
+        # Add actor filters 
+        if selected_actors:
+            actor_q = Q()
+            for actor in selected_actors:
+                actor_q |= Q(actors__name=actor)
+            filters |= actor_q
+
+        # Apply the combined filters to the queryset
+        if filters:
+            watchlist_movies = watchlist_movies.filter(filters).distinct()
 
         # Get distinct award categories where the movie is a winner
         award_categories = Award.objects.filter(winner=True).values_list('category', flat=True).distinct()
+
+        show_layout_buttons = True
 
         context = {
             'watchlist_movies': watchlist_movies,
@@ -120,6 +134,7 @@ class MyWatchlistView(View):
             'actors_with_movies': actors_with_movies,
             'selected_actors': selected_actors,
             'upcoming': request.GET.get('upcoming', 'off'),
-            'view_mode': view_mode 
+            'view_mode': view_mode,
+            'show_layout_buttons': show_layout_buttons
         }
         return render(request, self.template_name, context)

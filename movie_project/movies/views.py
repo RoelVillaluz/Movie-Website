@@ -17,7 +17,7 @@ from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
 from datetime import date
 from dateutil.relativedelta import relativedelta
-from django.db.models import Count, Avg, Prefetch
+from django.db.models import Count, Avg, Prefetch, Q
 
 
 today = date.today()
@@ -78,19 +78,34 @@ class MovieListView(ListView):
         selected_award_categories = self.request.GET.getlist('award_category')
         selected_actors = self.request.GET.getlist('actor')
 
-        # Apply genre filters 
-        for genre_name in selected_genres:
-            movies = filter_queryset(movies, genre_name=genre_name)
+        filters = Q()
 
-        # Apply award category filters 
-        for award_category in selected_award_categories:
-            movies = filter_queryset(movies, award_category=award_category)
+        # Add genre filters 
+        if selected_genres:
+            genre_q = Q()
+            for genre_name in selected_genres:
+                genre_q |= Q(genres__name=genre_name)
+            filters |= genre_q
 
-        # Apply actor filters 
-        for actor in selected_actors:
-            movies = filter_queryset(movies, actor=actor)
+        # Add award category filters 
+        if selected_award_categories:
+            award_q = Q()
+            for award_category in selected_award_categories:
+                award_q |= Q(awards__category=award_category)
+            filters |= award_q
 
-        # search form
+        # Add actor filters 
+        if selected_actors:
+            actor_q = Q()
+            for actor in selected_actors:
+                actor_q |= Q(actors__name=actor)
+            filters |= actor_q
+
+        # Apply the combined filters to the queryset
+        if filters:
+            movies = movies.filter(filters)
+
+        # Search form
         search_form = SearchForm(self.request.GET or None)
         if search_form.is_valid():
             query = search_form.cleaned_data.get('query')
@@ -114,7 +129,7 @@ class MovieListView(ListView):
             'selected_award_categories': selected_award_categories,
             'selected_actors': selected_actors,
             'search_form': search_form,
-            'sort_form': sort_form  
+            'sort_form': sort_form,
         })
         return context
 

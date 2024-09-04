@@ -188,6 +188,10 @@ h3.marker::after {
     padding: 20px;
 }
 
+.movie-list.show {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
 .popular-genres {
     padding: 20px;
 }
@@ -489,6 +493,10 @@ and only apply hover filter effect once all animations have stopped
 
 .top-rated-movies {
     padding: 30px;
+}
+
+.top-rated-movies.show {
+    animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 .top-rated-movies ol {

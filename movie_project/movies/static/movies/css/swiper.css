@@ -6,6 +6,7 @@
 
 .swiper-wrapper {
     display: flex; 
+    margin-top: 1rem;
 }
 
 .index-swiper-slide {
