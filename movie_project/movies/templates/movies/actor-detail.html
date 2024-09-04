@@ -3,42 +3,5 @@
 {% block title %} {{ actor.name }} {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="wrapper">
-            <div class="profile">
-                <div class="profile-image">
-                    <img src="{{ actor.image.url }}" alt="">
-                </div>
-                <div class="details">
-                    <h1>{{ actor.name }}</h1>
-                    <div class="sub-details">
-                        <p>Actor</p>
-                        <p>Movies ({{ actor.movies.count }})</p>
-                        <p>Awards (0)</p>
-                        <div class="ranking">
-                            <span>Top {{ actor_rank }}</span>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="line"></div>
-                    <p class="bio">{{ actor.bio }}</p>
-                </div>
-            </div>
-            <div class="profile-movie-list">
-                <h1>Known For</h1>
-                <div class="wrapper">
-                    {% for movie in movies %}
-                        <div class="profile-movie">
-                            <div class="image">
-                                <a href="{% url 'movie-detail' movie.pk %}">
-                                    <img src="{{ movie.poster_path.url }}" alt="">
-                                </a>
-                                <span>{{ movie }}</span>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
+   
 {% endblock %}

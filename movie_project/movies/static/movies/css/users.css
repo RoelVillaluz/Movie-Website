@@ -69,7 +69,6 @@
     margin-bottom: 10px;
 }
 
-
 .movie-list-item-details .counter {
     display: flex;
     justify-content: center;
@@ -264,6 +263,7 @@
 
 .layout-buttons i {
     font-size: 1.35rem;
+    color: rgb(112, 112, 112);
     cursor: pointer;
     transition: 0.3s;
 }
@@ -271,7 +271,7 @@
 .layout-buttons i:hover,
 .layout-buttons i.active
 {
-    color: rgb(112, 112, 112);
+    color: white;
 }
 
 .watchlist-container {
@@ -392,7 +392,6 @@ input[type="checkbox"] {
 }
 
 .slider {
-    -webkit-appearance: none; /* Remove default styling */
     flex: 3; /* Full width */
     height: 5px; /* Slider height */
     background: #ddd; /* Track background */

@@ -157,42 +157,6 @@ function showNotification(message, imageUrl) {
     }, 3000);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Radio button event listener
-    const radioBtns = document.querySelectorAll('input[type="radio"]');
-    radioBtns.forEach(btn => {
-        btn.addEventListener('change', function() {
-            this.form.submit()
-        });
-    });
-
-    // Sorting form submission
-    const sortForm = document.querySelector('.sort-form');
-    const sortSelect = document.querySelector('.sort-form select');
-
-    if (sortForm && sortSelect) {
-        sortSelect.addEventListener('change', function() {
-            sortForm.submit();
-        });
-    }
-
-    // Checkbox event listener
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    
-    checkboxes.forEach(box => {
-        box.addEventListener('click', function(event) {
-            // Only prevent default behavior for specific cases
-            if (this.checked) {
-                event.preventDefault(); // Prevent default checkbox behavior
-            }
-            const parentForm = this.closest('form');
-            if (parentForm) {
-                parentForm.submit();
-            }
-        });
-    });
-});
-
 const angleIcons = document.querySelectorAll('.filter-sidebar i');
 
 angleIcons.forEach(icon => {
@@ -336,6 +300,66 @@ const searchInput = document.querySelector('input[name="query"]');
             suggestionsBox.style.display = 'none';
         }
     });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const layoutButtons = document.querySelectorAll('.layout-buttons i');
+
+    layoutButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const viewMode = btn.getAttribute('data-view');
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Set or update the view parameter
+            urlParams.set('view', viewMode);
+
+            // Keep existing filter parameters
+            document.querySelectorAll('.filter-checkbox').forEach(cb => {
+                if (cb.checked) {
+                    urlParams.append(cb.name, cb.value);
+                }
+            });
+
+            // Redirect to the new URL with updated view and filters
+            window.location.search = urlParams.toString();
+        });
+    });
+});
+      
+document.addEventListener('DOMContentLoaded', () => {
+    // Radio button event listener
+    const radioBtns = document.querySelectorAll('input[type="radio"]');
+    radioBtns.forEach(btn => {
+        btn.addEventListener('change', function() {
+            this.form.submit()
+        });
+    });
+
+    // Sorting form submission
+    const sortForm = document.querySelector('.sort-form');
+    const sortSelect = document.querySelector('.sort-form select');
+
+    if (sortForm && sortSelect) {
+        sortSelect.addEventListener('change', function() {
+            sortForm.submit();
+        });
+    }
+
+    // Checkbox event listener
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    
+    checkboxes.forEach(box => {
+        box.addEventListener('click', function(event) {
+            // Only prevent default behavior for specific cases
+            if (this.checked) {
+                event.preventDefault(); // Prevent default checkbox behavior
+            }
+            const parentForm = this.closest('form');
+            if (parentForm) {
+                parentForm.submit();
+            }
+        });
+    });
+});
 
 document.getElementById('list-view-btn').addEventListener('click', function() {
     console.log("List view button clicked");

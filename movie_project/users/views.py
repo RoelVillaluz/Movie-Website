@@ -63,7 +63,7 @@ class MyWatchlistView(View):
     def get(self, request, *args, **kwargs):
         user = request.user
         watchlist = Watchlist.objects.get(user=user)
-        watchlist_movies = watchlist.movies.all()
+        watchlist_movies = watchlist.movies.all().order_by('title')
 
         view_mode = request.GET.get('view', 'list')
 
