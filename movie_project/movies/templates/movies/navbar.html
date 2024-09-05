@@ -22,7 +22,7 @@
                         <i class="fa-regular fa-user"></i>
                     </div>
                     <ul class="dropdown-list">
-                        <li class="dropdown-item"><a href="#">My Profile</a></li>
+                        <li class="dropdown-item"><a href="{% url 'profile' request.user.id %}">My Profile</a></li>
                         <li class="dropdown-item"><a href="{% url 'watchlist' %}">My Watchlist</a></li>
                         <li class="dropdown-item"><a href="{% url 'logout' %}">Sign out</a></li>
                     </ul>

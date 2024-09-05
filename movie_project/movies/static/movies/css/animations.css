@@ -146,3 +146,24 @@
         transform: translateY(0);
     }
 }
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: rgb(70, 70, 70); 
+    }
+    50% {
+        background-color: rgb(114, 114, 114); 
+    }
+    100% {
+        background-color: rgb(70, 70, 70); 
+    }
+}
+
+@keyframes skeleton-show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

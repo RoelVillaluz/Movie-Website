@@ -138,3 +138,11 @@ class MyWatchlistView(View):
             'show_layout_buttons': show_layout_buttons
         }
         return render(request, self.template_name, context)
+    
+
+class ProfileDetailView(DetailView):
+    model = Profile
+    template_name = 'users/profile.html'
+    context_object_name = 'profile'
+
+    
