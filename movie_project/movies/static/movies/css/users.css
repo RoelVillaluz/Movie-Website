@@ -421,3 +421,7 @@ input[type="checkbox"] {
     border: solid 1px black;
     position: relative;
 }
+
+.user-profile {
+    width: 100%;
+}

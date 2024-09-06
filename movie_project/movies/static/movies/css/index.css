@@ -820,8 +820,14 @@ li.show {
     height: 1px;
 }
 
-.popular-review span {
+.popular-review .review-user-link {
+    text-decoration: none;
     color: #adadad;
+    transition: 0.3s;
+}
+
+.popular-review .review-user-link:hover {
+    color: white;
 }
 
 .popular-review h4 {
@@ -856,7 +862,7 @@ li.show {
     background-color: #b8b8b8;
 }
 
-.popular-review a {
+.popular-review a:not(.review-user-link) {
     display: inline-block;
     text-decoration: none;
     padding: 10px 20px;
@@ -872,7 +878,7 @@ li.show {
     transition: 0.3s;
 }
 
-.popular-review a:hover {
+.popular-review a:not(.review-user-link):hover {
     background-color: rgb(20, 20, 20);
     color: white;
 }

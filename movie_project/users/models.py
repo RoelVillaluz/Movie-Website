@@ -1,12 +1,15 @@
 from django.conf import settings
 from django.db import models
 from movies.models import User, Movie
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 # Create your models here.
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     watchlist = models.ForeignKey('Watchlist' ,related_name="profiles", on_delete=models.CASCADE)
+    following = models.ManyToManyField('self', symmetrical=False, related_name='followers', blank=True)
 
     def __str__(self):
         return self.user.username
@@ -17,3 +20,12 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return  f"{self.user}'s watchlist"
+    
+class Follow(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="follows")
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return f'{self.profile.user.username} follows {self.content_object}'

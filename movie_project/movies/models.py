@@ -10,6 +10,10 @@ from moviepy.editor import VideoFileClip
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
+def get_follow_model():
+    from users.models import Follow
+    return Follow
+
 
 # Create your models here.
 class User(AbstractUser):

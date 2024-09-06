@@ -265,7 +265,7 @@
                             {% endif %}
                             <div class="review-user">
                                 <div class="line"></div>
-                                <span>{{ popular_review.user }}</span>
+                                <a href="{% url 'profile' popular_review.user.id %}" class="review-user-link">{{ popular_review.user }}</a>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items:center; margin-top: 20px;">
                                 <div class="like-count">
