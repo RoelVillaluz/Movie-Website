@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from .models import Actor, Award, Director, Movie, Genre, MovieImage, MovieVideo, Review, User
+from django.contrib.admin.widgets import AutocompleteSelect
 
 # Register your models here.
-admin.site.register(Genre)
 admin.site.register(User)
 admin.site.register(MovieImage)
 admin.site.register(MovieVideo)
@@ -39,6 +39,9 @@ class ActorInline(ThroughModelInline):
 class DirectorInline(ThroughModelInline):
     model = Movie.directors.through
 
+class GenreInline(ThroughModelInline):
+    model = Movie.genres.through
+
 def create_inline(through_model):
     """
     Helper function to create dynamic inlines for models with ManyToMany 'through' relationships.
@@ -50,7 +53,8 @@ class MovieAdmin(admin.ModelAdmin):
     list_display = ('title', 'display_genres', 'display_actors')
     search_fields = ('title', 'genres__name', 'actors__name')
     list_filter = ('genres', ReleaseYearListFilter)
-    inlines = [create_inline(Movie.actors.through), create_inline(Movie.directors.through)]
+    autocomplete_fields = ('actors', 'directors')
+    inlines = [create_inline(Movie.actors.through), create_inline(Movie.directors.through), create_inline(Movie.genres.through)]
 
     def display_genres(self, obj):
         genres = obj.genres.all()[:3]
@@ -74,6 +78,7 @@ class ActorAdmin(admin.ModelAdmin):
     list_display = ('name', 'display_movies')
     search_fields = ('name', 'movies__title')
     inlines = [create_inline(Movie.actors.through)]
+    ordering = ('name',)
 
     def display_movies(self, obj):
         movies = obj.movies.all()[:3]
@@ -85,6 +90,19 @@ class DirectorAdmin(admin.ModelAdmin):
     list_display = ('name', 'display_movies')
     search_fields = ('name', 'movies__title')
     inlines = [create_inline(Movie.directors.through)]
+    ordering = ('name',)
+
+    def display_movies(self, obj):
+        movies = obj.movies.all()[:3]
+        return ', '.join([movie.title for movie in movies]) + ('...' if len(movies) > 3 else ' ')
+    display_movies.short_description = 'Movies'
+
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('name', 'display_movies')
+    search_fields = ('name', 'movies__title')
+    inlines = [create_inline(Movie.genres.through)]
+    ordering = ('name',)
 
     def display_movies(self, obj):
         movies = obj.movies.all()[:3]
@@ -95,5 +113,3 @@ class DirectorAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('movie', 'user', 'rating')
     search_fields = ('movie__title', 'rating')
-
-
