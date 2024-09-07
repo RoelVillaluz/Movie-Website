@@ -7,7 +7,6 @@ from django.contrib.admin.widgets import AutocompleteSelect
 admin.site.register(User)
 admin.site.register(MovieImage)
 admin.site.register(MovieVideo)
-admin.site.register(Award)
 
 class ReleaseYearListFilter(admin.SimpleListFilter):
     title = _('release year')
@@ -42,6 +41,13 @@ class DirectorInline(ThroughModelInline):
 class GenreInline(ThroughModelInline):
     model = Movie.genres.through
 
+class AwardInline(admin.TabularInline):
+    model = Award
+    extra = 1
+
+    def __init__(self, parent_model, admin_site):
+        super().__init__(parent_model, admin_site)
+
 def create_inline(through_model):
     """
     Helper function to create dynamic inlines for models with ManyToMany 'through' relationships.
@@ -54,7 +60,11 @@ class MovieAdmin(admin.ModelAdmin):
     search_fields = ('title', 'genres__name', 'actors__name')
     list_filter = ('genres', ReleaseYearListFilter)
     autocomplete_fields = ('actors', 'directors')
-    inlines = [create_inline(Movie.actors.through), create_inline(Movie.directors.through), create_inline(Movie.genres.through)]
+    inlines = [create_inline(Movie.actors.through), 
+               create_inline(Movie.directors.through), 
+               create_inline(Movie.genres.through),
+               AwardInline
+               ]
 
     def display_genres(self, obj):
         genres = obj.genres.all()[:3]
@@ -108,6 +118,12 @@ class GenreAdmin(admin.ModelAdmin):
         movies = obj.movies.all()[:3]
         return ', '.join([movie.title for movie in movies]) + ('...' if len(movies) > 3 else ' ')
     display_movies.short_description = 'Movies'
+
+@admin.register(Award)
+class AwardAdmin(admin.ModelAdmin):
+    list_display = ('recipient', 'category', 'year', 'winner')
+    search_fields = ('category', 'movie__title', 'actor__name', 'director__name', 'year')
+    ordering = ('-year', )
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
