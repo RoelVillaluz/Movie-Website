@@ -1,7 +1,8 @@
 # **Movie Review Website**
 A Django-based website for reviewing movies and TV series, allowing users to explore movie information, manage watchlists, and filter or sort movies by genres, awards, and more. This site integrates with the TMDb API to fetch movie and TV show data.
 
-Features
+## Features
+
 ### 1. **Movie Search**
 Search for movies using a custom search bar powered by the TMDb API.
 Quickly find details about your favorite movies and TV series.
