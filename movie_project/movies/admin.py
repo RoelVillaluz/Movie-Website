@@ -122,8 +122,9 @@ class GenreAdmin(admin.ModelAdmin):
 @admin.register(Award)
 class AwardAdmin(admin.ModelAdmin):
     list_display = ('recipient', 'category', 'year', 'winner')
+    list_filter = ('category', 'winner')
     search_fields = ('category', 'movie__title', 'actor__name', 'director__name', 'year')
-    ordering = ('-year', )
+    ordering = ('-year',)
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):

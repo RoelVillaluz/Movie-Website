@@ -425,3 +425,63 @@ input[type="checkbox"] {
 .user-profile {
     width: 100%;
 }
+
+.profile {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.profile .left,
+.profile .right {
+    flex: 1;
+}
+
+.main-profile-image {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.profile .right  {
+    padding: 1rem;
+    margin-right: 1rem;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile .right h1 {
+    font-size: 4rem;
+}
+
+.profile .right h3 {
+    font-size: 1.5rem;
+    color: #cacaca;
+}
+
+.profile .right p {
+    font-size: 1rem;
+    margin-top: 2rem;
+    color: #cacaca;
+}
+
+.profile-movies {
+    padding: 2rem;
+}
+
+.profile-movies ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    gap: 20px;
+}
+
+.profile-movies ul li {
+    flex: 0 0 calc((100% / 4) - 20px);
+    margin-top: 2rem;
+}

@@ -3,5 +3,29 @@
 {% block title %} {{ actor.name }} {% endblock %}
 
 {% block body %}
-   
+   <section class="profile">
+      <div class="left">
+         <img src="{{ actor.image.url }}" alt="" class="main-profile-image">
+      </div>
+      <div class="right">
+         <div class="profile-header">
+            <div>
+               <h1>{{ actor.name }}</h1>
+            </div>
+            <div>
+               <h3>#{{ actor_rank }} in Actors</h3>
+            </div>
+         </div>
+         <h3>Actor</h3>
+         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis repellendus quibusdam enim! Quasi dolores officia quod, eveniet, praesentium repellendus, maxime quia porro quidem odit non harum repellat distinctio culpa pariatur.</p>
+      </div>
+   </section>
+   <section class="profile-movies">
+      <h1>Films Starring <span>{{ actor }}</span></h1>
+      <ul>
+         {% for movie in movies %}
+            <li>{% include 'movies/card.html' %}</li>
+         {% endfor %}
+      </ul>
+   </section>
 {% endblock %}
