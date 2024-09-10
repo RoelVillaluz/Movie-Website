@@ -4,7 +4,7 @@ from django import db
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from autoslug import AutoSlugField
-from django.db.models import Avg, F, Window
+from django.db.models import Avg, F, Window, Count
 from django.db.models.functions import Rank
 from moviepy.editor import VideoFileClip
 from django.contrib.contenttypes.models import ContentType
@@ -111,6 +111,10 @@ class Actor(models.Model):
     def avg_movie_rating(self):
         avg_rating = self.movies.aggregate(average=Avg('reviews__rating'))['average']
         return avg_rating or 0
+    
+    def most_popular_movie(self):
+        most_popular_movie = self.movies.annotate(review_count=Count('reviews')).order_by('-reviews').first()
+        return most_popular_movie
 
     @staticmethod
     def ranked_actors():

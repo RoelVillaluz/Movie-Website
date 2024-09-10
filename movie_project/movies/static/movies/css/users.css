@@ -470,6 +470,17 @@ input[type="checkbox"] {
     color: #cacaca;
 }
 
+.socials {
+    display: flex;
+    margin-top: 2rem;
+    gap: 2rem;
+}
+
+.socials i {
+    font-size: 2rem;
+    cursor: pointer;
+}
+
 .profile-movies {
     padding: 2rem;
 }
@@ -482,6 +493,6 @@ input[type="checkbox"] {
 }
 
 .profile-movies ul li {
-    flex: 0 0 calc((100% / 4) - 20px);
+    flex: 0 0 calc((100% / 5) - 20px);
     margin-top: 2rem;
 }

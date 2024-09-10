@@ -4,20 +4,25 @@
 
 {% block body %}
    <section class="profile">
-      <div class="left">
+      <div class="left parallax">
          <img src="{{ actor.image.url }}" alt="" class="main-profile-image">
       </div>
       <div class="right">
          <div class="profile-header">
             <div>
-               <h1>{{ actor.name }}</h1>
+                  <h1>{{ actor.name }}</h1>
             </div>
             <div>
-               <h3>#{{ actor_rank }} in Actors</h3>
+                  <h3>#{{ actor_rank }} in Actors</h3>
             </div>
          </div>
          <h3>Actor</h3>
          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis repellendus quibusdam enim! Quasi dolores officia quod, eveniet, praesentium repellendus, maxime quia porro quidem odit non harum repellat distinctio culpa pariatur.</p>
+         <div class="socials">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-twitter"></i>
+         </div>
       </div>
    </section>
    <section class="profile-movies">

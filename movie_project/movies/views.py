@@ -222,10 +222,13 @@ class ActorDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         actor = self.get_object()
-        
+        most_popular_movie = actor.most_popular_movie
+
         context.update({
             'movies': actor.movies.all(),
             'actor_rank': actor.get_rank(),
+            'avg_movie_rating': actor.movies.aggregate(Avg('reviews__rating')),
+            'most_popular_movie': most_popular_movie
         })
 
         return context
