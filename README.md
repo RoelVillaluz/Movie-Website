@@ -64,8 +64,15 @@ This project integrates with the TMDb API to fetch real-time movie and TV series
    python manage.py runserver
 You can now access the project at http://127.0.0.1:8000/.
 
+# Contribution Guidelines
+- Fork the repository and create your feature branch
+   ```bash
+   git checkout -b feature/new-feature
 
+- Commit your changes with descriptive messages:
+   ```bash
+   git commit -m 'Add a new feature'
 
-
-
-
+- Push to the branch and open a pull request:
+  ```bash
+  git push origin feature/new-feature
