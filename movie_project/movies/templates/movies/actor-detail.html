@@ -4,26 +4,20 @@
 
 {% block body %}
    <section class="profile">
-      <div class="left parallax">
-         <img src="{{ actor.image.url }}" alt="" class="main-profile-image">
-      </div>
-      <div class="right">
+      {% if most_popular_movie %}
          <div class="profile-header">
-            <div>
+            <img src="{{ most_popular_movie.backdrop_path.url }}" alt="">
+            <div class="profile-wrapper">
+               <div class="profile-picture">
+                  <img src="{{ actor.image.url }}" alt="">
+               </div>
+               <div class="profile-details">
                   <h1>{{ actor.name }}</h1>
+                  <h3>Actor</h3>
+               </div>
             </div>
-            <div>
-                  <h3>#{{ actor_rank }} in Actors</h3>
-            </div>
-         </div>
-         <h3>Actor</h3>
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis repellendus quibusdam enim! Quasi dolores officia quod, eveniet, praesentium repellendus, maxime quia porro quidem odit non harum repellat distinctio culpa pariatur.</p>
-         <div class="socials">
-            <i class="fa-brands fa-facebook"></i>
-            <i class="fa-brands fa-instagram"></i>
-            <i class="fa-brands fa-twitter"></i>
-         </div>
-      </div>
+      </div>     
+      {% endif %}
    </section>
    <section class="profile-movies">
       <h1>Films Starring <span>{{ actor }}</span></h1>
