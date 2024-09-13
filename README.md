@@ -15,7 +15,18 @@ Sorting Options: Sort movies by title, release date, or rating to easily browse 
 ### 4. **Follow System**
 Follow actors, directors, and other users to receive updates.
 Get notified when new movies or shows featuring followed actors or directed by followed directors are released.
+### 5. **User Profiles**
+Custom User Model: Each user has a personalized profile page where they can view their activity, watchlist, and followed actors/directors/profiles.
+### 6. **Reviews and Ratings**
+User Reviews: Users can leave detailed reviews for movies and TV series.
+Rating System: Rate movies/TV series on a scale of 1 to 10, with average ratings displayed on the movie pages.
 
+### **Technologies Used**
+- Backend: Django (Python)
+- Frontend: HTML5, CSS3, JavaScript
+- Database: SQLite
+- API Integration: The Movie Database (TMDb) API
+- Authentication: Django Allauth for social logins and user authentication.
 
 ### **API Integration:**
 This project integrates with the TMDb API to fetch real-time movie and TV series data, including:
