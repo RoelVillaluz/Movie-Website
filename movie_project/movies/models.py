@@ -10,10 +10,6 @@ from moviepy.editor import VideoFileClip
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
-def get_follow_model():
-    from users.models import Follow
-    return Follow
-
 
 # Create your models here.
 class User(AbstractUser):
@@ -113,7 +109,7 @@ class Actor(models.Model):
         return avg_rating or 0
     
     def most_popular_movie(self):
-        most_popular_movie = self.movies.annotate(review_count=Count('reviews')).order_by('-reviews').first()
+        most_popular_movie = self.movies.annotate(review_count=Count('reviews')).order_by('-review_count').first()
         return most_popular_movie
 
     @staticmethod
@@ -126,6 +122,11 @@ class Actor(models.Model):
             if actor.pk == self.pk:
                 return actor.rank
         return None
+    
+    def follower_count(self):
+        from users.models import Follow
+        actor_content_type = ContentType.objects.get_for_model(self)
+        return Follow.objects.filter(content_type=actor_content_type, object_id=self.pk).count()
 
 class Director(models.Model):
     name = models.CharField(max_length=50)

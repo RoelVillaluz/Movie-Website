@@ -228,7 +228,8 @@ class ActorDetailView(DetailView):
             'movies': actor.movies.all(),
             'actor_rank': actor.get_rank(),
             'avg_movie_rating': actor.movies.aggregate(Avg('reviews__rating')),
-            'most_popular_movie': most_popular_movie
+            'most_popular_movie': most_popular_movie,
+            'follower_count': actor.follower_count
         })
 
         return context

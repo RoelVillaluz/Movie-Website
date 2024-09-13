@@ -1,15 +1,16 @@
 import random
 from django.conf import settings
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login, logout as auth_logout
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_protect
 from django.views import View
-
+from django.contrib.contenttypes.models import ContentType
 from movies.forms import MovieSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, sort, toggle_upcoming
-from users.models import Profile, Watchlist
+from users.models import Follow, Profile, Watchlist
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q
@@ -144,5 +145,3 @@ class ProfileDetailView(DetailView):
     model = Profile
     template_name = 'users/profile.html'
     context_object_name = 'profile'
-
-    

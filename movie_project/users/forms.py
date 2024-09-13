@@ -1,6 +1,7 @@
+from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import User
+from movies.models import User
 
 
 class CustomUserCreationForm(UserCreationForm):

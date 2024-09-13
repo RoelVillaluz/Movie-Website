@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db import models
-from movies.models import User, Movie
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
@@ -16,7 +15,7 @@ class Profile(models.Model):
     
 class Watchlist(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
-    movies = models.ManyToManyField(Movie, related_name="watchlists", null=True, blank=True)
+    movies = models.ManyToManyField('movies.Movie', related_name="watchlists", null=True, blank=True)
 
     def __str__(self):
         return  f"{self.user}'s watchlist"

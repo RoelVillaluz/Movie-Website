@@ -10,10 +10,29 @@
             <div class="profile-wrapper">
                <div class="profile-picture">
                   <img src="{{ actor.image.url }}" alt="">
+                  <i class="fa-solid fa-camera"></i>
                </div>
                <div class="profile-details">
-                  <h1>{{ actor.name }}</h1>
-                  <h3>Actor</h3>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
+                     <div style="display: flex; align-items: center; gap: 10px;">
+                        <h1>{{ actor.name }}</h1>
+                        <button class="follow-btn" data-content-type-id="{{ actor_content_type.id }}" data-object-id="{{ actor.id }}">
+                           <span>Follow</span>
+                           <i class="fa-solid fa-plus"></i>
+                        </button>
+                     </div>
+                     <div class="stats-container">
+                        <div class="stat">
+                           <h3>{{ actor.movies.count }}</h3>
+                           <p>Movies</p>
+                        </div>
+                        <div class="stat">
+                           <h3>{{ follower_count }}</h3>
+                           <p>Followers</p>
+                        </div>
+                     </div>
+                  </div>
+                  <h3>Actor • {{ most_popular_movie }}</h3>
                </div>
             </div>
       </div>     
