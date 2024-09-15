@@ -494,7 +494,7 @@ input[type="checkbox"] {
     bottom: -10%; 
     left: 5%;
     z-index: 2;
-    transform: translateY(50%); 
+    transform: translateY(50%);
 }
 
 .profile-wrapper h1 {
@@ -522,7 +522,7 @@ input[type="checkbox"] {
     align-items: center;
     gap: 5px; 
     background-color: white;
-    padding: 0.75vw 2vw; 
+    padding: 0.75vw 1.25vw; 
     height: auto; 
     border-radius: 30px; 
     margin-right: 2vw; 
@@ -584,6 +584,51 @@ input[type="checkbox"] {
 .socials-container i {
     font-size: 1.3vw;
     cursor: pointer;
+}
+
+.about {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    padding: 20px;
+    margin-top: 15%;
+}
+
+.profile-bio {
+    flex: 3;
+    border: solid 1px #b1b1b1;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.personal-info {
+    flex: 1;
+    border: solid 1px #b1b1b1;
+    margin-left: 1rem;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.profile-bio p {
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.75rem;
+    color: #b1b1b1;
+}
+
+.personal-info ul {
+    list-style-type: none;
+    margin-top: 1rem;
+    column-rule: 1;
+}
+
+.personal-info ul li {
+    margin: 1rem 0;
+}
+
+.personal-info ul p {
+    margin-top: 5px;
+    color: #b1b1b1;
 }
 
 .profile-movies {
