@@ -595,7 +595,7 @@ input[type="checkbox"] {
 }
 
 .profile-bio {
-    flex: 3;
+    flex: 2;
     border: solid 1px #b1b1b1;
     padding: 20px;
     border-radius: 5px;
@@ -614,20 +614,38 @@ input[type="checkbox"] {
     font-size: 1rem;
     line-height: 1.75rem;
     color: #b1b1b1;
+    padding-bottom: 1.5rem;
+    border-bottom: solid 1px #4e4e4e;
 }
 
 .personal-info ul {
     list-style-type: none;
     margin-top: 1rem;
-    column-rule: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
 }
 
 .personal-info ul li {
     margin: 1rem 0;
 }
 
+.personal-info ul li:last-child {
+    grid-column: span 2;
+}
+
+.personal-info ul h3 {
+    color: #e7e7e7;
+}
+
+.personal-info ul li i {
+    margin-left: 8px;
+    font-size: 1rem;
+    color: #b1b1b1;
+}
+
 .personal-info ul p {
-    margin-top: 5px;
+    margin-top: 8px;
     color: #b1b1b1;
 }
 

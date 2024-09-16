@@ -58,27 +58,35 @@
    <section class="about">
       <div class="profile-bio">
          <h1>Biography</h1>
+            {% if actor.bio != 'No bio yet' %}
          <p>{{ actor.bio }}</p>
+         {% else %}
+            <p>{{ default_bio }}</p>
+         {% endif %}
       </div>
       <div class="personal-info">
          <h1>Personal Info</h1>
          <ul>
             <li>
-               <h3>Gender</h3>
-               <p>Male</p>
+               <h3>Gender<i class="fa-solid fa-venus-mars"></i></h3>
+               <p>{{ actor.get_gender_display }}</p>
             </li>
             <li>
-               <h3>Birthdate</h3>
-               <p>September 27, 2002</p>
-            </li>
-            <li></li>
-               <h3>Age</h3>
-               <p>21</p>
+               <h3>Birthday <i class="fa-solid fa-cake-candles"></i></h3>
+               <p>{{ actor.birth_date }}</p>
             </li>
             <li>
-               <h3>Nationality</h3>
-               <p>American</p>
+               <h3>Age <i class="fa-solid fa-calendar-days"></i></h3>
+               <p>{{ age }}</p>
+            </li>
+            <li>
+               <h3>Nationality <i class="fa-solid fa-flag"></i></h3>
+               <p>{{ actor.nationality }}</p>
            </li>
+           <li>
+               <h3>Place of Birth <i class="fa-solid fa-location-dot"></i></h3>
+               <p>{{ actor.birth_place }}</p>
+            </li>
          </ul>
       </div>
    </section>
