@@ -57,12 +57,20 @@
    </section>
    <section class="about">
       <div class="profile-bio">
-         <h1>Biography</h1>
+         <div>
+            <h1>Biography</h1>
             {% if actor.bio != 'No bio yet' %}
-         <p>{{ actor.bio }}</p>
-         {% else %}
-            <p>{{ default_bio }}</p>
-         {% endif %}
+               <p>{{ actor.bio }}</p>
+            {% else %}
+               <p>{{ default_bio }}</p>
+            {% endif %}
+         </div>
+         <div>
+            <h1>Often works with</h1>
+            {% for co_worker in co_workers %}
+               <p>{{ co_worker }}</p>
+            {% endfor %}
+         </div>
       </div>
       <div class="personal-info">
          <h1>Personal Info</h1>

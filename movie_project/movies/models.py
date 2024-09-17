@@ -109,6 +109,7 @@ class Actor(models.Model):
     birth_place = models.CharField(max_length=100, default="Not specified")
     nationality = models.CharField(max_length=50, default="Not specified")
     birth_date = models.DateField(default='2000-01-01')
+    fun_fact = models.TextField(default="No fun facts added yet")
 
     def __str__(self):
         return self.name

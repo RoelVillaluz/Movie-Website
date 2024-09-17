@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from movies.forms import MovieSortForm, SearchForm
-from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, get_actors_and_most_popular_movie, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, sort
+from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, get_actors_and_most_popular_movie, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
@@ -223,6 +223,7 @@ class ActorDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         actor = self.get_object()
         most_popular_movie = actor.most_popular_movie
+        co_workers = often_works_with(actor)
 
         context.update({
             'movies': actor.movies.all(),
@@ -231,7 +232,8 @@ class ActorDetailView(DetailView):
             'most_popular_movie': most_popular_movie,
             'follower_count': actor.follower_count,
             'age': actor.get_age,
-            'default_bio': actor.default_bio
+            'default_bio': actor.default_bio,
+            'co_workers': co_workers
         })
 
         return context

@@ -147,6 +147,20 @@ def get_top_rated_movies(num_of_movies):
 
     return top_rated_movies
 
+def often_works_with(actor):
+    movies = actor.movies.prefetch_related('actors').all()  # Prefetch actors for all movies
+    worked_with_actors_count = defaultdict(int)
+    
+    for movie in movies:
+        for co_actor in movie.actors.exclude(id=actor.id):
+            worked_with_actors_count[co_actor] += 1  # Increment count for each co-actor
+    
+    # Sort and limit to top 5 actors
+    top_5_actors = sorted(worked_with_actors_count.items(), key=lambda x: x[1], reverse=True)[:5]
+
+    return top_5_actors
+
+
 # def fetch_tmdb_movies(endpoint, params):
 #     api_token = config('API_TOKEN')
 #     url = f"https://api.themoviedb.org/3/{endpoint}"
