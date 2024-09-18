@@ -149,14 +149,16 @@ def get_top_rated_movies(num_of_movies):
 
 def often_works_with(actor):
     movies = actor.movies.prefetch_related('actors').all()  # Prefetch actors for all movies
-    worked_with_actors_count = defaultdict(int)
+    worked_with_actors = defaultdict(lambda: {'count': 0, 'name': '', 'image': ''})
     
     for movie in movies:
         for co_actor in movie.actors.exclude(id=actor.id):
-            worked_with_actors_count[co_actor] += 1  # Increment count for each co-actor
+            worked_with_actors[co_actor.id]['count'] += 1  
+            worked_with_actors[co_actor.id]['name'] = co_actor.name  
+            worked_with_actors[co_actor.id]['image'] = co_actor.image.url  
     
-    # Sort and limit to top 5 actors
-    top_5_actors = sorted(worked_with_actors_count.items(), key=lambda x: x[1], reverse=True)[:5]
+    # Sort by count and limit to top 5 actors
+    top_5_actors = sorted(worked_with_actors.items(), key=lambda x: x[1]['count'], reverse=True)[:3]
 
     return top_5_actors
 
