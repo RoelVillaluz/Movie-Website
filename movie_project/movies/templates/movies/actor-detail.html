@@ -57,6 +57,11 @@
    </section>
    <section class="about">
       <div class="profile-bio">
+         <div style="margin-bottom: 20px;">
+            <h1>Born</h1>
+            <p>{{ actor.birth_date }} ({{ age }}) years old</p>
+            <p>{{ actor.birth_place }}</p>
+         </div>
          <div>
             <h1>Biography</h1>
             {% if actor.bio != 'No bio yet' %}
@@ -64,20 +69,6 @@
             {% else %}
                <p>{{ default_bio }}</p>
             {% endif %}
-         </div>
-         <div>
-            <h1 style="margin-top: 20px;">Often works with</h1>
-            <ul class="often-works-with-list">
-               {% for co_worker in co_workers %}
-                  <li>
-                     <a href="{% url 'actor-detail' co_worker.0 %}">
-                        <img src="{{ co_worker.1.image }}" alt="">
-                        <h3>{{ co_worker.1.name }}</h3>
-                        <span>{{ co_worker.1.count }} Movies</span>
-                     </a>
-                  </li>
-               {% endfor %}
-            </ul>
          </div>
       </div>
       <div class="personal-info">
@@ -88,20 +79,16 @@
                <p>{{ actor.get_gender_display }}</p>
             </li>
             <li>
-               <h3>Birthday <i class="fa-solid fa-cake-candles"></i></h3>
-               <p>{{ actor.birth_date }}</p>
-            </li>
-            <li>
-               <h3>Age <i class="fa-solid fa-calendar-days"></i></h3>
-               <p>{{ age }}</p>
-            </li>
-            <li>
                <h3>Nationality <i class="fa-solid fa-flag"></i></h3>
                <p>{{ actor.nationality }}</p>
            </li>
            <li>
-               <h3>Place of Birth <i class="fa-solid fa-location-dot"></i></h3>
-               <p>{{ actor.birth_place }}</p>
+               <h3>Height</h3>
+               {% if actor.height == 0 %}
+                  <p>N/A</p>
+               {% else %}
+                  <p>{{ actor.height }} cm</p>
+               {% endif %}
             </li>
          </ul>
       </div>
@@ -114,4 +101,16 @@
          {% endfor %}
       </ul>
    </section>
+   <!-- <h1 style="margin-top: 20px;">Often works with</h1>
+         <ul class="often-works-with-list">
+            {% for co_worker in co_workers %}
+               <li>
+                  <a href="{% url 'actor-detail' co_worker.0 %}">
+                     <img src="{{ co_worker.1.image }}" alt="">
+                     <h3>{{ co_worker.1.name }}</h3>
+                     <span>{{ co_worker.1.count }} Movies</span>
+                  </a>
+               </li>
+            {% endfor %}
+         </ul> -->
 {% endblock %}

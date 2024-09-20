@@ -609,13 +609,14 @@ input[type="checkbox"] {
     border-radius: 5px;
 }
 
+.profile-bio h1 {
+    margin-bottom: 0.5rem;
+}
+
 .profile-bio p {
-    margin-top: 1rem;
     font-size: 1rem;
     line-height: 1.75rem;
     color: #b1b1b1;
-    padding-bottom: 1.5rem;
-    border-bottom: solid 1px #4e4e4e;
 }
 
 .personal-info ul {
@@ -628,10 +629,6 @@ input[type="checkbox"] {
 
 .personal-info ul li {
     margin: 1rem 0;
-}
-
-.personal-info ul li:last-child {
-    grid-column: span 2;
 }
 
 .personal-info ul h3 {

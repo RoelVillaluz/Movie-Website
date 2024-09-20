@@ -122,6 +122,17 @@ def get_actors_and_most_popular_movies(actors, num_movies):
 
     return actor_and_most_popular_movies
 
+def get_actor_accolades(actor):
+    actor_accolades = defaultdict(int, {'wins': 0, 'nominations': 0})
+
+    awards = actor.awards.all()
+
+    for award in awards:
+        if award.winner:
+            actor_accolades["wins"] += 1
+        actor_accolades["nominations"] += 1
+
+    return dict(actor_accolades)
 
 def get_genre_dict(genres):
     """Get a dictionary of popular genres and a random movie for each genre."""

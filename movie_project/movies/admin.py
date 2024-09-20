@@ -1,4 +1,7 @@
+from typing import Any
 from django.contrib import admin
+from django.db.models.query import QuerySet
+from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from .models import Actor, Award, Director, Movie, Genre, MovieImage, MovieVideo, Review, User
 from django.contrib.admin.widgets import AutocompleteSelect
@@ -22,6 +25,8 @@ class ReleaseYearListFilter(admin.SimpleListFilter):
         if self.value():
             return queryset.filter(release_date__year=self.value())
         return queryset
+    
+
     
 class ThroughModelInline(admin.TabularInline):
     model = None
