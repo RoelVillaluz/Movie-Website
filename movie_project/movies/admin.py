@@ -26,7 +26,23 @@ class ReleaseYearListFilter(admin.SimpleListFilter):
             return queryset.filter(release_date__year=self.value())
         return queryset
     
+class HasMoviesFilter(admin.SimpleListFilter):
+    title = 'Has movies'
+    parameter_name = 'movies'
 
+    def lookups(self, request, model_admin):
+        return (
+            ('yes', 'Yes'),
+            ('no', 'No')
+        )
+    
+    def queryset(self, request, queryset):
+        if self.value() == 'yes':
+            return queryset.filter(movies__isnull=False).distinct()
+        elif self.value() == 'no':
+            return queryset.filter(movies__isnull=True).distinct()
+  
+        return queryset
     
 class ThroughModelInline(admin.TabularInline):
     model = None
@@ -92,6 +108,7 @@ class MovieAdmin(admin.ModelAdmin):
 class ActorAdmin(admin.ModelAdmin):
     list_display = ('name', 'display_movies')
     search_fields = ('name', 'movies__title')
+    list_filter = (HasMoviesFilter,)
     inlines = [create_inline(Movie.actors.through)]
     ordering = ('name',)
 
