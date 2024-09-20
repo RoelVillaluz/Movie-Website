@@ -9,6 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     watchlist = models.ForeignKey('Watchlist' ,related_name="profiles", on_delete=models.CASCADE)
     following = models.ManyToManyField('self', symmetrical=False, related_name='followers', blank=True)
+    watched_movies = models.ManyToManyField('movies.Movie', blank=True, related_name='watched_by')
 
     def __str__(self):
         return self.user.username

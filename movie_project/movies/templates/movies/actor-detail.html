@@ -8,10 +8,10 @@
          <div class="profile-header">
             <img src="{{ most_popular_movie.backdrop_path.url }}" alt="">
             <div class="profile-wrapper">
-               <div class="profile-picture">
+               <div class="profile-picture" onclick="openModal()">
                   <img src="{{ actor.image.url }}" alt="">
                   <i class="fa-solid fa-camera"></i>
-               </div>
+              </div>
                <div class="profile-details">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
                      <div style="display: flex; align-items: center; gap: 10px;">
@@ -35,10 +35,6 @@
                            <p>Movie Rating</p>
                         </div>
                         <div class="stat">
-                           <h3>{{ actor.awards.count }}</h3>
-                           <p>Awards</p>
-                        </div>
-                        <div class="stat">
                            <h3>#{{ actor_rank }}</h3>
                            <p>Rank</p>
                         </div>
@@ -59,8 +55,8 @@
       <div class="profile-bio">
          <div style="margin-bottom: 20px;">
             <h1>Born</h1>
-            <p>{{ actor.birth_date }} ({{ age }}) years old</p>
-            <p>{{ actor.birth_place }}</p>
+            <p><i class="fa-solid fa-calendar-days"></i>{{ actor.birth_date }} ({{ age }}) years old</p>
+            <p><i class="fa-solid fa-location-dot"></i>{{ actor.birth_place }}</p>
          </div>
          <div>
             <h1>Biography</h1>
