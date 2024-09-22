@@ -294,3 +294,44 @@ def populate_review_likes():
     for user in users:
         review = random.choice(reviews)
         review.likes.add(user)
+
+def populate_follows_for_random_profiles(num_profiles=5):
+    """
+    Function to populate the Follow model with random profiles following random objects 
+    of type Profile, Actor, or Director.
+    
+    Parameters:
+    - num_profiles: the number of random profiles to follow objects (default: 5)
+    """
+    # Define the valid content types and their corresponding model classes
+    valid_models = {
+        Profile: ContentType.objects.get_for_model(Profile),
+        Actor: ContentType.objects.get_for_model(Actor),
+        Director: ContentType.objects.get_for_model(Director),
+    }
+
+    # Get random profiles
+    random_profiles = Profile.objects.order_by('?')[:num_profiles]
+
+    for profile in random_profiles:
+        # Randomly select a model and its corresponding content type
+        model_class = random.choice(list(valid_models.keys()))
+        content_type = valid_models[model_class]
+
+        # Get a random instance of the selected model class
+        random_instance = model_class.objects.order_by('?').first()  # Get a random instance
+
+        if random_instance:
+            # Create follow entry for the selected profile and instance
+            follow, created = Follow.objects.get_or_create(
+                profile=profile,
+                content_type=content_type,
+                object_id=random_instance.id,
+                defaults={'content_object': random_instance}
+            )
+            if created:
+                print(f'{profile.user.username} now follows {random_instance}')
+            else:
+                print(f'{profile.user.username} already follows {random_instance}')
+        else:
+            print(f'No instances found for {model_class.__name__}')
