@@ -6,8 +6,6 @@ from movies.admin import HasMoviesFilter
 from .models import Follow, Profile, Watchlist
 
 # Register your models here.
-admin.site.register(Watchlist)
-
 class FollowAdminForm(forms.ModelForm):
     class Meta:
         model = Follow
@@ -28,3 +26,13 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', )
     search_fields = ('user__username', )
     autocomplete_fields = ('watched_movies', )
+
+@admin.register(Watchlist)
+class WatchlistAdmin(admin.ModelAdmin):
+    list_display = ('user', 'display_movies')
+    search_fields = ('user__username', 'movies__title')
+
+    def display_movies(self, obj):
+        movies = obj.movies.all()[:3]
+        return ', '.join([movie.title for movie in movies]) + ('...' if len(movies) > 3 else '')
+    display_movies.short_description = 'Movies in watchlist'
