@@ -8,7 +8,7 @@
          <div class="profile-header">
             <img src="{{ most_popular_movie.backdrop_path.url }}" alt="">
             <div class="profile-wrapper">
-               <div class="profile-picture" onclick="openModal()">
+               <div class="profile-picture">
                   <img src="{{ actor.image.url }}" alt="">
                   <i class="fa-solid fa-camera"></i>
               </div>
@@ -16,10 +16,10 @@
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
                      <div style="display: flex; align-items: center; gap: 10px;">
                         <h1>{{ actor.name }}</h1>
-                        <button class="follow-btn" data-content-type-id="{{ actor_content_type.id }}" data-object-id="{{ actor.id }}">
+                        <a href="{% url 'follow_content' model_name='actor' object_id=actor.id %}" class="follow-btn">
                            <span>Follow</span>
                            <i class="fa-solid fa-plus"></i>
-                        </button>
+                       </a>
                      </div>
                      <div class="stats-container">
                         <div class="stat">

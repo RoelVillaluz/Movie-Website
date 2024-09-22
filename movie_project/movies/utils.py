@@ -11,9 +11,10 @@ from moviepy.editor import VideoFileClip
 from django.core.files import File
 from movies.models import Actor, Award, Director, Genre, Movie, Review, User
 from PIL import Image
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, F
+from django.contrib.contenttypes.models import ContentType
 
-from django.db.models import Avg, F
+from users.models import Follow, Profile
 today = date.today()
 
 def sort(queryset, sort_by):

@@ -1,13 +1,14 @@
 import random
 from django.conf import settings
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login, logout as auth_logout
 from django.urls import reverse_lazy
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views import View
 from django.contrib.contenttypes.models import ContentType
+from django.contrib import messages
 from movies.forms import MovieSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, sort, toggle_upcoming
 from users.models import Follow, Profile, Watchlist
@@ -145,3 +146,32 @@ class ProfileDetailView(DetailView):
     model = Profile
     template_name = 'users/profile.html'
     context_object_name = 'profile'
+
+def follow_content(request, model_name, object_id):
+    # Get the content type based on the model name
+    content_type = get_object_or_404(ContentType, model=model_name)
+
+    # Get the profile of the logged-in user
+    profile = get_object_or_404(Profile, user=request.user)
+
+    # Check if the user is already following this content object
+    follow = Follow.objects.filter(
+        profile=profile,
+        content_type=content_type,
+        object_id=object_id,
+    ).first()
+
+    if follow:
+        # Unfollow if the follow object exists
+        follow.delete()
+        messages.success(request, f'You have unfollowed {follow.content_object}.')
+    else:
+        # Follow if the follow object does not exist
+        follow = Follow.objects.create(
+            profile=profile,
+            content_type=content_type,
+            object_id=object_id,
+        )
+        messages.success(request, f'You are now following {follow.content_object}.')
+
+    return redirect(request.META.get('HTTP_REFERER', 'index'))

@@ -387,3 +387,4 @@ window.onload = function() {
         watchlist.classList.remove('grid')
     }
 };
+

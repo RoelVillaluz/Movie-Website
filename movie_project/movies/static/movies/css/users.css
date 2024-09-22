@@ -541,6 +541,9 @@ input[type="checkbox"] {
     color: black;
 }
 
+.follow-btn:hover {
+    background-color: rgb(193, 233, 17);
+}
 
 .stats-container {
     display: flex;

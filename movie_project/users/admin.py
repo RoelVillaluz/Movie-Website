@@ -14,7 +14,7 @@ class FollowAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Restrict content types to User, Actor, and Director
-        content_types = ContentType.objects.filter(model__in=['user', 'actor', 'director'])
+        content_types = ContentType.objects.filter(model__in=['profile', 'actor', 'director'])
         self.fields['content_type'].queryset = content_types
 
 @admin.register(Follow)
