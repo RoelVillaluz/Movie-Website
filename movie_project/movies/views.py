@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from movies.forms import MovieSortForm, SearchForm
-from movies.utils import available_actors, available_award_categories, get_actor_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_genre_dict, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
+from movies.utils import available_actors, available_award_categories, get_actor_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
@@ -29,7 +29,7 @@ def index(request):
     # create_users(10)  # for populating users
     popular_movies = movies.annotate(review_count=Count('reviews')).order_by('-review_count')[:20]
     new_movies = movies.filter(release_date__gte=one_month_before, release_date__lte=today)
-    upcoming_movies = movies.filter(release_date__gt=today)
+    upcoming_movies = movies.filter(release_date__gt=today).order_by('release_date')
     popular_genres = Genre.objects.annotate(movie_count=Count('movies')).order_by('-movie_count')[:4]
     popular_actors_and_movie = get_popular_actors_and_movies()
     genre_dict = get_genre_dict(popular_genres)
@@ -39,6 +39,8 @@ def index(request):
 
     just_added = movies.order_by('-id').exclude(release_date__gt=today)[:20]
     random_movie = random.choice(movies)
+
+    upcoming_movie_and_date = get_movies_by_month_and_year(upcoming_movies)
 
     context = {
         'movies': movies,
@@ -51,7 +53,8 @@ def index(request):
         'top_rated_movies': top_rated_movies,
         'just_added': just_added,
         'random_movie': random_movie,
-        'most_popular_reviews': most_popular_reviews
+        'most_popular_reviews': most_popular_reviews,
+        'upcoming_movie_and_date': upcoming_movie_and_date
     }
 
     return render(request, 'movies/index.html', context)

@@ -343,3 +343,12 @@ def get_movies_by_year(queryset):
         movies_by_year[movie.release_date.year].append(movie)
 
     return dict(movies_by_year)
+
+def get_movies_by_month_and_year(queryset):
+    movies_by_month_and_year = defaultdict(list)
+    
+    for movie in queryset:
+        release_month_year = movie.release_date.strftime('%B %Y')  # Month and year fromat e.g., "September 2024"
+        movies_by_month_and_year[release_month_year].append(movie)
+
+    return dict(movies_by_month_and_year)

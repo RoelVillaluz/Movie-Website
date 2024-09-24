@@ -177,16 +177,18 @@
             </div>
         </div>
         <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                {% for movie in upcoming_movies %}
-                <div class="swiper-slide index-swiper-slide">
-                    <a href="{% url 'movie-detail' movie.pk %}">
-                        <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
-                </div>
+            <ul>
+                {% for month_year, movies in upcoming_movie_and_date.items %}
+                    <li>
+                        <h3>{{ month_year }}</h3>
+                        <ul>
+                            {% for movie in movies %}
+                                <li>{{ movie }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 {% endfor %}
-            </div>
+            </ul>
         </div>
     </section>
 
