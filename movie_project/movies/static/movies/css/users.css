@@ -708,3 +708,30 @@ input[type="checkbox"] {
     margin-top: 2rem;
 }
 
+.movies-by-year {
+    padding: 20px;
+}
+
+.movies-by-year ul {
+    list-style-type: none;
+    margin: 1rem 0;
+}
+
+.movies-by-year ul li {
+    margin: 1rem 0;
+}
+
+.movies-by-year .year-list li {
+    display: flex;
+    gap: 1rem;
+}
+
+.movies-by-year .year-list li img {
+    flex: 1;
+    max-width: 150px;
+    object-fit: cover;
+}
+
+.movies-by-year .year-list li div {
+    width: auto;
+}

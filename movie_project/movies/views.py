@@ -225,7 +225,7 @@ class ActorDetailView(DetailView):
         most_popular_movie = actor.most_popular_movie
         co_workers = often_works_with(actor)
         accolades = get_actor_accolades(actor)
-        movies_by_year = get_movies_by_year(actor.movies.all().order_by('release_date__year'))
+        movies_by_year = get_movies_by_year(actor.movies.all().order_by('-release_date__year'))
 
         # Get logged-in user's profile and check if they follow this actor
         profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None

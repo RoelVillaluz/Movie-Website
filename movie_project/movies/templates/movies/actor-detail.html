@@ -102,6 +102,48 @@
          {% endfor %}
       </ul>
    </section>
+   <section class="movies-by-year">
+      <h1>Movies by year</h1>
+      <ul>
+         {% for year, movies in movies_by_year.items %}
+            <li class="year">
+               <h3>{{ year }}</h3>
+               <ul class="year-list">
+                  {% for movie in movies %}
+                     <li>
+                        <img src="{{ movie.poster_path.url }}" alt="">
+                        <div>
+                           <h3>{{ movie }}</h3>
+                           <div class="tags">
+                              <div class="genre-tag">{{ movie.genres.first }}</div>
+                              <div class="
+                                  rating-tag 
+                                  {% if movie.avg_rating >= 8 %}
+                                      high-rating
+                                  {% elif movie.avg_rating >= 5 %}
+                                      medium-rating
+                                  {% elif movie.avg_rating < 5 and movie.avg_rating > 0 %}
+                                      low-rating
+                                  {% elif movie.avg_rating == 0 %}
+                                      unrated
+                                  {% endif %}">
+                                  <i class="fa-solid fa-star"></i>
+                                  {{ movie.avg_rating|floatformat:2 }}
+                              </div>
+                                          
+                              <!-- Skeleton placeholder for tags -->
+                              <div class="tag-placeholder"></div>
+                              <div class="tag-placeholder"></div>
+                  
+                          </div>
+                        </div>
+                     </li>
+                  {% endfor %}
+               </ul>
+            </li>
+         {% endfor %}
+      </ul>
+   </section>
    <!-- <h1 style="margin-top: 20px;">Often works with</h1>
          <ul class="often-works-with-list">
             {% for co_worker in co_workers %}
