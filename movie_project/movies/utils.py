@@ -335,3 +335,11 @@ def populate_follows_for_random_profiles(num_profiles=5):
                 print(f'{profile.user.username} already follows {random_instance}')
         else:
             print(f'No instances found for {model_class.__name__}')
+
+def get_movies_by_year(queryset):
+    movies_by_year = defaultdict(list)
+
+    for movie in queryset:
+        movies_by_year[movie.release_date.year].append(movie)
+
+    return dict(movies_by_year)

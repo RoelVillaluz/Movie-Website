@@ -6,6 +6,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login, logout as auth_logout
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
@@ -147,14 +148,12 @@ class ProfileDetailView(DetailView):
     template_name = 'users/profile.html'
     context_object_name = 'profile'
 
+@login_required(login_url='login')
 def follow_content(request, model_name, object_id):
-    # Get the content type based on the model name
     content_type = get_object_or_404(ContentType, model=model_name)
 
-    # Get the profile of the logged-in user
     profile = get_object_or_404(Profile, user=request.user)
 
-    # Check if the user is already following this content object
     follow = Follow.objects.filter(
         profile=profile,
         content_type=content_type,
@@ -162,7 +161,6 @@ def follow_content(request, model_name, object_id):
     ).first()
 
     if follow:
-        # Unfollow if the follow object exists
         follow.delete()
         messages.success(request, f'You have unfollowed {follow.content_object}.')
     else:

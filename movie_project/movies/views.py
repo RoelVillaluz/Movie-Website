@@ -11,13 +11,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from movies.forms import MovieSortForm, SearchForm
-from movies.utils import available_actors, available_award_categories, get_actor_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_genre_dict, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
+from movies.utils import available_actors, available_award_categories, get_actor_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_genre_dict, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count, Avg, Prefetch, Q
+from django.contrib.contenttypes.models import ContentType
 
 today = date.today()
 one_month_before = today - relativedelta(months=1)
@@ -224,6 +225,15 @@ class ActorDetailView(DetailView):
         most_popular_movie = actor.most_popular_movie
         co_workers = often_works_with(actor)
         accolades = get_actor_accolades(actor)
+        movies_by_year = get_movies_by_year(actor.movies.all().order_by('release_date__year'))
+
+        # Get logged-in user's profile and check if they follow this actor
+        profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
+        is_following = Follow.objects.filter(
+            profile=profile,
+            content_type=ContentType.objects.get_for_model(actor),
+            object_id=actor.id
+        ).exists() if profile else False
 
         context.update({
             'movies': actor.movies.all(),
@@ -235,6 +245,8 @@ class ActorDetailView(DetailView):
             'default_bio': actor.default_bio,
             'co_workers': co_workers,
             'accolades': accolades,
+            'is_following': is_following,
+            'movies_by_year': movies_by_year
         })
 
         return context

@@ -17,9 +17,14 @@
                      <div style="display: flex; align-items: center; gap: 10px;">
                         <h1>{{ actor.name }}</h1>
                         <a href="{% url 'follow_content' model_name='actor' object_id=actor.id %}" class="follow-btn">
-                           <span>Follow</span>
-                           <i class="fa-solid fa-plus"></i>
-                       </a>
+                           {% if is_following %}
+                               <span>Unfollow</span>
+                               <i class="fa-solid fa-minus"></i>
+                           {% else %}
+                               <span>Follow</span>
+                               <i class="fa-solid fa-plus"></i>
+                           {% endif %}
+                        </a>                       
                      </div>
                      <div class="stats-container">
                         <div class="stat">
