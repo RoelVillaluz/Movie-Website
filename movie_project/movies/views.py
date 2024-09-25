@@ -40,7 +40,7 @@ def index(request):
     just_added = movies.order_by('-id').exclude(release_date__gt=today)[:20]
     random_movie = random.choice(movies)
 
-    upcoming_movie_and_date = get_movies_by_month_and_year(upcoming_movies)
+    upcoming_movie_and_date = get_movies_by_month_and_year(upcoming_movies, limit=4)
 
     context = {
         'movies': movies,

@@ -13,6 +13,7 @@ from movies.models import Actor, Award, Director, Genre, Movie, Review, User
 from PIL import Image
 from django.db.models import Avg, Count, F
 from django.contrib.contenttypes.models import ContentType
+from itertools import islice
 
 from users.models import Follow, Profile
 today = date.today()
@@ -172,7 +173,7 @@ def often_works_with(actor):
             worked_with_actors[co_actor.id]['image'] = co_actor.image.url  
     
     # Sort by count and limit to top 5 actors
-    top_5_actors = sorted(worked_with_actors.items(), key=lambda x: x[1]['count'], reverse=True)[:3]
+    top_5_actors = sorted(worked_with_actors.items(), key=lambda x: x[1]['count'], reverse=True)[:2]
 
     return top_5_actors
 
@@ -344,11 +345,14 @@ def get_movies_by_year(queryset):
 
     return dict(movies_by_year)
 
-def get_movies_by_month_and_year(queryset):
+def get_movies_by_month_and_year(queryset, limit=None):
     movies_by_month_and_year = defaultdict(list)
     
     for movie in queryset:
         release_month_year = movie.release_date.strftime('%B %Y')  # Month and year fromat e.g., "September 2024"
         movies_by_month_and_year[release_month_year].append(movie)
+
+    if limit:
+        return dict(islice(movies_by_month_and_year.items(), limit))
 
     return dict(movies_by_month_and_year)

@@ -655,11 +655,16 @@ input[type="checkbox"] {
     color: #b1b1b1;
 }
 
+.often-works-with {
+    margin: 20px;
+}
+
 .often-works-with-list {
     display: flex;
     align-items: flex-start;
     gap: 10px;
     list-style-type: none;
+    margin-top: 20px;
 }
 
 .often-works-with-list li {
@@ -667,7 +672,7 @@ input[type="checkbox"] {
     align-items: center;
     flex-direction: column;
     text-align: center  ;
-    flex: 0 0 15%;
+    flex: 0 0 10%;
     margin-top: 10px;
 }
 
@@ -683,12 +688,20 @@ input[type="checkbox"] {
     filter: brightness(0.9) contrast(1.1) grayscale(0.25);
 }
 
+.often-works-with-list li h3,
+.often-works-with-list li span {
+    width: 15vw;  
+}
+
 .often-works-with-list li h3 {
-    font-size: 1rem;
+    font-size: clamp(16px, 1.5vw, 32px);
+    margin-top: 10px;
     margin-bottom: 5px;
 }
 
 .often-works-with-list li span {
+    width: 120px;
+    font-size: clamp(12px, 1.25vw, 28px);
     color: #b1b1b1;
 }
 
