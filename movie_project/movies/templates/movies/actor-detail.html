@@ -113,7 +113,11 @@
          <h1>Known for</h1>
          <ul>
             {% for movie in known_for %}
-               <li>{{ movie }}</li>
+               <li>
+                  <a href="{% url 'movie-detail' movie.pk %}">
+                     <img src="{{ movie.poster_path.url }}" alt="">
+                  </a>
+               </li>           
             {% endfor %}
          </ul>
       </section>
