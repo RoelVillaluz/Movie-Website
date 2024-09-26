@@ -238,6 +238,10 @@ class ActorDetailView(DetailView):
             object_id=actor.id
         ).exists() if profile else False
 
+        known_for = actor.movies.annotate(
+                    review_count=Count('reviews')
+                ).order_by('-review_count')[:4]
+
         context.update({
             'movies': actor.movies.all(),
             'actor_rank': actor.get_rank(),
@@ -249,7 +253,8 @@ class ActorDetailView(DetailView):
             'co_workers': co_workers,
             'accolades': accolades,
             'is_following': is_following,
-            'movies_by_year': movies_by_year
+            'movies_by_year': movies_by_year,
+            'known_for': known_for
         })
 
         return context
