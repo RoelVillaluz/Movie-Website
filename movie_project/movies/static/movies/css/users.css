@@ -745,6 +745,14 @@ input[type="checkbox"] {
     border-radius: 5px;
 }
 
+.profile-awards {
+    padding: 20px;
+}
+
+.profile-awards ul {
+    list-style-type: none;
+}
+
 .known-for ul::-webkit-scrollbar {
     height: 6px; 
 }
@@ -763,32 +771,4 @@ input[type="checkbox"] {
 .profile-movies ul li {
     flex: 0 0 calc((100% / 5) - 20px);
     margin-top: 2rem;
-}
-
-.movies-by-year {
-    padding: 20px;
-}
-
-.movies-by-year ul {
-    list-style-type: none;
-    margin: 1rem 0;
-}
-
-.movies-by-year ul li {
-    margin: 1rem 0;
-}
-
-.movies-by-year .year-list li {
-    display: flex;
-    gap: 1rem;
-}
-
-.movies-by-year .year-list li img {
-    flex: 1;
-    max-width: 150px;
-    object-fit: cover;
-}
-
-.movies-by-year .year-list li div {
-    width: auto;
 }
