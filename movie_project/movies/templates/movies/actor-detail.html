@@ -94,20 +94,30 @@
          </ul>
       </div>
    </section>
-   <section class="often-works-with">
-      <h1>Often works with</h1>
-      <ul class="often-works-with-list">
-         {% for co_worker in co_workers %}
-            <li>
-               <a href="{% url 'actor-detail' co_worker.0 %}">
-                  <img src="{{ co_worker.1.image }}" alt="">
-                  <h3>{{ co_worker.1.name }}</h3>
-                  <span>{{ co_worker.1.count }} Movies</span>
-               </a>
-            </li>
-         {% endfor %}
-      </ul>
-   </section>
+   <div style="display: flex;">
+      <section class="often-works-with">
+         <h1>Often works with</h1>
+         <ul class="often-works-with-list">
+            {% for co_worker in co_workers %}
+               <li>
+                  <a href="{% url 'actor-detail' co_worker.0 %}">
+                     <img src="{{ co_worker.1.image }}" alt="">
+                     <h3>{{ co_worker.1.name }}</h3>
+                     <span>{{ co_worker.1.count }} Movies</span>
+                  </a>
+               </li>
+            {% endfor %}
+         </ul>
+      </section>
+      <section class="known-for">
+         <h1>Known for</h1>
+         <ul>
+            {% for movie in known_for %}
+               <li>{{ movie }}</li>
+            {% endfor %}
+         </ul>
+      </section>
+   </div>
    <section class="profile-movies">
       <h1>Films Starring <span>{{ actor }}</span></h1>
       <ul>

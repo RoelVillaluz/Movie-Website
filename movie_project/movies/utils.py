@@ -110,6 +110,11 @@ def get_popular_actors_and_movies():
 def get_actors_and_most_popular_movies(actors, num_movies):
     """ returns a dictionary where the keys are actor objects and the values are lists of movie titles,
     ordered by the number of reviews in descending order. """
+
+    is_single_actor = not isinstance(actors, (list, tuple))
+
+    if is_single_actor:
+        actors = [actors]
     
     actor_and_most_popular_movies = {}
 
@@ -122,7 +127,10 @@ def get_actors_and_most_popular_movies(actors, num_movies):
         if most_popular_movies_of_actor:
             actor_and_most_popular_movies[actor] = list(most_popular_movies_of_actor)
 
-    return actor_and_most_popular_movies
+    if is_single_actor:
+        return actor_and_most_popular_movies.get(actors[0], {})
+    else:
+        return actor_and_most_popular_movies
 
 def get_actor_accolades(actor):
     actor_accolades = defaultdict(int, {'wins': 0, 'nominations': 0})

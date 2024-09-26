@@ -656,7 +656,10 @@ input[type="checkbox"] {
 }
 
 .often-works-with {
+    flex: 1;
     margin: 20px;
+    padding-right: 4rem;
+    border-right: solid 1px #414141;
 }
 
 .often-works-with-list {
@@ -703,6 +706,11 @@ input[type="checkbox"] {
     width: 120px;
     font-size: clamp(12px, 1.25vw, 28px);
     color: #b1b1b1;
+}
+
+.known-for {
+    flex: 2;
+    margin: 20px;
 }
 
 .profile-movies {

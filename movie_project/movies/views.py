@@ -229,6 +229,7 @@ class ActorDetailView(DetailView):
         co_workers = often_works_with(actor)
         accolades = get_actor_accolades(actor)
         movies_by_year = get_movies_by_year(actor.movies.all().order_by('-release_date__year'))
+        known_for = get_actors_and_most_popular_movies(actor, 4)
 
         # Get logged-in user's profile and check if they follow this actor
         profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
@@ -249,7 +250,8 @@ class ActorDetailView(DetailView):
             'co_workers': co_workers,
             'accolades': accolades,
             'is_following': is_following,
-            'movies_by_year': movies_by_year
+            'movies_by_year': movies_by_year,
+            'known_for': known_for
         })
 
         return context
