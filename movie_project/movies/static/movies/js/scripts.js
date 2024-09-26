@@ -174,8 +174,8 @@ angleIcons.forEach(icon => {
 
 
 const searchInput = document.querySelector('input[name="query"]');
-    const suggestionsBox = document.getElementById('suggestions-box');
-    const link = '/search_results/?query='
+const suggestionsBox = document.getElementById('suggestions-box');
+const link = '/search_results/?query='
 
     searchInput.addEventListener('input', function() {
         const query = this.value;
@@ -222,6 +222,8 @@ const searchInput = document.querySelector('input[name="query"]');
                 suggestionsBox.appendChild(SuggestionsBoxFooter)
             })
             suggestionsBox.style.display = 'block';
+        } else {
+            suggestionsBox.style.display = 'none'
         }
     });
 
@@ -286,6 +288,7 @@ const searchInput = document.querySelector('input[name="query"]');
                     </div>
                     <div class="details">
                         <h3>${item.name}</h3>
+                        <h4>${item.most_popular_movie}</h4>
                     </div>
                 </a>
             `;

@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from movies.forms import MovieSortForm, SearchForm
-from movies.utils import available_actors, available_award_categories, get_actor_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
+from movies.utils import available_actors, available_award_categories, get_actor_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
 from django.views.generic import ListView, DetailView
@@ -229,7 +229,6 @@ class ActorDetailView(DetailView):
         co_workers = often_works_with(actor)
         accolades = get_actor_accolades(actor)
         movies_by_year = get_movies_by_year(actor.movies.all().order_by('-release_date__year'))
-        known_for = get_actors_and_most_popular_movies(actor, 4)
 
         # Get logged-in user's profile and check if they follow this actor
         profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
@@ -250,8 +249,7 @@ class ActorDetailView(DetailView):
             'co_workers': co_workers,
             'accolades': accolades,
             'is_following': is_following,
-            'movies_by_year': movies_by_year,
-            'known_for': known_for
+            'movies_by_year': movies_by_year
         })
 
         return context
@@ -410,12 +408,15 @@ class SearchSuggestionsView(View):
                 'most_popular_movie': actor_movie,
             } for actor, actor_movie in actor_and_most_popular_movie.items()]
 
+            director_and_most_popular_movie = get_directors_and_most_popular_movies(director_suggestions, 1)
+
             # Get director suggestions
             director_results = [{
                 'id': director.id,
                 'name': director.name,
-                'image': director.image.url,  
-            } for director in director_suggestions]
+                'image': director.image.url,
+                'most_popular_movie': director_movie,
+            } for director, director_movie in director_and_most_popular_movie.items()]
 
         # Calculate the total number of matching searches
         total_matching_movies = all_matching_movies.count()
