@@ -143,20 +143,18 @@ def get_directors_and_most_popular_movies(directors, num_movies):
 
 def get_actor_accolades(actor):
     # Dictionary structure: {award_name: {category: {'wins': 0, 'nominations': 0}}}
-    actor_accolades = defaultdict(lambda: defaultdict(lambda: {'wins': 0, 'nominations': 0}))
+    actor_accolades = defaultdict(lambda: {'awards': [], 'win_count': 0, 'nomination_count': 0})
 
     awards = actor.awards.all()
 
     for award in awards:
-        award_name = award.award_name
-        category = award.category
-
+        actor_accolades[award.award_name]['awards'].append(award)
+        actor_accolades[award.award_name]['nomination_count'] += 1
         if award.winner:
-            actor_accolades[award_name][category]['wins'] += 1
+            actor_accolades[award.award_name]['win_count'] += 1
 
-        actor_accolades[award_name][category]['nominations'] += 1
+    return dict(actor_accolades)
 
-    return {award_name: dict(categories) for award_name, categories in actor_accolades.items()}
 
 def get_genre_dict(genres):
     """Get a dictionary of popular genres and a random movie for each genre."""

@@ -747,6 +747,11 @@ input[type="checkbox"] {
 
 .profile-awards {
     padding: 20px;
+    margin-top: 4rem;
+}
+
+.profile-awards h1 {
+    font-size: 2rem;
 }
 
 .profile-awards ul {

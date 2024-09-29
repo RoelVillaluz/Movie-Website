@@ -125,8 +125,13 @@
    <section class="profile-awards">
       <h1>Awards and Nominations</h1>
       <ul>
-         {% for award_name, categories in accolades.items %}
-            <li>{{ award_name }}</li>
+         {% for award_name, award_data in accolades.items %}
+            <li>
+               <h3>{{ award_name }}</h3>
+               {% for data in award_data.awards %}
+                  <li>{{ data.category }}</li>
+               {% endfor %}
+            </li>
          {% endfor %}
       </ul>
    </section>
