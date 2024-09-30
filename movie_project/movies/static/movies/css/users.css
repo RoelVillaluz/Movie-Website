@@ -758,6 +758,71 @@ input[type="checkbox"] {
     list-style-type: none;
 }
 
+.profile-award-name {
+    font-size: 1.5rem;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+}
+
+.profile-award-count {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+}
+
+.profile-award-count p {
+    color: #c0c0c0;
+    font-size: 1rem;
+}
+
+.profile-award-name h3 {
+    position: relative;
+    padding-left: 1rem;
+    margin-left: 1rem;
+}
+
+.profile-award-name h3::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 4px;
+    height: 100%;
+    background-color: yellow;
+}
+
+.profile-award-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 1rem;
+    margin-top: 1rem;
+}
+
+.profile-award-item i {
+    background-color: yellow;
+    font-size: 0.7rem;
+    padding: 0.8rem;
+    border-radius: 50%;
+    color: black;
+}
+
+.profile-award-item h4 {
+    font-size: 1.1rem;
+}
+
+.profile-award-item span {
+    color: #c0c0c0;
+    font-weight: 200;
+    margin-left: 4px;
+}
+
+.profile-award-item p {
+    margin-top: 4px;
+}
+
 .known-for ul::-webkit-scrollbar {
     height: 6px; 
 }

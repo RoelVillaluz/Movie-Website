@@ -126,10 +126,24 @@
       <h1>Awards and Nominations</h1>
       <ul>
          {% for award_name, award_data in accolades.items %}
-            <li>
+            <li class="profile-award-name">
                <h3>{{ award_name }}</h3>
+               <div class="profile-award-count">
+                  <p>{{ award_data.win_count }} Wins</p>
+                  <p>{{ award_data.nomination_count }} Nominations</p>
+               </div>
                {% for data in award_data.awards %}
-                  <li>{{ data.category }}</li>
+                  <li class="profile-award-item">
+                     {% if data.winner %}
+                        <i class="fa-solid fa-trophy winner"></i>
+                     {% else %}
+                        <i class="fa-solid fa-award nominee"></i>
+                     {% endif %}
+                     <div class="profile-award-details">
+                        <h4>{{ data.category }}<span>({{ data.year }})</span></h4>
+                        <p>{{ data.movie }} -{% if data.winner %} <span class="profile-award-status">Winner</span> {% else %} <span class="profile-award-status">Nominee</span> {% endif %}</p>
+                     </div>
+                  </li>
                {% endfor %}
             </li>
          {% endfor %}
