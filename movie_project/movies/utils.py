@@ -370,12 +370,12 @@ def get_movies_by_month_and_year(queryset, limit=None):
 
     for movie in queryset:
         release_month_year = movie.release_date.strftime('%B %Y')  # e.g., "September 2024"
-        release_month_day = movie.release_date.strftime('%m %d')
+        day = movie.release_date.strftime('%d')
 
         # Append a dictionary with movie and month_and_day
         movies_by_month_and_year[release_month_year].append({
             'movie': movie,
-            'month_and_day': release_month_day
+            'day': day
         })
 
     if limit:

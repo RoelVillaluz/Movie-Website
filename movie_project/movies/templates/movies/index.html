@@ -177,16 +177,18 @@
             </div>
         </div>
         <div class="swiper mySwiper">
-            <ul>
-                <!-- edit this later to make it look like the github contribution activity section
-                with markers and line connectors for each month and year -->
+            <ul class="upcoming-list">
                 {% for month_year, movie_data in upcoming_movie_and_date.items %}
                     <li>
                         <h3>{{ month_year }}</h3>
                         <ul>
                             {% for data in movie_data %}
-                                <li>{{ data.movie.title }}</li> 
-                                <p>{{ data.month_and_day }}</p> 
+                                <li>
+                                    <div class="day">
+                                        <span>{{ data.day }}</span>
+                                    </div>
+                                    <h4>{{ data.movie.title }}</h4>
+                                </li>
                             {% endfor %}
                         </ul>
                     </li>

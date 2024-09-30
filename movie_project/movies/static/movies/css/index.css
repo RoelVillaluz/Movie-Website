@@ -887,6 +887,39 @@ li.show {
     color: white;
 }
 
+.upcoming-list {
+    padding: 20px;
+    list-style-type: none;
+}
+
+.upcoming-list ul {
+    list-style-type: none;
+}
+
+.upcoming-list ul li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.upcoming-list .day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    height: 3rem;
+    width: 3rem;
+    font-size: 1.25rem;
+    background-color: white;
+}
+
+.upcoming-list .day  span {
+    color: rgb(20, 20, 20);
+    font-weight: 700;
+}
+
 .community {
     display: flex;
     width: 100%;
