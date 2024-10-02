@@ -20,6 +20,7 @@ Custom User Model: Each user has a personalized profile page where they can view
 ### 6. **Reviews and Ratings**
 User Reviews: Users can leave detailed reviews for movies and TV series.
 Rating System: Rate movies/TV series on a scale of 1 to 10, with average ratings displayed on the movie pages.
+### 7. **List creation**
 
 ### **Technologies Used**
 - Backend: Django (Python)
