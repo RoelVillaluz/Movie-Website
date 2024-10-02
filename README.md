@@ -9,7 +9,7 @@ Quickly find details about your favorite movies and TV series.
 ### 2. **Watchlist**
 Users can add movies and TV shows to their personal watchlist.
 View, manage, and organize the watchlist according to preferences.
-###3. **Filters and Sorting**
+### 3. **Filters and Sorting**
 Genre and Award Filters: Narrow down movie results by genre or award categories.
 Sorting Options: Sort movies by title, release date, or rating to easily browse content.
 ### 4. **Follow System**
