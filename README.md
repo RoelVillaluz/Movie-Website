@@ -9,7 +9,7 @@ Quickly find details about your favorite movies and TV series.
 ### 2. **Watchlist**
 Users can add movies and TV shows to their personal watchlist.
 View, manage, and organize the watchlist according to preferences.
-###3. **Filters and Sorting**
+### 3. **Filters and Sorting**
 Genre and Award Filters: Narrow down movie results by genre or award categories.
 Sorting Options: Sort movies by title, release date, or rating to easily browse content.
 ### 4. **Follow System**
@@ -20,6 +20,7 @@ Custom User Model: Each user has a personalized profile page where they can view
 ### 6. **Reviews and Ratings**
 User Reviews: Users can leave detailed reviews for movies and TV series.
 Rating System: Rate movies/TV series on a scale of 1 to 10, with average ratings displayed on the movie pages.
+### 7. **List creation**
 
 ### **Technologies Used**
 - Backend: Django (Python)
