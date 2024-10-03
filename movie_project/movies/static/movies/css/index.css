@@ -888,19 +888,42 @@ li.show {
 }
 
 .upcoming-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     padding: 20px;
     list-style-type: none;
 }
 
 .upcoming-list ul {
+    display: flex;
+    flex-wrap: wrap;
     list-style-type: none;
 }
 
 .upcoming-list ul li {
     display: flex;
-    align-items: center;
+    align-items: start;
+    flex: 0 0 50%;
     gap: 1rem;
     margin: 1rem 0;
+}
+
+.upcoming-list .month {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+}
+
+.upcoming-list .month h3 {
+    white-space: nowrap; 
+    margin-right: 10px; 
+}
+
+.upcoming-list .month .horizontal-line {
+    width: 100%;
+    height: 1px;
+    background-color: #686565;
 }
 
 .upcoming-list .day {
@@ -908,16 +931,39 @@ li.show {
     justify-content: center;
     align-items: center;
     padding: 10px;
+    margin-left: 10px;
     border-radius: 5px;
-    height: 3rem;
-    width: 3rem;
-    font-size: 1.25rem;
+    height: 2.25rem;
+    width: 2.25rem;
+    font-size: 1rem;
     background-color: white;
 }
 
 .upcoming-list .day  span {
     color: rgb(20, 20, 20);
     font-weight: 700;
+}
+
+.upcoming-movie-item {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+}
+
+.upcoming-movie-item img {
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+}
+
+.upcoming-movie-item p {
+    color: #919191;
+}
+
+.upcoming-movie-item .genre-tag {
+    display: inline-block;
+    width: 100%;
+    padding: 3px 10px;
 }
 
 .community {

@@ -19,6 +19,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count, Avg, Prefetch, Q
 from django.contrib.contenttypes.models import ContentType
+from django.core.files.base import ContentFile
 
 today = date.today()
 one_month_before = today - relativedelta(months=1)

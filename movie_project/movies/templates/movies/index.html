@@ -180,14 +180,26 @@
             <ul class="upcoming-list">
                 {% for month_year, movie_data in upcoming_movie_and_date.items %}
                     <li>
-                        <h3>{{ month_year }}</h3>
+                        <div class="month">
+                            <h3>{{ month_year }}</h3>
+                            <div class="horizontal-line"></div>
+                        </div>
                         <ul>
                             {% for data in movie_data %}
                                 <li>
                                     <div class="day">
                                         <span>{{ data.day }}</span>
                                     </div>
-                                    <h4>{{ data.movie.title }}</h4>
+                                    <div class="upcoming-movie-item">
+                                        <a href="{% url 'movie-detail' data.movie.pk %}">
+                                            <img src="{{ data.movie.poster_path.url }}" alt="">
+                                        </a>
+                                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                                            <h4>{{ data.movie.title }}</h4>
+                                            <div class="genre-tag">{{ data.movie.genres.first }}</div>
+                                            <p>{{ data.movie.runtime }}</p>
+                                        </div>
+                                    </div>
                                 </li>
                             {% endfor %}
                         </ul>

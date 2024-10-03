@@ -212,7 +212,7 @@ def often_works_with(actor):
 #         return []  
 
 # if __name__ == "__main__":
-#     endpoint = "movie/popular"
+#     endpoint = "movie/upcoming"
 #     params = {"language": "en-US", "page": 1}
 #     data = fetch_tmdb_movies(endpoint, params)
 #     print(data)
@@ -373,7 +373,8 @@ def get_movies_by_month_and_year(queryset, limit=None):
         day = movie.release_date.strftime('%d')
 
         # Append a dictionary with movie and month_and_day
-        movies_by_month_and_year[release_month_year].append({
+        if len(movies_by_month_and_year[release_month_year]) < 3:
+            movies_by_month_and_year[release_month_year].append({
             'movie': movie,
             'day': day
         })
