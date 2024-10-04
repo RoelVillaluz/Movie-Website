@@ -656,7 +656,7 @@ input[type="checkbox"] {
 }
 
 .often-works-with {
-    flex: 1;
+    flex: 0 1 40%;
     margin: 20px;
     padding-right: 4rem;
     border-right: solid 1px #414141;
@@ -709,6 +709,7 @@ input[type="checkbox"] {
 }
 
 .known-for {
+    flex: 0 0 60%;
     position: relative; 
     width: 100%;
     overflow-x: hidden;
