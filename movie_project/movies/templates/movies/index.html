@@ -179,27 +179,32 @@
         <div class="swiper mySwiper">
             <ul class="upcoming-list">
                 {% for month_year, movie_data in upcoming_movie_and_date.items %}
-                    <li>
+                    <li class="upcoming-list-month">
                         <div class="month">
                             <h3>{{ month_year }}</h3>
                             <div class="horizontal-line"></div>
                         </div>
-                        <ul>
+                        <ul class="month-movie-list">
                             {% for data in movie_data %}
-                                <li>
-                                    <div class="day">
-                                        <span>{{ data.day }}</span>
-                                    </div>
-                                    <div class="upcoming-movie-item">
-                                        <a href="{% url 'movie-detail' data.movie.pk %}">
-                                            <img src="{{ data.movie.poster_path.url }}" alt="">
-                                        </a>
-                                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                                            <h4>{{ data.movie.title }}</h4>
-                                            <div class="genre-tag">{{ data.movie.genres.first }}</div>
+                                <li class="month-movie-item">
+                                    <p class="day">{{ data.day }}</p>
+                                    <a href="{% url 'movie-detail' data.movie.pk %}">
+                                        <img src="{{ data.movie.poster_path.url }}" alt="">
+                                    </a>
+                                    <div class="details">
+                                        <h4>{{ data.movie.title }}<span>{{ data.movie.release_date.year }}</span></h4>
+                                        <div class="tags">
+                                            {% if data.movie.genres.first %}
+                                                <div class="genre-tag">{{ data.movie.genres.first }}</div>
+                                            {% endif %}
                                             <p>{{ data.movie.runtime }}</p>
                                         </div>
-                                    </div>
+                                        <div class="cast-list">
+                                            {% for actor in data.movie.actors.all %}
+                                                <p>{{ actor }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    </div> 
                                 </li>
                             {% endfor %}
                         </ul>
