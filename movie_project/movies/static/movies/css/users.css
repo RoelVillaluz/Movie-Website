@@ -117,7 +117,11 @@
 }
 
 .skeleton .profile-details-placeholder {
-    margin-top: 10px;
+    margin-top: 40px;
+}
+
+.skeleton .profile-details-placeholder .line-placeholder {
+    width: 50%;
 }
 
 .skeleton .profile-name-placeholder {
@@ -148,6 +152,44 @@
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.7);
     animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .social-links-placeholders {
+    display: flex;
+    gap: 1rem;
+}
+
+.skeleton .link-placeholder {
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .stats-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.skeleton .stat-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 100%;
+}
+
+.skeleton .stat-placeholder div:not(.line-placeholder) {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .stat-placeholder  .line-placeholder {
+    height: 0.5rem;
 }
 
 .overview-placeholder {
