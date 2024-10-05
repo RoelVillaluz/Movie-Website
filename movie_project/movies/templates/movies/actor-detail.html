@@ -40,6 +40,7 @@
                            <div class="line-placeholder"></div>
                         </div>
                      </div>
+
                      <div class="stats-container">
                         <div class="stat">
                            <h3>{{ actor.movies.count }}</h3>
@@ -57,25 +58,56 @@
                            <h3>#{{ actor_rank }}</h3>
                            <p>Rank</p>
                         </div>
+
+                        <div class="stat-placeholder">
+                           <div></div>
+                           <div class="line-placeholder"></div>
+                        </div>
+                        <div class="stat-placeholder">
+                           <div></div>
+                           <div class="line-placeholder"></div>
+                        </div>
+                        <div class="stat-placeholder">
+                           <div></div>
+                           <div class="line-placeholder"></div>
+                        </div>
+                        <div class="stat-placeholder">
+                           <div></div>
+                           <div class="line-placeholder"></div>
+                        </div>
                      </div>
                   </div>
+
                   <h3>Actor • {{ most_popular_movie }}</h3>
+
                   <div class="socials-container">
                      <i class="fa-brands fa-facebook"></i>
                      <i class="fa-brands fa-twitter"></i>
                      <i class="fa-brands fa-instagram"></i>
+                  </div>
+
+                  <div class="social-links-placeholders">
+                     <div class="link-placeholder"></div>
+                     <div class="link-placeholder"></div>
+                     <div class="link-placeholder"></div>
                   </div>
                </div>
             </div>
       </div>     
       {% endif %}
    </section>
-   <section class="about">
+   <section class="about skeleton">
       <div class="profile-bio">
          <div style="margin-bottom: 20px;">
+
             <h1>Born</h1>
             <p><i class="fa-solid fa-calendar-days"></i>{{ actor.birth_date }} ({{ age }}) years old</p>
             <p><i class="fa-solid fa-location-dot"></i>{{ actor.birth_place }}</p>
+
+            <div class="label-placeholder"></div>
+            <div class="detail-placeholder"></div>
+            <div class="detail-placeholder"></div>
+
          </div>
          <div>
             <h1>Biography</h1>
@@ -84,10 +116,15 @@
             {% else %}
                <p>{{ default_bio }}</p>
             {% endif %}
+
+            <div class="label-placeholder" style="margin-top: 3rem;"></div>
+            <div class="line-placeholder"></div>
+            <div class="line-placeholder"></div>
+            <div class="line-placeholder last"></div>
          </div>
       </div>
       <div class="personal-info">
-         <h1>Personal Info</h1>
+         <h1>Personal Info</h1>         
          <ul>
             <li>
                <h3>Gender<i class="fa-solid fa-venus-mars"></i></h3>
@@ -138,33 +175,35 @@
          </ul>
       </section>
    </div>
-   <section class="profile-awards">
-      <h1>Awards and Nominations</h1>
-      <ul>
-         {% for award_name, award_data in accolades.items %}
-            <li class="profile-award-name">
-               <h3>{{ award_name }}</h3>
-               <div class="profile-award-count">
-                  <p>{{ award_data.win_count }} Wins</p>
-                  <p>{{ award_data.nomination_count }} Nominations</p>
-               </div>
-               {% for data in award_data.awards %}
-                  <li class="profile-award-item">
-                     {% if data.winner %}
-                        <i class="fa-solid fa-trophy winner"></i>
-                     {% else %}
-                        <i class="fa-solid fa-award nominee"></i>
-                     {% endif %}
-                     <div class="profile-award-details">
-                        <h4>{{ data.category }}<span>({{ data.year }})</span></h4>
-                        <p>{{ data.movie }} -{% if data.winner %} <span class="profile-award-status">Winner</span> {% else %} <span class="profile-award-status">Nominee</span> {% endif %}</p>
-                     </div>
-                  </li>
-               {% endfor %}
-            </li>
-         {% endfor %}
-      </ul>
-   </section>
+   {% if accolades %}
+      <section class="profile-awards">
+         <h1>Awards and Nominations</h1>
+         <ul>
+            {% for award_name, award_data in accolades.items %}
+               <li class="profile-award-name">
+                  <h3>{{ award_name }}</h3>
+                  <div class="profile-award-count">
+                     <p>{{ award_data.win_count }} Wins</p>
+                     <p>{{ award_data.nomination_count }} Nominations</p>
+                  </div>
+                  {% for data in award_data.awards %}
+                     <li class="profile-award-item">
+                        {% if data.winner %}
+                           <i class="fa-solid fa-trophy winner"></i>
+                        {% else %}
+                           <i class="fa-solid fa-award nominee"></i>
+                        {% endif %}
+                        <div class="profile-award-details">
+                           <h4>{{ data.category }}<span>({{ data.year }})</span></h4>
+                           <p>{{ data.movie }} -{% if data.winner %} <span class="profile-award-status">Winner</span> {% else %} <span class="profile-award-status">Nominee</span> {% endif %}</p>
+                        </div>
+                     </li>
+                  {% endfor %}
+               </li>
+            {% endfor %}
+         </ul>
+      </section>
+   {% endif %}
    <section class="profile-movies">
       <h1>Films Starring <span>{{ actor }}</span></h1>
       <ul>
