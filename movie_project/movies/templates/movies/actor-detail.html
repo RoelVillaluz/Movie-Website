@@ -5,13 +5,19 @@
 {% block body %}
    <section class="profile">
       {% if most_popular_movie %}
-         <div class="profile-header">
-            <img src="{{ most_popular_movie.backdrop_path.url }}" alt="">
+         <div class="profile-header skeleton">
+
+            <img src="{{ most_popular_movie.backdrop_path.url }}" alt="" class="profile-cover-photo">
+            <div class="cover-photo-placeholder"></div>
+            
             <div class="profile-wrapper">
                <div class="profile-picture">
-                  <img src="{{ actor.image.url }}" alt="">
+                  <img src="{{ actor.image.url }}" alt="" class="profile-pic">                  
                   <i class="fa-solid fa-camera"></i>
-              </div>
+
+                  <div class="profile-pic-placeholder"></div>
+
+               </div>
                <div class="profile-details">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
                      <div style="display: flex; align-items: center; gap: 10px;">
@@ -24,7 +30,15 @@
                                <span>Follow</span>
                                <i class="fa-solid fa-plus"></i>
                            {% endif %}
-                        </a>                       
+                        </a>       
+                        
+                        <div class="profile-details-placeholder">
+                           <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                              <div class="profile-name-placeholder"></div>
+                              <div class="follow-btn-placeholder"></div>
+                           </div>
+                           <div class="line-placeholder"></div>
+                        </div>
                      </div>
                      <div class="stats-container">
                         <div class="stat">

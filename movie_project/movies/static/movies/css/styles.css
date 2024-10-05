@@ -840,7 +840,7 @@ nav a {
 }
 
 .show {
-    animation: slideRight 1s forwards; 
+    animation: fadeIn 0.5s forwards;
 }
 
 .container {
