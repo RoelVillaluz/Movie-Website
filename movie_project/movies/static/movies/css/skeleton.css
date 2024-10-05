@@ -108,6 +108,24 @@
     height: 0.5rem;
 }
 
+.skeleton .label-placeholder {
+    height: 2rem;
+    width: 7.5rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .detail-placeholder {
+    height: 1rem;
+    width: 30%;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: skeleton-loading 3s infinite linear;
+}
+
 .overview-placeholder {
     display: none;
 }
@@ -131,7 +149,6 @@
 .skeleton .line-placeholder.last {
     width: 50%;
 }
-
 
 li.show {
     animation: skeleton-show 0.5s forwards;

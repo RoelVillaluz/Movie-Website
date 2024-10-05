@@ -99,10 +99,15 @@
    <section class="about skeleton">
       <div class="profile-bio">
          <div style="margin-bottom: 20px;">
+
             <h1>Born</h1>
-            <div class="label-placeholder"></div>
             <p><i class="fa-solid fa-calendar-days"></i>{{ actor.birth_date }} ({{ age }}) years old</p>
             <p><i class="fa-solid fa-location-dot"></i>{{ actor.birth_place }}</p>
+
+            <div class="label-placeholder"></div>
+            <div class="detail-placeholder"></div>
+            <div class="detail-placeholder"></div>
+
          </div>
          <div>
             <h1>Biography</h1>
@@ -111,10 +116,15 @@
             {% else %}
                <p>{{ default_bio }}</p>
             {% endif %}
+
+            <div class="label-placeholder" style="margin-top: 3rem;"></div>
+            <div class="line-placeholder"></div>
+            <div class="line-placeholder"></div>
+            <div class="line-placeholder last"></div>
          </div>
       </div>
       <div class="personal-info">
-         <h1>Personal Info</h1>
+         <h1>Personal Info</h1>         
          <ul>
             <li>
                <h3>Gender<i class="fa-solid fa-venus-mars"></i></h3>
