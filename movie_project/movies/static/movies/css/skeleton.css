@@ -1,0 +1,183 @@
+/* for movie list item skeleton */
+.skeleton h1,
+.skeleton h2,
+.skeleton h4, 
+.skeleton i,
+.skeleton a,
+.skeleton .counter,
+.skeleton .movie-year,
+.skeleton .review-count,
+.skeleton p.runtime,
+.skeleton .director-and-cast,
+.skeleton .cast-list
+{
+    display: none;
+}
+
+.skeleton .movie-list-item-details .title {
+    width: 50%;
+}
+
+.skeleton .movie-list-item-details .title-placeholder {
+    height: 2rem;
+}
+
+.skeleton .profile-cover-photo {
+    display: none;
+}
+
+.skeleton .cover-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(182, 182, 182, 0.7);
+}
+
+.skeleton .profile-details-placeholder {
+    margin-top: 40px;
+}
+
+.skeleton .profile-details-placeholder .line-placeholder {
+    width: 50%;
+}
+
+.skeleton .profile-name-placeholder {
+    height: 2rem;
+    width: 15rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    display: inline-block; 
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .follow-btn-placeholder {
+    height: 2rem;
+    width: 8rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
+    display: inline-block; 
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .profile-pic {
+    display: none;
+}
+
+.skeleton .profile-pic-placeholder {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .social-links-placeholders {
+    display: flex;
+    gap: 1rem;
+}
+
+.skeleton .link-placeholder {
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .stats-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.skeleton .stat-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 100%;
+}
+
+.skeleton .stat-placeholder div:not(.line-placeholder) {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .stat-placeholder  .line-placeholder {
+    height: 0.5rem;
+}
+
+.overview-placeholder {
+    display: none;
+}
+
+.skeleton .overview-placeholder {
+    display: block;
+    width: 75%;
+    margin-top: 20px;
+}
+
+.skeleton .line-placeholder {
+    background-color: rgb(70, 70, 70); 
+    width: 100%; 
+    height: 20px;
+    margin: 5px 0px;
+    border-radius: 4px; 
+    display: inline-block; 
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .line-placeholder.last {
+    width: 50%;
+}
+
+
+li.show {
+    animation: skeleton-show 0.5s forwards;
+}
+
+.skeleton .image {
+    background-color: rgb(70, 70, 70); 
+    width: 100%; 
+    height: auto; 
+    animation: skeleton-loading 3s infinite linear;
+}
+
+/* for movie card skeleton */
+.skeleton h3,
+.skeleton h4,
+.skeleton p,
+.skeleton span,
+.skeleton .genre-tag,
+.skeleton .rating-tag
+{
+    display: none;
+}
+
+.skeleton .title-placeholder {
+    background-color: rgb(70, 70, 70); 
+    width: 90%; 
+    height: 20px;
+    border-radius: 4px; 
+    margin: 10px 0px; 
+    display: inline-block; 
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .image img {
+    display: none; 
+}
+
+.skeleton .tag-placeholder {
+    display: inline-block;
+    background-color: rgb(70, 70, 70); 
+    width: 4em;
+    height: 1.25rem;
+    margin-top: -5px;
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .watchlist-btn {
+    display: none;
+}

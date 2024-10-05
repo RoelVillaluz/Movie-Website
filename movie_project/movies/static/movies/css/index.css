@@ -550,55 +550,6 @@ and only apply hover filter effect once all animations have stopped
     transition: 0.3s;
 }
 
-li.show {
-    animation: skeleton-show 0.5s forwards;
-}
-
-.skeleton .image {
-    background-color: rgb(70, 70, 70); 
-    width: 100%; 
-    height: auto; 
-    animation: skeleton-loading 3s infinite linear;
-}
-
-/* for movie card skeleton */
-.skeleton h3,
-.skeleton h4,
-.skeleton p,
-.skeleton span,
-.skeleton .genre-tag,
-.skeleton .rating-tag
-{
-    display: none;
-}
-
-.skeleton .title-placeholder {
-    background-color: rgb(70, 70, 70); 
-    width: 90%; 
-    height: 20px;
-    border-radius: 4px; 
-    margin: 10px 0px; 
-    display: inline-block; 
-    animation: skeleton-loading 3s infinite linear;
-}
-
-.skeleton .image img {
-    display: none; 
-}
-
-.skeleton .tag-placeholder {
-    display: inline-block;
-    background-color: rgb(70, 70, 70); 
-    width: 4em;
-    height: 1.25rem;
-    margin-top: -5px;
-    animation: skeleton-loading 3s infinite linear;
-}
-
-.skeleton .watchlist-btn {
-    display: none;
-}
-
 .card {
     position: relative;
 }

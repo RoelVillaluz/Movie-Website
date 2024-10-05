@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // entry.target.classList.add('show');
-                // entry.target.classList.remove('skeleton'); // Remove the skeleton class
+                entry.target.classList.add('show');
+                entry.target.classList.remove('skeleton'); // Remove the skeleton class
                 observer.unobserve(entry.target); // Stop observing once the element is in view
             } else {
                 entry.target.classList.remove('show');
