@@ -197,6 +197,14 @@ def often_works_with(actor):
 
     return top_5_actors
 
+def convert_height_to_feet(person):
+    if person.height != 0:
+        height_in_feet = person.height / 30.48
+        feet = int(height_in_feet)
+        inches = round((height_in_feet - feet) * 12)
+    
+    return f"{feet}'{inches} ft"
+
 
 # def fetch_tmdb_movies(endpoint, params):
 #     api_token = config('API_TOKEN')
