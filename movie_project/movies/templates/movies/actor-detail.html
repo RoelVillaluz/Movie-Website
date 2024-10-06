@@ -124,15 +124,22 @@
          </div>
       </div>
       <div class="personal-info">
-         <h1>Personal Info</h1>         
+         <h1>Personal Info</h1>    
+         <div class="label-placeholder"></div>     
          <ul>
             <li>
                <h3>Gender<i class="fa-solid fa-venus-mars"></i></h3>
                <p>{{ actor.get_gender_display }}</p>
+
+               <div class="label-placeholder"></div> 
+               <div class="detail-placeholder"></div>
             </li>
             <li>
                <h3>Nationality <i class="fa-solid fa-flag"></i></h3>
                <p>{{ actor.nationality }}</p>
+
+               <div class="label-placeholder"></div> 
+               <div class="detail-placeholder"></div>
            </li>
            <li>
                <h3>Height</h3>
@@ -141,6 +148,13 @@
                {% else %}
                   <p>{{ actor.height }} cm</p>
                {% endif %}
+
+               <div class="label-placeholder"></div> 
+               <div class="detail-placeholder"></div>
+            </li>
+            <li>
+               <div class="label-placeholder"></div> 
+               <div class="detail-placeholder"></div>
             </li>
          </ul>
       </div>
@@ -208,7 +222,7 @@
       <h1>Films Starring <span>{{ actor }}</span></h1>
       <ul>
          {% for movie in movies %}
-            <li>{% include 'movies/card.html' %}</li>
+            <li class="skeleton">{% include 'movies/card.html' %}</li>
          {% endfor %}
       </ul>
    </section>
