@@ -202,6 +202,8 @@ def convert_height_to_feet(person):
         height_in_feet = person.height / 30.48
         feet = int(height_in_feet)
         inches = round((height_in_feet - feet) * 12)
+    else:
+        return "N/A"
     
     return f"{feet}'{inches} ft"
 

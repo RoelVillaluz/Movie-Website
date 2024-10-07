@@ -620,11 +620,10 @@ input[type="checkbox"] {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    list-style-type: none;
     margin-top: 20px;
 }
 
-.often-works-with-list li {
+.often-works-with-list-item {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -633,11 +632,11 @@ input[type="checkbox"] {
     margin-top: 10px;
 }
 
-.often-works-with-list li a {
+.often-works-with-list-item a {
     text-decoration: none;
 }
 
-.often-works-with-list li img {
+.often-works-with-list-item img {
     width: 100%;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
@@ -645,18 +644,18 @@ input[type="checkbox"] {
     filter: brightness(0.9) contrast(1.1) grayscale(0.25);
 }
 
-.often-works-with-list li h3,
-.often-works-with-list li span {
+.often-works-with-list-item h3,
+.often-works-with-list-item span {
     width: 15vw;  
 }
 
-.often-works-with-list li h3 {
+.often-works-with-list-item h3 {
     font-size: clamp(16px, 1.5vw, 32px);
     margin-top: 10px;
     margin-bottom: 5px;
 }
 
-.often-works-with-list li span {
+.often-works-with-list-item span {
     width: 120px;
     font-size: clamp(12px, 1.25vw, 28px);
     color: #b1b1b1;

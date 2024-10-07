@@ -120,10 +120,6 @@ class Actor(models.Model):
         if (today.month, today.day) < (self.birth_date.month, self.birth_date.day):
             age -= 1
         return age
-    
-    # def cm_to_feet(self):
-    #     height_in_cm = self.height
-    #     height_in_feet = 
 
     def avg_movie_rating(self):
         avg_rating = self.movies.aggregate(average=Avg('reviews__rating'))['average']

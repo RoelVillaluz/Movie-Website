@@ -137,13 +137,43 @@
 }
 
 .skeleton .line-placeholder {
-    background-color: rgb(70, 70, 70); 
     width: 100%; 
     height: 20px;
     margin: 5px 0px;
     border-radius: 4px; 
     display: inline-block; 
+    background-color: rgb(70, 70, 70); 
     animation: skeleton-loading 3s infinite linear;
+}
+
+.person-placeholder-list {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    list-style-type: none;
+}
+
+.skeleton .person-placeholder-list li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    flex: 0 0 50%;
+    gap: 1rem;
+}
+
+.skeleton .person-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    margin-top: 10px;
+    background-color: rgb(70, 70, 70); 
+    animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton .person-placeholder-list .label-placeholder {
+    height: 1rem;
+    width: 80%;
 }
 
 .skeleton .line-placeholder.last {

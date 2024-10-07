@@ -161,16 +161,25 @@
    </section>
    <div style="display: flex;">
       {% if co_workers %}
-         <section class="often-works-with">
+         <section class="often-works-with skeleton">
             <h1>Often works with</h1>
+            <div class="label-placeholder"></div> 
             <ul class="often-works-with-list">
                {% for co_worker in co_workers %}
-                  <li>
+                  <li class="often-works-with-list-item">
                      <a href="{% url 'actor-detail' co_worker.0 %}">
                         <img src="{{ co_worker.1.image }}" alt="">
                         <h3>{{ co_worker.1.name }}</h3>
                         <span>{{ co_worker.1.count }} Movies</span>
                      </a>
+                  </li>
+               {% endfor %}
+            </ul>
+            <ul class="person-placeholder-list">
+               {% for co_worker in co_workers %}
+                  <li>
+                     <div class="person-placeholder"></div>
+                     <div class="label-placeholder"></div>
                   </li>
                {% endfor %}
             </ul>
