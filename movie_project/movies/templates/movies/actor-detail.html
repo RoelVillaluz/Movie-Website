@@ -175,20 +175,22 @@
                      
                      <div class="person-placeholder"></div>
                      <div class="label-placeholder"></div>
-                     
+
                   </li>
                {% endfor %}
             </ul>
          </section>
       {% endif %}
-      <section class="known-for">
+      <section class="known-for skeleton">
          <h1>Known for</h1>
+         <div class="label-placeholder"></div> 
          <ul>
             {% for movie in known_for %}
                <li>
                   <a href="{% url 'movie-detail' movie.pk %}">
                      <img src="{{ movie.poster_path.url }}" alt="">
                   </a>
+                  <div class="image-placeholder"></div>
                </li>           
             {% endfor %}
          </ul>

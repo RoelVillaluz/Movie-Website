@@ -688,7 +688,6 @@ input[type="checkbox"] {
 }
 
 .known-for ul li a {
-    position: relative;
     display: inline-block;
 }
 

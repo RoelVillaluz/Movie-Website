@@ -168,6 +168,18 @@
     width: 50%;
 }
 
+.known-for.skeleton a {
+    display: none;
+}
+
+.skeleton .image-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(70, 70, 70); 
+    border-radius: 5px;
+    animation: skeleton-loading 3s infinite linear;
+}
+
 li.show {
     animation: skeleton-show 0.5s forwards;
 }
