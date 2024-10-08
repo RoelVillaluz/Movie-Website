@@ -96,13 +96,13 @@ nav a {
 }
 
 .notification-image {
-    height: 100px;
+    height: 75px;
     object-fit: contain;
     border-radius: 5px;
 }
 
 .notification-message {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: black;
     padding: 0px 10px;

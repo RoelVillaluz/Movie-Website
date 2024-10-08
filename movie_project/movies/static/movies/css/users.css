@@ -439,6 +439,12 @@ input[type="checkbox"] {
     right: 10%;
 }
 
+.default-cover-photo {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(182, 182, 182, 0.7);
+}
+
 .profile-wrapper {
     position: absolute;
     display: flex;

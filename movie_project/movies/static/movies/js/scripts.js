@@ -22,19 +22,6 @@ sidebar.addEventListener('click', function(event) {
     event.stopPropagation();
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const thumbnail = document.querySelector('.main-video-container .thumbnail');
-    const video = document.querySelector('.main-video-container video');
-
-    thumbnail.addEventListener('click', function() {
-        thumbnail.style.display = 'none';  
-        video.style.display = 'block';     
-        video.play();                      
-    });
-
-    video.style.display = 'none'; // Start with the video hidden
-});
-
 
 const galleryImages = document.querySelectorAll('.gallery img')
 galleryImages.forEach(image => {
