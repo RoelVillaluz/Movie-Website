@@ -270,14 +270,27 @@ class DirectorDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         director = self.get_object()
+        most_popular_movie = director.most_popular_movie()
 
-        videos = [video for movie in director.movies.all() for video in movie.videos.all()]
+        profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
+        is_following = Follow.objects.filter(
+            profile=profile,
+            content_type=ContentType.objects.get_for_model(director),
+            object_id=director.id
+        ).exists() if profile else False
+
+        known_for = director.movies.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')[:4]
         
         context.update({
-            'known_for': director.movies.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')[:4],
-            'videos': videos,
-            'main_video': videos[0] if videos else None,
+            'movies': director.movies.all(),
+            'known_for': known_for,
+            'director_rank': director.get_rank(),
             'awards': director.awards,
+            'follower_count': director.follower_count,
+            'most_popular_movie': most_popular_movie,
+            'is_following': is_following,
+            'age': director.get_age,
+            'default_bio': director.default_bio,
         })
 
         return context

@@ -1,7 +1,242 @@
 {% extends 'movies/layout.html' %}
 
-{% block title %} {{ director }} {% endblock %}
+{% block title %} {{ director.name }} {% endblock %}
 
 {% block body %}
-    
+   <section class="profile">
+      <div class="profile-header skeleton">
+         {% if most_popular_movie %}
+            <img src="{{ most_popular_movie.backdrop_path.url }}" alt="" class="profile-cover-photo">
+            <div class="cover-photo-placeholder"></div>
+         {% endif %}
+         <div class="profile-wrapper">
+            <div class="profile-picture">
+               <img src="{{ director.image.url }}" alt="" class="profile-pic"> 
+               <i class="fa-solid fa-camera"></i>
+
+               <div class="profile-pic-placeholder"></div>
+
+            </div>
+            <div class="profile-details">
+               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                     <h1>{{ director.name }}</h1>
+                     <a href="{% url 'follow_content' model_name='director' object_id=director.id %}" class="follow-btn">
+                        {% if is_following %}
+                              <span>Unfollow</span>
+                              <i class="fa-solid fa-minus"></i>
+                        {% else %}
+                              <span>Follow</span>
+                              <i class="fa-solid fa-plus"></i>
+                        {% endif %}
+                     </a>       
+                     
+                     <div class="profile-details-placeholder">
+                        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                           <div class="profile-name-placeholder"></div>
+                           <div class="follow-btn-placeholder"></div>
+                        </div>
+                        <div class="line-placeholder"></div>
+                     </div>
+                  </div>
+
+                  <div class="stats-container">
+                     <div class="stat">
+                        <h3>{{ director.movies.count }}</h3>
+                        <p>Movies</p>
+                     </div>
+                     <div class="stat">
+                        <h3>{{ follower_count }}</h3>
+                        <p>Followers</p>
+                     </div>
+                     <div class="stat">
+                        <h3>{{ director.avg_movie_rating|floatformat:1 }}</h3>
+                        <p>Movie Rating</p>
+                     </div>
+                     <div class="stat">
+                        <h3>#{{ director_rank }}</h3>
+                        <p>Rank</p>
+                     </div>
+
+                     <div class="stat-placeholder">
+                        <div></div>
+                        <div class="line-placeholder"></div>
+                     </div>
+                     <div class="stat-placeholder">
+                        <div></div>
+                        <div class="line-placeholder"></div>
+                     </div>
+                     <div class="stat-placeholder">
+                        <div></div>
+                        <div class="line-placeholder"></div>
+                     </div>
+                     <div class="stat-placeholder">
+                        <div></div>
+                        <div class="line-placeholder"></div>
+                     </div>
+                  </div>
+               </div>
+
+               {% if most_popular_movie %}
+                  <h3>Director • {{ most_popular_movie }}</h3>
+               {% else %}
+                  <h3>Director • No movies yet</h3>
+               {% endif %}
+
+               <div class="socials-container">
+                  <i class="fa-brands fa-facebook"></i>
+                  <i class="fa-brands fa-twitter"></i>
+                  <i class="fa-brands fa-instagram"></i>
+               </div>
+
+               <div class="social-links-placeholders">
+                  <div class="link-placeholder"></div>
+                  <div class="link-placeholder"></div>
+                  <div class="link-placeholder"></div>
+               </div>
+            </div>
+         </div>
+      </div>     
+   </section>
+   <section class="about skeleton">
+      <div class="profile-bio">
+         <div style="margin-bottom: 20px;">
+
+            <h1>Born</h1>
+            {% if director.birth_date|date:"Y-m-d" == "2000-01-01" %}
+            <p><i class="fa-solid fa-calendar-days"></i>Not specified</p>
+            {% else %}
+                <p><i class="fa-solid fa-calendar-days"></i>{{ director.birth_date }} ({{ age }}) years old</p>
+            {% endif %}
+            <p><i class="fa-solid fa-location-dot"></i>{{ director.birth_place }}</p>
+
+            <div class="label-placeholder"></div>
+            <div class="detail-placeholder"></div>
+            <div class="detail-placeholder"></div>
+
+         </div>
+         <div>
+            <h1>Biography</h1>
+            {% if director.bio != 'No bio yet' %}
+               <p>{{ director.bio }}</p>
+            {% else %}
+               <p>{{ default_bio }}</p>
+            {% endif %}
+
+            <div class="label-placeholder" style="margin-top: 3rem;"></div>
+            <div class="line-placeholder"></div>
+            <div class="line-placeholder"></div>
+            <div class="line-placeholder last"></div>
+         </div>
+      </div>
+      <div class="personal-info">
+         <h1>Personal Info</h1>    
+         <div class="label-placeholder"></div>     
+         <ul>
+            <li>
+               <h3>Gender<i class="fa-solid fa-venus-mars"></i></h3>
+               <p>{{ director.get_gender_display }}</p>
+
+               <div class="label-placeholder"></div> 
+               <div class="detail-placeholder"></div>
+            </li>
+            <li>
+               <h3>Nationality <i class="fa-solid fa-flag"></i></h3>
+               <p>{{ director.nationality }}</p>
+
+               <div class="label-placeholder"></div> 
+               <div class="detail-placeholder"></div>
+           </li>
+           <li>
+               <h3>Height</h3>
+               {% if director.height == 0 %}
+                  <p>N/A</p>
+               {% else %}
+                  <p>{{ director.height }} cm / {{ height_in_feet }}</p>
+               {% endif %}
+
+               <div class="label-placeholder"></div> 
+               <div class="detail-placeholder"></div>
+            </li>
+            <li>
+               <div class="label-placeholder"></div> 
+               <div class="detail-placeholder"></div>
+            </li>
+         </ul>
+      </div>
+   </section>
+   <div style="display: flex;">
+      {% if co_workers %}
+         <section class="often-works-with skeleton">
+            <h1>Often works with</h1>
+            <div class="label-placeholder"></div> 
+            <ul class="often-works-with-list">
+               {% for co_worker in co_workers %}
+                  <li>
+                     <a href="{% url 'director-detail' co_worker.0 %}">
+                        <img src="{{ co_worker.1.image }}" alt="">
+                        <h3>{{ co_worker.1.name }}</h3>
+                        <span>{{ co_worker.1.count }} Movies</span>
+                     </a>
+                     
+                     <div class="person-placeholder"></div>
+                     <div class="label-placeholder"></div>
+
+                  </li>
+               {% endfor %}
+            </ul>
+         </section>
+      {% endif %}
+      <section class="known-for skeleton">
+         <h1>Known for</h1>
+         <div class="label-placeholder"></div> 
+         <ul>
+            {% for movie in known_for %}
+               <li>
+                  <a href="{% url 'movie-detail' movie.pk %}">
+                     <img src="{{ movie.poster_path.url }}" alt="">
+                  </a>
+                  <div class="image-placeholder"></div>
+               </li>           
+            {% endfor %}
+         </ul>
+      </section>
+   </div>
+   {% if accolades %}
+      <section class="profile-awards">
+         <h1>Awards and Nominations</h1>
+         <ul>
+            {% for award_name, award_data in accolades.items %}
+               <li class="profile-award-name">
+                  <h3>{{ award_name }}</h3>
+                  <div class="profile-award-count">
+                     <p>{{ award_data.win_count }} Wins</p>
+                     <p>{{ award_data.nomination_count }} Nominations</p>
+                  </div>
+                  {% for data in award_data.awards %}
+                     <li class="profile-award-item">
+                        {% if data.winner %}
+                           <i class="fa-solid fa-trophy winner"></i>
+                        {% else %}
+                           <i class="fa-solid fa-award nominee"></i>
+                        {% endif %}
+                        <div class="profile-award-details">
+                           <h4>{{ data.category }}<span>({{ data.year }})</span></h4>
+                           <p>{{ data.movie }} -{% if data.winner %} <span class="profile-award-status">Winner</span> {% else %} <span class="profile-award-status">Nominee</span> {% endif %}</p>
+                        </div>
+                     </li>
+                  {% endfor %}
+               </li>
+            {% endfor %}
+         </ul>
+      </section>
+   {% endif %}
+   <section class="profile-movies">
+      <h1>Films by <span>{{ director }}</span></h1>
+      <ul>
+         {% for movie in movies %}
+            <li class="skeleton">{% include 'movies/card.html' %}</li>
+         {% endfor %}
+      </ul>
+   </section>
 {% endblock %}

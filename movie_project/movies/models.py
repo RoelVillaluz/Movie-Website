@@ -148,7 +148,8 @@ class Actor(models.Model):
             bio += f" They are of {self.nationality} nationality."
         
         # Add popular movie details
-        bio += f" best known for their work in movies such as {popular_movie_title}."
+        if most_popular_movie:
+            bio += f" best known for their work in movies such as {popular_movie_title}."
         
         return bio
 
@@ -222,7 +223,8 @@ class Director(models.Model):
             bio += f" They are of {self.nationality} nationality."
         
         # Add popular movie details
-        bio += f" best known for their work in movies such as {popular_movie_title}."
+        if most_popular_movie:
+            bio += f" best known for their work in movies such as {popular_movie_title}."
         
         return bio
 
