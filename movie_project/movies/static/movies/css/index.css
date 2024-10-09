@@ -867,8 +867,6 @@ and only apply hover filter effect once all animations have stopped
 }
 
 .month-movie-list {
-    display: flex;
-    flex-direction: column;
     margin-top: 1rem;
     list-style-type: none;
 }
@@ -937,6 +935,24 @@ and only apply hover filter effect once all animations have stopped
 .month-movie-item .cast-list p {
     color: #919191;
     font-size: 0.9rem;
+}
+
+.month-link {
+    text-decoration: none;
+    float: right;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 1rem;
+    font-weight: 700;
+    background-color: white;
+    color: rgb(20, 20, 20);
+    transition: 0.3s;
+    font-size: 0.9rem;
+}
+
+.month-link i {
+    color: rgb(20, 20, 20);
+    transition: 0.3s;
 }
 
 .community {
