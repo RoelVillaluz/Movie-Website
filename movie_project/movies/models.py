@@ -169,13 +169,78 @@ class Actor(models.Model):
         return Follow.objects.filter(content_type=actor_content_type, object_id=self.pk).count()
 
 class Director(models.Model):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('N', 'Non-Binary'),
+    ]
+
     name = models.CharField(max_length=50)
     bio = models.TextField(default="No bio yet.")
     image = models.ImageField(upload_to="media", default="media/default.jfif")
     movies = models.ManyToManyField(Movie, related_name="directors")
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default="Not specified")
+    birth_place = models.CharField(max_length=100, default="Not specified")
+    nationality = models.CharField(max_length=50, default="Not specified")
+    birth_date = models.DateField(default='2000-01-01')
+    height = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
+    
+    def get_age(self):
+        today = date.today()
+        age = today.year - self.birth_date.year
+        if (today.month, today.day) < (self.birth_date.month, self.birth_date.day):
+            age -= 1
+        return age
+
+    def avg_movie_rating(self):
+        avg_rating = self.movies.aggregate(average=Avg('reviews__rating'))['average']
+        return avg_rating or 0
+    
+    def most_popular_movie(self):
+        most_popular_movie = self.movies.annotate(review_count=Count('reviews')).order_by('-review_count').first()
+        return most_popular_movie
+    
+    def default_bio(self):
+        most_popular_movie = self.most_popular_movie()
+        popular_movie_title = most_popular_movie.title if most_popular_movie else "No popular movie"
+        
+        # Generate bio string based on actor details
+        bio = f"{self.name} is an director"
+
+        if self.birth_date != date(2000, 1, 1):
+            birth_date_formatted = self.birth_date.strftime('%B %d, %Y')  # Format date to "Month Day, Year"
+            bio += f" born on {birth_date_formatted}, they are currently {self.get_age()} years old."
+
+        if self.birth_place != 'Not specified':
+            bio += f" from {self.birth_place}"
+        
+        # Add nationality if specified
+        if self.nationality != "Not specified":
+            bio += f" They are of {self.nationality} nationality."
+        
+        # Add popular movie details
+        bio += f" best known for their work in movies such as {popular_movie_title}."
+        
+        return bio
+
+    @staticmethod
+    def ranked_directors():
+        return Director.objects.annotate(avg_rating=Avg('movies__reviews__rating')).order_by('-avg_rating')
+
+    def get_rank(self): 
+        ranked_directors = Director.ranked_directors().annotate(rank=Window(expression=Rank(), order_by=F('avg_rating').desc()))
+        for director in ranked_directors:
+            if director.pk == self.pk:
+                return director.rank
+        return None
+    
+    def follower_count(self):
+        from users.models import Follow
+        director_content_type = ContentType.objects.get_for_model(self)
+        return Follow.objects.filter(content_type=director_content_type, object_id=self.pk).count()
     
 class Award(models.Model):
     BEST_PICTURE = 'Best Picture'
