@@ -182,20 +182,22 @@ def get_top_rated_movies(num_of_movies):
 
     return top_rated_movies
 
-def often_works_with(actor):
-    movies = actor.movies.prefetch_related('actors').all()  # Prefetch actors for all movies
-    worked_with_actors = defaultdict(lambda: {'count': 0, 'name': '', 'image': ''})
+def often_works_with(person):
+    movies = person.movies.prefetch_related('actors', 'directors').all()  # Prefetch actors and directors for all movies
+    co_workers = defaultdict(lambda: {'count': 0, 'name': '', 'image': '', 'type': ''})
     
     for movie in movies:
-        for co_actor in movie.actors.exclude(id=actor.id):
-            worked_with_actors[co_actor.id]['count'] += 1  
-            worked_with_actors[co_actor.id]['name'] = co_actor.name  
-            worked_with_actors[co_actor.id]['image'] = co_actor.image.url  
+        for co_worker, co_worker_type in [(actor, 'actor') for actor in movie.actors.exclude(id=person.id)] + \
+                                        [(director, 'director') for director in movie.directors.exclude(id=person.id)]:
+            co_workers[co_worker.id]['count'] += 1
+            co_workers[co_worker.id]['name'] = co_worker.name
+            co_workers[co_worker.id]['image'] = co_worker.image.url
+            co_workers[co_worker.id]['type'] = co_worker_type
     
     # Sort by count and limit to top 5 actors
-    top_5_actors = sorted(worked_with_actors.items(), key=lambda x: x[1]['count'], reverse=True)[:2]
+    co_workers = sorted(co_workers.items(), key=lambda x: x[1]['count'], reverse=True)[:2]
 
-    return top_5_actors
+    return co_workers
 
 def convert_height_to_feet(person):
     if person.height != 0:

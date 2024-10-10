@@ -271,6 +271,7 @@ class DirectorDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         director = self.get_object()
         most_popular_movie = director.most_popular_movie()
+        co_workers = often_works_with(director)
 
         profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
         is_following = Follow.objects.filter(
@@ -291,6 +292,7 @@ class DirectorDetailView(DetailView):
             'is_following': is_following,
             'age': director.get_age,
             'default_bio': director.default_bio,
+            'co_workers': co_workers
         })
 
         return context
