@@ -141,21 +141,6 @@ def get_directors_and_most_popular_movies(directors, num_movies):
 
     return director_and_most_popular_movies
 
-def get_actor_accolades(actor):
-    # Dictionary structure: {award_name: {category: {'wins': 0, 'nominations': 0}}}
-    actor_accolades = defaultdict(lambda: {'awards': [], 'win_count': 0, 'nomination_count': 0})
-
-    awards = actor.awards.all()
-
-    for award in awards:
-        actor_accolades[award.award_name]['awards'].append(award)
-        actor_accolades[award.award_name]['nomination_count'] += 1
-        if award.winner:
-            actor_accolades[award.award_name]['win_count'] += 1
-
-    return dict(actor_accolades)
-
-
 def get_genre_dict(genres):
     """Get a dictionary of popular genres and a random movie for each genre."""
     genre_dict = {}
@@ -181,6 +166,20 @@ def get_top_rated_movies(num_of_movies):
     ).order_by('-avg_rating', '-review_count').exclude(review_count__lt=5)[:num_of_movies]
 
     return top_rated_movies
+
+def get_person_accolades(person):
+    # Dictionary structure: {award_name: {category: {'wins': 0, 'nominations': 0}}}
+    person_accolades = defaultdict(lambda: {'awards': [], 'win_count': 0, 'nomination_count': 0})
+
+    awards = person.awards.all()
+
+    for award in awards:
+        person_accolades[award.award_name]['awards'].append(award)
+        person_accolades[award.award_name]['nomination_count'] += 1
+        if award.winner:
+            person_accolades[award.award_name]['win_count'] += 1
+
+    return dict(person_accolades)
 
 def often_works_with(person):
     movies = person.movies.prefetch_related('actors', 'directors').all()  # Prefetch actors and directors for all movies
