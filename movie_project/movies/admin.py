@@ -121,6 +121,7 @@ class ActorAdmin(admin.ModelAdmin):
 class DirectorAdmin(admin.ModelAdmin):
     list_display = ('name', 'display_movies')
     search_fields = ('name', 'movies__title')
+    list_filter = (HasMoviesFilter,)
     inlines = [create_inline(Movie.directors.through)]
     ordering = ('name',)
 
