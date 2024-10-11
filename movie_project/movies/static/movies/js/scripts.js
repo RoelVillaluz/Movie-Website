@@ -31,14 +31,30 @@ galleryImages.forEach(image => {
     })
 })
 
-const profilePics = document.querySelectorAll('.profile-pic')
-profilePics.forEach(pic => {
-    pic.addEventListener('click', function() {
+const clickablePics = document.querySelectorAll('.clickable-pic');
+const imageModal = document.querySelector('.image-modal');
 
-        const profilePicModal = document.querySelector('.image-modal');
-        profilePicModal.style.display = 'block';
-    })
-})
+clickablePics.forEach(pic => {
+  pic.addEventListener('click', function() {
+    toggleModal();
+  });
+});
+
+function toggleModal() {
+    const isVisible = imageModal.classList.contains('visible')
+    imageModal.classList.toggle('visible', !isVisible)
+    document.body.classList.toggle('blurry', !isVisible);
+}
+
+// Close modal when clicking outside of it
+document.addEventListener('click', function(event) {
+    if (imageModal.classList.contains('visible') && 
+        !imageModal.contains(event.target) && 
+        !Array.from(clickablePics).includes(event.target)) {
+        toggleModal();
+    }
+});
+
 
 const profileMenu = document.querySelector('.profile-menu');
 const dropdownList = document.querySelector('.dropdown-list');

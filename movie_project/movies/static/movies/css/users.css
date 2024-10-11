@@ -811,7 +811,15 @@ input[type="checkbox"] {
     z-index: 100; 
 }
 
+.image-modal.visible {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+}
+
 .image-modal img {
-    width: 90%; 
-    height: 90%; 
+    width: 70%; 
+    height: 70%; 
+    object-fit: cover;
+    border: solid 1px white;
 }
