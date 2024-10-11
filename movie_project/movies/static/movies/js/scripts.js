@@ -31,6 +31,15 @@ galleryImages.forEach(image => {
     })
 })
 
+const profilePics = document.querySelectorAll('.profile-pic')
+profilePics.forEach(pic => {
+    pic.addEventListener('click', function() {
+
+        const profilePicModal = document.querySelector('.image-modal');
+        profilePicModal.style.display = 'block';
+    })
+})
+
 const profileMenu = document.querySelector('.profile-menu');
 const dropdownList = document.querySelector('.dropdown-list');
 
