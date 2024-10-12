@@ -184,14 +184,26 @@ def get_person_accolades(person):
 def often_works_with(person):
     movies = person.movies.prefetch_related('actors', 'directors').all()  # Prefetch actors and directors for all movies
     co_workers = defaultdict(lambda: {'count': 0, 'name': '', 'image': '', 'type': ''})
+    counted_co_workers = set()
     
     for movie in movies:
-        for co_worker, co_worker_type in [(actor, 'actor') for actor in movie.actors.exclude(id=person.id)] + \
-                                        [(director, 'director') for director in movie.directors.exclude(id=person.id)]:
-            co_workers[co_worker.id]['count'] += 1
-            co_workers[co_worker.id]['name'] = co_worker.name
-            co_workers[co_worker.id]['image'] = co_worker.image.url
-            co_workers[co_worker.id]['type'] = co_worker_type
+        # Create a combined list of all co-workers (actors and directors) excluding the person
+        all_co_workers = [
+            (co_worker, 'actor') for co_worker in movie.actors.exclude(id=person.id)
+        ] + [
+            (co_worker, 'director') for co_worker in movie.directors.exclude(id=person.id)
+        ]
+
+        # Use a set to track counted co-workers for this movie
+        counted_co_workers = set()
+
+        for co_worker, co_worker_type in all_co_workers:
+            if co_worker.id not in counted_co_workers:
+                co_workers[co_worker.id]['count'] += 1
+                co_workers[co_worker.id]['name'] = co_worker.name
+                co_workers[co_worker.id]['image'] = co_worker.image.url
+                co_workers[co_worker.id]['type'] = co_worker_type
+                counted_co_workers.add(co_worker.id)
     
     # Sort by count and limit to top 5 actors
     co_workers = sorted(co_workers.items(), key=lambda x: x[1]['count'], reverse=True)[:2]
