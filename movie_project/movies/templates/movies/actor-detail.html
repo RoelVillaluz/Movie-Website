@@ -203,6 +203,14 @@
          </ul>
       </section>
    </div>
+   <section class="profile-gallery">
+      <h1>Photos</h1>
+      <ul>
+         {% for image in actor_images %}
+            <img src="{{ image.image.url }}" alt="" class="clickable-pic" data-image="{{ image.image.url }}">
+         {% endfor %}
+      </ul>
+   </section>
    {% if accolades %}
       <section class="profile-awards">
          <h1>Awards and Nominations</h1>

@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from movies.forms import MovieSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, convert_height_to_feet, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Follow, Profile, Watchlist
-from .models import Actor, Movie, Genre, Director, MovieVideo, Review, User
+from .models import Actor, Movie, Genre, Director, Review, PersonImage
 from django.views.generic import ListView, DetailView
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -231,6 +231,8 @@ class ActorDetailView(DetailView):
         accolades = get_person_accolades(actor)
         movies_by_year = get_movies_by_year(actor.movies.all().order_by('-release_date__year'))
         height_in_feet = convert_height_to_feet(actor)
+        
+        actor_images =  PersonImage.objects.filter(content_type=ContentType.objects.get(model='actor'), object_id=actor.id)
 
         # Get logged-in user's profile and check if they follow this actor
         profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
@@ -257,7 +259,8 @@ class ActorDetailView(DetailView):
             'is_following': is_following,
             'movies_by_year': movies_by_year,
             'known_for': known_for,
-            'height_in_feet': height_in_feet
+            'height_in_feet': height_in_feet,
+            'actor_images': actor_images
         })
 
         return context
