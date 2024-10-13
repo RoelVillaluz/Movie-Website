@@ -4,7 +4,7 @@
 
 {% block body %}
    <div class="image-modal">
-      <img src="{{ actor.image.url }}" alt="">
+      <img src="" alt="">
    </div>
    <section class="profile">
       <div class="profile-header skeleton">
@@ -14,12 +14,10 @@
          {% endif %}
          <div class="profile-wrapper">
             <div class="profile-picture">
-               <img src="{{ actor.image.url }}" alt="" id="profile-pic" class="clickable-pic" data-id="{{ actor.id }}" data-image="{{ actor.image.url }}"> 
+               <img src="{{ actor.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ actor.id }}" data-image="{{ actor.image.url }}"> 
                <i class="fa-solid fa-camera"></i>
-
                <div class="profile-pic-placeholder"></div>
-
-            </div>
+             </div>
             <div class="profile-details">
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
                   <div style="display: flex; align-items: center; gap: 10px;">

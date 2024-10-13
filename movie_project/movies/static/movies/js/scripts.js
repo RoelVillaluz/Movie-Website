@@ -37,6 +37,8 @@ const imageModal = document.querySelector('.image-modal');
 clickablePics.forEach(pic => {
   pic.addEventListener('click', function() {
     toggleModal();
+    const image = document.querySelector('.image-modal img')
+    image.src = this.dataset.image;
   });
 });
 

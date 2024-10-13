@@ -818,8 +818,8 @@ input[type="checkbox"] {
 }
 
 .image-modal img {
-    width: 70%; 
-    height: 70%; 
+    width: 100%; 
+    height: 100%; 
     object-fit: cover;
     border: solid 1px white;
 }

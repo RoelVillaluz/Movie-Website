@@ -1,7 +1,11 @@
 {% extends 'movies/layout.html' %}
 
 {% block title %}MovieVerse - {{ movie.title }}{% endblock %}
+
 {% block body %}
+    <div class="image-modal">
+        <img src="" alt="">
+    </div>
     <section class="movie">
         <img class="movie-backdrop" src="{{ movie.backdrop_path.url }}" alt="{{ movie.title }}">
         <div class="movie-header">
@@ -160,7 +164,7 @@
                         {% for image in movie.images.all %}
                             <div class="gallery-slide">
                                 <div class="image hidden">
-                                    <img src="{{ image.image.url }}" alt="" data-id="{{ image.id }}">
+                                    <img src="{{ image.image.url }}" alt="" data-id="{{ image.id }}" class="clickable-pic" data-image="{{ image.image.url }}">
                                 </div>
                             </div>
                         {% endfor %}
