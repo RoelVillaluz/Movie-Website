@@ -93,7 +93,16 @@ class Review(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+    
+class PersonImage(models.Model):
+    image = models.ImageField(upload_to="person_images")
 
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return f"{self.content_object}'s image"
 
 class Actor(models.Model):
     GENDER_CHOICES = [

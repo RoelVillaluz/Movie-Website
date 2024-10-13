@@ -1,10 +1,12 @@
 from typing import Any
+from django import forms
 from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
-from .models import Actor, Award, Director, Movie, Genre, MovieImage, MovieVideo, Review, User
-from django.contrib.admin.widgets import AutocompleteSelect
+from .models import Actor, Award, Director, Movie, Genre, MovieImage, MovieVideo, PersonImage, Review, User
+from django.contrib.contenttypes.models import ContentType
+
 
 # Register your models here.
 admin.site.register(User)
@@ -75,6 +77,16 @@ def create_inline(through_model):
     """
     return type('DynamicInline', (ThroughModelInline,), {'model': through_model})
 
+class PersonImageForm(forms.ModelForm):
+    class Meta:
+        model = PersonImage
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        content_types = ContentType.objects.filter(model__in=['actor', 'director', 'profile'])
+        self.fields['content_type'].queryset = content_types
+
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     list_display = ('title', 'display_genres', 'display_actors')
@@ -102,7 +114,10 @@ class MovieAdmin(admin.ModelAdmin):
             kwargs['queryset'] = Genre.objects.order_by('name')
         return super().formfield_for_manytomany(db_field, request, **kwargs)
     # do the same later for movies, alphabetize movies for review model admin
-    
+
+@admin.register(PersonImage)
+class PersonImageAdmin(admin.ModelAdmin):
+    form = PersonImageForm
 
 @admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
