@@ -3,8 +3,14 @@
 {% block title %} {{ actor.name }} {% endblock %}
 
 {% block body %}
-   <div class="image-modal">
-      <img src="" alt="">
+   <div class="image-modal-container">
+      <div class="image-modal">
+         <img src="" alt="">
+         <div class="overlay">
+            <h1></h1>
+            <p>Description</p>
+         </div>
+      </div>
    </div>
    <section class="profile">
       <div class="profile-header skeleton">
@@ -207,7 +213,9 @@
       <h1>Photos</h1>
       <ul>
          {% for image in actor_images %}
-            <img src="{{ image.image.url }}" alt="" class="clickable-pic" data-image="{{ image.image.url }}">
+            <li>
+               <img src="{{ image.image.url }}" alt="" class="clickable-pic" data-image="{{ image.image.url }}" data-name="{{ image.content_object.name }}">
+            </li>
          {% endfor %}
       </ul>
    </section>

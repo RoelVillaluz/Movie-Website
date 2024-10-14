@@ -32,26 +32,31 @@ galleryImages.forEach(image => {
 })
 
 const clickablePics = document.querySelectorAll('.clickable-pic');
-const imageModal = document.querySelector('.image-modal');
+const imageModalContainer = document.querySelector('.image-modal-container');
+const modalImage = document.querySelector('.image-modal img')
 
 clickablePics.forEach(pic => {
   pic.addEventListener('click', function() {
     toggleModal();
-    const image = document.querySelector('.image-modal img')
-    image.src = this.dataset.image;
+    modalImage.src = this.dataset.image;
+    document.querySelector('.image-modal h1').textContent = this.dataset.name;
   });
 });
 
 function toggleModal() {
-    const isVisible = imageModal.classList.contains('visible')
-    imageModal.classList.toggle('visible', !isVisible)
+    const isVisible = imageModalContainer.classList.contains('visible')
+    imageModalContainer.classList.toggle('visible', !isVisible)
     document.body.classList.toggle('blurry', !isVisible);
+
+    const nav = document.querySelector('nav');
+    nav.style.display = (nav.style.display === 'none') ? 'flex': 'none';
 }
 
 // Close modal when clicking outside of it
 document.addEventListener('click', function(event) {
-    if (imageModal.classList.contains('visible') && 
-        !imageModal.contains(event.target) && 
+    const modal = document.querySelector('.image-modal')
+    if (imageModalContainer.classList.contains('visible') && 
+        !modal.contains(event.target) && 
         !Array.from(clickablePics).includes(event.target)) {
         toggleModal();
     }

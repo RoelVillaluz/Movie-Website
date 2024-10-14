@@ -802,28 +802,70 @@ input[type="checkbox"] {
     margin-top: 2rem;
 }
 
-.image-modal {
+.image-modal-container {
     display: none; 
     position: fixed; 
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%); 
     z-index: 100; 
+    width: 100vw;
+    height: 100vh;
 }
 
-.image-modal.visible {
+.image-modal-container.visible {
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: center;
+}
+
+.image-modal {
+    position: relative;
+    width: 90%;
+    height: 90%;
 }
 
 .image-modal img {
     width: 100%; 
     height: 100%; 
     object-fit: cover;
-    border: solid 1px white;
+}
+
+.image-modal .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15%;
+    padding: 10px;
+    background-color: rgb(20, 20, 20, 0.7);
+    border-top: solid 1px rgba(255, 255, 255, 0.3);
 }
 
 .profile-gallery {
-    
+    padding: 20px;
+}
+
+.profile-gallery h1 {
+    margin-bottom: 1rem;
+}
+
+.profile-gallery ul {
+    display: flex;
+    list-style-type: none;
+    gap: 0.5rem;
+}
+
+.profile-gallery img {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: 0.3s;
+    filter: contrast(1.2) grayscale(0.1);
+}
+
+.profile-gallery img:hover {
+    filter: contrast(1.3) grayscale(0.2);
 }
