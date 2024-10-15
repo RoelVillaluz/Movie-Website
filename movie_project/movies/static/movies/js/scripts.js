@@ -45,17 +45,30 @@ clickablePics.forEach(pic => {
 
 document.addEventListener('DOMContentLoaded', function() {
     const hideBtn = document.querySelector('.fa-angle-down');
+    const detailsBtn = document.querySelector('.fa-solid.fa-circle-info');
+    const overlay = document.querySelector('.overlay');
+
+    function toggleOverlay() {
+        if (overlay) {
+            overlay.classList.toggle('hidden');
+
+            // Toggle the visibility of the details button
+            if (overlay.classList.contains('hidden')) {
+                detailsBtn.classList.remove('hidden');
+            } else {
+                detailsBtn.classList.add('hidden');
+            }
+        }
+    }
 
     if (hideBtn) {
-        hideBtn.addEventListener('click', function() {
-            const overlay = document.querySelector('.overlay');
-            if (overlay) {
-                overlay.classList.toggle('hidden');
-            }
-        });
+        hideBtn.addEventListener('click', toggleOverlay);
+    }
+
+    if (detailsBtn) {
+        detailsBtn.addEventListener('click', toggleOverlay);
     }
 });
-
 
 function toggleModal() {
     const isVisible = imageModalContainer.classList.contains('visible')
