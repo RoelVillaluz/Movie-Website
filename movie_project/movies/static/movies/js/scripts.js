@@ -34,7 +34,6 @@ galleryImages.forEach(image => {
 const clickablePics = document.querySelectorAll('.clickable-pic');
 const imageModalContainer = document.querySelector('.image-modal-container');
 const modalImage = document.querySelector('.image-modal img')
-const closeModalBtn = document.querySelector('.close-modal-btn')
 
 clickablePics.forEach(pic => {
   pic.addEventListener('click', function() {
@@ -43,10 +42,6 @@ clickablePics.forEach(pic => {
     document.querySelector('.image-modal h1').textContent = this.dataset.name;
   });
 });
-
-closeModalBtn.addEventListener('click', function() {
-    toggleModal();
-})
 
 function toggleModal() {
     const isVisible = imageModalContainer.classList.contains('visible')

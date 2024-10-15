@@ -821,13 +821,12 @@ input[type="checkbox"] {
 
 .image-modal {
     position: relative;
-    width: 90%;
-    height: 90%;
+    display: inline-block; 
 }
 
 .image-modal img {
-    width: 100%; 
-    height: 100%; 
+    max-width: 90vw;
+    max-height: 90vh; 
     object-fit: cover;
 }
 
@@ -878,6 +877,11 @@ input[type="checkbox"] {
     display: flex;
     list-style-type: none;
     gap: 0.5rem;
+}
+
+.profile-gallery li {
+    flex: 0 0 25%;
+    min-height: 50vh;
 }
 
 .profile-gallery img {

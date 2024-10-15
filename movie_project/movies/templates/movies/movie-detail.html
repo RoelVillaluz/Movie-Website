@@ -3,8 +3,17 @@
 {% block title %}MovieVerse - {{ movie.title }}{% endblock %}
 
 {% block body %}
-    <div class="image-modal">
+    <div class="image-modal-container">
+        <div class="image-modal">
         <img src="" alt="">
+        <div class="overlay">
+            <h1></h1>
+            <p>Description</p>
+        </div>
+        <div class="close-modal-btn" onclick="toggleModal()">
+            <i class="fa-solid fa-x"></i>
+        </div>
+        </div>
     </div>
     <section class="movie">
         <img class="movie-backdrop" src="{{ movie.backdrop_path.url }}" alt="{{ movie.title }}">
@@ -164,7 +173,7 @@
                         {% for image in movie.images.all %}
                             <div class="gallery-slide">
                                 <div class="image hidden">
-                                    <img src="{{ image.image.url }}" alt="" data-id="{{ image.id }}" class="clickable-pic" data-image="{{ image.image.url }}">
+                                    <img src="{{ image.image.url }}" alt="" data-id="{{ image.id }}" class="clickable-pic" data-image="{{ image.image.url }}" data-name="{{ movie.title }}">
                                 </div>
                             </div>
                         {% endfor %}
