@@ -43,6 +43,20 @@ clickablePics.forEach(pic => {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const hideBtn = document.querySelector('.fa-angle-down');
+
+    if (hideBtn) {
+        hideBtn.addEventListener('click', function() {
+            const overlay = document.querySelector('.overlay');
+            if (overlay) {
+                overlay.classList.toggle('hidden');
+            }
+        });
+    }
+});
+
+
 function toggleModal() {
     const isVisible = imageModalContainer.classList.contains('visible')
     imageModalContainer.classList.toggle('visible', !isVisible)

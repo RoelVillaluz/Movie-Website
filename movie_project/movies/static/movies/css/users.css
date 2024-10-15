@@ -837,8 +837,38 @@ input[type="checkbox"] {
     width: 100%;
     height: 15%;
     padding: 10px;
+    opacity: 1;
     background-color: rgb(20, 20, 20, 0.7);
     border-top: solid 1px rgba(255, 255, 255, 0.3);
+    transition: 0.1s;
+}
+
+.image-modal .overlay.hidden {
+    opacity: 0;
+}
+
+.image-modal .overlay h1 {
+    font-size: 1.5rem;
+}
+
+.image-modal .overlay i {
+    position: absolute;
+    top: -25%;
+    right: 5%;
+    font-size: 1rem;
+    background-color: rgb(20, 20, 20, 0.7);
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.image-modal .overlay.hidden i {
+    display: none;
+}
+
+.image-modal .overlay i:hover {
+    background-color: rgba(51, 51, 51, 0.7);
 }
 
 .close-modal-btn {
@@ -862,7 +892,7 @@ input[type="checkbox"] {
 }
 
 .close-modal-btn i {
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .profile-gallery {
