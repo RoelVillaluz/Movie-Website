@@ -934,6 +934,7 @@ input[type="checkbox"] {
     display: flex;
     list-style-type: none;
     gap: 0.5rem;
+    margin-right: 1rem;
 }
 
 .profile-gallery li {
@@ -948,9 +949,8 @@ input[type="checkbox"] {
     object-fit: cover;
     cursor: pointer;
     transition: 0.3s;
-    filter: contrast(1.2) grayscale(0.1);
 }
 
 .profile-gallery img:hover {
-    filter: contrast(1.3) grayscale(0.2);
+    filter: contrast(1.2) grayscale(0.1);
 }

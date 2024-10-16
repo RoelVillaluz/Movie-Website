@@ -30,7 +30,7 @@
          {% endif %}
          <div class="profile-wrapper">
             <div class="profile-picture">
-               <img src="{{ actor.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ actor.id }}" data-image="{{ actor.image.url }}"> 
+               <img src="{{ actor.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ actor.id }}" data-image="{{ actor.image.url }}" data-name="{{ actor.name }}"> 
                <i class="fa-solid fa-camera"></i>
                <div class="profile-pic-placeholder"></div>
              </div>
@@ -222,7 +222,7 @@
    <section class="profile-gallery">
       <h1>Photos</h1>
       <ul>
-         {% for image in actor_images %}
+         {% for image in all_actor_images %}
             <li>
                <img src="{{ image.image.url }}" alt="" class="clickable-pic" data-image="{{ image.image.url }}" data-name="{{ image.content_object.name }}">
             </li>
