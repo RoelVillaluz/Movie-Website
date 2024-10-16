@@ -926,8 +926,16 @@ input[type="checkbox"] {
     padding: 20px;
 }
 
-.profile-gallery h1 {
+.profile-gallery .header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     margin-bottom: 1rem;
+}
+
+.profile-gallery span {
+    font-size: 1.25rem;
+    color: #c0c0c0;
 }
 
 .profile-gallery ul {
@@ -951,6 +959,17 @@ input[type="checkbox"] {
     transition: 0.3s;
 }
 
-.profile-gallery img:hover {
+.profile-gallery .last-image-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-gallery img.last {
+    filter: brightness(0.5);
+}
+
+.profile-gallery img:not(.last):hover {
     filter: contrast(1.2) grayscale(0.1);
 }

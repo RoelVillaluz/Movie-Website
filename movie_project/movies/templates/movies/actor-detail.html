@@ -220,17 +220,34 @@
       </section>
    </div>
    <section class="profile-gallery">
-      <h1>Photos</h1>
+      <div class="header">
+         <h1>Photos</h1>
+         <span>({{ all_images_count }})</span>
+      </div>
       <ul>
          {% for image in all_actor_images %}
-            <li>
-               <img 
-    src="{{ image.image.url }}" 
-    alt="" 
-    class="clickable-pic" 
-    data-image="{{ image.image.url }}" 
-    data-name="{% if image.content_object.name %}{{ image.content_object.name }}{% elif image.movie.title %}{{ image.movie.title }}{% endif %}">
-            </li>
+            {% if forloop.last %}
+               <li class="last-image-item">
+                  <img 
+                  src="{{ image.image.url }}" 
+                  alt="" 
+                  class="clickable-pic last" 
+                  data-image="{{ image.image.url }}" 
+                  data-name="{% if image.content_object.name %}{{ image.content_object.name }}{% elif image.movie.title %}{{ image.movie.title }}{% endif %}">
+                  <div class="overlay">
+                     
+                  </div>
+               </li>
+            {% else %}
+               <li>
+                  <img 
+                     src="{{ image.image.url }}" 
+                     alt="" 
+                     class="clickable-pic" 
+                     data-image="{{ image.image.url }}" 
+                     data-name="{% if image.content_object.name %}{{ image.content_object.name }}{% elif image.movie.title %}{{ image.movie.title }}{% endif %}">
+               </li>
+            {% endif %}
          {% endfor %}
       </ul>
    </section>
