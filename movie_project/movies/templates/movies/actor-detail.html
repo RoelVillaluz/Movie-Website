@@ -224,7 +224,12 @@
       <ul>
          {% for image in all_actor_images %}
             <li>
-               <img src="{{ image.image.url }}" alt="" class="clickable-pic" data-image="{{ image.image.url }}" data-name="{{ image.content_object.name }}">
+               <img 
+    src="{{ image.image.url }}" 
+    alt="" 
+    class="clickable-pic" 
+    data-image="{{ image.image.url }}" 
+    data-name="{% if image.content_object.name %}{{ image.content_object.name }}{% elif image.movie.title %}{{ image.movie.title }}{% endif %}">
             </li>
          {% endfor %}
       </ul>
