@@ -980,12 +980,22 @@ input[type="checkbox"] {
 
 .profile-gallery .last-image-item .overlay i {
     font-size: 2rem;
+    color: #dfdfdf;
+}
+
+.profile-gallery .last-image-item .overlay h3 {
+    color: #dfdfdf;
 }
 
 .profile-gallery img.last {
-    filter: brightness(0.5);
+    filter: brightness(0.4);
+    transition: 0.3s;
 }
 
 .profile-gallery img:not(.last):hover {
     filter: contrast(1.2) grayscale(0.1);
+}
+
+.profile-gallery img.last:hover {
+    filter: brightness(0.6);
 }

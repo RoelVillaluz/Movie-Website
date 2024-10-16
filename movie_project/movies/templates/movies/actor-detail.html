@@ -226,7 +226,7 @@
       </div>
       <ul>
          {% for image in all_actor_images %}
-            {% if forloop.last %}
+            {% if forloop.last and all_images_count > 4 %}
                <li class="last-image-item">
                   <img 
                   src="{{ image.image.url }}" 
