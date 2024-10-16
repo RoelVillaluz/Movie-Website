@@ -236,6 +236,7 @@ class ActorDetailView(DetailView):
         actor_movie_images = MovieImage.objects.filter(movie__actors=actor)
 
         all_actor_images = list(actor_images) + list(actor_movie_images)
+        all_images_count = len(all_actor_images)
 
         # Get logged-in user's profile and check if they follow this actor
         profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
@@ -264,7 +265,8 @@ class ActorDetailView(DetailView):
             'known_for': known_for,
             'height_in_feet': height_in_feet,
             'all_actor_images': all_actor_images[:4],
-            'all_images_count': len(all_actor_images)
+            'all_images_count': all_images_count,
+            'more_images_count': max(all_images_count - 4, 0)
         })
 
         return context

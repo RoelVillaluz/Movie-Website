@@ -235,7 +235,8 @@
                   data-image="{{ image.image.url }}" 
                   data-name="{% if image.content_object.name %}{{ image.content_object.name }}{% elif image.movie.title %}{{ image.movie.title }}{% endif %}">
                   <div class="overlay">
-                     
+                     <i class="fa-solid fa-image"></i>
+                     <h3>+ {{ more_images_count }}</h3>
                   </div>
                </li>
             {% else %}
