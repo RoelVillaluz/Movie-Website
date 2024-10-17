@@ -130,7 +130,7 @@ class Actor(models.Model):
     nationality = models.CharField(max_length=50, default="Not specified")
     birth_date = models.DateField(default='2000-01-01')
     height = models.IntegerField(default=0)
-    images = models.ManyToManyField('PersonImage', related_name='actors')
+    images = models.ManyToManyField('PersonImage', related_name='actors', blank=True)
 
     def __str__(self):
         return self.name

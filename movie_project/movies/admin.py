@@ -46,6 +46,8 @@ class HasMoviesFilter(admin.SimpleListFilter):
   
         return queryset
     
+
+    
 class ThroughModelInline(admin.TabularInline):
     model = None
     extra = 1

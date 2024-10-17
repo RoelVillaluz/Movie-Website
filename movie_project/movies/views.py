@@ -465,3 +465,18 @@ class SearchSuggestionsView(View):
             'directors': director_results,
             'director_count': total_matching_directors
         })
+
+class GetMovieImageDataView(View):
+    def get(self, request, *args, **kwargs):
+        images = MovieImage.objects.all()
+        image_data = []
+
+        for image in images:
+            data = {
+                'image_url': image.image.url,
+                'name': str(image.movie),
+                'people': image.people_in_image().split(', ')
+            }
+        image_data.append(data)
+
+        return JsonResponse(image_data, safe=False)
