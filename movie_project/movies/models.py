@@ -53,7 +53,9 @@ class MovieImage(models.Model):
     directors = models.ManyToManyField('Director', related_name='movie_images', blank=True)
 
     def __str__(self):
-        return f"{self.movie} Image"
+        people = self.people_in_image()
+        people_names = ', '.join(str(person) for person in people)
+        return f"{self.movie} Image: {people_names}"
     
     def people_in_image(self):
         all_people = list(self.actors.all()) + list(self.directors.all())
