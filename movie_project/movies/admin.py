@@ -46,7 +46,21 @@ class HasMoviesFilter(admin.SimpleListFilter):
   
         return queryset
     
+class HasImagesFilter(admin.SimpleListFilter):
+    title = 'Has Images'
+    parameter_name = 'images'
 
+    def lookups(self, request, model_admin):
+        return (
+            ('yes', 'Yes'),
+            ('no', 'No')
+        )
+    
+    def queryset(self, request, queryset):
+        if self.value() == 'yes':
+            return Actor.objects.filter(movie_images__isnull=False).distinct()
+        else:
+            return Actor.objects.filter(movie_images__isnull=True).distinct()
     
 class ThroughModelInline(admin.TabularInline):
     model = None
@@ -125,7 +139,7 @@ class PersonImageAdmin(admin.ModelAdmin):
 class ActorAdmin(admin.ModelAdmin):
     list_display = ('name', 'display_movies')
     search_fields = ('name', 'movies__title')
-    list_filter = (HasMoviesFilter,)
+    list_filter = (HasMoviesFilter, HasImagesFilter)
     inlines = [create_inline(Movie.actors.through)]
     ordering = ('name',)
 
