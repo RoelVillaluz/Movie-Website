@@ -40,6 +40,7 @@ clickablePics.forEach(pic => {
     toggleModal();
     modalImage.src = this.dataset.image;
     document.querySelector('.image-modal h1').textContent = this.dataset.name;
+    document.querySelector('.image-modal p').textContent = this.dataset.people;
   });
 });
 

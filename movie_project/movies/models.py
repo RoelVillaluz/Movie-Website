@@ -54,12 +54,15 @@ class MovieImage(models.Model):
 
     def __str__(self):
         people = self.people_in_image()
-        people_names = ', '.join(str(person) for person in people)
-        return f"{self.movie} Image: {people_names}"
+        return f"{self.movie} Image: {people}"
     
     def people_in_image(self):
-        all_people = list(self.actors.all()) + list(self.directors.all())
-        return all_people
+        actor_names = [str(actor) for actor in self.actors.all()]
+        director_names = [str(director) for director in self.directors.all()]
+
+        all_people = actor_names + director_names
+
+        return ', '.join(all_people)
     
 class MovieVideo(models.Model):
     movie = models.ForeignKey(Movie, related_name="videos", blank=True, null=True, on_delete=models.CASCADE)

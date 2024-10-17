@@ -233,7 +233,8 @@
                   alt="" 
                   class="clickable-pic last" 
                   data-image="{{ image.image.url }}" 
-                  data-name="{% if image.content_object.name %}{{ image.content_object.name }}{% elif image.movie.title %}{{ image.movie.title }}{% endif %}">
+                  data-name="{% if image.content_object.name %}{{ image.content_object.name }}{% elif image.movie.title %}{{ image.movie.title }}{% endif %}"
+                  data-people="{{ image.people_in_image }}">
                   <div class="overlay">
                      <i class="fa-solid fa-image"></i>
                      <h3>+ {{ more_images_count }}</h3>
@@ -246,7 +247,8 @@
                      alt="" 
                      class="clickable-pic" 
                      data-image="{{ image.image.url }}" 
-                     data-name="{% if image.content_object.name %}{{ image.content_object.name }}{% elif image.movie.title %}{{ image.movie.title }}{% endif %}">
+                     data-name="{% if image.content_object.name %}{{ image.content_object.name }}{% elif image.movie.title %}{{ image.movie.title }}{% endif %}"
+                     data-people="{{ image.people_in_image }}">
                </li>
             {% endif %}
          {% endfor %}

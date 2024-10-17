@@ -233,7 +233,7 @@ class ActorDetailView(DetailView):
         height_in_feet = convert_height_to_feet(actor)
         
         actor_images =  PersonImage.objects.filter(content_type=ContentType.objects.get(model='actor'), object_id=actor.id)
-        actor_movie_images = MovieImage.objects.filter(movie__actors=actor)
+        actor_movie_images = MovieImage.objects.filter(actors=actor)
 
         all_actor_images = list(actor_images) + list(actor_movie_images)
         all_images_count = len(all_actor_images)
