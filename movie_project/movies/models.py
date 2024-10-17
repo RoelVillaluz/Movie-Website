@@ -49,9 +49,15 @@ class Movie(models.Model):
 class MovieImage(models.Model):
     movie = models.ForeignKey(Movie, related_name="images", on_delete=models.CASCADE)
     image = models.ImageField(upload_to="movie_images")
+    actors = models.ManyToManyField('Actor', related_name='movie_images', blank=True)
+    directors = models.ManyToManyField('Director', related_name='movie_images', blank=True)
 
     def __str__(self):
         return f"{self.movie} Image"
+    
+    def people_in_image(self):
+        all_people = list(self.actors.all()) + list(self.directors.all())
+        return all_people
     
 class MovieVideo(models.Model):
     movie = models.ForeignKey(Movie, related_name="videos", blank=True, null=True, on_delete=models.CASCADE)
