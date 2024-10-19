@@ -852,11 +852,6 @@ input[type="checkbox"] {
     margin-bottom: 6px;
 }
 
-.image-modal .overlay p {
-    font-size: 0.9rem;
-    color: #cecece;
-}
-
 .image-modal .overlay i {
     display: flex;
     justify-content: center;

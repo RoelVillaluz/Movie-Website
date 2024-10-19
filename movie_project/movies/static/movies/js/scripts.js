@@ -50,14 +50,18 @@ clickablePics.forEach(pic => {
                 const imageData = data.find(item => item.image_url === imageUrl);
 
                 if (imageData) {
-                    const peopleContainer = document.querySelector('.image-modal .overlay p');
+                    const peopleContainer = document.querySelector('.people-in-image');
                     peopleContainer.innerHTML = ''; 
 
-                    imageData.people.forEach(person => {
+                    imageData.people.forEach((person, index) => {
                         const link = document.createElement('a');
                         link.href = `/actors/${encodeURIComponent(person.id)}`; 
                         link.textContent = person;
                         peopleContainer.appendChild(link);
+
+                        if (index < imageData.people.length - 1) {
+                            peopleContainer.appendChild(document.createTextNode(', '));
+                        }
                     });
                 }
             })
