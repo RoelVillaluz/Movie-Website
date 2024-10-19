@@ -852,6 +852,35 @@ input[type="checkbox"] {
     margin-bottom: 6px;
 }
 
+.image-modal .people-in-image > * {
+    color: #b1b1b1;
+    text-decoration: none;
+}
+
+.image-modal .people-in-image a {
+    position: relative;
+    transition: 0.3s;
+}
+
+.image-modal .people-in-image a::before {
+    position: absolute;
+    content: '';
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    transition: 0.3s;
+    background-color: white;
+}
+
+.image-modal .people-in-image a:hover {
+    color: white;
+}
+
+.image-modal .people-in-image a:hover::before {
+    width: 100%;
+}
+
 .image-modal .overlay i {
     display: flex;
     justify-content: center;

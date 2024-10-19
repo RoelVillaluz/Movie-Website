@@ -60,7 +60,9 @@ clickablePics.forEach(pic => {
                         peopleContainer.appendChild(link);
 
                         if (index < imageData.people.length - 1) {
-                            peopleContainer.appendChild(document.createTextNode(', '));
+                            const comma = document.createElement('span');
+                            comma.textContent = ', ';
+                            peopleContainer.appendChild(comma);
                         }
                     });
                 }
