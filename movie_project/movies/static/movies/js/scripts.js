@@ -55,7 +55,11 @@ clickablePics.forEach(pic => {
 
                     imageData.people.forEach((person, index) => {
                         const link = document.createElement('a');
-                        link.href = `/actors/${encodeURIComponent(person.id)}`; 
+                        if (person.type === 'actor') {
+                            link.href = `/actors/${encodeURIComponent(person.id)}`; 
+                        } else if (person.type === 'director') {
+                            link.href = `/directors/${encodeURIComponent(person.id)}`; 
+                        }
                         link.textContent = person.name;
                         peopleContainer.appendChild(link);
 
