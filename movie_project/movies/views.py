@@ -475,7 +475,7 @@ class GetMovieImageDataView(View):
             data = {
                 'image_url': image.image.url,
                 'name': str(image.movie),
-                'people': image.people_in_image().split(', ')
+                'people': image.people_in_image()
             }
             image_data.append(data)
 
