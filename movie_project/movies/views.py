@@ -477,6 +477,6 @@ class GetMovieImageDataView(View):
                 'name': str(image.movie),
                 'people': image.people_in_image().split(', ')
             }
-        image_data.append(data)
+            image_data.append(data)
 
         return JsonResponse(image_data, safe=False)

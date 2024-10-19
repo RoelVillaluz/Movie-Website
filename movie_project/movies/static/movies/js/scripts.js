@@ -33,16 +33,39 @@ galleryImages.forEach(image => {
 
 const clickablePics = document.querySelectorAll('.clickable-pic');
 const imageModalContainer = document.querySelector('.image-modal-container');
-const modalImage = document.querySelector('.image-modal img')
+const modalImage = document.querySelector('.image-modal img');
 
 clickablePics.forEach(pic => {
-  pic.addEventListener('click', function() {
-    toggleModal();
-    modalImage.src = this.dataset.image;
-    document.querySelector('.image-modal h1').textContent = this.dataset.name;
-    document.querySelector('.image-modal p').textContent = this.dataset.people;
-  });
+    pic.addEventListener('click', function() {
+        const imageUrl = this.dataset.image;
+        const name = this.dataset.name;
+
+        toggleModal();
+        modalImage.src = imageUrl;
+        document.querySelector('.image-modal h1').textContent = name;
+
+        fetch('/api/movie-images/') 
+            .then(response => response.json())
+            .then(data => {
+                const imageData = data.find(item => item.image_url === imageUrl);
+
+                if (imageData) {
+                    const peopleContainer = document.querySelector('.image-modal .overlay p');
+                    peopleContainer.innerHTML = ''; 
+
+                    imageData.people.forEach(person => {
+                        const link = document.createElement('a');
+                        link.href = `/actors/${encodeURIComponent(person.id)}`; 
+                        link.textContent = person;
+                        peopleContainer.appendChild(link);
+                    });
+                }
+            })
+            .catch(error => console.error('Error fetching image data:', error));
+    });
 });
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const hideBtn = document.querySelector('.fa-angle-down');
