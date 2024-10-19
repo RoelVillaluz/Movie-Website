@@ -54,7 +54,8 @@ class MovieImage(models.Model):
 
     def __str__(self):
         people = self.people_in_image()
-        return f"{self.movie} Image: {people}"
+        people_names = ', '.join([person['name'] for person in people])
+        return f"{self.movie} Image: {people_names}"
     
     def people_in_image(self):
         actors_data = [{'id': actor.id, 'name': actor.name} for actor in self.actors.all()]
