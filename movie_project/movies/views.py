@@ -474,7 +474,7 @@ class GetMovieImageDataView(View):
         for image in images:
             data = {
                 'image_url': image.image.url,
-                'movie': str(image.movie),
+                'movie': str(image.movie) if image.movie else None,
                 'movie_id': image.movie.id,
                 'people': image.people_in_image()
             }
