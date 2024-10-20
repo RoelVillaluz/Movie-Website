@@ -58,9 +58,11 @@ class HasImagesFilter(admin.SimpleListFilter):
     
     def queryset(self, request, queryset):
         if self.value() == 'yes':
-            return Actor.objects.filter(movie_images__isnull=False).distinct()
+            return queryset.filter(movie_images__isnull=False).distinct()
         else:
-            return Actor.objects.filter(movie_images__isnull=True).distinct()
+            return queryset.filter(movie_images__isnull=True).distinct()
+        
+        return queryset
     
 class ThroughModelInline(admin.TabularInline):
     model = None
