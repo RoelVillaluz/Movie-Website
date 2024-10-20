@@ -52,6 +52,8 @@ clickablePics.forEach(pic => {
             if (imageData) {
                 const imageHeader = document.querySelector('.image-header');
                 const headerLink = document.createElement('a')
+                
+                imageHeader.innerHTML = '';
 
                 if (imageData.type === 'movie') {
                     headerLink.textContent = imageData.movie;
