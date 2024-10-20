@@ -42,12 +42,16 @@ clickablePics.forEach(pic => {
 
         toggleModal();
         modalImage.src = imageUrl;
-        document.querySelector('.image-modal h1').textContent = name;
+        
 
         fetch('/api/movie-images/') 
             .then(response => response.json())
             .then(data => {
                 const imageData = data.find(item => item.image_url === imageUrl);
+                const headerLink = document.querySelector('.image-header-link');
+
+                headerLink.textContent = imageData.movie;
+                headerLink.href = `/movies/${imageData.movie_id}`
 
                 if (imageData) {
                     const peopleContainer = document.querySelector('.people-in-image');

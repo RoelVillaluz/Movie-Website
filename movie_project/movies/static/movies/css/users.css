@@ -847,9 +847,14 @@ input[type="checkbox"] {
     opacity: 0;
 }
 
-.image-modal .overlay h1 {
-    font-size: 1.2rem;
-    margin-bottom: 6px;
+.image-header-link {
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.image-modal .people-in-image {
+    margin-top: 4px;
 }
 
 .image-modal .people-in-image > * {
