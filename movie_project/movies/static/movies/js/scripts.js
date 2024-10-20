@@ -44,38 +44,61 @@ clickablePics.forEach(pic => {
         modalImage.src = imageUrl;
         
 
-        fetch('/api/movie-images/') 
-            .then(response => response.json())
-            .then(data => {
-                const imageData = data.find(item => item.image_url === imageUrl);
-                const headerLink = document.querySelector('.image-header-link');
+        fetch('/api/movie-images/')
+        .then(response => response.json())
+        .then(data => {
+            const imageData = data.find(item => item.image_url === imageUrl);
 
-                headerLink.textContent = imageData.movie;
-                headerLink.href = `/movies/${imageData.movie_id}`
+            if (imageData) {
+                const imageHeader = document.querySelector('.image-header');
+                const headerLink = document.createElement('a')
 
-                if (imageData) {
-                    const peopleContainer = document.querySelector('.people-in-image');
-                    peopleContainer.innerHTML = ''; 
-
-                    imageData.people.forEach((person, index) => {
-                        const link = document.createElement('a');
-                        if (person.type === 'actor') {
-                            link.href = `/actors/${encodeURIComponent(person.id)}`; 
-                        } else if (person.type === 'director') {
-                            link.href = `/directors/${encodeURIComponent(person.id)}`; 
-                        }
-                        link.textContent = person.name;
-                        peopleContainer.appendChild(link);
-
-                        if (index < imageData.people.length - 1) {
-                            const comma = document.createElement('span');
-                            comma.textContent = ', ';
-                            peopleContainer.appendChild(comma);
-                        }
-                    });
+                if (imageData.type === 'movie') {
+                    headerLink.textContent = imageData.movie;
+                    headerLink.href = `/movies/${imageData.movie_id}`;
+                
+                    const movieYear = document.createElement('span');
+                    movieYear.textContent = ` (${imageData.year})`;
+                
+                    imageHeader.appendChild(headerLink);
+                
+                    headerLink.insertAdjacentElement('afterend', movieYear);
+                } else if (imageData.type === 'actor') {
+                    headerLink.textContent = imageData.name;
+                    headerLink.href = `/actors/${encodeURIComponent(imageData.person_id)}`;
+                    imageHeader.appendChild(headerLink);
+                } else if (imageData.type === 'director') {
+                    headerLink.textContent = imageData.name;
+                    headerLink.href = `/directors/${encodeURIComponent(imageData.person_id)}`;
+                    imageHeader.appendChild(headerLink);
                 }
-            })
-            .catch(error => console.error('Error fetching image data:', error));
+
+                const peopleContainer = document.querySelector('.people-in-image');
+                peopleContainer.innerHTML = '';
+
+                // Iterate over the people and create links for each if available
+                imageData.people.forEach((person, index) => {
+                    const link = document.createElement('a');
+                    if (person.type === 'actor') {
+                        link.href = `/actors/${encodeURIComponent(person.id)}`;
+                    } else if (person.type === 'director') {
+                        link.href = `/directors/${encodeURIComponent(person.id)}`;
+                    }
+                    link.textContent = person.name;
+                    peopleContainer.appendChild(link);
+
+                    // Add a comma between names except for the last one
+                    if (index < imageData.people.length - 1) {
+                        const comma = document.createElement('span');
+                        comma.textContent = ', ';
+                        peopleContainer.appendChild(comma);
+                    }
+                });
+            } else {
+                console.error('Image data not found for the given URL:', imageUrl);
+            }
+        })
+        .catch(error => console.error('Error fetching image data:', error));
     });
 });
 

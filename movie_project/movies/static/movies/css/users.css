@@ -847,10 +847,20 @@ input[type="checkbox"] {
     opacity: 0;
 }
 
-.image-header-link {
+.image-header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.image-header a {
     font-size: 1.3rem;
     font-weight: 700;
     text-decoration: none;
+}
+
+.image-header span {
+    font-size: 1.1 rem;
 }
 
 .image-modal .people-in-image {

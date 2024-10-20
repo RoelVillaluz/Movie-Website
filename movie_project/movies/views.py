@@ -468,16 +468,31 @@ class SearchSuggestionsView(View):
 
 class GetMovieImageDataView(View):
     def get(self, request, *args, **kwargs):
-        images = MovieImage.objects.all()
+        movie_images = MovieImage.objects.all()
+        person_images = PersonImage.objects.all()
         image_data = []
 
-        for image in images:
+        for image in movie_images:
             data = {
                 'image_url': image.image.url,
                 'movie': str(image.movie) if image.movie else None,
-                'movie_id': image.movie.id,
+                'year': image.movie.release_date.year,
+                'movie_id': image.movie.id if image.movie else None,
+                'type': 'movie',
                 'people': image.people_in_image()
             }
             image_data.append(data)
 
+        for image in person_images:
+            content_type = image.content_type.model
+            data = {
+                'image_url': image.image.url,
+                'name': image.content_object.name if content_type in ['actor', 'director'] else None,
+                'person_id': image.content_object.id if content_type in ['actor', 'director'] else None,
+                'type': content_type,
+                'people': []  
+            }
+            image_data.append(data)
+
         return JsonResponse(image_data, safe=False)
+
