@@ -52,17 +52,21 @@ clickablePics.forEach((pic, index) => {
 })
 
 leftArrow.addEventListener('click', function() {
-    if (currentIndex > 0) {
+    if (currentIndex === 0) {
+        currentIndex = allImages.length - 1; 
+    } else {
         currentIndex--;
-        openModalWithImage()
     }
+    openModalWithImage();
 })
 
 rightArrow.addEventListener('click', function() {
     if (currentIndex < allImages.length - 1) {
         currentIndex++;
-        openModalWithImage()
+    } else if (currentIndex === allImages.length - 1) {
+        currentIndex = 0
     }
+    openModalWithImage()
 })
 
 function openModalWithImage() {
@@ -171,17 +175,6 @@ function toggleModal() {
     const nav = document.querySelector('nav');
     nav.style.display = (nav.style.display === 'none') ? 'flex': 'none';
 }
-
-// Close modal when clicking outside of it
-// document.addEventListener('click', function(event) {
-//     const modal = document.querySelector('.image-modal')
-//     if (imageModalContainer.classList.contains('visible') && 
-//         !modal.contains(event.target) && 
-//         !Array.from(clickablePics).includes(event.target)) {
-//         toggleModal();
-//     }
-// });
-
 
 const profileMenu = document.querySelector('.profile-menu');
 const dropdownList = document.querySelector('.dropdown-list');
