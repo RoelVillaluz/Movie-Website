@@ -819,6 +819,24 @@ input[type="checkbox"] {
     justify-content: center;
 }
 
+.image-modal-container .fa-chevron-left,
+.image-modal-container .fa-chevron-right {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 101;
+    cursor: pointer; 
+}
+
+.image-modal-container .fa-chevron-left {
+    left: 2%; 
+}
+
+.image-modal-container .fa-chevron-right {
+    right: 2%;
+}
+
+
 .image-modal {
     position: relative;
     display: inline-block; 
