@@ -923,11 +923,19 @@ input[type="checkbox"] {
 
 .image-controls-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 1rem;
     position: absolute;
     top: 2%;
-    right: 2%;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.image-count {
+    padding: 10px 20px; 
+    background-color: rgb(20, 20, 20, 0.7);
+    border-radius: 5px;
 }
 
 .image-controls-container .fa-grip {
