@@ -69,7 +69,11 @@ function openModalWithImage() {
     const imageUrl = allImages[currentIndex].url;
     const name = allImages[currentIndex].name;
 
-    toggleModal();
+    if (!imageModalContainer.classList.contains('visible')) {
+        toggleModal();
+    }
+
+    // Update the image source and count.
     modalImage.src = imageUrl;
     imageCountSpan.textContent = `${currentIndex + 1} of ${allImages.length}`;
 
