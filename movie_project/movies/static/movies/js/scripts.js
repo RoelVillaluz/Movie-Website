@@ -34,24 +34,53 @@ galleryImages.forEach(image => {
 const clickablePics = document.querySelectorAll('.clickable-pic');
 const imageModalContainer = document.querySelector('.image-modal-container');
 const modalImage = document.querySelector('.image-modal img');
+const leftArrow = document.querySelector('.fa-chevron-left');
+const rightArrow = document.querySelector('.fa-chevron-right');
+const imageCountSpan = document.querySelector('.image-count');
 
-clickablePics.forEach(pic => {
+let currentIndex = 0;
+let allImages = Array.from(clickablePics).map(pic => ({
+    url: pic.dataset.image,
+    name: pic.dataset.name
+}))
+
+clickablePics.forEach((pic, index) => {
     pic.addEventListener('click', function() {
-        const imageUrl = this.dataset.image;
-        const name = this.dataset.name;
+        currentIndex = index;
+        openModalWithImage()
+    })
+})
 
-        toggleModal();
-        modalImage.src = imageUrl;
-        
+leftArrow.addEventListener('click', function() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        openModalWithImage()
+    }
+})
 
-        fetch('/api/movie-images/')
+rightArrow.addEventListener('click', function() {
+    if (currentIndex < allImages.length - 1) {
+        currentIndex++;
+        openModalWithImage()
+    }
+})
+
+function openModalWithImage() {
+    const imageUrl = allImages[currentIndex].url;
+    const name = allImages[currentIndex].name;
+
+    toggleModal();
+    modalImage.src = imageUrl;
+    imageCountSpan.textContent = `${currentIndex + 1} of ${allImages.length}`;
+
+    fetch('/api/movie-images/')
         .then(response => response.json())
         .then(data => {
             const imageData = data.find(item => item.image_url === imageUrl);
 
             if (imageData) {
                 const imageHeader = document.querySelector('.image-header');
-                const headerLink = document.createElement('a')
+                const headerLink = document.createElement('a');
                 
                 imageHeader.innerHTML = '';
 
@@ -101,10 +130,7 @@ clickablePics.forEach(pic => {
             }
         })
         .catch(error => console.error('Error fetching image data:', error));
-    });
-});
-
-
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const hideBtn = document.querySelector('.fa-angle-down');
@@ -143,14 +169,14 @@ function toggleModal() {
 }
 
 // Close modal when clicking outside of it
-document.addEventListener('click', function(event) {
-    const modal = document.querySelector('.image-modal')
-    if (imageModalContainer.classList.contains('visible') && 
-        !modal.contains(event.target) && 
-        !Array.from(clickablePics).includes(event.target)) {
-        toggleModal();
-    }
-});
+// document.addEventListener('click', function(event) {
+//     const modal = document.querySelector('.image-modal')
+//     if (imageModalContainer.classList.contains('visible') && 
+//         !modal.contains(event.target) && 
+//         !Array.from(clickablePics).includes(event.target)) {
+//         toggleModal();
+//     }
+// });
 
 
 const profileMenu = document.querySelector('.profile-menu');
