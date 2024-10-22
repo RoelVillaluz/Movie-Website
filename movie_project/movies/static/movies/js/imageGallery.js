@@ -23,10 +23,18 @@ let allImages = Array.from(clickablePics).map(pic => ({
 
 clickablePics.forEach((pic, index) => {
     pic.addEventListener('click', function() {
-        currentIndex = index;
-        openModalWithImage()
-    })
-})
+        // Check if the clicked image has the 'last' class
+        if (pic.classList.contains('last')) {
+            // Get the URL from the data attribute and navigate to it
+            const url = pic.getAttribute('data-url');
+            window.location.href = url; // Navigate directly to the URL
+        } else {
+            currentIndex = index; // Update current index for other images
+            openModalWithImage(); // Open modal for other images
+        }
+    });
+});
+
 
 leftArrow.addEventListener('click', function() {
     if (currentIndex === 0) {

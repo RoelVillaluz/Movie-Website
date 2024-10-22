@@ -1032,6 +1032,12 @@ input[type="checkbox"] {
     min-height: 50vh;
 }
 
+.profile-gallery li a {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+}
+
 .profile-gallery img {
     width: 100%;
     height: 100%;

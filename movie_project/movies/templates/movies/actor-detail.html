@@ -238,15 +238,17 @@
          {% for image in all_actor_images %}
             {% if forloop.last and all_images_count > 4 %}
                <li class="last-image-item">
-                  <img 
-                  src="{{ image.image.url }}" 
-                  alt="" 
-                  class="clickable-pic last" 
-                  data-image="{{ image.image.url }}">
-                  <div class="overlay">
-                     <i class="fa-solid fa-image"></i>
-                     <h3>+ {{ more_images_count }}</h3>
-                  </div>
+                  <a href="{% url 'actor-images' actor.id %}">
+                     <img 
+                     src="{{ image.image.url }}" 
+                     alt="" 
+                     class="clickable-pic last" 
+                     data-image="{{ image.image.url }}">
+                     <div class="overlay">
+                        <i class="fa-solid fa-image"></i>
+                        <h3>+ {{ more_images_count }}</h3>
+                     </div>
+                  </a>
                   <div class="image-placeholder"></div>
                </li>
             {% else %}
