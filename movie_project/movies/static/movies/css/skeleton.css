@@ -228,3 +228,7 @@ li.show {
 .skeleton .watchlist-btn {
     display: none;
 }
+
+.profile-gallery.skeleton img {
+    display: none;
+}

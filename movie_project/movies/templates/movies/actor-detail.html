@@ -229,7 +229,7 @@
          </ul>
       </section>
    </div>
-   <section class="profile-gallery">
+   <section class="profile-gallery skeleton">
       <div class="header">
          <h1>Photos</h1>
          <span>({{ all_images_count }})</span>
@@ -247,6 +247,7 @@
                      <i class="fa-solid fa-image"></i>
                      <h3>+ {{ more_images_count }}</h3>
                   </div>
+                  <div class="image-placeholder"></div>
                </li>
             {% else %}
                <li>
@@ -255,6 +256,7 @@
                      alt="" 
                      class="clickable-pic" 
                      data-image="{{ image.image.url }}">
+                  <div class="image-placeholder"></div>
                </li>
             {% endif %}
          {% endfor %}
