@@ -1,0 +1,47 @@
+{% extends 'movies/layout.html' %}
+
+{% block title %} {{ actor.name }} {% endblock %}
+
+{% block body %}
+<div class="image-modal-container">
+    <i class="fa-solid fa-chevron-left"></i>
+    
+    <div class="image-modal">
+       <img src="" alt="">
+
+       <div class="overlay">
+          <div class="image-header"></div>
+          <div class="people-in-image"></div>
+          <i class="fa-solid fa-angle-down"></i>
+       </div>
+
+       <div class="image-controls-container">
+          <span class="image-count">1 of {{ all_images_count }}</span>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+                <a href="">
+                   <i class="fa-solid fa-grip"></i>
+                </a>
+                <div class="close-modal-btn" onclick="toggleModal()">
+                   <i class="fa-solid fa-xmark"></i>
+                </div>
+          </div>
+       </div>
+
+       <i class="fa-solid fa-circle-info hidden" id="show-modal-details-btn"></i>
+    </div>
+    
+    <i class="fa-solid fa-chevron-right"></i>
+ </div>
+    <ul class="profile-gallery">
+        {% for image in all_images %}
+            <li>
+                <img 
+                src="{{ image.image.url }}" 
+                alt="" 
+                class="clickable-pic" 
+                data-image="{{ image.image.url }}">
+                <div class="image-placeholder"></div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

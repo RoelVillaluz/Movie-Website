@@ -265,10 +265,28 @@ class ActorDetailView(DetailView):
             'known_for': known_for,
             'height_in_feet': height_in_feet,
             'all_actor_images': all_actor_images[:4],
-            'all_images_count': all_images_count,
+            'all_images_count': all_images_count + 1, # + 1 to include the profile picture
             'more_images_count': max(all_images_count - 4, 0)
         })
 
+        return context
+    
+class ActorImagesView(DetailView):
+    model = Actor
+    template_name = 'movies/actor-images.html'
+    context_object_name = 'actor'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        actor = self.get_object()
+
+        actor_movie_images = MovieImage.objects.filter(actors=actor)
+        actor_images = PersonImage.objects.filter(content_type=ContentType.objects.get(model='actor'), object_id=actor.id)
+        all_images = list(actor_movie_images) + list(actor_images)
+
+        context.update({
+            'all_images': all_images
+        })
         return context
 
 class DirectorDetailView(DetailView):

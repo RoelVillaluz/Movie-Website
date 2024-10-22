@@ -12,6 +12,8 @@ const modalImage = document.querySelector('.image-modal img');
 const leftArrow = document.querySelector('.fa-chevron-left');
 const rightArrow = document.querySelector('.fa-chevron-right');
 const imageCountSpan = document.querySelector('.image-count');
+const imageHeader = document.querySelector('.image-header');
+const peopleContainer = document.querySelector('.people-in-image');
 
 let currentIndex = 0;
 let allImages = Array.from(clickablePics).map(pic => ({
@@ -32,6 +34,8 @@ leftArrow.addEventListener('click', function() {
     } else {
         currentIndex--;
     }
+    imageHeader.innerHTML = ''
+    peopleContainer.innerHTML = ''
     openModalWithImage();
 })
 
@@ -41,6 +45,8 @@ rightArrow.addEventListener('click', function() {
     } else if (currentIndex === allImages.length - 1) {
         currentIndex = 0
     }
+    imageHeader.innerHTML = ''
+    peopleContainer.innerHTML = ''
     openModalWithImage()
 })
 
@@ -62,7 +68,7 @@ function openModalWithImage() {
             const imageData = data.find(item => item.image_url === imageUrl);
 
             if (imageData) {
-                const imageHeader = document.querySelector('.image-header');
+                
                 const headerLink = document.createElement('a');
                 
                 imageHeader.innerHTML = '';
@@ -87,7 +93,6 @@ function openModalWithImage() {
                     imageHeader.appendChild(headerLink);
                 }
 
-                const peopleContainer = document.querySelector('.people-in-image');
                 peopleContainer.innerHTML = '';
 
                 // Iterate over the people and create links for each if available
