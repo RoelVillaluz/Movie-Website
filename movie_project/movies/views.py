@@ -272,63 +272,6 @@ class ActorDetailView(DetailView):
 
         return context
     
-class PersonImagesView(DetailView):
-    template_name = 'movies/person-images.html'
-    context_object_name = 'person'
-
-    def get_queryset(self):
-        model_name = self.kwargs['model_name']
-        if model_name == 'actors':
-            return Actor.objects.all()
-        elif model_name == 'directors':
-            return Director.objects.all()
-        else:
-            raise ValueError("Error: Invalid Model")
-
-        
-    def get(self, request, *args, **kwargs):
-        person = self.get_object()
-
-        if isinstance(person, Actor):
-            movie_images = MovieImage.objects.filter(actors=person)
-        else:
-            movie_images = MovieImage.objects.filter(directors=person)
-
-        person_images = PersonImage.objects.filter(content_type=ContentType.objects.get_for_model(person), object_id=person.id)
-        all_images = list(movie_images) + list(person_images)
-
-        context = {
-            'person': person,
-            'all_images': all_images
-        }
-
-        return render(request, self.template_name, context)
-
-    # def get(self, request, *args, **kwargs):
-    #     actor = self.get_object()
-
-    #     actor_movie_images = MovieImage.objects.filter(actors=actor)
-    #     actor_images = PersonImage.objects.filter(content_type=ContentType.objects.get(model='actor'), object_id=actor.id)
-    #     all_images = list(actor_movie_images) + list(actor_images)
-
-    #     # use later for filtering co actors included in the image and/or movie of the image
-    #     selected_co_actors = request.GET.getlist('co_actors')
-    #     selected_movies = request.GET.getlist('movies')
-
-    #     filters = Q()
-
-    #     # filter images with other actors present in the image
-    #     if selected_co_actors:
-    #         co_actors_q = Q()
-    #         for co_actor in co_actors_q:
-    #             co_actors_q |= Q(actor__name=co_actor)
-    #         filters |= co_actors_q
-
-    #     context = {
-    #         'all_images': all_images
-    #     }
-    #     return render(request, self.template_name, context)
-
 class DirectorDetailView(DetailView):
     model = Director
     template_name = 'movies/director-detail.html'
@@ -375,6 +318,51 @@ class DirectorDetailView(DetailView):
         })
 
         return context
+    
+class PersonImagesView(DetailView):
+    template_name = 'movies/person-images.html'
+    context_object_name = 'person'
+
+    def get_queryset(self):
+        model_name = self.kwargs['model_name']
+        if model_name == 'actors':
+            return Actor.objects.all()
+        elif model_name == 'directors':
+            return Director.objects.all()
+        else:
+            raise ValueError("Error: Invalid Model")
+
+        
+    def get(self, request, *args, **kwargs):
+        person = self.get_object()
+
+        if isinstance(person, Actor):
+            movie_images = MovieImage.objects.filter(actors=person)
+        else:
+            movie_images = MovieImage.objects.filter(directors=person)
+
+        person_images = PersonImage.objects.filter(content_type=ContentType.objects.get_for_model(person), object_id=person.id)
+        all_images = list(movie_images) + list(person_images)
+
+        # use later for filtering co actors included in the image and/or movie of the image
+        selected_co_actors = request.GET.getlist('co_actors')
+        selected_movies = request.GET.getlist('movies')
+
+        filters = Q()
+
+        # filter images with other actors present in the image
+        if selected_co_actors:
+            co_actors_q = Q()
+            for co_actor in co_actors_q:
+                co_actors_q |= Q(actor__name=co_actor)
+            filters |= co_actors_q
+
+        context = {
+            'person': person,
+            'all_images': all_images
+        }
+
+        return render(request, self.template_name, context)
         
 @csrf_exempt
 def add_to_watchlist(request, id):
