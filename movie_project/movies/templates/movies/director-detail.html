@@ -3,9 +3,7 @@
 {% block title %} {{ director.name }} {% endblock %}
 
 {% block body %}
-   <div class="image-modal">
-      <img src="" alt="">
-   </div>
+   {% include 'movies/image-modal.html' with person=director %}
    <section class="profile">
       <div class="profile-header skeleton">
          {% if most_popular_movie %}
@@ -205,6 +203,41 @@
          </ul>
       </section>
    </div>
+   <section class="profile-gallery skeleton">
+      <div class="header">
+         <h1>Photos</h1>
+         <span>({{ all_images_count }})</span>
+      </div>
+      <ul>
+         {% for image in all_director_images %}
+            {% if forloop.last and all_images_count > 4 %}
+               <li class="last-image-item">
+                  <a href="">
+                     <img 
+                     src="{{ image.image.url }}" 
+                     alt="" 
+                     class="clickable-pic last" 
+                     data-image="{{ image.image.url }}">
+                     <div class="overlay">
+                        <i class="fa-solid fa-image"></i>
+                        <h3>+ {{ more_images_count }}</h3>
+                     </div>
+                  </a>
+                  <div class="image-placeholder"></div>
+               </li>
+            {% else %}
+               <li>
+                  <img 
+                     src="{{ image.image.url }}" 
+                     alt="" 
+                     class="clickable-pic" 
+                     data-image="{{ image.image.url }}">
+                  <div class="image-placeholder"></div>
+               </li>
+            {% endif %}
+         {% endfor %}
+      </ul>
+   </section>
    {% if accolades %}
       <section class="profile-awards">
          <h1>Awards and Nominations</h1>

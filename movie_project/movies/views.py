@@ -313,6 +313,12 @@ class DirectorDetailView(DetailView):
         co_workers = often_works_with(director)
         accolades = get_person_accolades(director)
 
+        director_images =  PersonImage.objects.filter(content_type=ContentType.objects.get(model='director'), object_id=director.id)
+        director_movie_images = MovieImage.objects.filter(directors=director)
+
+        all_director_images = list(director_images) + list(director_movie_images)
+        all_images_count = len(all_director_images)
+
         profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
         is_following = Follow.objects.filter(
             profile=profile,
@@ -333,7 +339,10 @@ class DirectorDetailView(DetailView):
             'age': director.get_age,
             'default_bio': director.default_bio,
             'co_workers': co_workers,
-            'accolades': accolades
+            'accolades': accolades,
+            'all_director_images': all_director_images[:4],
+            'all_images_count': all_images_count + 1, # + 1 to include the profile picture
+            'more_images_count': max(all_images_count - 4, 0)
         })
 
         return context

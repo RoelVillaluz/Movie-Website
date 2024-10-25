@@ -3,7 +3,7 @@
 {% block title %} {{ actor.name }} {% endblock %}
 
 {% block body %}
-   {% include 'movies/image-modal.html' %}
+   {% include 'movies/image-modal.html' with person=actor %}
    <section class="profile">
       <div class="profile-header skeleton">
          {% if most_popular_movie %}
