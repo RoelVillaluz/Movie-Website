@@ -1,29 +1,35 @@
 <div class="image-modal-container">
-    <i class="fa-solid fa-chevron-left"></i>
-    
-    <div class="image-modal">
+   <i class="fa-solid fa-chevron-left"></i>
+   
+   <div class="image-modal">
        <img src="" alt="">
 
        <div class="overlay">
-          <div class="image-header"></div>
-          <div class="people-in-image"></div>
-          <i class="fa-solid fa-angle-down"></i>
+           <div class="image-header"></div>
+           <div class="people-in-image"></div>
+           <i class="fa-solid fa-angle-down"></i>
        </div>
 
        <div class="image-controls-container">
-          <span class="image-count">1 of {{ all_images_count }}</span>
-          <div style="display: flex; align-items: center; gap: 1rem;">
-                <a href="{% url 'actor-images' person.id %}">
-                   <i class="fa-solid fa-grip"></i>
-                </a>
-                <div class="close-modal-btn" onclick="toggleModal()">
+           <span class="image-count">1 of {{ all_images_count }}</span>
+           <div style="display: flex; align-items: center; gap: 1rem;">
+               {% if person_type == 'director' %}
+                     <a href="{% url 'person-images' 'directors' person.id %}">
+                        <i class="fa-solid fa-grip"></i>
+                     </a>
+               {% else %}
+                     <a href="{% url 'person-images' 'actors' person.id %}">
+                        <i class="fa-solid fa-grip"></i>
+                     </a>
+               {% endif %}        
+               <div class="close-modal-btn" onclick="toggleModal()">
                    <i class="fa-solid fa-xmark"></i>
-                </div>
-          </div>
+               </div>
+           </div>
        </div>
 
        <i class="fa-solid fa-circle-info hidden" id="show-modal-details-btn"></i>
-    </div>
-    
-    <i class="fa-solid fa-chevron-right"></i>
- </div>
+   </div>
+   
+   <i class="fa-solid fa-chevron-right"></i>
+</div>

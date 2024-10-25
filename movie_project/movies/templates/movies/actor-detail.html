@@ -210,7 +210,7 @@
          {% for image in all_actor_images %}
             {% if forloop.last and all_images_count > 4 %}
                <li class="last-image-item">
-                  <a href="{% url 'actor-images' actor.id %}">
+                  <a href="{% url 'person-images' 'actors' actor.id %}">
                      <img 
                      src="{{ image.image.url }}" 
                      alt="" 

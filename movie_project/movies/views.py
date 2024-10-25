@@ -266,40 +266,68 @@ class ActorDetailView(DetailView):
             'height_in_feet': height_in_feet,
             'all_actor_images': all_actor_images[:4],
             'all_images_count': all_images_count + 1, # + 1 to include the profile picture
-            'more_images_count': max(all_images_count - 4, 0)
+            'more_images_count': max(all_images_count - 4, 0),
+            'person_type': 'actor'
         })
 
         return context
     
-class ActorImagesView(DetailView):
-    model = Actor
-    template_name = 'movies/actor-images.html'
-    context_object_name = 'actor'
+class PersonImagesView(DetailView):
+    template_name = 'movies/person-images.html'
+    context_object_name = 'person'
 
+    def get_queryset(self):
+        model_name = self.kwargs['model_name']
+        if model_name == 'actors':
+            return Actor.objects.all()
+        elif model_name == 'directors':
+            return Director.objects.all()
+        else:
+            raise ValueError("Error: Invalid Model")
+
+        
     def get(self, request, *args, **kwargs):
-        actor = self.get_object()
+        person = self.get_object()
 
-        actor_movie_images = MovieImage.objects.filter(actors=actor)
-        actor_images = PersonImage.objects.filter(content_type=ContentType.objects.get(model='actor'), object_id=actor.id)
-        all_images = list(actor_movie_images) + list(actor_images)
+        if isinstance(person, Actor):
+            movie_images = MovieImage.objects.filter(actors=person)
+        else:
+            movie_images = MovieImage.objects.filter(directors=person)
 
-        # use later for filtering co actors included in the image and/or movie of the image
-        selected_co_actors = request.GET.getlist('co_actors')
-        selected_movies = request.GET.getlist('movies')
-
-        filters = Q()
-
-        # filter images with other actors present in the image
-        if selected_co_actors:
-            co_actors_q = Q()
-            for co_actor in co_actors_q:
-                co_actors_q |= Q(actor__name=co_actor)
-            filters |= co_actors_q
+        person_images = PersonImage.objects.filter(content_type=ContentType.objects.get_for_model(person), object_id=person.id)
+        all_images = list(movie_images) + list(person_images)
 
         context = {
+            'person': person,
             'all_images': all_images
         }
+
         return render(request, self.template_name, context)
+
+    # def get(self, request, *args, **kwargs):
+    #     actor = self.get_object()
+
+    #     actor_movie_images = MovieImage.objects.filter(actors=actor)
+    #     actor_images = PersonImage.objects.filter(content_type=ContentType.objects.get(model='actor'), object_id=actor.id)
+    #     all_images = list(actor_movie_images) + list(actor_images)
+
+    #     # use later for filtering co actors included in the image and/or movie of the image
+    #     selected_co_actors = request.GET.getlist('co_actors')
+    #     selected_movies = request.GET.getlist('movies')
+
+    #     filters = Q()
+
+    #     # filter images with other actors present in the image
+    #     if selected_co_actors:
+    #         co_actors_q = Q()
+    #         for co_actor in co_actors_q:
+    #             co_actors_q |= Q(actor__name=co_actor)
+    #         filters |= co_actors_q
+
+    #     context = {
+    #         'all_images': all_images
+    #     }
+    #     return render(request, self.template_name, context)
 
 class DirectorDetailView(DetailView):
     model = Director
@@ -342,7 +370,8 @@ class DirectorDetailView(DetailView):
             'accolades': accolades,
             'all_director_images': all_director_images[:4],
             'all_images_count': all_images_count + 1, # + 1 to include the profile picture
-            'more_images_count': max(all_images_count - 4, 0)
+            'more_images_count': max(all_images_count - 4, 0),
+            'person_type': 'director'
         })
 
         return context
