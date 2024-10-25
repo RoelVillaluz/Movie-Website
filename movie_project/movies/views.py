@@ -276,18 +276,30 @@ class ActorImagesView(DetailView):
     template_name = 'movies/actor-images.html'
     context_object_name = 'actor'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
         actor = self.get_object()
 
         actor_movie_images = MovieImage.objects.filter(actors=actor)
         actor_images = PersonImage.objects.filter(content_type=ContentType.objects.get(model='actor'), object_id=actor.id)
         all_images = list(actor_movie_images) + list(actor_images)
 
-        context.update({
+        # use later for filtering co actors included in the image and/or movie of the image
+        selected_co_actors = request.GET.getlist('co_actors')
+        selected_movies = request.GET.getlist('movies')
+
+        filters = Q()
+
+        # filter images with other actors present in the image
+        if selected_co_actors:
+            co_actors_q = Q()
+            for co_actor in co_actors_q:
+                co_actors_q |= Q(actor__name=co_actor)
+            filters |= co_actors_q
+
+        context = {
             'all_images': all_images
-        })
-        return context
+        }
+        return render(request, self.template_name, context)
 
 class DirectorDetailView(DetailView):
     model = Director
