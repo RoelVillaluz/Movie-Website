@@ -4,16 +4,17 @@
 
 {% block body %}
    {% include 'movies/image-modal.html' %}
-   <ul class="profile-gallery">
-      {% for image in all_images %}
-         <li>
+   <div class="masonry-container">
+      <ul class="all-images-gallery">
+         {% for image in all_images %}
+            <li class="gallery-item">
                <img 
                src="{{ image.image.url }}" 
                alt="" 
                class="clickable-pic" 
                data-image="{{ image.image.url }}">
-               <div class="image-placeholder"></div>
-         </li>
-      {% endfor %}
-   </ul>
+            </li>
+         {% endfor %}
+      </ul>
+   </div>   
 {% endblock %}

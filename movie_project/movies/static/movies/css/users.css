@@ -1087,3 +1087,26 @@ input[type="checkbox"] {
 .profile-gallery img.last:hover {
     filter: brightness(0.6);
 }
+
+.masonry-container {
+    column-count: 4;
+    column-gap: 5px;
+    padding: 0.2rem;
+    padding-top: 5%;
+}
+
+.all-images-gallery {
+    list-style-type: none;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.gallery-item img:hover {
+    filter: brightness(1.2) contrast(1.1) grayscale(0.1);
+}
