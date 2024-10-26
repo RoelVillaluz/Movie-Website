@@ -35,7 +35,7 @@ clickablePics.forEach((pic, index) => {
     });
 });
 
-
+// add event listener later for keyboard arrows and refactor left and right arrow click to function instead
 leftArrow.addEventListener('click', function() {
     if (currentIndex === 0) {
         currentIndex = allImages.length - 1; 

@@ -4,17 +4,26 @@
 
 {% block body %}
    {% include 'movies/image-modal.html' %}
-   <div class="masonry-container">
-      <ul class="all-images-gallery">
-         {% for image in all_images %}
-            <li class="gallery-item">
-               <img 
-               src="{{ image.image.url }}" 
-               alt="" 
-               class="clickable-pic" 
-               data-image="{{ image.image.url }}">
-            </li>
-         {% endfor %}
-      </ul>
-   </div>   
+   <div class="gallery-header">
+      <img src="{{ person.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ person.id }}" data-image="{{ person.image.url }}" data-name="{{ person.name }}"> 
+      <div>
+         <h1>{{ person }}</h1>
+         <h4>({{ all_images|length }}) {% if all_images|length > 1 %} Photos {% else %} Photo {% endif %}</h4>
+      </div>
+   </div>
+   <div>
+      <div class="masonry-container">
+         <ul class="all-images-gallery">
+            {% for image in all_images %}
+               <li class="gallery-item">
+                  <img 
+                  src="{{ image.image.url }}" 
+                  alt="" 
+                  class="clickable-pic" 
+                  data-image="{{ image.image.url }}">
+               </li>
+            {% endfor %}
+         </ul>
+      </div>   
+   </div>
 {% endblock %}

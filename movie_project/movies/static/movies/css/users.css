@@ -1088,11 +1088,35 @@ input[type="checkbox"] {
     filter: brightness(0.6);
 }
 
+.gallery-header {
+    display: flex;
+    align-items: end;
+    gap: 0.5rem;
+    padding: 20px;
+    padding-top: 5%;
+    margin: 0 20px;
+    margin-bottom: 1rem;
+    border-bottom: solid 1px rgb(255, 255, 255);
+}
+
+.gallery-header img {
+    width: 100px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.gallery-header h4 {
+    font-weight: 200;
+    font-size: 1.25rem;
+    color: #b1b1b1;
+}
+
 .masonry-container {
     column-count: 4;
     column-gap: 5px;
-    padding: 0.2rem;
-    padding-top: 5%;
+    padding: 1rem;
 }
 
 .all-images-gallery {
