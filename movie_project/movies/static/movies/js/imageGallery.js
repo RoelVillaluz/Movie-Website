@@ -43,6 +43,17 @@ rightArrow.addEventListener('click', function() {
     nextImage()
 })
 
+document.addEventListener('keyup', function(event) {
+    switch(event.key) {
+        case "ArrowLeft":
+            prevImage();
+            break;
+        case "ArrowRight":
+            nextImage();
+            break;
+    }
+})
+
 function prevImage() {
     if (currentIndex === 0) {
         currentIndex = allImages.length - 1; 
