@@ -217,7 +217,7 @@ class GenreDetailView(DetailView):
         })
 
         return context
-
+    
 class ActorDetailView(DetailView):
     model = Actor
     template_name = 'movies/actor-detail.html'
@@ -338,8 +338,10 @@ class PersonImagesView(DetailView):
 
         if isinstance(person, Actor):
             movie_images = MovieImage.objects.filter(actors=person)
+            person_type = 'Actor'
         else:
             movie_images = MovieImage.objects.filter(directors=person)
+            person_type = 'Director'
 
         person_images = PersonImage.objects.filter(content_type=ContentType.objects.get_for_model(person), object_id=person.id)
         all_images = list(movie_images) + list(person_images)
@@ -359,7 +361,8 @@ class PersonImagesView(DetailView):
 
         context = {
             'person': person,
-            'all_images': all_images
+            'all_images': all_images,
+            'person_type': person_type
         }
 
         return render(request, self.template_name, context)

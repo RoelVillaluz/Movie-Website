@@ -1107,9 +1107,15 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+.gallery-header a {
+    font-size: 2rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
 .gallery-header h4 {
-    font-weight: 200;
     font-size: 1.25rem;
+    font-weight: 200;
     color: #b1b1b1;
 }
 
