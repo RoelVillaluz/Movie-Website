@@ -35,8 +35,15 @@ clickablePics.forEach((pic, index) => {
     });
 });
 
-// add event listener later for keyboard arrows and refactor left and right arrow click to function instead
 leftArrow.addEventListener('click', function() {
+    prevImage()
+})
+
+rightArrow.addEventListener('click', function() {
+    nextImage()
+})
+
+function prevImage() {
     if (currentIndex === 0) {
         currentIndex = allImages.length - 1; 
     } else {
@@ -45,9 +52,9 @@ leftArrow.addEventListener('click', function() {
     imageHeader.innerHTML = ''
     peopleContainer.innerHTML = ''
     openModalWithImage();
-})
+}
 
-rightArrow.addEventListener('click', function() {
+function nextImage() {
     if (currentIndex < allImages.length - 1) {
         currentIndex++;
     } else if (currentIndex === allImages.length - 1) {
@@ -56,7 +63,7 @@ rightArrow.addEventListener('click', function() {
     imageHeader.innerHTML = ''
     peopleContainer.innerHTML = ''
     openModalWithImage()
-})
+}
 
 function openModalWithImage() {
     const imageUrl = allImages[currentIndex].url;
