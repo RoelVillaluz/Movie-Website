@@ -1,5 +1,17 @@
-<form method="POST" enctype="multipart/form-data" action="{% url 'add_movie_images' %}">
-    {% csrf_token %}
-    {{ form.as_p }} <!-- This will render the form fields -->
-    <button type="submit">Add Movie Image</button>
+<form class="image-form" method="POST" enctype="multipart/form-data" action="{% url 'add_movie_images' %}">
+    <div>
+        {% csrf_token %}
+        <div class="header">
+            <h1>Add Image</h1>
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="image-box">
+            <i class="fa-solid fa-upload"></i>
+            <h3>Upload an image</h3>
+        </div>
+        <div class="form-actions">
+            <button type="reset">Reset</button>
+            <button type="submit">Add Movie Image</button>
+        </div>
+    </div>
 </form>

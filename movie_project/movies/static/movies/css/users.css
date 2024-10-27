@@ -1171,3 +1171,94 @@ input[type="checkbox"] {
 .add-photo-btn:hover i {
     color: black;
 }
+
+.image-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    height: auto;
+    background-color: white;
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 10%;
+}
+
+.image-form * {
+    color: black;
+}
+
+.image-form .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image-form .header h1 {
+    font-size: 1.5rem;
+}
+
+.image-form .header i {
+    color: #414141;
+    cursor: pointer;
+}
+
+.image-form .image-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    height: 25vh;
+    border: dashed 3px #c0c0c0;
+    border-radius: 10px;
+    margin: 1rem 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.image-form .image-box:hover {
+    background-color: #f0f0f0;
+}
+
+.image-form .image-box i {
+    color: #535353;
+    font-size: 1.5rem;
+    padding: 1.25rem;
+    border: solid 1px #c0c0c0;
+    border-radius: 5px;
+}
+
+.image-form .image-box h3 {
+    color: #2e2e2e;
+}
+
+.image-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.image-form button {
+    font-family: 'Electrolize', sans-serif;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.image-form button[type="reset"] {
+    background-color: #ebebeb;
+    color: #2e2e2e;
+    border: solid 1px #464646;
+}
+
+.image-form button[type="submit"] {
+    background-color: rgb(0, 110, 255);
+    color: white;
+}
