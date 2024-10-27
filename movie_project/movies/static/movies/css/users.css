@@ -1140,3 +1140,34 @@ input[type="checkbox"] {
 .gallery-item img:hover {
     filter: brightness(1.2) contrast(1.1) grayscale(0.1);
 }
+
+.add-photo-btn {
+    font-family: "Electrolize", sans-serif;
+    background-color: transparent;
+    padding: 10px 20px;
+    border: solid 1px white;
+    border-radius: 30px;
+    outline: none;
+    cursor: pointer;
+}
+
+.add-photo-btn span {
+    transition: 0.3s;
+}
+
+.add-photo-btn i {
+    margin-left: 5px;
+    transition: 0.3s;
+}
+
+.add-photo-btn:hover {
+    background-color: white;
+}
+
+.add-photo-btn:hover span {
+    color: black;
+}
+
+.add-photo-btn:hover i {
+    color: black;
+}
