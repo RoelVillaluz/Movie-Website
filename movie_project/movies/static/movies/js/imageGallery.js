@@ -182,6 +182,22 @@ function toggleModal() {
     nav.style.display = (nav.style.display === 'none') ? 'flex': 'none';
 }
 
+const addImageModal = document.querySelector('.image-form')
+
+
+document.querySelector('.add-photo-btn').addEventListener('click', function() {
+    showAddImageModal();
+});
+
+document.querySelector('.image-form i').addEventListener('click', function() {
+    showAddImageModal();
+});
+
 function showAddImageModal() {
-    const isVisible = addPhotoContainer.classList.contains('visible')
+    const isVisible = addImageModal.classList.contains('visible')
+    addImageModal.classList.toggle('visible', !isVisible)
+    document.body.classList.toggle('blurry', !isVisible);
+
+    const nav = document.querySelector('nav');
+    nav.style.display = (nav.style.display === 'none') ? 'flex': 'none';
 }

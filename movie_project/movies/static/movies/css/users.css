@@ -1173,6 +1173,7 @@ input[type="checkbox"] {
 }
 
 .image-form {
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -1183,6 +1184,12 @@ input[type="checkbox"] {
     padding: 20px;
     margin: 0 auto;
     margin-bottom: 10%;
+    z-index: 100; 
+
+}
+
+.image-form.visible {
+    display: block;
 }
 
 .image-form * {
