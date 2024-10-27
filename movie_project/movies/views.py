@@ -4,13 +4,13 @@ from typing import Any
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 import requests
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from movies.forms import MovieSortForm, SearchForm
+from movies.forms import MovieImageForm, MovieSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, convert_height_to_feet, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage
@@ -362,11 +362,29 @@ class PersonImagesView(DetailView):
         context = {
             'person': person,
             'all_images': all_images,
-            'person_type': person_type
+            'person_type': person_type,
+            'form': MovieImageForm()
         }
 
         return render(request, self.template_name, context)
-        
+    
+@login_required(login_url='/login')
+def add_movie_images(request):
+    if request.method == 'POST':
+        form = MovieImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            movie = form.cleaned_data['movie']
+            image = form.cleaned_data['image']
+            actor_ids = form.cleaned_data['actors']
+            director_ids = form.cleaned_data['directors']
+
+            movie_image = MovieImage.objects.create(movie=movie, image=image)
+            movie_image.actors.set(actor_ids)
+            movie_image.directors.set(director_ids)
+            return redirect(request.META.get('HTTP_REFERER', 'index'))
+    return redirect('index')
+
+@login_required(login_url='/login')
 @csrf_exempt
 def add_to_watchlist(request, id):
     user = request.user

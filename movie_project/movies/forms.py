@@ -1,5 +1,7 @@
 from django import forms
 
+from movies.models import MovieImage
+
 class SearchForm(forms.Form):
     query = forms.CharField(
         label="Search",
@@ -24,3 +26,8 @@ class MovieSortForm(forms.Form):
     ]
 
     sort_by = forms.ChoiceField(choices=SORT_CHOICES, required=False, label="Sort by")
+
+class MovieImageForm(forms.ModelForm):
+    class Meta:
+        model = MovieImage
+        fields = ['movie', 'image', 'actors', 'directors']

@@ -180,4 +180,8 @@ function toggleModal() {
 
     const nav = document.querySelector('nav');
     nav.style.display = (nav.style.display === 'none') ? 'flex': 'none';
-} 
+}
+
+function showAddImageModal() {
+    const isVisible = addPhotoContainer.classList.contains('visible')
+}

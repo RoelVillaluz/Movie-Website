@@ -1,0 +1,5 @@
+<form method="POST" enctype="multipart/form-data" action="{% url 'add_movie_images' %}">
+    {% csrf_token %}
+    {{ form.as_p }} <!-- This will render the form fields -->
+    <button type="submit">Add Movie Image</button>
+</form>
