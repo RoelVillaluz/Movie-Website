@@ -194,21 +194,6 @@ document.querySelector('.image-form i').addEventListener('click', function() {
 });
 
 
-
-// function toggleModal() {
-//     const isVisible = imageModalContainer.classList.contains('visible')
-//     imageModalContainer.classList.toggle('visible', !isVisible)
-//     document.body.classList.toggle('blurry', !isVisible);
-
-//     const nav = document.querySelector('nav');
-//     nav.style.display = (nav.style.display === 'none') ? 'flex': 'none';
-// }
-
-// function showAddImageModal() {
-//     const isVisible = imageFormModal.classList.contains('visible')
-//     imageFormModal.classList.toggle('visible', !isVisible)
-//     document.body.classList.toggle('blurry', !isVisible);
-
-//     const nav = document.querySelector('nav');
-//     nav.style.display = (nav.style.display === 'none') ? 'flex': 'none';
-// }
+document.querySelector('.image-box').addEventListener('click', function() {
+    document.querySelector('.upload-image input[type="file"]').click()
+})

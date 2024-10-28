@@ -2,16 +2,21 @@
     <div>
         {% csrf_token %}
         <div class="header">
-            <h1>Add Image</h1>
+            <h1>Add Movie Image</h1>
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div class="image-box">
             <i class="fa-solid fa-upload"></i>
+            <div class="upload-image">{{ form.image }}</div>
             <h3>Upload an image</h3>
+        </div>
+        <div>
+            <label>Movie:</label>
+            {{ form.movie }}
         </div>
         <div class="form-actions">
             <button type="reset">Reset</button>
-            <button type="submit">Add Movie Image</button>
+            <button type="submit">Save</button>
         </div>
     </div>
 </form>

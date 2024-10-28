@@ -1178,14 +1178,14 @@ input[type="checkbox"] {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70vw;
+    width: 50vw;
     height: auto;
     background-color: white;
     padding: 20px;
     margin: 0 auto;
     margin-bottom: 10%;
     z-index: 100; 
-
+    border-radius: 10px;
 }
 
 .image-form.visible {
@@ -1236,6 +1236,10 @@ input[type="checkbox"] {
     padding: 1.25rem;
     border: solid 1px #c0c0c0;
     border-radius: 5px;
+}
+
+.upload-image {
+    display: none;
 }
 
 .image-form .image-box h3 {
