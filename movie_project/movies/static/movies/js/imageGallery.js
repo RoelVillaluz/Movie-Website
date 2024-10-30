@@ -195,5 +195,33 @@ document.querySelector('.image-form i').addEventListener('click', function() {
 
 
 document.querySelector('.image-box').addEventListener('click', function() {
-    document.querySelector('.upload-image input[type="file"]').click()
-})
+    document.querySelector('.upload-image input[type="file"]').click();
+});
+
+// Listen for file input changes
+document.querySelector('.upload-image input[type="file"]').addEventListener('change', function(event) {
+    const fileInput = event.target;
+    const imageNameDisplay = document.getElementById('image-name');
+    const imagePreview = document.getElementById('image-preview')
+    const uploadIcon = document.querySelector('.fa-solid.fa-upload')
+
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const fileName = file.name;
+        imageNameDisplay.textContent = `Image chosen: ${fileName}`;
+        imageNameDisplay.style.display = 'block'; 
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+        }
+        reader.readAsDataURL(file)
+
+        uploadIcon.style.display = 'none'
+    } else {
+        imageNameDisplay.style.display = 'none'; 
+        imagePreview.style.display = 'none'
+        uploadIcon.style.display = 'block'
+    }
+});

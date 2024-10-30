@@ -1242,6 +1242,12 @@ input[type="checkbox"] {
     display: none;
 }
 
+#image-preview {
+    height: 50%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
 .image-form .image-box h3 {
     color: #2e2e2e;
 }

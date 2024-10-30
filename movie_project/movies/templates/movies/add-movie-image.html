@@ -7,12 +7,21 @@
         </div>
         <div class="image-box">
             <i class="fa-solid fa-upload"></i>
+            <img src="" alt="" id="image-preview" style="display: none;">
             <div class="upload-image">{{ form.image }}</div>
-            <h3>Upload an image</h3>
-        </div>
+            <h3 id="image-name">Upload an image</h3>
+        </div>        
         <div>
             <label>Movie:</label>
             {{ form.movie }}
+        </div>
+        <div>
+            <label>Actors:</label>
+            {{ form.actors }}
+        </div>
+        <div>
+            <label>Director:</label>
+            {{ form.directors }}
         </div>
         <div class="form-actions">
             <button type="reset">Reset</button>
