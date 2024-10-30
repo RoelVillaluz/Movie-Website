@@ -10,7 +10,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from movies.forms import MovieImageForm, MovieSortForm, SearchForm
+from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, SearchForm
 from movies.utils import available_actors, available_award_categories, convert_height_to_feet, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage
@@ -331,7 +331,24 @@ class PersonImagesView(DetailView):
             return Director.objects.all()
         else:
             raise ValueError("Error: Invalid Model")
+        
+    def post(self, request, *args, **kwargs):
+        person = self.get_object()
+        form = PersonImageForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            content_type = ContentType.objects.get_for_model(person)
 
+            PersonImage.objects.create(
+                image=form.cleaned_data['image'],
+                content_type=content_type,
+                object_id=person.id
+            )
+
+            return redirect(request.META.get('HTTP_REFERER', 'person_images'))
+        
+        # If form is not valid, re-render the page with form errors
+        return self.get(request, *args, **kwargs)
         
     def get(self, request, *args, **kwargs):
         person = self.get_object()
@@ -363,7 +380,7 @@ class PersonImagesView(DetailView):
             'person': person,
             'all_images': all_images,
             'person_type': person_type,
-            'form': MovieImageForm()
+            'form': PersonImageForm()
         }
 
         return render(request, self.template_name, context)
