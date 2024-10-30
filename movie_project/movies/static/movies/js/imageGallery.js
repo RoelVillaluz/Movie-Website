@@ -198,12 +198,13 @@ document.querySelector('.image-box').addEventListener('click', function() {
     document.querySelector('.upload-image input[type="file"]').click();
 });
 
-// Listen for file input changes
+const imageResetBtn = document.querySelector('.form-actions button[type="reset"]');
+const imageNameDisplay = document.getElementById('image-name');
+const imagePreview = document.getElementById('image-preview');
+const uploadIcon = document.querySelector('.fa-solid.fa-upload');
+
 document.querySelector('.upload-image input[type="file"]').addEventListener('change', function(event) {
     const fileInput = event.target;
-    const imageNameDisplay = document.getElementById('image-name');
-    const imagePreview = document.getElementById('image-preview')
-    const uploadIcon = document.querySelector('.fa-solid.fa-upload')
 
     if (fileInput.files.length > 0) {
         const file = fileInput.files[0];
@@ -225,3 +226,12 @@ document.querySelector('.upload-image input[type="file"]').addEventListener('cha
         uploadIcon.style.display = 'block'
     }
 });
+
+imageResetBtn.addEventListener('click', function(event) {
+    const fileInput = event.target;
+
+    fileInput.value = ''
+    imageNameDisplay.textContent = 'Upload Image'; 
+    imagePreview.style.display = 'none'
+    uploadIcon.style.display = 'block';
+})
