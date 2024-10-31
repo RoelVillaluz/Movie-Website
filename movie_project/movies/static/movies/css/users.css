@@ -1138,7 +1138,7 @@ input[type="checkbox"] {
 }
 
 .gallery-item img:hover {
-    filter: brightness(1.2) contrast(1.1) grayscale(0.1);
+    filter: contrast(1.1) grayscale(0.1);
 }
 
 .add-photo-btn {
@@ -1199,16 +1199,28 @@ input[type="checkbox"] {
 .image-form .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
 }
 
-.image-form .header h1 {
+.image-form .header h2 {
     font-size: 1.5rem;
+}
+
+.image-form .header img {
+    height: 60px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .image-form .header i {
     color: #414141;
     cursor: pointer;
+}
+
+.image-form .header p {
+    font-weight: 700;
+    color: #535353;
 }
 
 .image-form .image-box {

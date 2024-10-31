@@ -1,7 +1,13 @@
 <form class="image-form" method="post" enctype="multipart/form-data">
     <div>
         <div class="header">
-            <h1>Add image for {{ person }}</h1>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="{{ person.image.url }}" alt="{{ person.name }}">
+                <div>
+                    <h2>Add Image</h2>
+                    <p>{{ person }}</p>
+                </div>
+            </div>
             <i class="fa-solid fa-xmark"></i>
         </div>
         {% csrf_token %}
