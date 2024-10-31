@@ -3,7 +3,7 @@ import random
 from typing import Any
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 import requests
 from django.views import View
@@ -218,120 +218,100 @@ class GenreDetailView(DetailView):
 
         return context
     
-class ActorDetailView(DetailView):
-    model = Actor
-    template_name = 'movies/actor-detail.html'
-    context_object_name = 'actor'
+class PersonDetailView(DetailView):
+    template_name = 'movies/person-detail.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        model_name = kwargs.get('model_name')
+
+        if model_name == 'actors':
+            self.model = Actor
+            self.person_type = 'actor'
+        elif model_name == 'directors':
+            self.model = Director
+            self.person_type = 'director'
+        else:
+            raise Http404("Person type not found.")
+        
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_object(self):
+        return get_object_or_404(self.model, pk=self.kwargs['pk'])
+    
     def post(self, request, *args, **kwargs):
-        actor = self.get_object()
+        person = self.get_object()
         form = PersonImageForm(request.POST, request.FILES)
+
         if form.is_valid():
-            content_type = ContentType.objects.get_for_model(actor)
+            content_type = ContentType.objects.get_for_model(person)
 
             PersonImage.objects.create(
                 image=form.cleaned_data['image'],
                 content_type=content_type,
-                object_id=actor.id
+                object_id=person.id
             )
-
-            return redirect(request.META.get('HTTP_REFERER', 'actor-detail'))
+            return redirect(request.META.get('HTTP_REFERER', 'person-detail'))
         
         return self.get(request, *args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        actor = self.get_object()
-        most_popular_movie = actor.most_popular_movie
-        co_workers = often_works_with(actor)
-        accolades = get_person_accolades(actor)
-        movies_by_year = get_movies_by_year(actor.movies.all().order_by('-release_date__year'))
-        height_in_feet = convert_height_to_feet(actor)
-        
-        actor_images =  PersonImage.objects.filter(content_type=ContentType.objects.get(model='actor'), object_id=actor.id)
-        actor_movie_images = MovieImage.objects.filter(actors=actor)
-
-        all_actor_images = list(actor_images) + list(actor_movie_images)
-        all_images_count = len(all_actor_images)
-
-        # Get logged-in user's profile and check if they follow this actor
-        profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
-        is_following = Follow.objects.filter(
-            profile=profile,
-            content_type=ContentType.objects.get_for_model(actor),
-            object_id=actor.id
-        ).exists() if profile else False
-
-        known_for = actor.movies.annotate(
-                    review_count=Count('reviews')
-                ).order_by('-review_count')[:4]
-
-        context = {
-            'actor': actor,
-            'movies': actor.movies.all(),
-            'actor_rank': actor.get_rank(),
-            'avg_movie_rating': actor.movies.aggregate(Avg('reviews__rating')),
-            'most_popular_movie': most_popular_movie,
-            'follower_count': actor.follower_count,
-            'age': actor.get_age,
-            'default_bio': actor.default_bio,
-            'co_workers': co_workers,
-            'accolades': accolades,
-            'is_following': is_following,
-            'movies_by_year': movies_by_year,
-            'known_for': known_for,
-            'height_in_feet': height_in_feet,
-            'all_actor_images': all_actor_images[:4],
-            'all_images_count': all_images_count + 1, # + 1 to include the profile picture
-            'more_images_count': max(all_images_count - 4, 0),
-            'person_type': 'actor',
-            'form': PersonImageForm()
-        }
-
-        return render(request, self.template_name, context)
-        
-class DirectorDetailView(DetailView):
-    model = Director
-    template_name = 'movies/director-detail.html'
-    context_object_name = 'director'
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        director = self.get_object()
-        most_popular_movie = director.most_popular_movie()
-        co_workers = often_works_with(director)
-        accolades = get_person_accolades(director)
-
-        director_images =  PersonImage.objects.filter(content_type=ContentType.objects.get(model='director'), object_id=director.id)
-        director_movie_images = MovieImage.objects.filter(directors=director)
-
-        all_director_images = list(director_images) + list(director_movie_images)
-        all_images_count = len(all_director_images)
-
+        person = self.get_object()
+        
+        # Ensure person_type is set
+        if not hasattr(self, 'person_type'):
+            model_name = self.kwargs.get('model_name')
+            if model_name == 'actors':
+                self.person_type = 'actor'
+            elif model_name == 'director':
+                self.person_type = 'director'
+        
+        # Set specific context for Actor or Director
+        most_popular_movie = person.most_popular_movie if self.person_type == 'actor' else person.most_popular_movie()
+        co_workers = often_works_with(person)
+        accolades = get_person_accolades(person)
+        
+        # Images
+        person_images = PersonImage.objects.filter(content_type=ContentType.objects.get_for_model(self.model), object_id=person.id)
+        person_movie_images = MovieImage.objects.filter(actors=person) if self.person_type == 'actor' else MovieImage.objects.filter(directors=person)
+        
+        all_person_images = list(person_images) + list(person_movie_images)
+        all_images_count = len(all_person_images)
+        
+        # Follower status
         profile = Profile.objects.get(user=self.request.user) if self.request.user.is_authenticated else None
         is_following = Follow.objects.filter(
             profile=profile,
-            content_type=ContentType.objects.get_for_model(director),
-            object_id=director.id
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id
         ).exists() if profile else False
-
-        known_for = director.movies.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')[:4]
+        
+        # Known for section
+        if self.person_type == 'actor':
+            known_for = person.movies.annotate(review_count=Count('reviews')).order_by('-review_count')[:4]
+            avg_movie_rating = person.movies.aggregate(Avg('reviews__rating'))
+        else:
+            known_for = person.movies.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')[:4]
+            avg_movie_rating = None  # Directors may not need this
         
         context.update({
-            'movies': director.movies.all(),
-            'known_for': known_for,
-            'director_rank': director.get_rank(),
-            'awards': director.awards,
-            'follower_count': director.follower_count,
+            'person': person,
+            'movies': person.movies.all(),
+            'rank': person.get_rank(),
+            'follower_count': person.follower_count,
             'most_popular_movie': most_popular_movie,
             'is_following': is_following,
-            'age': director.get_age,
-            'default_bio': director.default_bio,
+            'age': person.get_age,
+            'default_bio': person.default_bio,
             'co_workers': co_workers,
             'accolades': accolades,
-            'all_director_images': all_director_images[:4],
-            'all_images_count': all_images_count + 1, # + 1 to include the profile picture
+            'all_person_images': all_person_images[:4],
+            'all_images_count': all_images_count + 1,
             'more_images_count': max(all_images_count - 4, 0),
-            'person_type': 'director'
+            'person_type': self.person_type,
+            'known_for': known_for,
+            'avg_movie_rating': avg_movie_rating,
+            'form': PersonImageForm(),
         })
 
         return context

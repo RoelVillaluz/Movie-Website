@@ -232,3 +232,7 @@ li.show {
 .profile-gallery.skeleton img {
     display: none;
 }
+
+.skeleton .add-photo-btn {
+    display: none;
+}

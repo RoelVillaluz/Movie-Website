@@ -228,7 +228,7 @@
             {% for actor, movie in popular_actors_and_movie.items %}
                 <li class="item hidden">
                     <div class="image">
-                        <a href="{% url 'actor-detail' actor.pk %}">
+                        <a href="{% url 'person-detail' 'actors' actor.pk %}">
                             <img src="{{ actor.image.url }}" alt="{{ actor }}">
                         </a>
                     </div>

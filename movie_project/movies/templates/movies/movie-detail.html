@@ -59,7 +59,7 @@
                 <div class="cast-wrapper">
                     {% for actor in movie.actors.all %}
                         <div class="cast-actor hidden">
-                            <a href="{% url 'actor-detail' actor.pk %}"><img src="{{ actor.image.url }}" alt=""></a>
+                            <a href="{% url 'person-detail' 'actors' actor.pk %}"><img src="{{ actor.image.url }}" alt=""></a>
                             <span class="cast-actor-name">{{ actor }}</span>
                         </div>
                     {% endfor %}
@@ -75,7 +75,7 @@
             <h1>Director</h1>
             <div class="image">
                 <div class="line"></div>
-                <a href="{% url 'director-detail' director.pk %}">
+                <a href="{% url 'person-detail' 'directors' director.pk %}">
                     <img src="{{ director.image.url }}" alt="">
                 </a>
                 <div class="line"></div>
@@ -98,7 +98,7 @@
                         {% endfor %}
                     </div>
                     <div class="link hidden">
-                        <a href="{% url 'director-detail' director.pk %}">View All</a>
+                        <a href="{% url 'person-detail' 'directors' director.pk %}">View All</a>
                         <i class="fa-solid fa-angle-right"></i>
                     </div>
                 </div>

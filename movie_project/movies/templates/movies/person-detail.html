@@ -1,9 +1,10 @@
 {% extends 'movies/layout.html' %}
 
-{% block title %} {{ director.name }} {% endblock %}
+{% block title %} {{ person.name }} {% endblock %}
 
 {% block body %}
-   {% include 'movies/image-modal.html' with person=director %}
+   {% include 'movies/image-modal.html' with person=person %}
+   {% include 'movies/add-person-image.html' with person=person %}
    <section class="profile">
       <div class="profile-header skeleton">
          {% if most_popular_movie %}
@@ -12,17 +13,15 @@
          {% endif %}
          <div class="profile-wrapper">
             <div class="profile-picture">
-               <img src="{{ director.image.url }}" alt="" id="profile-pic" class="clickable-pic" data-id="{{ director.id }}" data-image="{{ director.image.url }}"> 
+               <img src="{{ person.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ person.id }}" data-image="{{ person.image.url }}" data-name="{{ person.name }}"> 
                <i class="fa-solid fa-camera"></i>
-
                <div class="profile-pic-placeholder"></div>
-
-            </div>
+             </div>
             <div class="profile-details">
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
                   <div style="display: flex; align-items: center; gap: 10px;">
-                     <h1>{{ director.name }}</h1>
-                     <a href="{% url 'follow_content' model_name='director' object_id=director.id %}" class="follow-btn">
+                     <h1>{{ person.name }}</h1>
+                     <a href="{% url 'follow_content' model_name='person' object_id=person.id %}" class="follow-btn">
                         {% if is_following %}
                               <span>Unfollow</span>
                               <i class="fa-solid fa-minus"></i>
@@ -43,7 +42,7 @@
 
                   <div class="stats-container">
                      <div class="stat">
-                        <h3>{{ director.movies.count }}</h3>
+                        <h3>{{ person.movies.count }}</h3>
                         <p>Movies</p>
                      </div>
                      <div class="stat">
@@ -51,11 +50,11 @@
                         <p>Followers</p>
                      </div>
                      <div class="stat">
-                        <h3>{{ director.avg_movie_rating|floatformat:1 }}</h3>
+                        <h3>{{ person.avg_movie_rating|floatformat:1 }}</h3>
                         <p>Movie Rating</p>
                      </div>
                      <div class="stat">
-                        <h3>#{{ director_rank }}</h3>
+                        <h3>#{{ person_rank }}</h3>
                         <p>Rank</p>
                      </div>
 
@@ -79,9 +78,9 @@
                </div>
 
                {% if most_popular_movie %}
-                  <h3>Director • {{ most_popular_movie }}</h3>
+                  <h3>Actor • {{ most_popular_movie }}</h3>
                {% else %}
-                  <h3>Director • No movies yet</h3>
+                  <h3>Actor • No movies yet</h3>
                {% endif %}
 
                <div class="socials-container">
@@ -104,12 +103,12 @@
          <div style="margin-bottom: 20px;">
 
             <h1>Born</h1>
-            {% if director.birth_date|date:"Y-m-d" == "2000-01-01" %}
-            <p><i class="fa-solid fa-calendar-days"></i>Not specified</p>
+            {% if person.birth_date|date:"Y-m-d" == "2000-01-01" %}
+               <p><i class="fa-solid fa-calendar-days"></i>Not specified</p>
             {% else %}
-                <p><i class="fa-solid fa-calendar-days"></i>{{ director.birth_date }} ({{ age }}) years old</p>
+               <p><i class="fa-solid fa-calendar-days"></i>{{ person.birth_date }} ({{ age }}) years old</p>
             {% endif %}
-            <p><i class="fa-solid fa-location-dot"></i>{{ director.birth_place }}</p>
+            <p><i class="fa-solid fa-location-dot"></i>{{ person.birth_place }}</p>
 
             <div class="label-placeholder"></div>
             <div class="detail-placeholder"></div>
@@ -118,8 +117,8 @@
          </div>
          <div>
             <h1>Biography</h1>
-            {% if director.bio != 'No bio yet' %}
-               <p>{{ director.bio }}</p>
+            {% if person.bio != 'No bio yet' %}
+               <p>{{ person.bio }}</p>
             {% else %}
                <p>{{ default_bio }}</p>
             {% endif %}
@@ -136,24 +135,24 @@
          <ul>
             <li>
                <h3>Gender<i class="fa-solid fa-venus-mars"></i></h3>
-               <p>{{ director.get_gender_display }}</p>
+               <p>{{ person.get_gender_display }}</p>
 
                <div class="label-placeholder"></div> 
                <div class="detail-placeholder"></div>
             </li>
             <li>
                <h3>Nationality <i class="fa-solid fa-flag"></i></h3>
-               <p>{{ director.nationality }}</p>
+               <p>{{ person.nationality }}</p>
 
                <div class="label-placeholder"></div> 
                <div class="detail-placeholder"></div>
            </li>
            <li>
                <h3>Height</h3>
-               {% if director.height == 0 %}
+               {% if person.height == 0 %}
                   <p>N/A</p>
                {% else %}
-                  <p>{{ director.height }} cm / {{ height_in_feet }}</p>
+                  <p>{{ person.height }} cm / {{ height_in_feet }}</p>
                {% endif %}
 
                <div class="label-placeholder"></div> 
@@ -174,11 +173,11 @@
             <ul class="often-works-with-list">
                {% for co_worker in co_workers %}
                   <li>
-                    <a href="{% if co_worker.1.type == 'actor' %}{% url 'actor-detail' co_worker.0 %}{% else %}{% url 'director-detail' co_worker.0 %}{% endif %}">
+                    <a href="{% if co_worker.1.type == 'actor' %}{% url 'person-detail' 'actors' co_worker.0 %}{% else %}{% url 'person-detail' 'directors' co_worker.0 %}{% endif %}">
                         <img src="{{ co_worker.1.image }}" alt="">
                         <h3>{{ co_worker.1.name }}</h3>
                         <span>{{ co_worker.1.type|title }} • {{ co_worker.1.count }} {% if co_worker.1.count > 1 %} Movies {% else %} Movie {% endif %}</span>
-                    </a>                    
+                    </a>
                      
                      <div class="person-placeholder"></div>
                      <div class="label-placeholder"></div>
@@ -205,14 +204,20 @@
    </div>
    <section class="profile-gallery skeleton">
       <div class="header">
-         <h1>Photos</h1>
-         <span>({{ all_images_count }})</span>
+         <div style="display: flex; align-items: center; gap: 10px;">
+            <h1>Photos</h1>
+            <span>({{ all_images_count }})</span>
+         </div>
+         <button class="add-photo-btn">
+            <span>Add photos</span>
+            <i class="fa-solid fa-plus"></i>
+         </button>
       </div>
       <ul>
-         {% for image in all_director_images %}
+         {% for image in all_person_images %}
             {% if forloop.last and all_images_count > 4 %}
                <li class="last-image-item">
-                  <a href="{% url 'person-images' 'director' director.id %}">
+                  <a href="{% url 'person-images' person.id %}">
                      <img 
                      src="{{ image.image.url }}" 
                      alt="" 
@@ -268,7 +273,7 @@
       </section>
    {% endif %}
    <section class="profile-movies">
-      <h1>Films by <span>{{ director }}</span></h1>
+      <h1>Films Starring <span>{{ person }}</span></h1>
       <ul>
          {% for movie in movies %}
             <li class="skeleton">{% include 'movies/card.html' %}</li>
