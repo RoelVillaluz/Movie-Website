@@ -203,8 +203,14 @@
    </div>
    <section class="profile-gallery skeleton">
       <div class="header">
-         <h1>Photos</h1>
-         <span>({{ all_images_count }})</span>
+         <div style="display: flex; align-items: center; gap: 10px;">
+            <h1>Photos</h1>
+            <span>({{ all_images_count }})</span>
+         </div>
+         <button class="add-photo-btn">
+            <span>Add photos</span>
+            <i class="fa-solid fa-plus"></i>
+         </button>
       </div>
       <ul>
          {% for image in all_actor_images %}
