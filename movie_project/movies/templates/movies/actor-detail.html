@@ -4,6 +4,7 @@
 
 {% block body %}
    {% include 'movies/image-modal.html' with person=actor %}
+   {% include 'movies/add-person-image.html' with person=actor %}
    <section class="profile">
       <div class="profile-header skeleton">
          {% if most_popular_movie %}

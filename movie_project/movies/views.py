@@ -223,8 +223,23 @@ class ActorDetailView(DetailView):
     template_name = 'movies/actor-detail.html'
     context_object_name = 'actor'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def post(self, request, *args, **kwargs):
+        actor = self.get_object()
+        form = PersonImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            content_type = ContentType.objects.get_for_model(actor)
+
+            PersonImage.objects.create(
+                image=form.cleaned_data['image'],
+                content_type=content_type,
+                object_id=actor.id
+            )
+
+            return redirect(request.META.get('HTTP_REFERER', 'actor-detail'))
+        
+        return self.get(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
         actor = self.get_object()
         most_popular_movie = actor.most_popular_movie
         co_workers = often_works_with(actor)
@@ -250,7 +265,8 @@ class ActorDetailView(DetailView):
                     review_count=Count('reviews')
                 ).order_by('-review_count')[:4]
 
-        context.update({
+        context = {
+            'actor': actor,
             'movies': actor.movies.all(),
             'actor_rank': actor.get_rank(),
             'avg_movie_rating': actor.movies.aggregate(Avg('reviews__rating')),
@@ -267,11 +283,12 @@ class ActorDetailView(DetailView):
             'all_actor_images': all_actor_images[:4],
             'all_images_count': all_images_count + 1, # + 1 to include the profile picture
             'more_images_count': max(all_images_count - 4, 0),
-            'person_type': 'actor'
-        })
+            'person_type': 'actor',
+            'form': PersonImageForm()
+        }
 
-        return context
-    
+        return render(request, self.template_name, context)
+        
 class DirectorDetailView(DetailView):
     model = Director
     template_name = 'movies/director-detail.html'
