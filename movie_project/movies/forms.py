@@ -30,7 +30,7 @@ class MovieSortForm(forms.Form):
 class MovieImageForm(forms.ModelForm):
     class Meta:
         model = MovieImage
-        fields = ['movie', 'image', 'actors', 'directors']
+        fields = ['image', 'actors', 'directors']
 
 class PersonImageForm(forms.ModelForm):
     class Meta:

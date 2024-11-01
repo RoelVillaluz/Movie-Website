@@ -235,3 +235,36 @@ imageResetBtn.addEventListener('click', function(event) {
     imagePreview.style.display = 'none'
     uploadIcon.style.display = 'block';
 })
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("movieImageForm");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();  // Prevent the default form submission
+
+        const formData = new FormData(form);
+
+        fetch("{% url 'movie_detail' movie.id %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',  // Identify this request as AJAX
+                'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token for Django
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                // Display success message or update the page without reload
+                alert(data.message);
+            } else {
+                // Display error message
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+});

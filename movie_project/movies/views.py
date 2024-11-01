@@ -142,6 +142,22 @@ class MovieDetailView(DetailView):
     template_name = 'movies/movie-detail.html'
     context_object_name = 'movie'
 
+    def post(self, request, *args, **kwargs):
+        movie = self.get_object()
+        form = MovieImageForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            image = form.cleaned_data['image']
+            actor_ids = form.cleaned_data['actors']
+            director_ids = form.cleaned_data['directors']
+
+            movie_image = MovieImage.objects.create(movie=movie, image=image)
+            movie_image.actors.set(actor_ids)
+            movie_image.directors.set(director_ids)
+            return redirect(request.META.get('HTTP_REFERER', 'index'))
+        
+        return redirect('index')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         movie = self.get_object()
@@ -153,6 +169,7 @@ class MovieDetailView(DetailView):
             'overview_images': movie.images.all()[:2] if movie.images.count() >= 2 else None,
             'top_reviews': movie.reviews.order_by('-rating')[:2],
             'awards_by_name': self.get_awards_by_name(movie),
+            'form': MovieImageForm()
         })
 
         return context
@@ -382,22 +399,6 @@ class PersonImagesView(DetailView):
 
         return render(request, self.template_name, context)
     
-@login_required(login_url='/login')
-def add_movie_images(request):
-    if request.method == 'POST':
-        form = MovieImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            movie = form.cleaned_data['movie']
-            image = form.cleaned_data['image']
-            actor_ids = form.cleaned_data['actors']
-            director_ids = form.cleaned_data['directors']
-
-            movie_image = MovieImage.objects.create(movie=movie, image=image)
-            movie_image.actors.set(actor_ids)
-            movie_image.directors.set(director_ids)
-            return redirect(request.META.get('HTTP_REFERER', 'index'))
-    return redirect('index')
-
 @login_required(login_url='/login')
 @csrf_exempt
 def add_to_watchlist(request, id):

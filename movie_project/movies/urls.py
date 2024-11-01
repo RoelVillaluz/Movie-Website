@@ -14,5 +14,4 @@ urlpatterns = [
     path('search_results/', views.SearchView.as_view(), name='search_results'),
     path('search-suggestions/', views.SearchSuggestionsView.as_view(), name='search_suggestions'),
     path('api/movie-images/', views.GetMovieImageDataView.as_view(), name='movie_images'),
-    path('add_movie_images/', views.add_movie_images, name='add_movie_images'),
 ]
