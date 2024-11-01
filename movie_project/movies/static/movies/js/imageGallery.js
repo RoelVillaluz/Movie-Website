@@ -237,34 +237,26 @@ imageResetBtn.addEventListener('click', function(event) {
 })
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("movieImageForm");
+const addPersonBtn = document.querySelector('.add-person-btn');
+const backBtn = document.querySelector('.back-btn')
+const formHeader = document.querySelector('.image-form .header h2')
 
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();  // Prevent the default form submission
+addPersonBtn.addEventListener('click', function() {
+    const imageBox = document.querySelector('.image-box');
 
-        const formData = new FormData(form);
+    imageBox.style.display = 'none';
+    addPersonBtn.style.display = 'none'
+    backBtn.style.display = 'flex'
 
-        fetch("{% url 'movie_detail' movie.id %}", {
-            method: "POST",
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',  // Identify this request as AJAX
-                'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token for Django
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                // Display success message or update the page without reload
-                alert(data.message);
-            } else {
-                // Display error message
-                alert(data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    });
-});
+    formHeader.textContent = 'Add people to image';
+})
+
+backBtn.addEventListener('click', function() {
+    const imageBox = document.querySelector('.image-box');
+
+    imageBox.style.display = 'flex';
+    addPersonBtn.style.display = 'block'
+    backBtn.style.display = 'none'
+
+    formHeader.textContent = 'Add Image';
+})

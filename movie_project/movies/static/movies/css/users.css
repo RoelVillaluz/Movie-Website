@@ -1251,6 +1251,7 @@ input[type="checkbox"] {
     border: dashed 3px #c0c0c0;
     border-radius: 10px;
     margin: 1rem 0;
+    margin-bottom: 0;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -1277,8 +1278,43 @@ input[type="checkbox"] {
     object-fit: cover;
 }
 
-.image-form .image-box h3 {
+.image-form h3 {
     color: #2e2e2e;
+}
+
+.image-form .line {
+    width: 100%;
+    height: 1px;
+    margin: 10px 0;
+    background-color: rgb(20, 20, 20, 0.3);
+}
+
+.image-form .add-person-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+    border: solid 1px #464646;
+}
+
+.image-form .add-person-btn i {
+    font-size: 1.2rem;
+    color: #464646;
+}
+
+.image-form .back-btn {
+    display: none;
+    gap: 4px;
+    align-items: center;
+    color: #464646;
+}
+
+.image-form #back-btn i {
+    font-size: 1.2rem;
+}
+
+.image-form .back-btn span {
+    cursor: pointer;
 }
 
 .image-form .form-actions {

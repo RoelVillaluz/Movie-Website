@@ -16,15 +16,19 @@
             <img src="" alt="" id="image-preview" style="display: none;">
             <div class="upload-image">{{ form.image }}</div>
             <h3 id="image-name">Upload an image</h3>
-        </div>        
-        <div>
-            <label>Actors:</label>
-            {{ form.actors }}
         </div>
+        <div class="line"></div>    
         <div>
-            <label>Director:</label>
-            {{ form.directors }}
+            <button type="button" class="add-person-btn">
+                <i class="fa-solid fa-user"></i>
+                <span>Add Person</span>
+            </button>
+            <!-- add circle images here of people that overlap for design later-->
         </div>
+        <div class="back-btn">
+            <i class="fa-solid fa-angle-left"></i>   
+            <span>Back</span>
+        </div> 
         <div class="form-actions">
             <button type="reset">Reset</button>
             <button type="submit">Save</button>
