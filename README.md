@@ -22,6 +22,11 @@ User Reviews: Users can leave detailed reviews for movies and TV series.
 Rating System: Rate movies/TV series on a scale of 1 to 10, with average ratings displayed on the movie pages.
 ### 7. **List creation**
 
+### 8. **User Roles and Permissions**
+* Admin: Full access to manage all content on the website, including adding, editing, and deleting movies, TV series, and user reviews. Admins can also manage user accounts and permissions.
+* Moderator: Ability to review, approve, or remove user-submitted content such as reviews and comments. Moderators can also manage flagged content for potential issues.
+* User: Standard access to the platform, including adding movies or TV shows to their watchlist, leaving reviews, and rating content. Users can follow other users, actors, and directors.
+
 ### **Technologies Used**
 - Backend: Django (Python)
 - Frontend: HTML5, CSS3, JavaScript
