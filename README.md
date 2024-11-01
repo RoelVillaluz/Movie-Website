@@ -7,8 +7,7 @@ https://github.com/user-attachments/assets/22086021-f567-4a04-95ad-8fd4ba75a016
 ## Features
 
 ### 1. **Movie Search**
-Search for movies using a custom search bar powered by the TMDb API.
-Quickly find details about your favorite movies and TV series.
+Search for movies using the search bar and filters to quickly find details about your favorite movies and TV series.
 ### 2. **Watchlist**
 Users can add movies and TV shows to their personal watchlist.
 View, manage, and organize the watchlist according to preferences.
