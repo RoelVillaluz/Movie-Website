@@ -836,7 +836,6 @@ input[type="checkbox"] {
     right: 2%;
 }
 
-
 .image-modal {
     position: relative;
     display: inline-block; 
@@ -1211,17 +1210,24 @@ input[type="checkbox"] {
     display: flex;
     justify-content: space-between;
     align-items: start;
+    width: 100%;
 }
 
 .image-form .header h2 {
     font-size: 1.5rem;
 }
 
-.image-form .header img {
+.image-form .header img:not(.poster) {
     height: 60px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.image-form .poster {
+    width: 45px;
+    border-radius: 5px;
+    object-fit: cover;
 }
 
 .image-form .header i {

@@ -1,8 +1,14 @@
-<form class="image-form" method="POST" enctype="multipart/form-data"">
+<form class="image-form" method="POST" enctype="multipart/form-data">
     <div>
         {% csrf_token %}
         <div class="header">
-            <h1>Add Movie Image</h1>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="{{ movie.poster_path.url }}" class="poster" alt="{{ movie }}">
+                <div>
+                    <h2>Add Image</h2>
+                    <p>{{ movie }}</p>
+                </div>
+            </div>
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div class="image-box">
