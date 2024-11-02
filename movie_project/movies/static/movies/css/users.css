@@ -1350,11 +1350,14 @@ input[type="checkbox"] {
     color: #464646;
 }
 
-.image-form #back-btn i {
+.image-form .back-btn i {
+    color: #2e2e2e;
     font-size: 1.2rem;
 }
 
 .image-form .back-btn span {
+    color: #2e2e2e;
+    font-weight: 700;
     cursor: pointer;
 }
 

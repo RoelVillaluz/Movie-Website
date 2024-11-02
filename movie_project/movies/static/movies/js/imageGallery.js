@@ -44,15 +44,20 @@ rightArrow.addEventListener('click', function() {
 })
 
 document.addEventListener('keyup', function(event) {
-    switch(event.key) {
-        case "ArrowLeft":
-            prevImage();
-            break;
-        case "ArrowRight":
-            nextImage();
-            break;
+    const modalElement = document.querySelector('.image-modal-container'); 
+    const isModalVisible = modalElement.classList.contains('visible');
+    
+    if (isModalVisible) {
+        switch(event.key) {
+            case "ArrowLeft":
+                prevImage();
+                break;
+            case "ArrowRight":
+                nextImage();
+                break;
+        }
     }
-})
+});
 
 function prevImage() {
     if (currentIndex === 0) {
@@ -231,7 +236,7 @@ imageResetBtn.addEventListener('click', function(event) {
     const fileInput = event.target;
 
     fileInput.value = ''
-    imageNameDisplay.textContent = 'Upload Image'; 
+    imageNameDisplay.textContent = 'Upload an Image'; 
     imagePreview.style.display = 'none'
     uploadIcon.style.display = 'block';
 })
