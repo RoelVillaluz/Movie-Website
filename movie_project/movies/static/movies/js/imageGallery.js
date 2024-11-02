@@ -238,6 +238,7 @@ imageResetBtn.addEventListener('click', function(event) {
 
 
 const addPersonBtn = document.querySelector('.add-person-btn');
+const people = document.querySelector('.image-form .people');
 const backBtn = document.querySelector('.back-btn')
 const formHeader = document.querySelector('.image-form .header h2')
 
@@ -245,7 +246,7 @@ addPersonBtn.addEventListener('click', function() {
     const imageBox = document.querySelector('.image-box');
 
     imageBox.style.display = 'none';
-    addPersonBtn.style.display = 'none'
+    people.style.display = 'none'
     backBtn.style.display = 'flex'
 
     formHeader.textContent = 'Add people to image';
@@ -255,7 +256,7 @@ backBtn.addEventListener('click', function() {
     const imageBox = document.querySelector('.image-box');
 
     imageBox.style.display = 'flex';
-    addPersonBtn.style.display = 'block'
+    people.style.display = 'flex'
     backBtn.style.display = 'none'
 
     formHeader.textContent = 'Add Image';

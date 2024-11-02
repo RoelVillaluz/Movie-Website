@@ -1289,17 +1289,46 @@ input[type="checkbox"] {
     background-color: rgb(20, 20, 20, 0.3);
 }
 
+.image-form .people {
+    display: flex;
+    align-items: center;
+}
+
+.image-form .people .fa-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.25rem;
+    width: 2.25rem;
+    padding: 1rem;
+    font-size: 1rem;
+    background-color: #dddddd;
+    color: #555555;
+    border: solid 3px white;
+    border-radius: 50%;
+}
+
+.image-form .people .fa-user:not(:first-child) {
+    margin-left: -12px;
+}
+
 .image-form .add-person-btn {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-top: 10px;
-    border: solid 1px #464646;
+    gap: 4px;
+    background-color: white;
+    padding: 0;
+}
+
+.image-form .add-person-btn p {
+    font-weight: 700;
+    color: #2e2e2e;
+    margin-left: 8px;
+    cursor: pointer;
 }
 
 .image-form .add-person-btn i {
-    font-size: 1.2rem;
-    color: #464646;
+    color: #2e2e2e;
 }
 
 .image-form .back-btn {
