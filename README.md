@@ -8,6 +8,9 @@ https://github.com/user-attachments/assets/22086021-f567-4a04-95ad-8fd4ba75a016
 
 ### 1. **Movie Search**
 Search for movies using the search bar and filters to quickly find details about your favorite movies and TV series.
+
+https://github.com/user-attachments/assets/a83db116-9578-4623-b10e-5414091f4897
+
 ### 2. **Watchlist**
 Users can add movies and TV shows to their personal watchlist.
 View, manage, and organize the watchlist according to preferences.
