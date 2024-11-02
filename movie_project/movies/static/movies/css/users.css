@@ -1343,8 +1343,12 @@ input[type="checkbox"] {
     color: #2e2e2e;
 }
 
-.image-form .back-btn {
+.image-form .add-people-section {
     display: none;
+}
+
+.image-form .back-btn {
+    display: flex;
     gap: 4px;
     align-items: center;
     color: #464646;

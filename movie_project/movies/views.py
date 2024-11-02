@@ -169,6 +169,7 @@ class MovieDetailView(DetailView):
             'overview_images': movie.images.all()[:2] if movie.images.count() >= 2 else None,
             'top_reviews': movie.reviews.order_by('-rating')[:2],
             'awards_by_name': self.get_awards_by_name(movie),
+            'people_in_film': list(movie.actors.all()) + list(movie.directors.all()),
             'form': MovieImageForm()
         })
 

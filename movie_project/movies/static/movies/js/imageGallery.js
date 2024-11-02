@@ -246,13 +246,14 @@ const addPersonBtn = document.querySelector('.add-person-btn');
 const people = document.querySelector('.image-form .people');
 const backBtn = document.querySelector('.back-btn')
 const formHeader = document.querySelector('.image-form .header h2')
+const addPeopleSection = document.querySelector('.add-people-section')
 
 addPersonBtn.addEventListener('click', function() {
     const imageBox = document.querySelector('.image-box');
 
     imageBox.style.display = 'none';
     people.style.display = 'none'
-    backBtn.style.display = 'flex'
+    addPeopleSection.style.display = 'block'
 
     formHeader.textContent = 'Add people to image';
 })
@@ -262,7 +263,7 @@ backBtn.addEventListener('click', function() {
 
     imageBox.style.display = 'flex';
     people.style.display = 'flex'
-    backBtn.style.display = 'none'
+    addPeopleSection.style.display = 'none'
 
     formHeader.textContent = 'Add Image';
 })

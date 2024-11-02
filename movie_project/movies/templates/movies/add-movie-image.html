@@ -11,17 +11,18 @@
             </div>
             <i class="fa-solid fa-xmark"></i>
         </div>
+        <!-- First page of form: Upload image section -->
         <div class="image-box">
             <i class="fa-solid fa-upload"></i>
             <img src="" alt="" id="image-preview" style="display: none;">
             <div class="upload-image">{{ form.image }}</div>
             <h3 id="image-name">Upload an image</h3>
         </div>
-        <div class="line"></div>    
+        <div class="line"></div>   
         <div class="people">
-            {% if movie.actors.all %}
-                {% for actor in movie.actors.all|slice:"2" %}
-                    <img src="{{ actor.image.url }}" alt="">
+            {% if people_in_film %}
+                {% for person in people_in_film|slice:"2" %}
+                    <img src="{{ person.image.url }}" alt="">
                 {% endfor %}
             {% else %}
                 <i class="fa-solid fa-user"></i>
@@ -33,10 +34,13 @@
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>
-        <div class="back-btn">
-            <i class="fa-solid fa-angle-left"></i>   
-            <span>Back</span>
-        </div> 
+        <!-- Last page of form: adding people to the image -->
+        <div class="add-people-section">
+            <div class="back-btn">
+                <i class="fa-solid fa-angle-left"></i>   
+                <span>Back</span>
+            </div>
+        </div>
         <div class="form-actions">
             <button type="reset">Reset</button>
             <button type="submit">Save</button>
