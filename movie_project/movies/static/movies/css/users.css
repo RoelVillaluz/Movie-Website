@@ -1294,6 +1294,18 @@ input[type="checkbox"] {
     align-items: center;
 }
 
+.image-form .people img {
+    height: 2.25rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: solid 3px white;
+    object-fit: cover;
+}
+
+.image-form .people img:not(:first-child) {
+    margin-left: -12px;
+}
+
 .image-form .people .fa-user {
     display: flex;
     justify-content: center;

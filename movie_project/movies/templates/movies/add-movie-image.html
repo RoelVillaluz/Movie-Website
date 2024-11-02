@@ -19,8 +19,14 @@
         </div>
         <div class="line"></div>    
         <div class="people">
-            <i class="fa-solid fa-user"></i>
-            <i class="fa-solid fa-user"></i>
+            {% if movie.actors.all %}
+                {% for actor in movie.actors.all|slice:"2" %}
+                    <img src="{{ actor.image.url }}" alt="">
+                {% endfor %}
+            {% else %}
+                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user"></i>
+            {% endif %}
             <i class="fa-solid fa-user"></i>
             <button class="add-person-btn">
                 <p>Add people</p>
