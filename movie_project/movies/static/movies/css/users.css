@@ -1383,10 +1383,16 @@ input[type="checkbox"] {
     padding: 10px;
     border-bottom: solid 1px #888;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .image-form .add-people-section ul li:hover {
     background-color: rgb(241, 241, 241);
+}
+
+.image-form .add-people-section input[type="checkbox"] {
+    transform: scale(1.5);
+    margin: 1rem;
 }
 
 .image-form .add-people-section img {

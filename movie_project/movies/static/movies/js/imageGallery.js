@@ -267,3 +267,16 @@ backBtn.addEventListener('click', function() {
 
     formHeader.textContent = 'Add Image';
 })
+
+const personListItems = document.querySelectorAll('.add-people-section li');
+
+personListItems.forEach((listItem) =>  {
+    listItem.addEventListener('click', function(event) {
+        if (event.target.tagName != 'INPUT') {
+            const checkbox = listItem.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+            }
+        }
+    })
+})
