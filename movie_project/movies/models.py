@@ -9,7 +9,7 @@ from django.db.models.functions import Rank
 from moviepy.editor import VideoFileClip
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
-
+from django.contrib.contenttypes.fields import GenericRelation
 
 # Create your models here.
 class User(AbstractUser):
@@ -118,16 +118,16 @@ class PersonImage(models.Model):
         return f"{self.content_object}'s image"
     
 class Role(models.Model):
-    # used content_type instead for when i add tv series model later instead of creating separate role for series model
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE) 
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    actor = models.ForeignKey('Actor', on_delete=models.CASCADE)
-    character_name = models.CharField(max_length=100, default="Unknown Character")
+    character_name = models.CharField(max_length=100)
+
+    actor = models.ForeignKey('Actor', related_name='roles', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.character_name} played by {self.actor}"
+        return f"{self.character_name} in {self.content_object}"
 
 class Actor(models.Model):
     GENDER_CHOICES = [
@@ -145,6 +145,10 @@ class Actor(models.Model):
     birth_date = models.DateField(default='2000-01-01')
     height = models.IntegerField(default=0)
     images = models.ManyToManyField('PersonImage', related_name='actors', blank=True)
+    roles = GenericRelation(Role)
+
+    def __str__(self):
+        return self.name
 
     def __str__(self):
         return self.name

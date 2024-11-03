@@ -494,6 +494,10 @@ nav a {
     font-size: 1.1rem;
 }
 
+.cast-actor-role {
+    color: #afafaf;
+}
+
 .movie-director {
     margin: 10rem 0px;
     display: flex;

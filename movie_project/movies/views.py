@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, SearchForm
 from movies.utils import available_actors, available_award_categories, convert_height_to_feet, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Follow, Profile, Watchlist
-from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage
+from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage, Role
 from django.views.generic import ListView, DetailView
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -163,6 +163,18 @@ class MovieDetailView(DetailView):
         movie = self.get_object()
         director = movie.directors.first()
 
+        # Get the roles associated with the movie
+        roles = Role.objects.filter(
+            content_type=ContentType.objects.get_for_model(movie),
+            object_id=movie.id
+        )
+        
+        actor_roles = {actor.id: None for actor in movie.actors.all()}
+        for role in roles:
+            if role.actor.id in actor_roles:
+                actor_roles[role.actor.id] = role.character_name
+
+
         context.update({
             'director': director,
             'director_movies': director.movies.exclude(id=movie.id) if director else None,
@@ -170,6 +182,7 @@ class MovieDetailView(DetailView):
             'top_reviews': movie.reviews.order_by('-rating')[:2],
             'awards_by_name': self.get_awards_by_name(movie),
             'people_in_film': list(movie.actors.all()) + list(movie.directors.all()),
+            'actor_roles': actor_roles,
             'form': MovieImageForm()
         })
 

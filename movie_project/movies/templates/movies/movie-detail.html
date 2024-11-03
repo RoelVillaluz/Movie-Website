@@ -1,4 +1,5 @@
 {% extends 'movies/layout.html' %}
+{% load custom_filters %}
 
 {% block title %}MovieVerse - {{ movie.title }}{% endblock %}
 
@@ -59,8 +60,13 @@
                 <div class="cast-wrapper">
                     {% for actor in movie.actors.all %}
                         <div class="cast-actor hidden">
-                            <a href="{% url 'person-detail' 'actors' actor.pk %}"><img src="{{ actor.image.url }}" alt=""></a>
+                            <a href="{% url 'person-detail' 'actors' actor.pk %}">
+                                <img src="{{ actor.image.url }}" alt="">
+                            </a>
                             <span class="cast-actor-name">{{ actor }}</span>
+                            {% if actor_roles|get_item:actor.pk %}
+                                <p class="cast-actor-role">{{ actor_roles|get_item:actor.pk }}</p> 
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>
