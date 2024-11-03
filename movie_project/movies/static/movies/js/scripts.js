@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Checkbox event listener
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const checkboxes = document.querySelectorAll('.filter-button-list input[type="checkbox"]');
     
     checkboxes.forEach(box => {
         box.addEventListener('click', function(event) {

@@ -1377,8 +1377,9 @@ input[type="checkbox"] {
 
 .image-form .add-people-section ul li {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
+    width: 100%;
     padding: 10px;
     border-bottom: solid 1px #888;
     transition: 0.3s;
@@ -1396,7 +1397,7 @@ input[type="checkbox"] {
 }
 
 .image-form .back-btn {
-    display: flex;
+    display: inline-flex;
     gap: 4px;
     align-items: center;
     color: #464646;

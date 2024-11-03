@@ -44,11 +44,14 @@
             <ul>
                 {% for person in people_in_film %}
                     <li>
-                        <img src="{{ person.image.url }}" alt="">
-                        <div>
-                            <h4>{{ person.name }}</h4>
-                            <p>(Character)</p>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="{{ person.image.url }}" alt="">
+                            <div>
+                                <h4>{{ person.name }}</h4>
+                                <p>(Character)</p>
+                            </div>
                         </div>
+                        <input type="checkbox" name="" id="">
                     </li>
                 {% endfor %}
             </ul>
