@@ -172,7 +172,7 @@ class MovieDetailView(DetailView):
         actor_roles = {actor.id: None for actor in movie.actors.all()}
         for role in roles:
             if role.actor.id in actor_roles:
-                actor_roles[role.actor.id] = role.character_name
+                actor_roles[role.actor.id] = role.character
 
 
         context.update({

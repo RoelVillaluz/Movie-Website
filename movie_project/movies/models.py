@@ -117,17 +117,23 @@ class PersonImage(models.Model):
     def __str__(self):
         return f"{self.content_object}'s image"
     
+class Character(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 class Role(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    character_name = models.CharField(max_length=100)
-
+    character = models.ForeignKey(Character, related_name='roles', on_delete=models.SET_NULL, null=True)  # Use SET_NULL to avoid errors
     actor = models.ForeignKey('Actor', related_name='roles', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.character_name} in {self.content_object}"
+        character_name = self.character.name if self.character else "Unknown Character"
+        return f"{character_name} in {self.content_object}"
 
 class Actor(models.Model):
     GENDER_CHOICES = [

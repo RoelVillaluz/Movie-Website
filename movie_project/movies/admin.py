@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
-from .models import Actor, Award, Director, Movie, Genre, MovieImage, MovieVideo, PersonImage, Review, Role, User
+from .models import Actor, Award, Character, Director, Movie, Genre, MovieImage, MovieVideo, PersonImage, Review, Role, User
 from django.contrib.contenttypes.models import ContentType
 
 
@@ -12,6 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 admin.site.register(User)
 admin.site.register(MovieImage)
 admin.site.register(MovieVideo)
+admin.site.register(Character)
 admin.site.register(Role)
 
 class ReleaseYearListFilter(admin.SimpleListFilter):
