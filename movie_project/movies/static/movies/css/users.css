@@ -1386,6 +1386,12 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+.image-form .add-people-section ul li p {
+    font-size: 1rem;
+    color: #5a5a5a;
+    margin-top: 2px;
+}
+
 .image-form .add-people-section ul li:hover {
     background-color: rgb(241, 241, 241);
 }

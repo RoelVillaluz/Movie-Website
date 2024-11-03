@@ -269,6 +269,7 @@ backBtn.addEventListener('click', function() {
 })
 
 const personListItems = document.querySelectorAll('.add-people-section li');
+let checkedCount = 0;
 
 personListItems.forEach((listItem) =>  {
     listItem.addEventListener('click', function(event) {
@@ -276,7 +277,18 @@ personListItems.forEach((listItem) =>  {
             const checkbox = listItem.querySelector('input[type="checkbox"]');
             if (checkbox) {
                 checkbox.checked = !checkbox.checked;
+                if (checkbox.checked) {
+                    checkedCount ++;
+                } else {
+                    checkedCount --;
+                }
             }
+        }
+        const checkedCountHeader = document.querySelector('.add-people-section h3');
+        if (checkedCount == 0) {
+            checkedCountHeader.textContent = `Select from cast and crew`
+        } else {
+            checkedCountHeader.textContent = `Select from cast and crew (${checkedCount})`
         }
     })
 })

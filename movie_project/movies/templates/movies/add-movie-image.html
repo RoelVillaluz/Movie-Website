@@ -1,3 +1,5 @@
+{% load custom_filters %}
+
 <form class="image-form" method="POST" enctype="multipart/form-data">
     <div>
         {% csrf_token %}
@@ -29,7 +31,7 @@
                 <i class="fa-solid fa-user"></i>
             {% endif %}
             <i class="fa-solid fa-user"></i>
-            <button class="add-person-btn">
+            <button class="add-person-btn" type="button">
                 <p>Add people</p>
                 <i class="fa-solid fa-plus"></i>
             </button>
@@ -48,7 +50,11 @@
                             <img src="{{ person.image.url }}" alt="">
                             <div>
                                 <h4>{{ person.name }}</h4>
-                                <p>(Character)</p>
+                                {% with actor_role=actor_roles|get_item:person.pk %}
+                                    {% if actor_role %}
+                                        <p>{{ actor_role }}</p>
+                                    {% endif %}
+                                {% endwith %}
                             </div>
                         </div>
                         <input type="checkbox" name="" id="">

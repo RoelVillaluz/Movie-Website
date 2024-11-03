@@ -15,15 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
             link: 'movies/180'
         },
         {
-          title: 'Minions',
-          subtitle: 'The Rise of Gru',
-          image: 'media/media/backdrop_VJeYqoT.jpg',
-          link: 'movies/179'
+          title: 'The Wild Robot',
+          subtitle: '',
+          image: 'media/media/The_Wild_Robot_backdrop_JlYwjfE.jpg',
+          link: 'movies/515'
       },
       {
-          title: 'Dune: Part Two',
-          image: 'media/media/backdrop_1NjmW80.jpg',
-          link: 'movies/131'
+          title: 'Barbie',
+          image: 'media/media/backdrop_47Z00ZJ.jpg',
+          link: 'movies/172'
       }
     ];
 
