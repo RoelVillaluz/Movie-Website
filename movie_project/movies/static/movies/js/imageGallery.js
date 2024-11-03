@@ -272,9 +272,20 @@ const personListItems = document.querySelectorAll('.add-people-section li');
 let checkedCount = 0;
 
 personListItems.forEach((listItem) =>  {
+    const checkbox = listItem.querySelector('input[type="checkbox"]');
+
+    checkbox.addEventListener('click', function(event) {
+        event.stopPropagation()
+        if (checkbox.checked) {
+            checkedCount ++;
+        } else {
+            checkedCount --;
+        }
+        updateCheckedCount()
+    })
+
     listItem.addEventListener('click', function(event) {
         if (event.target.tagName != 'INPUT') {
-            const checkbox = listItem.querySelector('input[type="checkbox"]');
             if (checkbox) {
                 checkbox.checked = !checkbox.checked;
                 if (checkbox.checked) {
@@ -283,12 +294,16 @@ personListItems.forEach((listItem) =>  {
                     checkedCount --;
                 }
             }
+            updateCheckedCount()
         }
-        const checkedCountHeader = document.querySelector('.add-people-section h3');
+    })
+})
+
+function updateCheckedCount() {
+    const checkedCountHeader = document.querySelector('.add-people-section h3');
         if (checkedCount == 0) {
             checkedCountHeader.textContent = `Select from cast and crew`
         } else {
             checkedCountHeader.textContent = `Select from cast and crew (${checkedCount})`
         }
-    })
-})
+}
