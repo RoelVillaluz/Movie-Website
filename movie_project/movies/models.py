@@ -116,6 +116,18 @@ class PersonImage(models.Model):
 
     def __str__(self):
         return f"{self.content_object}'s image"
+    
+# class Role(models.Model):
+#     # used content_type instead for when i add tv series model later instead of creating separate role for series model
+#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE) 
+#     object_id = models.PositiveIntegerField()
+#     content_object = GenericForeignKey('content_type', 'object_id')
+
+#     actor = models.ForeignKey('Actor', on_delete=models.CASCADE)
+#     character_name = models.CharField(max_length=100, default="Unknown Character")
+
+#     def __str__(self):
+#         return f"{self.character_name} played by {self.actor}"
 
 class Actor(models.Model):
     GENDER_CHOICES = [

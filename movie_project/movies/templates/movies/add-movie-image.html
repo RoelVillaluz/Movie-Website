@@ -6,7 +6,7 @@
                 <img src="{{ movie.poster_path.url }}" class="poster" alt="{{ movie }}">
                 <div>
                     <h2>Add Image</h2>
-                    <p>{{ movie }}</p>
+                    <p>{{ movie }} ({{ movie.release_date.year }})</p>
                 </div>
             </div>
             <i class="fa-solid fa-xmark"></i>
@@ -40,6 +40,18 @@
                 <i class="fa-solid fa-angle-left"></i>   
                 <span>Back</span>
             </div>
+            <ul>
+                <h3>Select from cast and crew</h3>
+                {% for person in people_in_film %}
+                    <li>
+                        <img src="{{ person.image.url }}" alt="">
+                        <div>
+                            <h4>{{ person.name }}</h4>
+                            <p>(Character)</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
         <div class="form-actions">
             <button type="reset">Reset</button>
