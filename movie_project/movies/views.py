@@ -182,6 +182,8 @@ class MovieDetailView(DetailView):
             if role.actor.id in actor_roles:
                 actor_roles[role.actor.id] = role.character
 
+        all_images_count = len(movie.images.all())
+
 
         context.update({
             'director': director,
@@ -191,6 +193,8 @@ class MovieDetailView(DetailView):
             'awards_by_name': self.get_awards_by_name(movie),
             'people_in_film': list(movie.actors.all()) + list(movie.directors.all()),
             'actor_roles': actor_roles,
+            'all_images_count': all_images_count,
+            'more_images_count': max(all_images_count, - 4, 0),
             'form': MovieImageForm()
         })
 

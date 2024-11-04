@@ -804,43 +804,113 @@ nav a {
 }
 
 .gallery {
-    margin: 100px 0px;
+    padding: 20px;
 }
 
-.gallery .wrapper {
-    flex-wrap: wrap;
+.gallery.movies {
+    padding: 0;
+    padding-bottom: 4rem;
+    margin-top: 8rem;
 }
 
-.gallery .swiper-wrapper {
+.gallery .header {
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
 }
 
-.gallery .image {
-    width: 300px;
-    height: 400px;
-    overflow: hidden;
-    position: relative; 
-    margin: 5px;
+.gallery.movies h1 {
+    font-size: 2rem;
 }
 
-.gallery .image img {
+.gallery span {
+    font-size: 1.25rem;
+    color: #c0c0c0;
+}
+
+.gallery .add-photo-btn {
+    padding: 8px 16px;
+}
+
+.gallery .add-photo-btn span {
+    font-size: 0.8rem;
+}
+
+.gallery ul {
+    display: flex;
+    list-style-type: none;
+    gap: 0.5rem;
+    margin-right: 1rem;
+}
+
+.gallery li {
+    flex: 0 0 25%;
+    min-height: 50vh;
+}
+
+.gallery li a {
     width: 100%;
     height: 100%;
+    max-width: 500px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 100%;
+    max-height: 50vh;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    transition: transform 0.3s;
-    transform-origin: center center; 
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.gallery .image img:hover {
-    transform: scale(1.1);
+.gallery img:not(.last):hover {
+    filter: contrast(1.2) grayscale(0.1);
 }
 
-.gallery h1 {
-    font-size: 3rem;
-    margin-bottom: 60px;
+.gallery img.last:hover {
+    filter: brightness(0.6);
 }
 
+.last-image-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.last-image-item .overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+}
+
+.last-image-item .overlay i {
+    font-size: 2rem;
+    color: #dfdfdf;
+}
+
+.last-image-item .overlay h3 {
+    color: #dfdfdf;
+}
+
+img.last {
+    filter: brightness(0.4);
+    transition: 0.3s;
+}
+
+.gallery img:not(.last):hover {
+    filter: contrast(1.1) grayscale(0.1);
+}
 
 .genre-overlay {
     position: absolute;
