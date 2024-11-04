@@ -148,12 +148,20 @@ class MovieDetailView(DetailView):
 
         if form.is_valid():
             image = form.cleaned_data['image']
-            actor_ids = form.cleaned_data['actors']
-            director_ids = form.cleaned_data['directors']
+
+            selected_actors = request.POST.getlist('selected_actors')
+            selected_directors = request.POST.getlist('selected_directors')
 
             movie_image = MovieImage.objects.create(movie=movie, image=image)
-            movie_image.actors.set(actor_ids)
-            movie_image.directors.set(director_ids)
+
+            if selected_actors:
+                actors = Actor.objects.filter(pk__in=selected_actors)
+                movie_image.actors.set(actors)
+
+            if selected_directors:
+                directors = Director.objects.filter(pk__in=selected_directors)
+                movie_image.directors.set(directors)
+
             return redirect(request.META.get('HTTP_REFERER', 'index'))
         
         return redirect('index')

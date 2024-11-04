@@ -12,7 +12,7 @@ def get_item(dictionary, key):
 @register.filter
 def is_actor(person):
     return isinstance(person, Actor)
-
+ 
 @register.filter
 def is_director(person):
     return isinstance(person, Director)

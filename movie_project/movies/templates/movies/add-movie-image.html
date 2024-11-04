@@ -57,7 +57,11 @@
                                 {% endwith %}
                             </div>
                         </div>
-                        <input type="checkbox" name="" id="">
+                        {% if person|is_actor %}
+                            <input type="checkbox" name="selected_actors" value="{{ person.id }}">
+                        {% elif person|is_director %}
+                            <input type="checkbox" name="selected_directors" value="{{ person.id }}">
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
