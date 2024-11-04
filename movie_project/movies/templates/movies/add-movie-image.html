@@ -50,11 +50,15 @@
                             <img src="{{ person.image.url }}" alt="">
                             <div>
                                 <h4>{{ person.name }}</h4>
-                                {% with actor_role=actor_roles|get_item:person.pk %}
-                                    {% if actor_role %}
-                                        <p>{{ actor_role }}</p>
-                                    {% endif %}
-                                {% endwith %}
+                                {% if person|is_actor %}
+                                    {% with actor_role=actor_roles|get_item:person.pk %}
+                                        {% if actor_role %}
+                                            <p>{{ actor_role }}</p>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% elif  person|is_director %}
+                                    <p>Director</p>
+                                {% endif %}
                             </div>
                         </div>
                         {% if person|is_actor %}
