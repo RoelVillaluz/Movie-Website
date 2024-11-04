@@ -194,7 +194,7 @@ class MovieDetailView(DetailView):
             'people_in_film': list(movie.actors.all()) + list(movie.directors.all()),
             'actor_roles': actor_roles,
             'all_images_count': all_images_count,
-            'more_images_count': max(all_images_count, - 4, 0),
+            'more_images_count': max(all_images_count - 4, 0),
             'form': MovieImageForm()
         })
 
