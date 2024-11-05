@@ -13,7 +13,7 @@
        <div class="image-controls-container">
            <span class="image-count">1 of {{ all_images_count }}</span>
            <div style="display: flex; align-items: center; gap: 1rem;">
-               {% if person %}
+                {% if person %}
                     {% if person_type == 'director' %}
                             <a href="{% url 'person-images' 'directors' person.id %}">
                                 <i class="fa-solid fa-grip"></i>
@@ -22,8 +22,12 @@
                             <a href="{% url 'person-images' 'actors' person.id %}">
                                 <i class="fa-solid fa-grip"></i>
                             </a>
-                    {% endif %}      
-               {% endif %}  
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'movie-images' movie.id %}">
+                        <i class="fa-solid fa-grip"></i>
+                    </a>
+                {% endif %}  
                <div class="close-modal-btn" onclick="toggleModal(imageModalContainer)">
                    <i class="fa-solid fa-xmark"></i>
                </div>
