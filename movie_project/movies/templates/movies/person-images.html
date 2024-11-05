@@ -7,7 +7,7 @@
    <div class="gallery-header">
       <img src="{{ person.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ person.id }}" data-image="{{ person.image.url }}" data-name="{{ person.name }}"> 
       <div>
-         <a href="{% url 'person-detail' 'person_type' person.id %}">{{ person }}</a>
+         <a href="{% url 'person-detail' person_type person.id %}">{{ person }}</a>
          <h4>({{ all_images|length }}) {% if all_images|length > 1 or all_images|length == 0 %} Photos {% else %} Photo {% endif %}</h4>
       </div>
    </div>

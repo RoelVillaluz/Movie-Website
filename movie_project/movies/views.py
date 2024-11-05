@@ -463,10 +463,10 @@ class PersonImagesView(DetailView):
 
         if isinstance(person, Actor):
             movie_images = MovieImage.objects.filter(actors=person)
-            person_type = 'Actor'
+            person_type = 'actors'
         else:
             movie_images = MovieImage.objects.filter(directors=person)
-            person_type = 'Director'
+            person_type = 'directors'
 
         person_images = PersonImage.objects.filter(content_type=ContentType.objects.get_for_model(person), object_id=person.id)
         all_images = list(movie_images) + list(person_images)
