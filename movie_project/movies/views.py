@@ -146,6 +146,24 @@ class MovieDetailView(DetailView):
         movie = self.get_object()
         form = MovieImageForm(request.POST, request.FILES)
 
+        if 'edit_image' in request.POST:
+            image_id = request.POST.get('image_id')
+            movie_image = get_object_or_404(MovieImage, id=image_id, movie=movie)
+
+            if form.is_valid():
+                selected_actors = request.POST.getlist('selected_actors')
+                selected_directors = request.POST.getlist('selected_directors')
+
+                if selected_actors:
+                    actors = Actor.objects.filter(pk__in=selected_actors)
+                    movie_image.actors.set(actors)
+
+                if selected_directors:
+                    directors = Director.objects.filter(pk__in=selected_directors)
+                    movie_image.directors.set(directors)
+
+            return redirect(request.META.get('HTTP_REFERER', 'index'))
+
         if form.is_valid():
             image = form.cleaned_data['image']
 

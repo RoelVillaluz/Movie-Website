@@ -178,26 +178,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function toggleModal(modalElement) {
+function toggleModal(modalElement, closeOther = false) {
+    // close other models once another is opened
+    if (closeOther) {
+        const otherModals = [document.querySelector('.image-modal-container')];
+        otherModals.forEach(modal => {
+            if (modal && modal !== modalElement) {
+                modal.classList.remove('visible')
+            }
+        })
+    }
+
     const isVisible = modalElement.classList.contains('visible')
     modalElement.classList.toggle('visible', !isVisible)
-    document.body.classList.toggle('blurry', !isVisible);
+
+    // check if any modal is currently visible
+    const anyModalVisible = document.querySelector('.image-form.visible') || 
+                            document.querySelector('.image-modal-container.visible');
+
+    document.body.classList.toggle('blurry', !!anyModalVisible);
 
     const nav = document.querySelector('nav');
-    nav.style.display = (nav.style.display === 'none') ? 'flex': 'none';
+    nav.style.display = anyModalVisible ? 'none' : 'flex';
 }
 
 const imageFormModal = document.querySelector('.image-form')
 
 
 document.querySelector('.add-photo-btn').addEventListener('click', function() {
-    toggleModal(imageFormModal);
+    toggleModal(imageFormModal, true);
 });
 
 document.querySelector('.image-form i').addEventListener('click', function() {
-    toggleModal(imageFormModal);
+    toggleModal(imageFormModal, true);
 });
 
+document.querySelector('.fa-pen-to-square').addEventListener('click', function() {
+    toggleModal(imageFormModal, true)
+})
 
 document.querySelector('.image-box').addEventListener('click', function() {
     document.querySelector('.upload-image input[type="file"]').click();

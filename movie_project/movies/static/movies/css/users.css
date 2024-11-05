@@ -913,13 +913,19 @@ input[type="checkbox"] {
     width: 100%;
 }
 
+.image-modal .overlay .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    top: -20%;
+    right: 5%;
+}
+
 .image-modal .overlay i {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: -20%;
-    right: 5%;
     font-size: 0.9rem;
     background-color: rgb(20, 20, 20, 0.7);
     padding: 1.25rem;
