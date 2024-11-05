@@ -176,7 +176,7 @@
                    {% for image in movie.images.all|slice:4 %}
                       {% if forloop.last and all_images_count > 4 %}
                          <li class="last-image-item">
-                            <a href="">
+                            <a href="{% url 'movie-images' movie.id %}">
                                <img 
                                src="{{ image.image.url }}" 
                                alt="" 

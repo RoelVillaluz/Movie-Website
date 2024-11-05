@@ -1,13 +1,13 @@
 {% extends 'movies/layout.html' %}
 
-{% block title %} {{ person }}'s Images {% endblock %}
+{% block title %} {{ movie }}'s Images {% endblock %}
 
 {% block body %}
    {% include 'movies/image-modal.html' %}
    <div class="gallery-header">
-      <img src="{{ person.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ person.id }}" data-image="{{ person.image.url }}" data-name="{{ person.name }}"> 
+      <img src="{{ movie.poster_path.url }}" alt="Movie Poster" id="movie-poster" class="clickable-pic" data-id="{{ movie.id }}" data-image="{{ movie.poster_path.url }}" data-name="{{ movie.name }}"> 
       <div>
-         <a href="{% url 'person-detail' 'person_type' person.id %}">{{ person }}</a>
+         <a href="{% url 'movie-detail' movie.id %}">{{ movie }}</a>
          <h4>({{ all_images|length }}) {% if all_images|length > 1 or all_images|length == 0 %} Photos {% else %} Photo {% endif %}</h4>
       </div>
    </div>
@@ -32,5 +32,5 @@
          </ul>
       </div>   
    </div>
-   {% include 'movies/add-person-image.html' %}
+   {% include 'movies/add-movie-image.html' %}
 {% endblock %}

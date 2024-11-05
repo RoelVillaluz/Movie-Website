@@ -5,6 +5,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("movies/", views.MovieListView.as_view(), name="movie-list"),
     path("movies/<int:pk>", views.MovieDetailView.as_view(), name="movie-detail"),
+    path("movies/<int:pk>/images", views.MovieImagesView.as_view(), name="movie-images"),
     path("genres/", views.GenreListView.as_view(), name='genre-list'),
     path("genres/<int:pk>", views.GenreDetailView.as_view(), name='genre-detail'),
     path("<str:model_name>/<int:pk>", views.PersonDetailView.as_view(), name='person-detail'),

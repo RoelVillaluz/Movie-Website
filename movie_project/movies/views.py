@@ -359,6 +359,56 @@ class PersonDetailView(DetailView):
 
         return context
     
+class MovieImagesView(DetailView):
+    model = Movie
+    template_name = 'movies/movie-images.html'
+    context_object_name = 'movie'
+
+    def post(self, request, *args, **kwargs):
+        movie = self.get_object()
+        form = MovieImageForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            image = form.cleaned_data['image']
+
+            selected_actors = request.POST.getlist('selected_actors')
+            selected_directors = request.POST.getlist('selected_directors')
+
+            movie_image = MovieImage.objects.create(movie=movie, image=image)
+
+            if selected_actors:
+                actors = Actor.objects.filter(pk__in=selected_actors)
+                movie_image.actors.set(actors)
+
+            if selected_directors:
+                directors = Director.objects.filter(pk__in=selected_directors)
+                movie_image.directors.set(directors)
+
+            return redirect(request.META.get('HTTP_REFERER', 'index'))
+        
+        return redirect('index')
+    
+    def get(self, request, *args, **kwargs):
+        movie = self.get_object()
+        all_images = movie.images.all()
+
+        roles = Role.objects.filter(actor_id__in=movie.actors.all())
+
+        actor_roles = {actor.id: None for actor in movie.actors.all()}
+        for role in roles:
+            if role.actor.id in actor_roles:
+                actor_roles[role.actor.id] = role.character
+
+        context = {
+            'movie': movie,
+            'all_images': all_images,
+            'actor_roles': actor_roles,
+            'people_in_film': list(movie.actors.all()) + list(movie.directors.all()),
+            'form': MovieImageForm()
+        }
+
+        return render(request, self.template_name, context)
+    
 class PersonImagesView(DetailView):
     template_name = 'movies/person-images.html'
     context_object_name = 'person'
