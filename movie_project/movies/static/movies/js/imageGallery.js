@@ -203,18 +203,21 @@ function toggleModal(modalElement, closeOther = false) {
 }
 
 const imageFormModal = document.querySelector('.image-form')
-
+const editImageFormModal = document.querySelector('.image-form.edit')
 
 document.querySelector('.add-photo-btn').addEventListener('click', function() {
     toggleModal(imageFormModal, true);
 });
 
-document.querySelector('.image-form i').addEventListener('click', function() {
-    toggleModal(imageFormModal, true);
+document.querySelectorAll('#close-form-btn').forEach(closeButton => {
+    closeButton.addEventListener('click', function() {
+        // Find the closest .image-form element (the modal containing this button)
+        const modalElement = closeButton.closest('.image-form');
+        toggleModal(modalElement, true);
+    });
 });
-
 document.querySelector('.fa-pen-to-square').addEventListener('click', function() {
-    toggleModal(imageFormModal, true)
+    toggleModal(editImageFormModal, true)
 })
 
 document.querySelector('.image-box').addEventListener('click', function() {

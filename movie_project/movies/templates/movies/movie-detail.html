@@ -4,7 +4,11 @@
 {% block title %}MovieVerse - {{ movie.title }}{% endblock %}
 
 {% block body %}
+
     {% include 'movies/image-modal.html' %}
+    {% include 'movies/add-movie-image.html' %}
+    {% include 'movies/edit-movie-image.html' %}
+
     <section class="movie">
         <img class="movie-backdrop" src="{{ movie.backdrop_path.url }}" alt="{{ movie.title }}">
         <div class="movie-header">
@@ -202,5 +206,4 @@
             </div>
         </div>
     </section>
-    {% include 'movies/add-movie-image.html' %}
 {% endblock %}

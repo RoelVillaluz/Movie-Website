@@ -3,7 +3,10 @@
 {% block title %} {{ movie }}'s Images {% endblock %}
 
 {% block body %}
+
    {% include 'movies/image-modal.html' %}
+   {% include 'movies/edit-movie-image.html' %}
+
    <div class="gallery-header">
       <img src="{{ movie.poster_path.url }}" alt="Movie Poster" id="movie-poster" class="clickable-pic" data-id="{{ movie.id }}" data-image="{{ movie.poster_path.url }}" data-name="{{ movie.name }}"> 
       <div>
