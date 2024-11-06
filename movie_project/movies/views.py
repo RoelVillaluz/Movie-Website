@@ -146,24 +146,6 @@ class MovieDetailView(DetailView):
         movie = self.get_object()
         form = MovieImageForm(request.POST, request.FILES)
 
-        if 'edit_image' in request.POST:
-            image_id = request.POST.get('image_id')
-            movie_image = get_object_or_404(MovieImage, id=image_id, movie=movie)
-
-            if form.is_valid():
-                selected_actors = request.POST.getlist('selected_actors')
-                selected_directors = request.POST.getlist('selected_directors')
-
-                if selected_actors:
-                    actors = Actor.objects.filter(pk__in=selected_actors)
-                    movie_image.actors.set(actors)
-
-                if selected_directors:
-                    directors = Director.objects.filter(pk__in=selected_directors)
-                    movie_image.directors.set(directors)
-
-            return redirect(request.META.get('HTTP_REFERER', 'index'))
-
         if form.is_valid():
             image = form.cleaned_data['image']
 
@@ -651,7 +633,7 @@ class SearchSuggestionsView(View):
             'directors': director_results,
             'director_count': total_matching_directors
         })
-
+    
 class GetMovieImageDataView(View):
     def get(self, request, *args, **kwargs):
         movie_images = MovieImage.objects.all()
@@ -662,10 +644,11 @@ class GetMovieImageDataView(View):
             data = {
                 'image_url': image.image.url,
                 'movie': str(image.movie) if image.movie else None,
-                'year': image.movie.release_date.year,
+                'year': image.movie.release_date.year if image.movie else None,
                 'movie_id': image.movie.id if image.movie else None,
                 'type': 'movie',
-                'people': image.people_in_image()
+                'people': image.people_in_image(),
+                'id': image.pk
             }
             image_data.append(data)
 
@@ -676,9 +659,26 @@ class GetMovieImageDataView(View):
                 'name': image.content_object.name if content_type in ['actor', 'director'] else None,
                 'person_id': image.content_object.id if content_type in ['actor', 'director'] else None,
                 'type': content_type,
-                'people': []  
+                'people': [],
+                'id': image.pk
             }
             image_data.append(data)
 
         return JsonResponse(image_data, safe=False)
 
+# i give up making the edit image form appear in the same page, just fucking redirect it to a new template
+class EditMovieImageView(DetailView):
+    model = MovieImage
+    template_name = 'movies/edit-image.html'
+    context_object_name = 'image'
+
+    def get(self, request, *args, **kwargs):
+        image = self.get_object()
+        context = {
+            'image': image,
+        }
+        return render(request, self.template_name, context)
+
+    def get_object(self):
+        # Use 'id' instead of 'pk' if you want to keep 'id' in the URL
+        return get_object_or_404(self.model, id=self.kwargs['id'])

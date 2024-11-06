@@ -144,9 +144,7 @@ class MyWatchlistView(View):
     
 
 class ProfileDetailView(DetailView):
-    model = Profile
-    template_name = 'users/profile.html'
-    context_object_name = 'profile'
+    pass
 
 @login_required(login_url='login')
 def follow_content(request, model_name, object_id):

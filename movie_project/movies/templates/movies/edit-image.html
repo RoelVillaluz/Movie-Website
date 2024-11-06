@@ -1,0 +1,12 @@
+{% extends 'movies/layout.html' %}
+
+{% block title %} Edit Movie Image {% endblock %}
+
+{% block body %}
+   <h1>Edit Movie Image</h1>
+   <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save Changes</button>
+   </form>
+{% endblock %}

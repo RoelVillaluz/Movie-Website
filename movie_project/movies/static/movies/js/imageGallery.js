@@ -94,61 +94,58 @@ function openModalWithImage() {
     imageCountSpan.textContent = `${currentIndex + 1} of ${allImages.length}`;
 
     fetch('/api/movie-images/')
-        .then(response => response.json())
-        .then(data => {
-            const imageData = data.find(item => item.image_url === imageUrl);
+    .then(response => response.json())
+    .then(data => {
+        const imageData = data.find(item => item.image_url === imageUrl);
 
-            if (imageData) {
-                
-                const headerLink = document.createElement('a');
-                
-                imageHeader.innerHTML = '';
+        if (imageData) {
+            const headerLink = document.createElement('a');
+            imageHeader.innerHTML = '';
 
-                if (imageData.type === 'movie') {
-                    headerLink.textContent = imageData.movie;
-                    headerLink.href = `/movies/${imageData.movie_id}`;
-                
-                    const movieYear = document.createElement('span');
-                    movieYear.textContent = ` (${imageData.year})`;
-                
-                    imageHeader.appendChild(headerLink);
-                
-                    headerLink.insertAdjacentElement('afterend', movieYear);
-                } else if (imageData.type === 'actor') {
-                    headerLink.textContent = imageData.name;
-                    headerLink.href = `/actors/${encodeURIComponent(imageData.person_id)}`;
-                    imageHeader.appendChild(headerLink);
-                } else if (imageData.type === 'director') {
-                    headerLink.textContent = imageData.name;
-                    headerLink.href = `/directors/${encodeURIComponent(imageData.person_id)}`;
-                    imageHeader.appendChild(headerLink);
-                }
-
-                peopleContainer.innerHTML = '';
-
-                // Iterate over the people and create links for each if available
-                imageData.people.forEach((person, index) => {
-                    const link = document.createElement('a');
-                    if (person.type === 'actor') {
-                        link.href = `/actors/${encodeURIComponent(person.id)}`;
-                    } else if (person.type === 'director') {
-                        link.href = `/directors/${encodeURIComponent(person.id)}`;
-                    }
-                    link.textContent = person.name;
-                    peopleContainer.appendChild(link);
-
-                    // Add a comma between names except for the last one
-                    if (index < imageData.people.length - 1) {
-                        const comma = document.createElement('span');
-                        comma.textContent = ', ';
-                        peopleContainer.appendChild(comma);
-                    }
-                });
-            } else {
-                console.error('Image data not found for the given URL:', imageUrl);
+            if (imageData.type === 'movie') {
+                headerLink.textContent = imageData.movie;
+                headerLink.href = `/movies/${imageData.movie_id}`;
+                const movieYear = document.createElement('span');
+                movieYear.textContent = ` (${imageData.year})`;
+                imageHeader.appendChild(headerLink);
+                headerLink.insertAdjacentElement('afterend', movieYear);
+            } else if (imageData.type === 'actor') {
+                headerLink.textContent = imageData.name;
+                headerLink.href = `/actors/${encodeURIComponent(imageData.person_id)}`;
+                imageHeader.appendChild(headerLink);
+            } else if (imageData.type === 'director') {
+                headerLink.textContent = imageData.name;
+                headerLink.href = `/directors/${encodeURIComponent(imageData.person_id)}`;
+                imageHeader.appendChild(headerLink);
             }
-        })
-        .catch(error => console.error('Error fetching image data:', error));
+
+            peopleContainer.innerHTML = '';
+
+            imageData.people.forEach((person, index) => {
+                const link = document.createElement('a');
+                if (person.type === 'actor') {
+                    link.href = `/person/actors/${encodeURIComponent(person.id)}`;
+                } else if (person.type === 'director') {
+                    link.href = `/person/directors/${encodeURIComponent(person.id)}`;
+                }
+                link.textContent = person.name;
+                peopleContainer.appendChild(link);
+
+                if (index < imageData.people.length - 1) {
+                    const comma = document.createElement('span');
+                    comma.textContent = ', ';
+                    peopleContainer.appendChild(comma);
+                }
+            });
+
+            // Add the edit link using the image's id
+            const editLink = document.getElementById('edit-image-link')
+            editLink.href =  `/edit_image/${imageData.id}`     
+        } else {
+            console.error('Image data not found for the given URL:', imageUrl);
+        }
+    })
+    .catch(error => console.error('Error fetching image data:', error));
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -203,7 +200,7 @@ function toggleModal(modalElement, closeOther = false) {
 }
 
 const imageFormModal = document.querySelector('.image-form')
-const editImageFormModal = document.querySelector('.image-form.edit')
+const editImageFormModal = document.getElementById('edit-image')
 
 document.querySelector('.add-photo-btn').addEventListener('click', function() {
     toggleModal(imageFormModal, true);
@@ -216,6 +213,7 @@ document.querySelectorAll('#close-form-btn').forEach(closeButton => {
         toggleModal(modalElement, true);
     });
 });
+
 document.querySelector('.fa-pen-to-square').addEventListener('click', function() {
     toggleModal(editImageFormModal, true)
 })
