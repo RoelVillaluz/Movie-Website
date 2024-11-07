@@ -4,20 +4,21 @@
 
 {% block body %}
    <form class="image-form edit" id="edit-image" method="POST" enctype="multipart/form-data">
-    <div>
-        {% csrf_token %}
-        <div class="header">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <img src="{{ movie.poster_path.url }}" class="poster" alt="{{ movie }}">
-                <div>
-                    <h2>Edit Image</h2>
-                    <p>{{ movie }} ({{ movie.release_date.year }})</p>
+        <div>
+            {% csrf_token %}
+            <div class="header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="{{ movie.poster_path.url }}" class="poster" alt="{{ movie }}">
+                    <div>
+                        <h2>Edit Image</h2>
+                        <p>{{ movie }} ({{ movie.release_date.year }})</p>
+                    </div>
                 </div>
+                <i class="fa-solid fa-xmark" id="close-form-btn"></i>
             </div>
-            <i class="fa-solid fa-xmark" id="close-form-btn"></i>
+            <div class="line"></div>
+            {{ form.as_p }}  
+            <input type="submit" value="Save">
         </div>
-        <div class="line"></div>
-        {{ form.as_p }}  
-    </div>
-</form>
+    </form>
 {% endblock %}

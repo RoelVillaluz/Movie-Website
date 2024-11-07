@@ -31,6 +31,10 @@ class MovieImageForm(forms.ModelForm):
     class Meta:
         model = MovieImage
         fields = ['image', 'actors', 'directors']
+        
+        def __init__(self, *args, **kwargs):
+            super(MovieImageForm, self).__init__(*args, **kwargs)
+            self.fields["image"].required = False
 
 class PersonImageForm(forms.ModelForm):
     class Meta:

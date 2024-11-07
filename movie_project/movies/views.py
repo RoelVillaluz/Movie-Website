@@ -674,24 +674,21 @@ class EditMovieImageView(DetailView):
 
     def post(self, request, *args, **kwargs):
         image = self.get_object()
-        movie = image.movie
         form = MovieImageForm(request.POST, request.FILES, instance=image)
 
         if form.is_valid():
-            image = form.cleaned_data['image']
+            form.save()
 
             selected_actors = request.POST.getlist('selected_actors')
             selected_directors = request.POST.getlist('selected_directors')
 
-            movie_image = MovieImage.objects.create(movie=movie, image=image)
-
             if selected_actors:
                 actors = Actor.objects.filter(pk__in=selected_actors)
-                movie_image.actors.set(actors)
+                image.actors.set(actors)
 
             if selected_directors:
                 directors = Director.objects.filter(pk__in=selected_directors)
-                movie_image.directors.set(directors)
+                image.directors.set(directors)
 
             return redirect(request.META.get('HTTP_REFERER', 'index'))
         
