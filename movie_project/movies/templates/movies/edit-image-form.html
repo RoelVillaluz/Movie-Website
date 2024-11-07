@@ -1,0 +1,82 @@
+{% extends 'movies/layout.html' %}
+{% load custom_filters %}
+
+{% block title %} Edit Movie Image {% endblock %}
+
+{% block body %}
+   <form class="image-form edit" id="edit-image" method="POST" enctype="multipart/form-data">
+        <div>
+            {% csrf_token %}
+            <div class="header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="{{ image.movie.poster_path.url }}" class="poster" alt="{{ movie }}">
+                    <div>
+                        <h2>Edit Image</h2>
+                        <p>{{ image.movie }} ({{ image.movie.release_date.year }})</p>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="image-container">
+                <h4>Image Preview</h4>
+                <img src="{{ image.image.url }}" alt="">
+            </div>
+            <div class="people">
+                {% if people_in_film %}
+                    {% for person in people_in_film|slice:"2" %}
+                        <img src="{{ person.image.url }}" alt="">
+                    {% endfor %}
+                {% else %}
+                    <i class="fa-solid fa-user"></i>
+                    <i class="fa-solid fa-user"></i>
+                {% endif %}
+                <i class="fa-solid fa-user"></i>
+                <button class="add-person-btn" type="button">
+                    <p>Add people</p>
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+            <div class="add-people-section">
+                <div class="back-btn">
+                    <i class="fa-solid fa-angle-left"></i>   
+                    <span>Back</span>
+                </div>
+                <h3>Select from cast and crew</h3>
+                <ul>
+                    {% for person in people_in_film %}
+                        <li>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <img src="{{ person.image.url }}" alt="">
+                                <div>
+                                    <h4>{{ person.name }}</h4>
+                                    {% if person|is_actor %}
+                                        {% with actor_role=actor_roles|get_item:person.pk %}
+                                            {% if actor_role %}
+                                                <p>{{ actor_role }}</p>
+                                            {% endif %}
+                                        {% endwith %}
+                                    {% elif  person|is_director %}
+                                        <p>Director</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if person|is_actor %}
+                                <input type="checkbox" name="selected_actors" value="{{ person.id }}" 
+                                    {% if person in image.actors.all %}checked{% endif %}>
+                            {% elif person|is_director %}
+                                <input type="checkbox" name="selected_directors" value="{{ person.id }}" 
+                                    {% if person in image.directors.all %}checked{% endif %}>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="form-actions">
+                <button type="reset">Reset</button>
+                <button type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

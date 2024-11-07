@@ -282,55 +282,57 @@ document.addEventListener("DOMContentLoaded", function() {
     const addPeopleSection = document.querySelector('.add-people-section')
     const imgEditPreview = document.querySelector('.image-form .image-container')
 
-    addPersonBtn.addEventListener('click', function() {
-        if (imageBox) {
-            imageBox.style.display = 'none';
-        }
-
-        if (people) {
-            people.style.display = 'none'
-        }
-
-        if (addPeopleSection) {
-            addPeopleSection.style.display = 'block'
-        }
-
-        if (imgEditPreview) {
-            imgEditPreview.style.display = 'none';
-        }       
-         
-        // update form header depending on whether add image or edit image form is visible
-        if (formHeader.textContent === 'Edit Image') {
-            formHeader.textContent = 'Edit people in image';
-        } else {
-            formHeader.textContent = 'Add people to image';
-        }
-    })
-
-    backBtn.addEventListener('click', function() {
-        if (imageBox) {
-            imageBox.style.display = 'flex';
-        }
-
-        if (people) {
-            people.style.display = 'flex'
-        }
-
-        if (addPeopleSection) {
-            addPeopleSection.style.display = 'none'
-        }
-
-        if (imgEditPreview) {
-            imgEditPreview.style.display = 'block';
-        }  
-
-        // update form header depending on whether add image or edit image form is visible
-        if (formHeader.textContent === 'Edit people in image') {
-            formHeader.textContent = 'Edit Image';
-        } else {
-            formHeader.textContent = 'Add Image';
-        }
-    })
+    if (addPersonBtn) {
+        addPersonBtn.addEventListener('click', function() {
+            if (imageBox) {
+                imageBox.style.display = 'none';
+            }
+    
+            if (people) {
+                people.style.display = 'none'
+            }
+    
+            if (addPeopleSection) {
+                addPeopleSection.style.display = 'block'
+            }
+    
+            if (imgEditPreview) {
+                imgEditPreview.style.display = 'none';
+            }       
+             
+            // update form header depending on whether add image or edit image form is visible
+            if (formHeader.textContent === 'Edit Image') {
+                formHeader.textContent = 'Edit people in image';
+            } else {
+                formHeader.textContent = 'Add people to image';
+            }
+        })
+    
+        backBtn.addEventListener('click', function() {
+            if (imageBox) {
+                imageBox.style.display = 'flex';
+            }
+    
+            if (people) {
+                people.style.display = 'flex'
+            }
+    
+            if (addPeopleSection) {
+                addPeopleSection.style.display = 'none'
+            }
+    
+            if (imgEditPreview) {
+                imgEditPreview.style.display = 'block';
+            }  
+    
+            // update form header depending on whether add image or edit image form is visible
+            if (formHeader.textContent === 'Edit people in image') {
+                formHeader.textContent = 'Edit Image';
+            } else {
+                formHeader.textContent = 'Add Image';
+            }
+        })
+    }
 
     const personListItems = document.querySelectorAll('.add-people-section li');
     let checkedCount = document.querySelectorAll('.add-people-section input[type="checkbox"]:checked').length;

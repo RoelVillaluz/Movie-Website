@@ -3,8 +3,9 @@ import random
 from typing import Any
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
-from django.http import Http404, JsonResponse
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 import requests
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -669,7 +670,7 @@ class GetMovieImageDataView(View):
 # i give up making the edit image form appear in the same page, just fucking redirect it to a new template
 class EditMovieImageView(DetailView):
     model = MovieImage
-    template_name = 'movies/edit-image.html'
+    template_name = 'movies/edit-image-form.html'
     context_object_name = 'image'
 
     def post(self, request, *args, **kwargs):
@@ -690,16 +691,30 @@ class EditMovieImageView(DetailView):
                 directors = Director.objects.filter(pk__in=selected_directors)
                 image.directors.set(directors)
 
-            return redirect(request.META.get('HTTP_REFERER', 'index'))
+            return HttpResponseRedirect(reverse("movie-detail", args=[image.movie.id]))
         
         return redirect('index')
 
 
     def get(self, request, *args, **kwargs):
         image = self.get_object()
+        movie = image.movie
         form = MovieImageForm(instance=image)
+
+        roles = Role.objects.filter(
+            content_type=ContentType.objects.get_for_model(movie),
+            object_id=movie.id
+        )
+
+        actor_roles = {actor.id: None for actor in movie.actors.all()}
+        for role in roles:
+            if role.actor.id in actor_roles:
+                actor_roles[role.actor.id] = role.character
+
         context = {
             'image': image,
+            'people_in_film': list(movie.actors.all()) + list(movie.directors.all()),
+            'actor_roles': actor_roles,
             'form': form
         }
         return render(request, self.template_name, context)
