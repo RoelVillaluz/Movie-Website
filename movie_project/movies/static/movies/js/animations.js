@@ -1,102 +1,101 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-    // add movieData[clips] later
-    const movieData = [
-        {
-            title: 'Spider-Man',
-            subtitle: 'Across the Spiderverse',
-            image: 'media/media/backdrop_VyAOcwH.jpg',
-            link: 'movies/155'
-        },
-        {
-            title: 'The Batman',
-            subtitle: '',
-            image: 'media/media/the_batman_2022_backdrop.jpg',
-            link: 'movies/180'
-        },
-        {
-          title: 'The Wild Robot',
-          subtitle: '',
-          image: 'media/media/The_Wild_Robot_backdrop_JlYwjfE.jpg',
-          link: 'movies/515'
-      },
-      {
-          title: 'Barbie',
-          image: 'media/media/backdrop_47Z00ZJ.jpg',
-          link: 'movies/172'
-      }
-    ];
+    // Wrap everything inside a single DOMContentLoaded event listener
 
-    let currentIndex = 0;
-
+    // Check if featured movie elements exist before accessing them
     const imgElement = document.querySelector('.featured-movie img');
     const titleElement = document.getElementById('movie-title');
     const subTitleElement = document.getElementById('movie-subtitle');
     const linkElement = document.getElementById('movie-link');
+    
+    if (imgElement && titleElement && subTitleElement && linkElement) {
+        const movieData = [
+            {
+                title: 'Spider-Man',
+                subtitle: 'Across the Spiderverse',
+                image: 'media/media/backdrop_VyAOcwH.jpg',
+                link: 'movies/155'
+            },
+            {
+                title: 'The Batman',
+                subtitle: '',
+                image: 'media/media/the_batman_2022_backdrop.jpg',
+                link: 'movies/180'
+            },
+            {
+                title: 'The Wild Robot',
+                subtitle: '',
+                image: 'media/media/The_Wild_Robot_backdrop_JlYwjfE.jpg',
+                link: 'movies/515'
+            },
+            {
+                title: 'Barbie',
+                image: 'media/media/backdrop_47Z00ZJ.jpg',
+                link: 'movies/172'
+            }
+        ];
 
-    function updateMovie() {
-        currentIndex = (currentIndex + 1) % movieData.length;
-        const movie = movieData[currentIndex];
-        
-        imgElement.classList.remove('animate-img');
-        titleElement.classList.remove('animate-title');
-        subTitleElement.classList.remove('animate-subtitle');
-        
-        // Trigger reflow to restart animations
-        void imgElement.offsetWidth; // Trigger reflow
-        void titleElement.offsetWidth; // Trigger reflow
-        void subTitleElement.offsetWidth; // Trigger reflow
+        let currentIndex = 0;
 
-        imgElement.classList.add('animate-img');
-        titleElement.classList.add('animate-title');
-        subTitleElement.classList.add('animate-subtitle');
-        
-        imgElement.src = movie.image;
-        titleElement.textContent = movie.title;
-        subTitleElement.textContent = movie.subtitle;
-        linkElement.href = movie.link;
+        function updateMovie() {
+            currentIndex = (currentIndex + 1) % movieData.length;
+            const movie = movieData[currentIndex];
+            
+            imgElement.classList.remove('animate-img');
+            titleElement.classList.remove('animate-title');
+            subTitleElement.classList.remove('animate-subtitle');
+            
+            // Trigger reflow to restart animations
+            void imgElement.offsetWidth; // Trigger reflow
+            void titleElement.offsetWidth; // Trigger reflow
+            void subTitleElement.offsetWidth; // Trigger reflow
+
+            imgElement.classList.add('animate-img');
+            titleElement.classList.add('animate-title');
+            subTitleElement.classList.add('animate-subtitle');
+            
+            imgElement.src = movie.image;
+            titleElement.textContent = movie.title;
+            subTitleElement.textContent = movie.subtitle;
+            linkElement.href = movie.link;
+        }
+
+        function startMovieRotation() {
+            imgElement.classList.add('animate-img');
+            titleElement.classList.add('animate-title');
+            subTitleElement.classList.add('animate-subtitle');
+            imgElement.addEventListener('animationend', updateMovie);
+        }
+
+        startMovieRotation();
     }
 
-    function startMovieRotation() {
-        imgElement.classList.add('animate-img');
-        titleElement.classList.add('animate-title');
-        subTitleElement.classList.add('animate-subtitle');
-        imgElement.addEventListener('animationend', updateMovie);
-    }
-
-    startMovieRotation();
-
-});
-
-document.addEventListener('DOMContentLoaded', function() {
+    // Check if movie elements exist
     const movieContainer = document.querySelector('.movie');
     const movieBackdrop = document.querySelector('.movie-backdrop');
     const movieTitle = document.querySelector('.movie-title');
     const moviePoster = document.querySelector('.movie-poster');
-    const genres = document.querySelectorAll('.movie-genre'); 
+    const genres = document.querySelectorAll('.movie-genre');
 
-    movieBackdrop.addEventListener('animationend', function() {
-        movieTitle.classList.add('animate');
-    });
-
-    // document.body.classList.add('no-scroll');
-
-    movieTitle.addEventListener('animationend', function() {
-        genres.forEach((genre, index) => {
-            genre.style.animationDelay = `${index * 0.2}s`;
-            setTimeout(() => {
-                genre.classList.add('animate');
-            }, 100); // Slight delay to ensure animation starts correctly
+    if (movieBackdrop && movieTitle) {
+        movieBackdrop.addEventListener('animationend', function() {
+            movieTitle.classList.add('animate');
         });
 
+        movieTitle.addEventListener('animationend', function() {
+            genres.forEach((genre, index) => {
+                genre.style.animationDelay = `${index * 0.2}s`;
+                setTimeout(() => {
+                    genre.classList.add('animate');
+                }, 100); // Slight delay to ensure animation starts correctly
+            });
 
-        genres[genres.length - 1].addEventListener('animationend', function() {
-            // Enable scrolling after the last genre animation ends
-            document.body.classList.remove('no-scroll');
-        }, { once: true }); // Ensure this only triggers once
-    });
-});
-document.addEventListener('DOMContentLoaded', () => {
+            genres[genres.length - 1].addEventListener('animationend', function() {
+                // Enable scrolling after the last genre animation ends
+                document.body.classList.remove('no-scroll');
+            }, { once: true }); // Ensure this only triggers once
+        });
+    }
+
     // Intersection Observer setup
     const observerOptions = {
         root: null, // Use the viewport as the root
@@ -122,29 +121,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const elementsToObserve = document.querySelectorAll('.hidden, .skeleton');
     elementsToObserve.forEach(element => observer.observe(element));
 
-    // Animation handling for genre cards
+    // Apply animation delay to genre cards
     const genreCards = document.querySelectorAll('.genre-card.hidden');
-    let animationEndCount = 0;
+    if (genreCards.length > 0) {
+        let animationEndCount = 0;
+        genreCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.25}s`;
 
-    genreCards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.25}s`;
-
-        card.addEventListener('animationend', () => {
-            animationEndCount++;
-            if (animationEndCount === genreCards.length) {
-                genreCards.forEach(card => {
-                    card.classList.add('animation-complete');
-                    card.style.pointerEvents = 'auto';
-                });
-            }
+            card.addEventListener('animationend', () => {
+                animationEndCount++;
+                if (animationEndCount === genreCards.length) {
+                    genreCards.forEach(card => {
+                        card.classList.add('animation-complete');
+                        card.style.pointerEvents = 'auto';
+                    });
+                }
+            });
         });
-    });
+    }
 
     // Function to apply animation delay to a set of elements
     const applyAnimationDelay = (elements, delay) => {
-        elements.forEach((element, index) => {
-            element.style.animationDelay = `${index * delay}s`;
-        });
+        if (elements.length > 0) {
+            elements.forEach((element, index) => {
+                element.style.animationDelay = `${index * delay}s`;
+            });
+        }
     };
 
     // Apply animation delays to various element groups
@@ -162,14 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cards = document.querySelectorAll('.card');
     applyAnimationDelay(cards, 0.15);
-});
 
-function applyAnimationDelay(elements, delay) {
-    elements.forEach((element, index) => {
-        element.style.animationDelay = `${index * delay}s`;
+    window.addEventListener('load', () => {
+        pageHasLoaded = true;
     });
-}
-
-window.addEventListener('load', () => {
-    pageHasLoaded = true;
 });

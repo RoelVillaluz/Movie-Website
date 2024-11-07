@@ -35,13 +35,17 @@ clickablePics.forEach((pic, index) => {
     });
 });
 
-leftArrow.addEventListener('click', function() {
-    prevImage()
-})
+if (leftArrow) {
+    leftArrow.addEventListener('click', function() {
+        prevImage()
+    })
+}
 
-rightArrow.addEventListener('click', function() {
+if (rightArrow) {
+    rightArrow.addEventListener('click', function() {
     nextImage()
 })
+}
 
 document.addEventListener('keyup', function(event) {
     const modalElement = document.querySelector('.image-modal-container'); 
@@ -199,125 +203,173 @@ function toggleModal(modalElement, closeOther = false) {
     nav.style.display = anyModalVisible ? 'none' : 'flex';
 }
 
-const imageFormModal = document.querySelector('.image-form')
+document.addEventListener("DOMContentLoaded", function() {
+    const imageResetBtn = document.querySelector('.form-actions button[type="reset"]');
+    const imageNameDisplay = document.getElementById('image-name');
+    const imagePreview = document.getElementById('image-preview');
+    const uploadIcon = document.querySelector('.fa-solid.fa-upload');
+    const imageFormModal = document.querySelector('.image-form')
+    const addPhotoBtn = document.querySelector('.add-photo-btn');
 
-document.querySelector('.add-photo-btn').addEventListener('click', function() {
-    toggleModal(imageFormModal, true);
-});
-
-document.querySelectorAll('#close-form-btn').forEach(closeButton => {
-    closeButton.addEventListener('click', function() {
-        // Find the closest .image-form element (the modal containing this button)
-        const modalElement = closeButton.closest('.image-form');
-        toggleModal(modalElement, true);
-    });
-});
-
-document.querySelector('.image-box').addEventListener('click', function() {
-    document.querySelector('.upload-image input[type="file"]').click();
-});
-
-const imageResetBtn = document.querySelector('.form-actions button[type="reset"]');
-const imageNameDisplay = document.getElementById('image-name');
-const imagePreview = document.getElementById('image-preview');
-const uploadIcon = document.querySelector('.fa-solid.fa-upload');
-
-document.querySelector('.upload-image input[type="file"]').addEventListener('change', function(event) {
-    const fileInput = event.target;
-
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const fileName = file.name;
-        imageNameDisplay.textContent = `Image chosen: ${fileName}`;
-        imageNameDisplay.style.display = 'block'; 
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            imagePreview.src = e.target.result;
-            imagePreview.style.display = 'block';
-        }
-        reader.readAsDataURL(file)
-
-        uploadIcon.style.display = 'none'
-    } else {
-        imageNameDisplay.style.display = 'none'; 
-        imagePreview.style.display = 'none'
-        uploadIcon.style.display = 'block'
+    if (addPhotoBtn) {
+        addPhotoBtn.addEventListener('click', function() {
+            toggleModal(imageFormModal, true);
+        });
     }
-});
 
-imageResetBtn.addEventListener('click', function(event) {
-    const fileInput = event.target;
+    const closeFormButtons = document.querySelectorAll('#close-form-btn');
+    if (closeFormButtons.length > 0) {
+        closeFormButtons.forEach(closeButton => {
+            closeButton.addEventListener('click', function() {
+                const modalElement = closeButton.closest('.image-form');
+                toggleModal(modalElement, true);
+            });
+        });
+    }
 
-    fileInput.value = ''
-    imageNameDisplay.textContent = 'Upload an Image'; 
-    imagePreview.style.display = 'none'
-    uploadIcon.style.display = 'block';
-})
-
-
-const addPersonBtn = document.querySelector('.add-person-btn');
-const people = document.querySelector('.image-form .people');
-const backBtn = document.querySelector('.back-btn')
-const formHeader = document.querySelector('.image-form .header h2')
-const addPeopleSection = document.querySelector('.add-people-section')
-
-addPersonBtn.addEventListener('click', function() {
     const imageBox = document.querySelector('.image-box');
+    if (imageBox) {
+        imageBox.addEventListener('click', function() {
+            const fileInput = document.querySelector('.upload-image input[type="file"]');
+            if (fileInput) {
+                fileInput.click();
+            }
+        });
+    }
 
-    imageBox.style.display = 'none';
-    people.style.display = 'none'
-    addPeopleSection.style.display = 'block'
+    const fileInput = document.querySelector('.upload-image input[type="file"]');
+    if (fileInput) {
+        document.querySelector('.upload-image input[type="file"]').addEventListener('change', function(event) {
+            const fileInput = event.target;
+        
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileName = file.name;
+                imageNameDisplay.textContent = `Image chosen: ${fileName}`;
+                imageNameDisplay.style.display = 'block'; 
+        
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                }
+                reader.readAsDataURL(file)
+        
+                uploadIcon.style.display = 'none'
+            } else {
+                imageNameDisplay.style.display = 'none'; 
+                imagePreview.style.display = 'none'
+                uploadIcon.style.display = 'block'
+            }
+        });
+    }
 
-    formHeader.textContent = 'Add people to image';
-})
+    if (imageResetBtn) {
+        imageResetBtn.addEventListener('click', function(event) {
+            const fileInput = event.target;
+        
+            fileInput.value = ''
+            imageNameDisplay.textContent = 'Upload an Image'; 
+            imagePreview.style.display = 'none'
+            uploadIcon.style.display = 'block';
+        })
+    }
 
-backBtn.addEventListener('click', function() {
-    const imageBox = document.querySelector('.image-box');
+    const addPersonBtn = document.querySelector('.add-person-btn');
+    const people = document.querySelector('.image-form .people');
+    const backBtn = document.querySelector('.back-btn')
+    const formHeader = document.querySelector('.image-form .header h2')
+    const addPeopleSection = document.querySelector('.add-people-section')
+    const imgEditPreview = document.querySelector('.image-form .image-container')
 
-    imageBox.style.display = 'flex';
-    people.style.display = 'flex'
-    addPeopleSection.style.display = 'none'
-
-    formHeader.textContent = 'Add Image';
-})
-
-const personListItems = document.querySelectorAll('.add-people-section li');
-let checkedCount = 0;
-
-personListItems.forEach((listItem) =>  {
-    const checkbox = listItem.querySelector('input[type="checkbox"]');
-
-    checkbox.addEventListener('click', function(event) {
-        event.stopPropagation()
-        if (checkbox.checked) {
-            checkedCount ++;
-        } else {
-            checkedCount --;
+    addPersonBtn.addEventListener('click', function() {
+        if (imageBox) {
+            imageBox.style.display = 'none';
         }
-        updateCheckedCount()
+
+        if (people) {
+            people.style.display = 'none'
+        }
+
+        if (addPeopleSection) {
+            addPeopleSection.style.display = 'block'
+        }
+
+        if (imgEditPreview) {
+            imgEditPreview.style.display = 'none';
+        }       
+         
+        // update form header depending on whether add image or edit image form is visible
+        if (formHeader.textContent === 'Edit Image') {
+            formHeader.textContent = 'Edit people in image';
+        } else {
+            formHeader.textContent = 'Add people to image';
+        }
     })
 
-    listItem.addEventListener('click', function(event) {
-        if (event.target.tagName != 'INPUT') {
-            if (checkbox) {
-                checkbox.checked = !checkbox.checked;
-                if (checkbox.checked) {
-                    checkedCount ++;
-                } else {
-                    checkedCount --;
-                }
+    backBtn.addEventListener('click', function() {
+        if (imageBox) {
+            imageBox.style.display = 'flex';
+        }
+
+        if (people) {
+            people.style.display = 'flex'
+        }
+
+        if (addPeopleSection) {
+            addPeopleSection.style.display = 'none'
+        }
+
+        if (imgEditPreview) {
+            imgEditPreview.style.display = 'block';
+        }  
+
+        // update form header depending on whether add image or edit image form is visible
+        if (formHeader.textContent === 'Edit people in image') {
+            formHeader.textContent = 'Edit Image';
+        } else {
+            formHeader.textContent = 'Add Image';
+        }
+    })
+
+    const personListItems = document.querySelectorAll('.add-people-section li');
+    let checkedCount = document.querySelectorAll('.add-people-section input[type="checkbox"]:checked').length;
+
+    personListItems.forEach((listItem) =>  {
+        const checkbox = listItem.querySelector('input[type="checkbox"]');
+
+        checkbox.addEventListener('click', function(event) {
+            event.stopPropagation()
+            if (checkbox.checked) {
+                checkedCount ++;
+            } else {
+                checkedCount --;
             }
             updateCheckedCount()
-        }
-    })
-})
+        })
 
-function updateCheckedCount() {
+        listItem.addEventListener('click', function(event) {
+            if (event.target.tagName != 'INPUT') {
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    if (checkbox.checked) {
+                        checkedCount ++;
+                    } else {
+                        checkedCount --;
+                    }
+                }
+                updateCheckedCount()
+            }
+        })
+    })
+
+    function updateCheckedCount() {
     const checkedCountHeader = document.querySelector('.add-people-section h3');
-        if (checkedCount == 0) {
+        if (checkedCount === 0) {
             checkedCountHeader.textContent = `Select from cast and crew`
         } else {
             checkedCountHeader.textContent = `Select from cast and crew (${checkedCount})`
         }
-}
+    }
+    updateCheckedCount()
+});
