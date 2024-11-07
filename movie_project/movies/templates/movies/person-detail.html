@@ -3,8 +3,10 @@
 {% block title %} {{ person.name }} {% endblock %}
 
 {% block body %}
+
    {% include 'movies/image-modal.html' with person=person %}
    {% include 'movies/add-person-image.html' with person=person %}
+
    <section class="profile">
       <div class="profile-header skeleton">
          {% if most_popular_movie %}

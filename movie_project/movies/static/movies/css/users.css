@@ -1120,6 +1120,10 @@ input[type="checkbox"] {
     display: block;
 }
 
+.image-form.edit {
+    display: block;
+}
+
 .image-form * {
     color: black;
 }

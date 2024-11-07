@@ -124,9 +124,9 @@ function openModalWithImage() {
             imageData.people.forEach((person, index) => {
                 const link = document.createElement('a');
                 if (person.type === 'actor') {
-                    link.href = `/person/actors/${encodeURIComponent(person.id)}`;
+                    link.href = `/people/actors/${encodeURIComponent(person.id)}`;
                 } else if (person.type === 'director') {
-                    link.href = `/person/directors/${encodeURIComponent(person.id)}`;
+                    link.href = `/people/directors/${encodeURIComponent(person.id)}`;
                 }
                 link.textContent = person.name;
                 peopleContainer.appendChild(link);
@@ -200,7 +200,6 @@ function toggleModal(modalElement, closeOther = false) {
 }
 
 const imageFormModal = document.querySelector('.image-form')
-const editImageFormModal = document.getElementById('edit-image')
 
 document.querySelector('.add-photo-btn').addEventListener('click', function() {
     toggleModal(imageFormModal, true);
@@ -213,10 +212,6 @@ document.querySelectorAll('#close-form-btn').forEach(closeButton => {
         toggleModal(modalElement, true);
     });
 });
-
-document.querySelector('.fa-pen-to-square').addEventListener('click', function() {
-    toggleModal(editImageFormModal, true)
-})
 
 document.querySelector('.image-box').addEventListener('click', function() {
     document.querySelector('.upload-image input[type="file"]').click();
