@@ -248,7 +248,7 @@ const link = '/search_results/?query='
             `;
         } else if (type === 'actor') {
             itemContent = `
-                <a href="/actors/${item.id}">
+                <a href="/people/actors/${item.id}">
                     <div class="image actor-image">
                         <img src="${item.image}" alt="${item.name}">
                     </div>
@@ -260,7 +260,7 @@ const link = '/search_results/?query='
             `;
         } else if (type === 'director') {
             itemContent = `
-                <a href="/directors/${item.id}">
+                <a href="/people/directors/${item.id}">
                     <div class="image actor-image">
                         <img src="${item.image}" alt="${item.name}">
                     </div>
