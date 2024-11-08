@@ -5,7 +5,7 @@ from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 import requests
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,6 +16,7 @@ from movies.utils import available_actors, available_award_categories, convert_h
 from users.models import Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage, Role
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import DeleteView
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count, Avg, Prefetch, Q
@@ -722,3 +723,16 @@ class EditMovieImageView(DetailView):
     def get_object(self):
         # Use 'id' instead of 'pk' if you want to keep 'id' in the URL
         return get_object_or_404(self.model, id=self.kwargs['id'])
+    
+class DeleteImageView(DeleteView):
+    model = MovieImage
+    pk_url_kwarg = 'id'
+    success_url = reverse_lazy('movie-detail')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+
+    def get_success_url(self):
+        movie_id = self.object.movie.id  
+        return reverse_lazy('movie-detail', kwargs={'pk': movie_id})

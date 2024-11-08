@@ -11,6 +11,7 @@ urlpatterns = [
     path('people/<str:model_name>/<int:pk>/', views.PersonDetailView.as_view(), name='person-detail'),
     path("<str:model_name>/<int:pk>/images", views.PersonImagesView.as_view(), name='person-images'),
     path('edit_image/<int:id>/', views.EditMovieImageView.as_view(), name='edit-image'),
+    path('delete_image/<int:id>', views.DeleteImageView.as_view(), name='delete-image'),
     path('add_to_watchlist/<int:id>/', views.add_to_watchlist, name='add_to_watchlist'),
     path('like_review/<int:id>/', views.like_review, name='like_review'), 
     path('search_results/', views.SearchView.as_view(), name='search_results'),
