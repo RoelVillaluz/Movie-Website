@@ -14,6 +14,9 @@ https://github.com/user-attachments/assets/a83db116-9578-4623-b10e-5414091f4897
 ### 2. **Watchlist**
 Users can add movies and TV shows to their personal watchlist.
 View, manage, and organize the watchlist according to preferences.
+
+https://github.com/user-attachments/assets/2bb3cc26-25e5-4fad-b5d0-90847d88ae80
+
 ### 3. **Filters and Sorting**
 Genre and Award Filters: Narrow down movie results by genre or award categories.
 Sorting Options: Sort movies by title, release date, or rating to easily browse content.
