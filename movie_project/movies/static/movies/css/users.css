@@ -1376,6 +1376,14 @@ input[type="checkbox"] {
     color: white;
 }
 
+.image-form.delete {
+    width: auto;
+}
+
+.image-form.delete .form-actions button[type="submit"] {
+    background-color: rgb(231, 20, 20);
+}
+
 .image-form .image-container {
     aspect-ratio: 16 / 9;
     margin-bottom: 4px;

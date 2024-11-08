@@ -1,0 +1,20 @@
+<form class="image-form delete" action="{% url 'delete-image' image.id %}" method="post">
+    <div>
+        {% csrf_token %}
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="{{ image.movie.poster_path.url }}" class="poster" alt="{{ movie }}">
+                <div>
+                    <h2>Delete Image</h2>
+                    <p>{{ image.movie }} ({{ image.movie.release_date.year }})</p>
+                </div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <h3>Are you sure you want to delete this image?</h3>
+        <div class="form-actions">
+            <button type="button">Cancel</button>
+            <button type="submit">Delete</button>
+        </div>
+    </div>
+</form>
