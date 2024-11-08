@@ -195,7 +195,8 @@ function toggleModal(modalElement, closeOther = false) {
 
     // check if any modal is currently visible
     const anyModalVisible = document.querySelector('.image-form.visible') || 
-                            document.querySelector('.image-modal-container.visible');
+                            document.querySelector('.image-modal-container.visible') ||
+                            document.querySelector('.delete-image-form.visible');
 
     document.body.classList.toggle('blurry', !!anyModalVisible);
 
@@ -374,4 +375,19 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     updateCheckedCount()
+
+    // didn't use the toggleModal() function for these since i want the navbar to still appear for these ones
+    const deleteImageBtn = document.getElementById('delete-image-btn');
+    const deleteImageForm = document.querySelector('.image-form.delete');
+    const cancelDeleteBtn = document.getElementById('cancel-delete-btn')
+    deleteImageBtn?.addEventListener('click', () => {
+
+        deleteImageForm.style.display = 'block'
+        document.querySelector('.image-form.edit').style.display = 'none'
+    })
+
+    cancelDeleteBtn?.addEventListener('click', () => {
+        deleteImageForm.style.display = 'none'
+        document.querySelector('.image-form.edit').style.display = 'block'
+    })
 });
