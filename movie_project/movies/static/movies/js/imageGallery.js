@@ -144,7 +144,14 @@ function openModalWithImage() {
 
             // Add the edit link using the image's id
             const editLink = document.getElementById('edit-image-link')
-            editLink.href =  `/edit_image/${imageData.id}`     
+            if (imageData.type === 'actor') {
+                editLink.href =  `/people/actors/edit_image/${imageData.id}`
+            } else if (imageData.type === 'directors') {
+                editLink.href =  `/people/directors/edit_image/${imageData.id}`
+            } else {
+                editLink.href = `/movies/edit_image/${imageData.id}`
+            }     
+
         } else {
             console.error('Image data not found for the given URL:', imageUrl);
         }
@@ -273,15 +280,17 @@ document.addEventListener("DOMContentLoaded", function() {
             imageNameDisplay.textContent = 'Upload an Image'; 
             imagePreview.style.display = 'none'
             uploadIcon.style.display = 'block';
+
+            // fix bug later where checkedCount doesnt revert when resetBtn is clicked
         })
     }
 
     const addPersonBtn = document.querySelector('.add-person-btn');
     const people = document.querySelector('.image-form .people');
-    const backBtn = document.querySelector('.back-btn')
-    const formHeader = document.querySelector('.image-form .header h2')
-    const addPeopleSection = document.querySelector('.add-people-section')
-    const imgEditPreview = document.querySelector('.image-form .image-container')
+    const backBtn = document.querySelector('.back-btn');
+    const formHeader = document.querySelector('.image-form .header h2');
+    const addPeopleSection = document.querySelector('.add-people-section');
+    const imgEditPreview = document.querySelector('.image-form .image-container');
 
     if (addPersonBtn) {
         addPersonBtn.addEventListener('click', function() {
