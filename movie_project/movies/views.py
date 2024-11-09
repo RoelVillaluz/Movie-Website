@@ -668,7 +668,59 @@ class GetMovieImageDataView(View):
 
         return JsonResponse(image_data, safe=False)
 
-# i give up making the edit image form appear in the same page, just fucking redirect it to a new template
+class EditPersonImageView(DetailView):
+    template_name = 'movies/edit-person-image.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        model_name = kwargs.get('model_name')
+
+        if model_name == 'actors':
+            self.model = Actor
+            self.person_type = 'actor'
+        elif model_name == 'directors':
+            self.model = Director
+            self.person_type = 'director'
+        else:
+            raise Http404("Person type not found.")
+        
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_object(self):
+        person_image = get_object_or_404(PersonImage, pk=self.kwargs['pk'])
+
+        if not isinstance(person_image.content_object, self.model):
+            raise Http404("Person image not associated with the correct model.")
+
+        return person_image
+
+    def post(self, request, *args, **kwargs):
+        image = self.get_object()
+        form = PersonImageForm(request.POST, request.FILES, instance=image)
+
+        if form.is_valid():
+            form.save()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        image = self.get_object()
+
+        # Ensure person_type is set
+        if not hasattr(self, 'person_type'):
+            model_name = self.kwargs.get('model_name')
+            if model_name == 'actors':
+                self.person_type = 'actor'
+            elif model_name == 'director':
+                self.person_type = 'director'
+
+        context.update({
+            'form': PersonImageForm(),
+            'image': image,
+            'person': image.content_object,
+            'person_type': self.person_type
+        })
+
+        return context
+
 class EditMovieImageView(DetailView):
     model = MovieImage
     template_name = 'movies/edit-image-form.html'
