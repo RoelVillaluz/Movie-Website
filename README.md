@@ -20,6 +20,9 @@ https://github.com/user-attachments/assets/2bb3cc26-25e5-4fad-b5d0-90847d88ae80
 ### 3. **Filters and Sorting**
 Genre and Award Filters: Narrow down movie results by genre or award categories.
 Sorting Options: Sort movies by title, release date, or rating to easily browse content.
+
+https://github.com/user-attachments/assets/eea81952-38c5-4bd2-be7c-580c78b79226
+
 ### 4. **Follow System**
 Follow actors, directors, and other users to receive updates.
 Get notified when new movies or shows featuring followed actors or directed by followed directors are released.
