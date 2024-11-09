@@ -9,8 +9,9 @@ from django.urls import reverse, reverse_lazy
 import requests
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, SearchForm
 from movies.utils import available_actors, available_award_categories, convert_height_to_feet, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Follow, Profile, Watchlist
@@ -648,7 +649,7 @@ class GetMovieImageDataView(View):
                 'movie': str(image.movie) if image.movie else None,
                 'year': image.movie.release_date.year if image.movie else None,
                 'movie_id': image.movie.id if image.movie else None,
-                'type': 'movie',
+                'model': 'movie',
                 'people': image.people_in_image(),
                 'id': image.pk
             }
@@ -660,7 +661,7 @@ class GetMovieImageDataView(View):
                 'image_url': image.image.url,
                 'name': image.content_object.name if content_type in ['actor', 'director'] else None,
                 'person_id': image.content_object.id if content_type in ['actor', 'director'] else None,
-                'type': content_type,
+                'model': content_type,
                 'people': [],
                 'id': image.pk
             }
@@ -726,6 +727,8 @@ class EditMovieImageView(DetailView):
     template_name = 'movies/edit-image-form.html'
     context_object_name = 'image'
 
+    @method_decorator(login_required)  # Ensure the user is logged in
+    @method_decorator(permission_required('movies.change_movieimage', raise_exception=True))  # Check permission
     def post(self, request, *args, **kwargs):
         image = self.get_object()
         form = MovieImageForm(request.POST, request.FILES, instance=image)
@@ -748,7 +751,8 @@ class EditMovieImageView(DetailView):
         
         return redirect('index')
 
-
+    @method_decorator(login_required)  # Ensure the user is logged in
+    @method_decorator(permission_required('movies.change_movieimage', raise_exception=True))  # Check permission
     def get(self, request, *args, **kwargs):
         image = self.get_object()
         movie = image.movie

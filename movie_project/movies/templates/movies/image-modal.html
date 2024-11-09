@@ -9,9 +9,13 @@
            <div class="people-in-image"></div>
            <div class="actions">
                 <i class="fa-solid fa-angle-down"></i>
-                <a href="" id="edit-image-link">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </a>
+                {% if request.user.is_authenticated %}
+                    {% if perms.movies.can_edit_image %}
+                        <a href="" id="edit-image-link">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
            </div>
        </div>
 
