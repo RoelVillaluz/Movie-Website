@@ -677,10 +677,10 @@ class EditPersonImageView(DetailView):
 
         if model_name == 'actors':
             self.model = Actor
-            self.person_type = 'actor'
+            self.person_type = 'actors'
         elif model_name == 'directors':
             self.model = Director
-            self.person_type = 'director'
+            self.person_type = 'directors'
         else:
             raise Http404("Person type not found.")
         
@@ -697,9 +697,12 @@ class EditPersonImageView(DetailView):
     def post(self, request, *args, **kwargs):
         image = self.get_object()
         form = PersonImageForm(request.POST, request.FILES, instance=image)
-
+        
         if form.is_valid():
             form.save()
+            return HttpResponseRedirect(reverse('person-detail', args=[self.person_type, image.content_object.pk]))
+        else:
+            return self.render_to_response({'form': form, 'person_type': self.person_type, 'person_image': image})
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -714,7 +717,7 @@ class EditPersonImageView(DetailView):
                 self.person_type = 'director'
 
         context.update({
-            'form': PersonImageForm(),
+            'form': PersonImageForm(instance=image),
             'image': image,
             'person': image.content_object,
             'person_type': self.person_type

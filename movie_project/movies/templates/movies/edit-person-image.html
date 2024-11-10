@@ -3,5 +3,30 @@
 {% block title %} {{ person }} {% endblock %}
 
 {% block body %}
-    <img src="{{ image.image.url }}" alt="">
+    <form class="image-form edit" id="edit-image" method="POST" enctype="multipart/form-data">
+        <div>
+            {% csrf_token %}
+            <div class="header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="{{ person.image.url }}" alt="{{ person.name }}">
+                    <div>
+                        <h2>Edit Image</h2>
+                        <p>{{ person }}</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-trash" id="delete-image-btn" style="margin-top: 1rem;"></i>
+            </div>
+        </div>
+        <div class="image-box">
+            <i class="fa-solid fa-upload"></i>
+            <img src="" alt="" id="image-preview" style="display: none;">
+            <div class="upload-image">{{ form.image }}</div>
+            <h3 id="image-name">Upload an image</h3>
+        </div>
+        <div class="line"></div>
+        <div class="form-actions">
+            <button type="reset">Reset</button>
+            <button type="submit">Save</button>
+        </div>
+    </form>
 {% endblock %}

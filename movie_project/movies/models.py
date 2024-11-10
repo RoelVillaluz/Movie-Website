@@ -64,7 +64,6 @@ class MovieImage(models.Model):
         all_people_in_image = list(actors_data) + list(directors_data)
 
         return all_people_in_image
-
     
 class MovieVideo(models.Model):
     movie = models.ForeignKey(Movie, related_name="videos", blank=True, null=True, on_delete=models.CASCADE)
