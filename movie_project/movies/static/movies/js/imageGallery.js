@@ -106,18 +106,18 @@ function openModalWithImage() {
             const headerLink = document.createElement('a');
             imageHeader.innerHTML = '';
 
-            if (imageData.model === 'movie') {
+            if (imageData.type === 'movie') {
                 headerLink.textContent = imageData.movie;
                 headerLink.href = `/movies/${imageData.movie_id}`;
                 const movieYear = document.createElement('span');
                 movieYear.textContent = ` (${imageData.year})`;
                 imageHeader.appendChild(headerLink);
                 headerLink.insertAdjacentElement('afterend', movieYear);
-            } else if (imageData.model === 'actor') {
+            } else if (imageData.type === 'actor') {
                 headerLink.textContent = imageData.name;
                 headerLink.href = `/actors/${encodeURIComponent(imageData.person_id)}`;
                 imageHeader.appendChild(headerLink);
-            } else if (imageData.model === 'director') {
+            } else if (imageData.type === 'director') {
                 headerLink.textContent = imageData.name;
                 headerLink.href = `/directors/${encodeURIComponent(imageData.person_id)}`;
                 imageHeader.appendChild(headerLink);
@@ -127,9 +127,9 @@ function openModalWithImage() {
 
             imageData.people.forEach((person, index) => {
                 const link = document.createElement('a');
-                if (person.model === 'actor') {
+                if (person.type === 'actor') {
                     link.href = `/people/actors/${encodeURIComponent(person.id)}`;
-                } else if (person.model === 'director') {
+                } else if (person.type === 'director') {
                     link.href = `/people/directors/${encodeURIComponent(person.id)}`;
                 }
                 link.textContent = person.name;
@@ -144,9 +144,9 @@ function openModalWithImage() {
 
             // Add the edit link using the image's id
             const editLink = document.getElementById('edit-image-link')
-            if (imageData.model === 'actor') {
+            if (imageData.type === 'actor') {
                 editLink.href =  `/people/actors/edit_image/${imageData.id}`
-            } else if (imageData.model === 'directors') {
+            } else if (imageData.type === 'directors') {
                 editLink.href =  `/people/directors/edit_image/${imageData.id}`
             } else {
                 editLink.href = `/movies/edit_image/${imageData.id}`
@@ -377,10 +377,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateCheckedCount() {
     const checkedCountHeader = document.querySelector('.add-people-section h3');
-        if (checkedCount === 0) {
-            checkedCountHeader.textContent = `Select from cast and crew`
-        } else {
-            checkedCountHeader.textContent = `Select from cast and crew (${checkedCount})`
+        if (checkedCountHeader) {
+            if (checkedCount === 0) {
+                checkedCountHeader.textContent = `Select from cast and crew`
+            } else {
+                checkedCountHeader.textContent = `Select from cast and crew (${checkedCount})`
+            }
         }
     }
     updateCheckedCount()
