@@ -3,7 +3,8 @@ import random
 from typing import Any
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
-from django.http import Http404, HttpResponseRedirect, JsonResponse
+from django.http import Http404, HttpRequest, HttpResponseRedirect, JsonResponse
+from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 import requests
@@ -649,7 +650,7 @@ class GetMovieImageDataView(View):
                 'movie': str(image.movie) if image.movie else None,
                 'year': image.movie.release_date.year if image.movie else None,
                 'movie_id': image.movie.id if image.movie else None,
-                'model': 'movie',
+                'type': 'movie',
                 'people': image.people_in_image(),
                 'id': image.pk
             }
@@ -661,7 +662,7 @@ class GetMovieImageDataView(View):
                 'image_url': image.image.url,
                 'name': image.content_object.name if content_type in ['actor', 'director'] else None,
                 'person_id': image.content_object.id if content_type in ['actor', 'director'] else None,
-                'model': content_type,
+                'type': content_type,
                 'people': [],
                 'id': image.pk
             }
@@ -783,15 +784,68 @@ class EditMovieImageView(DetailView):
         # Use 'id' instead of 'pk' if you want to keep 'id' in the URL
         return get_object_or_404(self.model, id=self.kwargs['id'])
     
-class DeleteImageView(DeleteView):
+class DeleteMovieImageView(DeleteView):
     model = MovieImage
     pk_url_kwarg = 'id'
     success_url = reverse_lazy('movie-detail')
 
-    def delete(self, request, *args, **kwargs):
+    def delete(self):
         self.object = self.get_object()
         self.object.delete()
 
     def get_success_url(self):
         movie_id = self.object.movie.id  
         return reverse_lazy('movie-detail', kwargs={'pk': movie_id})
+    
+class DeletePersonImageView(DeleteView):
+    model = PersonImage
+
+    def dispatch(self, request, *args, **kwargs):
+        model_name = kwargs.get('model_name')
+
+        if model_name == 'actors':
+            self.model = Actor
+            self.person_type = 'actors'
+        elif model_name == 'directors':
+            self.model = Director
+            self.person_type = 'directors'
+        else:
+            raise Http404("Person type not found.")
+        
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_object(self):
+        person_image = get_object_or_404(PersonImage, pk=self.kwargs['pk'])
+
+        if not isinstance(person_image.content_object, self.model):
+            raise Http404("Person image not associated with the correct model.")
+
+        return person_image
+
+    def get_success_url(self):
+        image = self.get_object()
+        person_pk = image.content_object.pk
+        return reverse('person-detail', kwargs={'model_name': self.person_type, 'pk': person_pk})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        person = self.get_object()
+        
+        # Ensure person_type is set
+        if not hasattr(self, 'person_type'):
+            model_name = self.kwargs.get('model_name')
+            if model_name == 'actors':
+                self.person_type = 'actor'
+            elif model_name == 'director':
+                self.person_type = 'director'
+
+        context.update({
+            'person': person,
+            'person_type': self.person_type
+        })
+
+        return context
+
+    def delete(self):
+        self.object = self.get_object()
+        self.object.delete()
