@@ -19,10 +19,6 @@ from django.db.models import Q
 from movies.models import Award, Movie, MovieImage, User
 
 
-movie_images = MovieImage.objects.all()
-random_image1 = random.choice(movie_images)
-random_image2 = random.choice(movie_images)
-
 # Create your views here.
 class CustomLoginView(LoginView):
     template_name = 'users/login.html'
@@ -34,7 +30,13 @@ class CustomLoginView(LoginView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['random_image'] = random_image1
+        movie_images = MovieImage.objects.all()
+                
+        context.update({
+            'movie_images': movie_images,
+            'random_image': random.choice(movie_images)
+        })
+
         return context
     
 class CustomRegisterView(CreateView):
@@ -51,7 +53,12 @@ class CustomRegisterView(CreateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['random_image'] = random_image2
+        movie_images = MovieImage.objects.all()
+
+        context.update({
+            'movie_images': movie_images,
+            'random_image': random.choice(movie_images)
+        })
         return context
 
     
