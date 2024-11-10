@@ -29,3 +29,11 @@ class Follow(models.Model):
 
     def __str__(self):
         return f'{self.profile.user.username} follows {self.content_object}'
+    
+class List(models.Model):
+    name = models.TextField()
+    profile = models.ManyToManyField(Profile, related_name="lists")
+    movies = models.ManyToManyField('movies.Movie', related_name='lists', blank=True)
+
+    def __str__(self):
+        return f"List: {self.name} {self.profile.user}"
