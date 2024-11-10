@@ -42,6 +42,9 @@ def sort(queryset, sort_by):
 def get_available_genres(queryset):
     """Get only genres with movies for queryset"""
     genres_with_movies = defaultdict(list)
+
+    queryset = queryset.prefetch_related('genres')
+
     for movie in queryset:
         for genre in movie.genres.all():
             genres_with_movies[genre.name].append(movie)
@@ -55,6 +58,8 @@ def available_award_categories(queryset):
     categories_with_movies = defaultdict(list)
     award_categories_with_winners = Award.objects.filter(movie__in=queryset, winner=True).values_list('category', flat=True).distinct()
 
+    queryset = queryset.prefetch_related('awards')
+    
     for movie in queryset:
         for award in movie.awards.filter(category__in=award_categories_with_winners):
             categories_with_movies[award.category].append(movie)
@@ -66,6 +71,9 @@ def available_award_categories(queryset):
 def available_actors(queryset):
     """ Get only actors with movies for queryset """
     actors_in_queryset = defaultdict(list)
+
+    queryset = queryset.prefetch_related('actors')
+
     for movie in queryset:
         for actor in movie.actors.all():
             actors_in_queryset[actor].append(movie)
