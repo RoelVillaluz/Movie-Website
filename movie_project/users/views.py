@@ -203,7 +203,8 @@ class CreateListView(CreateView):
     def get(self, request, *args, **kwargs):
 
         context = {
-            'form': self.form_class()
+            'form': self.form_class(),
+            'movies': Movie.objects.all()
         }
 
         return render(request, self.template_name, context)

@@ -3,9 +3,18 @@
 {% block title %} MovieVerse: Create List {% endblock %}
 
 {% block body %}
-    <form class ="custom-list-form" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create List">
-    </form>
+<form class="custom-list-form" method="POST">
+    {% csrf_token %}
+    <div>
+        {{ form.name }}
+    </div>
+    <select id="id_movies" name="movies" multiple="multiple">
+        {% for movie in movies %}
+            <option value="{{ movie.id }}" data-poster="{{ movie.poster_path.url }}">
+                {{ movie.title }}
+            </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Create List">
+</form>
 {% endblock %}

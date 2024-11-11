@@ -1418,6 +1418,6 @@ input[type="checkbox"] {
     color: black;
 }
 
-.custom-list-form li {
-    background-color: red;
+.select2-results__option {
+    color: black;
 }
