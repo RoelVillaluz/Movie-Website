@@ -12,8 +12,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from movies.forms import MovieSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, sort, toggle_upcoming
-from users.models import Follow, Profile, Watchlist
-from .forms import CustomUserCreationForm
+from users.models import Follow, List, Profile, Watchlist
+from .forms import CustomUserCreationForm, ListForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q
 from movies.models import Award, Movie, MovieImage, User
@@ -178,3 +178,21 @@ def follow_content(request, model_name, object_id):
         messages.success(request, f'You are now following {follow.content_object}.')
 
     return redirect(request.META.get('HTTP_REFERER', 'index'))
+
+
+class CreateListView(CreateView):
+    model = List
+    template_name = 'users/create-list.html'
+
+    def post(self, request, *args, **kwargs):
+        form = ListForm(request.POST, request.FILES)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+
+            user_list = List.objects.create(name=name)
+
+            user_list.movies.set()
+
+    def get(self, request, *args, **kwargs):
+        
+        return render(request, self.template_name)

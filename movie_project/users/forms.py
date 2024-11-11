@@ -1,3 +1,4 @@
+from .models import List
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -17,3 +18,8 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class ListForm(forms.ModelForm):
+    class Meta:
+        model = List
+        fields = ["name", "movies"]

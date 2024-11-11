@@ -8,4 +8,5 @@ urlpatterns = [
     path("watchlist/", views.MyWatchlistView.as_view(), name='watchlist'),
     path('profile/<int:pk>', views.ProfileDetailView.as_view(), name="profile"),
     path('follow/<str:model_name>/<int:object_id>/', views.follow_content, name='follow_content'),
+    path('create_list', views.CreateListView.as_view(), name='create-list'),
 ]
