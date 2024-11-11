@@ -22,5 +22,10 @@ class CustomUserCreationForm(UserCreationForm):
 class ListForm(forms.ModelForm):
     class Meta:
         model = CustomList
-        
         fields = ["name", "movies"]
+        widgets = {
+            'movies': forms.SelectMultiple(attrs={
+                'class': 'form-control', 
+                'id': 'id_movies' 
+            })
+        }

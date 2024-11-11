@@ -1401,3 +1401,23 @@ input[type="checkbox"] {
     color: #2e2e2e;
     margin-bottom: 10px;
 }
+
+.custom-list-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: 50vh;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.custom-list-form * {
+    color: black;
+}
+
+.custom-list-form li {
+    background-color: red;
+}
