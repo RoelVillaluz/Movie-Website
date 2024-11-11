@@ -1,8 +1,8 @@
-from .models import List
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from movies.models import User
+from users.models import CustomList
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -21,5 +21,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 class ListForm(forms.ModelForm):
     class Meta:
-        model = List
+        model = CustomList
+        
         fields = ["name", "movies"]

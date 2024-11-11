@@ -12,7 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from movies.forms import MovieSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, sort, toggle_upcoming
-from users.models import Follow, List, Profile, Watchlist
+from users.models import CustomList, Follow, Profile, Watchlist
 from .forms import CustomUserCreationForm, ListForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q
@@ -181,18 +181,29 @@ def follow_content(request, model_name, object_id):
 
 
 class CreateListView(CreateView):
-    model = List
+    model = CustomList
     template_name = 'users/create-list.html'
+    form_class = ListForm
 
     def post(self, request, *args, **kwargs):
-        form = ListForm(request.POST, request.FILES)
+        form = self.form_class(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
+            movies = form.cleaned_data.get('movies')
+            profile = Profile.objects.get(user=request.user)
 
-            user_list = List.objects.create(name=name)
+            user_list = CustomList.objects.create(name=name, profile=profile)
 
-            user_list.movies.set()
+            user_list.movies.set(movies)
+
+            return redirect('index')
+        
+        return redirect('index')
 
     def get(self, request, *args, **kwargs):
-        
-        return render(request, self.template_name)
+
+        context = {
+            'form': self.form_class()
+        }
+
+        return render(request, self.template_name, context)

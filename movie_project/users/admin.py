@@ -3,9 +3,9 @@ from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
 
 from movies.admin import HasMoviesFilter
-from .models import Follow, List, Profile, Watchlist
+from .models import CustomList, Follow, Profile, Watchlist
 
-admin.site.register(List)
+admin.site.register(CustomList)
 
 # Register your models here.
 class FollowAdminForm(forms.ModelForm):
