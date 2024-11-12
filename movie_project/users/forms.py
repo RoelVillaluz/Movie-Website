@@ -22,8 +22,16 @@ class CustomUserCreationForm(UserCreationForm):
 class ListForm(forms.ModelForm):
     class Meta:
         model = CustomList
-        fields = ["name", "movies"]
+        fields = ["name", "movies", "description"]
         widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'id': 'id_name'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'id': 'id_description'
+            }),
             'movies': forms.SelectMultiple(attrs={
                 'class': 'form-control', 
                 'id': 'id_movies' 

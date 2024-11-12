@@ -1,20 +1,39 @@
 {% extends 'movies/layout.html' %}
 
-{% block title %} MovieVerse: Create List {% endblock %}
+{% block title %} MovieVerse: New List {% endblock %}
 
 {% block body %}
-<form class="custom-list-form" method="POST">
-    {% csrf_token %}
-    <div>
-        {{ form.name }}
-    </div>
-    <select id="id_movies" name="movies" multiple="multiple">
-        {% for movie in movies %}
-            <option value="{{ movie.id }}" data-poster="{{ movie.poster_path.url }}">
-                {{ movie.title }}
-            </option>
-        {% endfor %}
-    </select>
-    <input type="submit" value="Create List">
-</form>
+    <form class="custom-list-form" method="POST">
+        {% csrf_token %}
+        <div class="header">
+            <h1>New List</h1>
+            <p>Start your custom movie library.</p>
+        </div>
+        <div class="line"></div>
+
+        <div class="wrapper">
+            <div>
+                <h4>Name</h4>
+                {{ form.name }}
+
+                <!-- <h4>Movies</h4>
+                <select id="id_movies" name="movies" multiple="multiple">
+                    {% for movie in movies %}
+                        <option value="{{ movie.id }}" data-poster="{{ movie.poster_path.url }}">
+                            <p>{{ movie.title }} ({{ movie.release_date.year }})</p>
+                        </option>
+                    {% endfor %}
+                </select> -->
+            </div>
+            <div>
+                <h4>Description</h4>
+                {{ form.description }}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="reset">Reset</button>
+            <button type="submit">Save</button>
+        </div>
+    </form>
 {% endblock %}

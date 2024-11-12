@@ -189,10 +189,11 @@ class CreateListView(CreateView):
         form = self.form_class(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
+            description = form.cleaned_data['description']
             movies = form.cleaned_data.get('movies')
             profile = Profile.objects.get(user=request.user)
 
-            user_list = CustomList.objects.create(name=name, profile=profile)
+            user_list = CustomList.objects.create(name=name, description=description, profile=profile)
 
             user_list.movies.set(movies)
 
