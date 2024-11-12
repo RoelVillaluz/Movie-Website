@@ -32,6 +32,7 @@ class Follow(models.Model):
     
 class CustomList(models.Model):
     name = models.TextField()
+    description = models.TextField(blank=True)
     profile = models.ForeignKey(Profile, related_name="lists", on_delete=models.CASCADE)
     movies = models.ManyToManyField('movies.Movie', related_name='lists', blank=True)
 
