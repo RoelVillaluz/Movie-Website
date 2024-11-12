@@ -31,10 +31,18 @@ class Follow(models.Model):
         return f'{self.profile.user.username} follows {self.content_object}'
     
 class CustomList(models.Model):
+    PRIVACY_CHOICES = [
+        ('friends', 'Friends'),
+        ('everyone', 'Everyone'),
+        ('only_me', 'Only Me')
+    ]
+
     name = models.TextField()
     description = models.TextField(blank=True)
     profile = models.ForeignKey(Profile, related_name="lists", on_delete=models.CASCADE)
     movies = models.ManyToManyField('movies.Movie', related_name='lists', blank=True)
+    privacy = models.TextField(choices=PRIVACY_CHOICES, default='everyone')
+    ranked_list = models.BooleanField(default=False)
 
     def __str__(self):
         return f"'{self.name}' by {self.profile.user}"
