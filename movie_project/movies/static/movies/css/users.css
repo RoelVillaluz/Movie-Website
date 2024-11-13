@@ -1,8 +1,8 @@
-.watchlist-section {
+.list-section {
     padding: 20px;
 }
 
-.watchlist-section .header {
+.list-section .header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -11,7 +11,7 @@
     margin-bottom: 50px;
 }
 
-.watchlist-section .header::before {
+.list-section .header::before {
     position: absolute;
     content: '';
     bottom: -15px;
@@ -21,14 +21,14 @@
     background-color: white;
 }
 
-.watchlist-section .header h3 {
+.list-section .header h3 {
     margin-top: 10px;
     color: rgba(255, 255, 255, 1);
     font-weight: 200;
     opacity: 0.7;
 }
 
-.watchlist-container
+.list-container
 {
     display: flex;
 }
@@ -228,7 +228,7 @@
     color: white;
 }
 
-.watchlist-container {
+.list-container {
     display: flex;
     align-items: stretch;
     gap: 20px;
@@ -247,23 +247,23 @@
     display: block;
 }
 
-.watchlist-container .content {
+.list-container .content {
     flex: 4;
     margin-top: 10px;
 }
 
-.watchlist-container ol {
+.list-container ol {
     list-style-type: none;
 }
 
-.watchlist-container ol.grid {
+.list-container ol.grid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     padding-left: 3%;
 }
 
-.watchlist-container ol.grid li {
+.list-container ol.grid li {
     flex: 0 0 calc((100% / 4) - 20px);
     margin-bottom: 2rem;
 }

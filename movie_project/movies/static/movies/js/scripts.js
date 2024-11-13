@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const viewMode = params.get('view') || 'list';
     
-        const watchlist = document.querySelector('.watchlist-container ol')
+        const watchlist = document.querySelector('.list-container ol')
     
         console.log("Current view mode:", viewMode);
     
