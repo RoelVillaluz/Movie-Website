@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login, logout as auth_logout
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.views import View
@@ -13,7 +13,7 @@ from django.contrib import messages
 from movies.forms import MovieSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, sort, toggle_upcoming
 from users.models import CustomList, Follow, Profile, Watchlist
-from .forms import CustomUserCreationForm, ListForm
+from .forms import CustomUserCreationForm, CustomListForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q
 from movies.models import Award, Movie, MovieImage, User
@@ -183,7 +183,7 @@ def follow_content(request, model_name, object_id):
 class CreateListView(CreateView):
     model = CustomList
     template_name = 'users/create-list.html'
-    form_class = ListForm
+    form_class = CustomListForm
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
@@ -203,7 +203,7 @@ class CreateListView(CreateView):
 
             user_list.movies.set(movies)
 
-            return redirect('index')
+            return HttpResponseRedirect(reverse('list-detail', args=[user_list.pk]))
         
         return redirect('index')
 
@@ -215,3 +215,17 @@ class CreateListView(CreateView):
         }
 
         return render(request, self.template_name, context)
+    
+class CustomListDetailView(DetailView):
+    model = CustomList
+    template_name = 'users/list-detail.html'
+    context_object_name = 'list'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context.update({
+            'list': self.get_object()
+        })
+
+        return context

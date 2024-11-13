@@ -19,7 +19,7 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
-class ListForm(forms.ModelForm):
+class CustomListForm(forms.ModelForm):
     class Meta:
         model = CustomList
         fields = ["name", "movies", "description", "privacy", "ranked_list"]
