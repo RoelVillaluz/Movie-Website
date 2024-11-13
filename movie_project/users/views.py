@@ -191,7 +191,7 @@ class CreateListView(CreateView):
             name = form.cleaned_data['name']
             description = form.cleaned_data['description']
             movies = form.cleaned_data.get('movies')
-            privacy = form.cleaned_data['privacy']
+            privacy = request.POST.get('privacy')
             ranked_list = form.cleaned_data['ranked_list']
             profile = Profile.objects.get(user=request.user)
 

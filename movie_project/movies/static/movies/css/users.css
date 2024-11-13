@@ -1464,7 +1464,7 @@ input[type="checkbox"] {
     gap: 1rem;
 }
 
-.custom-list-form #id_privacy div {
+.custom-list-form #id_privacy button {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -1477,7 +1477,9 @@ input[type="checkbox"] {
     transition: 0.3s;
 }
 
-.custom-list-form #id_privacy div:hover {
+.custom-list-form #id_privacy button:hover, 
+.custom-list-form #id_privacy button.selected
+{
     background-color: #eaf4ff;
     border: solid 1px #087afc;
 }
