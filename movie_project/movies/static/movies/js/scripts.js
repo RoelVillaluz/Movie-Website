@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const radioBtns = document.querySelectorAll('input[type="radio"]');
+    const radioBtns = document.querySelectorAll('.search-filters input[type="radio"]');
     if (radioBtns) {
         radioBtns.forEach(btn => {
             btn.addEventListener('change', function() {
