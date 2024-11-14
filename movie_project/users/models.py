@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
 
 # Create your models here.
 
@@ -43,6 +44,7 @@ class CustomList(models.Model):
     movies = models.ManyToManyField('movies.Movie', related_name='lists', blank=True)
     privacy = models.TextField(choices=PRIVACY_CHOICES, default='everyone')
     ranked_list = models.BooleanField(default=False)
+    created_on = models.DateTimeField(default=timezone.now, editable=False)
 
     def __str__(self):
         return f"'{self.name}' by {self.profile.user}"
