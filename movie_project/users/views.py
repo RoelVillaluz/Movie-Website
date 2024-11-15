@@ -221,11 +221,24 @@ class CustomListDetailView(DetailView):
     template_name = 'users/list-detail.html'
     context_object_name = 'list'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        context.update({
-            'list': self.get_object()
-        })
+    def post(self, request, *args, **kwargs):
+        list = self.get_object()
+        form = CustomListForm(request.POST, instance=list)
 
-        return context
+        if form.is_valid():
+            form.save()
+
+            return redirect(request.META.get('HTTP_REFERER', 'index'))
+
+        return redirect(request.META.get('HTTP_REFERER', 'index'))
+
+    def get(self, request, **kwargs):
+        list = self.get_object()
+        form = CustomListForm(instance=list)
+        
+        context = {
+            'list': list,
+            'form': form
+        }
+
+        return render(request, self.template_name, context)
