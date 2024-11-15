@@ -6,16 +6,17 @@
     <section class="list-section">
         <div class="header">
             <form method="post">
+                {% csrf_token %}
                 <div class="wrapper">
-                    <h1>{{ list.name }}</h1>
-                    <i class="fa-regular fa-pen-to-square"></i>
+                    <h1 id="list-name">{{ list.name }}</h1>
+                    <div class="wrapper" id="textarea-wrapper">
+                        <textarea name="name" id="list-name-textarea">{{ list.name }}</textarea>
+                        {{ form.privacy.as_hidden }}
+                        <button type="submit">Save</button>
+                    </div>
+                    <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
                 </div>
                 <h3>By <a href="{% url 'profile' list.profile.user.pk %}">{{ list.profile.user }}</a> • Created on {{ list.created_on|date:"F d Y" }}</h3>
-                <!-- {% if list.description %}
-                    <h3>{{ list.description }}</h3>
-                {% else %}
-                    <h3>No description yet</h3>
-                {% endif %} -->
             </form>
             <div class="wrapper">
                 <h3>0 Views</h3>
@@ -23,6 +24,14 @@
                 <h3>{{ list.privacy.title }}</h3>
                 <i class="fa-solid fa-share-nodes"></i>
             </div>
+        </div>
+        <div class="wrapper">
+            {% if list.description %}
+                <p>{{ list.description }}</p>
+            {% else %}
+                <p>No description yet</p>
+            {% endif %}
+            <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
         </div>
         <div class="list-container">
             <div class="content">
