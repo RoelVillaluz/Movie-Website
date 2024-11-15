@@ -5,16 +5,23 @@
 {% block body %}
     <section class="list-section">
         <div class="header">
-            <div>
-                <h1>{{ list.name }}</h1>
-                {% if list.description %}
+            <form method="post">
+                <div class="wrapper">
+                    <h1>{{ list.name }}</h1>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </div>
+                <h3>By <a href="{% url 'profile' list.profile.user.pk %}">{{ list.profile.user }}</a> • Created on {{ list.created_on|date:"F d Y" }}</h3>
+                <!-- {% if list.description %}
                     <h3>{{ list.description }}</h3>
                 {% else %}
                     <h3>No description yet</h3>
-                {% endif %}
-            </div>
-            <div>
+                {% endif %} -->
+            </form>
+            <div class="wrapper">
+                <h3>0 Views</h3>
                 <h3>{{ list.movies.count }} Titles</h3>
+                <h3>{{ list.privacy.title }}</h3>
+                <i class="fa-solid fa-share-nodes"></i>
             </div>
         </div>
         <div class="list-container">
@@ -34,5 +41,10 @@
     
             </div>
         </div>
+        <!-- <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save">
+        </form> -->
     </section>
 {% endblock %}

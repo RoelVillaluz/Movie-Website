@@ -21,11 +21,43 @@
     background-color: white;
 }
 
+.list-section .header .wrapper {
+    display: flex;
+    align-items: start;
+    gap: 0.5rem;
+}
+
 .list-section .header h3 {
     margin-top: 10px;
-    color: rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1rem;
     font-weight: 200;
-    opacity: 0.7;
+}
+
+.list-section .header i {
+    cursor: pointer;
+}
+
+.list-section .header a {
+    position: relative;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.list-section .header a:hover::before {
+    width: 100%;
+}
+
+.list-section .header a::before {
+    position: absolute;
+    content: '';
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: 0.3s;
 }
 
 .list-container
