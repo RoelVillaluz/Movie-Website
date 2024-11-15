@@ -224,7 +224,7 @@ class CustomListDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         list = self.get_object()
         form = CustomListForm(request.POST, instance=list)
-
+        
         if form.is_valid():
             form.save()
 

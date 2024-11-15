@@ -17,14 +17,27 @@ $(document).ready(function() {
 });
 
 
-const privacyBtns = document.querySelectorAll('#privacy-btn');
+document.addEventListener('DOMContentLoaded', function() {
+    const privacyBtns = document.querySelectorAll('#privacy-btn');
 
-privacyBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        privacyBtns.forEach(b => b.classList.remove('selected'));
+    privacyBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            privacyBtns.forEach(b => b.classList.remove('selected'));
 
-        btn.classList.add('selected');
+            btn.classList.add('selected');
 
-        btn.querySelector('input[type="radio"]').checked = true;
+            btn.querySelector('input[type="radio"]').checked = true;
+        })
+    })
+
+    const listName = document.getElementById('list-name');
+    const editListBtn = document.getElementById('edit-list-btn');
+    // wrapper containing texterea and buttons
+    const textareaWrapper = document.getElementById('textarea-wrapper'); 
+
+    editListBtn.addEventListener('click', ()=> {
+        editListBtn.style.display = 'none'
+        listName.style.display = 'none';
+        textareaWrapper.style.display = 'flex';
     })
 })

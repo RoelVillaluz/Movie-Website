@@ -34,7 +34,7 @@
     font-weight: 200;
 }
 
-.list-section .header i {
+.list-section i {
     cursor: pointer;
 }
 
@@ -1458,6 +1458,37 @@ input[type="checkbox"] {
 
 .custom-list-form .header h1 {
     font-size: 1.5rem;
+}
+
+#textarea-wrapper {
+    display: none;
+    align-items: start;
+}
+
+#textarea-wrapper button {
+    font-family: 'Electrolize', sans-serif;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#textarea-wrapper button[type="submit"] {
+    background-color: #087afc;
+    color: white;
+}
+
+#list-name-textarea {
+    background-color: #2e2e2e;
+    color: white;
+    font-family: 'Electrolize', sans-serif;
+    font-size: 1.5rem;
+    padding: 10px;
+    height: 3rem;
+    border: solid 1px #087afc;
+    resize: none;
+    overflow: hidden;
 }
 
 .custom-list-form h4 {
