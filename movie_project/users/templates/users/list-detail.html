@@ -4,56 +4,62 @@
 
 {% block body %}
     <section class="list-section">
-        <div class="header">
-            <form method="post">
-                {% csrf_token %}
-                <div class="wrapper">
-                    <h1 id="list-name">{{ list.name }}</h1>
-                    <div class="wrapper" id="textarea-wrapper">
-                        <textarea name="name" id="list-name-textarea">{{ list.name }}</textarea>
-                        {{ form.privacy.as_hidden }}
-                        <button type="submit">Save</button>
+        <form method="post">
+            {% csrf_token %}
+            <div class="header" style="align-items: start;">
+                <div>
+                    <div class="wrapper">
+                        <h1 id="list-name">{{ list.name }}</h1>
+                        <div class="wrapper" id="textarea-wrapper">
+                            <textarea class="edit-textarea" name="name" id="list-name-textarea">{{ list.name }}</textarea>
+                            {{ form.privacy.as_hidden }}
+                            <button type="submit">Save</button>
+                        </div>
+                        <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
                     </div>
-                    <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
+                    <h3>By <a href="{% url 'profile' list.profile.user.pk %}">{{ list.profile.user }}</a> • Created on {{ list.created_on|date:"F d Y" }}</h3>
                 </div>
-                <h3>By <a href="{% url 'profile' list.profile.user.pk %}">{{ list.profile.user }}</a> • Created on {{ list.created_on|date:"F d Y" }}</h3>
-            </form>
-            <div class="wrapper">
-                <h3>0 Views</h3>
-                <h3>{{ list.movies.count }} Titles</h3>
-                <h3>{{ list.privacy.title }}</h3>
-                <i class="fa-solid fa-share-nodes"></i>
+                <div class="wrapper">
+                    <h3>0 Views</h3>
+                    <h3>{{ list.movies.count }} Titles</h3>
+                    <h3>{{ list.privacy.title }}</h3>
+                    <i class="fa-solid fa-share-nodes"></i>
+                </div>
             </div>
-        </div>
-        <div class="wrapper">
-            {% if list.description %}
-                <p>{{ list.description }}</p>
-            {% else %}
-                <p>No description yet</p>
-            {% endif %}
-            <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
-        </div>
-        <div class="list-container">
-            <div class="content">
-                    
-                <ol>
-                    {% for movie in list.movies.all %}
-                        {% if view_mode == 'grid' %}
-                            <li class="skeleton">
-                                {% include 'movies/card.html' %}
-                            </li>
-                        {% else %}
-                            {% include 'movies/movie-list-item.html' %}
-                        {% endif %}
-                    {% endfor %}
-                </ol>
-    
+            <div class="wrapper" style="gap: 0.5rem;">
+                {% if list.description %}
+                    <p id="list-desc">{{ list.description }}</p>
+                {% else %}
+                    <p id="list-desc">No description yet</p>
+                {% endif %}
+                <div class="wrapper" id="textarea-wrapper">
+                    <textarea class="edit-textarea" name="description" id="list-desc-textarea">{{ list.description }}</textarea>
+                    <button type="submit">Save</button>
+                </div>
+                <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
             </div>
-        </div>
+            <div class="list-container">
+                <div class="content">
+                        
+                    <ol>
+                        {% for movie in list.movies.all %}
+                            {% if view_mode == 'grid' %}
+                                <li class="skeleton">
+                                    {% include 'movies/card.html' %}
+                                </li>
+                            {% else %}
+                                {% include 'movies/movie-list-item.html' %}
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+        
+                </div>
+            </div>
         <!-- <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="Save">
         </form> -->
+        </form>
     </section>
 {% endblock %}

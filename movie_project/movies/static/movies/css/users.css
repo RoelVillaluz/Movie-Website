@@ -1463,6 +1463,7 @@ input[type="checkbox"] {
 #textarea-wrapper {
     display: none;
     align-items: start;
+    gap: 0.5rem;
 }
 
 #textarea-wrapper button {
@@ -1479,7 +1480,7 @@ input[type="checkbox"] {
     color: white;
 }
 
-#list-name-textarea {
+.edit-textarea {
     background-color: #2e2e2e;
     color: white;
     font-family: 'Electrolize', sans-serif;
@@ -1489,6 +1490,19 @@ input[type="checkbox"] {
     border: solid 1px #087afc;
     resize: none;
     overflow: hidden;
+}
+
+#list-desc-textarea {
+    background-color: #2e2e2e;
+    color: white;
+    font-family: 'Electrolize', sans-serif;
+    font-size: 1.5rem;
+    padding: 10px;
+    height: 3rem;
+    border: solid 1px #087afc;
+    resize: none;
+    overflow: hidden;
+    width: 90vw;
 }
 
 .custom-list-form h4 {
