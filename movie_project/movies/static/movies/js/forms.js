@@ -33,12 +33,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const editListBtns = document.querySelectorAll('#edit-list-btn');
     editListBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            const wrapper = btn.closest('.wrapper');
+            btn.style.display = 'none';
+
+            const wrapper = btn.closest('.wrapper'); // target the btn's parent wrapper
             const textareaWrapper = wrapper.querySelector('#textarea-wrapper');
 
             textareaWrapper.style.display = 'flex';
 
-            const listDesc = wrapper.querySelector('p#list-desc');
+            // ensure only the btn doesn't toggle visibility for listDesc and listName at the same time 
+            // by adding wrapper queryselector
+            const listDesc = wrapper.querySelector('p#list-desc'); 
             const listName = wrapper.querySelector('h1#list-name');
 
             if (listName) {
