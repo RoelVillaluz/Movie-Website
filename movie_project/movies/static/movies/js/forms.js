@@ -30,14 +30,22 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     })
 
-    const listName = document.getElementById('list-name');
-    const editListBtn = document.getElementById('edit-list-btn');
-    // wrapper containing texterea and buttons
-    const textareaWrapper = document.getElementById('textarea-wrapper'); 
+    const editListBtns = document.querySelectorAll('#edit-list-btn');
+    editListBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const wrapper = btn.closest('.wrapper');
+            const textareaWrapper = wrapper.querySelector('#textarea-wrapper');
 
-    editListBtn.addEventListener('click', ()=> {
-        editListBtn.style.display = 'none'
-        listName.style.display = 'none';
-        textareaWrapper.style.display = 'flex';
+            textareaWrapper.style.display = 'flex';
+
+            const listDesc = wrapper.querySelector('p#list-desc');
+            const listName = wrapper.querySelector('h1#list-name');
+
+            if (listName) {
+                listName.style.display = 'none'
+            } else if (listDesc) {
+                listDesc.style.display = 'none'
+            }
+        })
     })
 })
