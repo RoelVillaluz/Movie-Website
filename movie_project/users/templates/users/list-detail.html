@@ -14,6 +14,7 @@
                             <textarea class="edit-textarea" name="name" id="list-name-textarea">{{ list.name }}</textarea>
                             {{ form.privacy.as_hidden }}
                             <button type="submit">Save</button>
+                            <button type="button">Cancel</button>
                         </div>
                         <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
                     </div>
@@ -32,9 +33,12 @@
                 {% else %}
                     <p id="list-desc">No description yet</p>
                 {% endif %}
-                <div class="wrapper" id="textarea-wrapper">
-                    <textarea class="edit-textarea" name="description" id="list-desc-textarea">{{ list.description }}</textarea>
-                    <button type="submit">Save</button>
+                <div class="wrapper" id="textarea-wrapper" style="flex-direction: column;">
+                    <textarea class="edit-textarea" name="description" id="list-desc-textarea" placeholder="Add description to your list">{{ list.description }}</textarea>
+                    <div style="align-self: flex-end;">
+                        <button type="submit">Save</button>
+                        <button type="button">Cancel</button>
+                    </div>
                 </div>
                 <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
             </div>

@@ -31,25 +31,34 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     const editListBtns = document.querySelectorAll('#edit-list-btn');
+
     editListBtns.forEach(btn => {
         btn.addEventListener('click', function() {
+            // Reset all buttons, textareas, and associated elements to their default state
+            editListBtns.forEach(otherBtn => {
+                otherBtn.style.display = 'block';
+
+                const otherWrapper = otherBtn.closest('.wrapper');
+                const otherTextareaWrapper = otherWrapper.querySelector('#textarea-wrapper');
+                const otherListName = otherWrapper.querySelector('h1#list-name');
+                const otherListDesc = otherWrapper.querySelector('p#list-desc');
+
+                if (otherTextareaWrapper) otherTextareaWrapper.style.display = 'none';
+                if (otherListName) otherListName.style.display = 'block';
+                if (otherListDesc) otherListDesc.style.display = 'block';
+            });
+
+            // Set the current button and associated elements
             btn.style.display = 'none';
 
-            const wrapper = btn.closest('.wrapper'); // target the btn's parent wrapper
+            const wrapper = btn.closest('.wrapper');
             const textareaWrapper = wrapper.querySelector('#textarea-wrapper');
-
-            textareaWrapper.style.display = 'flex';
-
-            // ensure only the btn doesn't toggle visibility for listDesc and listName at the same time 
-            // by adding wrapper queryselector
-            const listDesc = wrapper.querySelector('p#list-desc'); 
             const listName = wrapper.querySelector('h1#list-name');
+            const listDesc = wrapper.querySelector('p#list-desc');
 
-            if (listName) {
-                listName.style.display = 'none'
-            } else if (listDesc) {
-                listDesc.style.display = 'none'
-            }
-        })
-    })
+            if (textareaWrapper) textareaWrapper.style.display = 'flex';
+            if (listName) listName.style.display = 'none';
+            if (listDesc) listDesc.style.display = 'none';
+        });
+    });
 })

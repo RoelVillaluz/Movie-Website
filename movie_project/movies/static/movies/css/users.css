@@ -1480,6 +1480,11 @@ input[type="checkbox"] {
     color: white;
 }
 
+#textarea-wrapper button[type="button"] {
+    background-color: #eaf4ff;
+    color: black;
+}
+
 .edit-textarea {
     background-color: #2e2e2e;
     color: white;
@@ -1496,9 +1501,9 @@ input[type="checkbox"] {
     background-color: #2e2e2e;
     color: white;
     font-family: 'Electrolize', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 10px;
-    height: 3rem;
+    height: 6rem;
     border: solid 1px #087afc;
     resize: none;
     overflow: hidden;
