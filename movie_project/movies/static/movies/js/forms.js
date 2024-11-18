@@ -59,6 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (textareaWrapper) textareaWrapper.style.display = 'flex';
             if (listName) listName.style.display = 'none';
             if (listDesc) listDesc.style.display = 'none';
+
+            const cancelBtn = wrapper.querySelector('button[type="button"]');
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', () => {
+                    textareaWrapper.style.display = 'none';
+                    if (listName) listName.style.display = 'block';
+                    if (listDesc) listDesc.style.display = 'block';
+                });
+            }
         });
     });
 })
