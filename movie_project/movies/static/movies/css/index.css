@@ -51,11 +51,11 @@
 }
 
 .featured-movie .text h1 {
-    font-size: 6rem;
+    font-size: clamp(4rem, 6vw, 20rem)
 }
 
 .featured-movie .text h3 {
-    font-size: 4rem;
+    font-size: clamp(3rem, 4vw, 16rem);
 }
 
 .animate-img {
@@ -165,8 +165,8 @@ h3.marker::after {
 }
 
 .movie-link {
-    padding: 12px 30px;
-    font-size: 1.1rem;
+    padding: 2vh 2vw;
+    font-size: clamp(1.1rem, 1.25vw, 4rem);
     text-decoration: none;
     background-color: rgb(20, 20, 20);
     display: inline-block; 
@@ -953,26 +953,4 @@ and only apply hover filter effect once all animations have stopped
 .month-link i {
     color: rgb(20, 20, 20);
     transition: 0.3s;
-}
-
-.community {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    background-color: rgb(32, 32, 32);
-    padding: 1rem;
-    margin: 1rem 0rem;
-}
-
-.community .left,
-.community .right
-{
-    flex: 1;
-}
-
-.community h1 {
-    text-align: center;
-    color: white;
-    font-size: 10rem;
-    font-weight: 700;
 }
