@@ -12,7 +12,7 @@ nav {
 
 nav .logo {
     font-weight: 700;
-    font-size: 28px;
+    font-size: clamp(28px, 2.5vw, 8rem);
     color: white;
     text-decoration: none;
 }
@@ -31,7 +31,7 @@ nav .logo {
 
 .nav-item {
     margin: 0px 10px;
-    font-size: 18px;
+    font-size: clamp(18px, 1.25vw, 7rem);
 }
 
 .nav-item a {
@@ -68,7 +68,7 @@ nav li a:hover::before {
 
 .nav-searchbar input {
     width: 100%;
-    padding: 10px;
+    padding: 0.8vw;
     background-color: transparent;
     border: none;
     outline: none;
@@ -76,6 +76,7 @@ nav li a:hover::before {
 }
 
 .nav-searchbar #search-icon {
+    font-size: clamp(1rem, 1.25vw, 6rem);
     position: absolute;
     top: 50%;
     left: 10px;
