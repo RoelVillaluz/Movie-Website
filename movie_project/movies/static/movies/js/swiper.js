@@ -24,14 +24,8 @@ var swiper = new Swiper(".mySwiper", {
       1440: {
         slidesPerView: 10,
       },
-      1600: {
-        slidesPerView: 12,
-      },
       1920: {
-        slidesPerView: 14,
-      },
-      2560: {
-        slidesPerView: 16,
+        slidesPerView: 12,
       },
     }
   });
