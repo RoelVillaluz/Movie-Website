@@ -28,10 +28,14 @@
 }
 
 .list-section .header h3 {
-    margin-top: 10px;
     color: rgba(255, 255, 255, 0.75);
     font-size: 1rem;
     font-weight: 200;
+}
+
+.list-section p {
+    color: #b1b1b1;
+    line-height: 1.5rem;
 }
 
 .list-section i {
@@ -281,6 +285,7 @@
 
 .list-container .content {
     flex: 4;
+    padding: 0;
     margin-top: 10px;
 }
 
@@ -501,7 +506,7 @@ input[type="checkbox"] {
 
 .profile-details {
     width: 100%;
-    margin-top: 1.4rem;
+    margin-top: 40px
 }
 
 .follow-btn {
