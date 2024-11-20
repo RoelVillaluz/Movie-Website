@@ -235,9 +235,18 @@ class CustomListDetailView(DetailView):
     def get(self, request, **kwargs):
         list = self.get_object()
         form = CustomListForm(instance=list)
+        list_movies = list.movies.all()
+
+        genres_with_movies = get_available_genres(list_movies)
+
+        view_mode = request.GET.get('view', 'list')
+        show_layout_buttons = True
         
         context = {
             'list': list,
+            'available_genres': genres_with_movies,
+            'view_mode': view_mode,
+            'show_layout_buttons': show_layout_buttons,
             'form': form
         }
 

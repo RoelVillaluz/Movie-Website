@@ -16,9 +16,11 @@
                             <button type="submit">Save</button>
                             <button type="button">Cancel</button>
                         </div>
-                        <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
+                        {% if request.user == list.profile.user %}
+                            <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
+                        {% endif %}
                     </div>
-                    <h3>By <a href="{% url 'profile' list.profile.user.pk %}">{{ list.profile.user }}</a> • Created on {{ list.created_on|date:"F d Y" }}</h3>
+                    <h3 style="margin-top: 10px;">By <a href="{% url 'profile' list.profile.user.pk %}">{{ list.profile.user }}</a> • Created on {{ list.created_on|date:"F d Y" }}</h3>
                 </div>
                 <div class="wrapper">
                     <h3>0 Views</h3>
@@ -27,24 +29,14 @@
                     <i class="fa-solid fa-share-nodes"></i>
                 </div>
             </div>
-            <div class="wrapper" style="gap: 0.5rem;">
-                {% if list.description %}
-                    <p id="list-desc">{{ list.description }}</p>
-                {% else %}
-                    <p id="list-desc">No description yet</p>
-                {% endif %}
-                <div class="wrapper" id="textarea-wrapper" style="flex-direction: column;">
-                    <textarea class="edit-textarea" name="description" id="list-desc-textarea" placeholder="Add description to your list">{{ list.description }}</textarea>
-                    <div style="align-self: flex-end;">
-                        <button type="submit">Save</button>
-                        <button type="button">Cancel</button>
-                    </div>
-                </div>
-                <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
-            </div>
             <div class="list-container">
+
+                {% include 'users/filter-sidebar.html' %}
+            
                 <div class="content">
-                        
+                    
+                    {% include 'users/form-wrapper.html' %} 
+            
                     <ol>
                         {% for movie in list.movies.all %}
                             {% if view_mode == 'grid' %}
@@ -59,11 +51,6 @@
         
                 </div>
             </div>
-        <!-- <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Save">
-        </form> -->
         </form>
     </section>
 {% endblock %}
