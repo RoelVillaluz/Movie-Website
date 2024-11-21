@@ -239,14 +239,30 @@ class CustomListDetailView(DetailView):
 
         genres_with_movies = get_available_genres(list_movies)
 
+        # viewing mode (list view or grid view)
         view_mode = request.GET.get('view', 'list')
         show_layout_buttons = True
+
+        # Search functionality
+        search_form = SearchForm(request.GET or None)
+        if search_form.is_valid():
+            query = search_form.cleaned_data.get('query')
+            list_movies = list_movies.filter(title__icontains=query)
+
+        # Sorting logic
+        sort_form = MovieSortForm(request.GET or None)
+        if sort_form.is_valid():
+            sort_by = sort_form.cleaned_data.get('sort_by')
+            list_movies = sort(list_movies, sort_by)
         
         context = {
             'list': list,
+            'list_movies': list_movies,
             'available_genres': genres_with_movies,
             'view_mode': view_mode,
             'show_layout_buttons': show_layout_buttons,
+            'search_form': search_form,
+            'sort_form': sort_form,
             'form': form
         }
 
