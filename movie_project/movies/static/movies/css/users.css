@@ -64,9 +64,28 @@
     transition: 0.3s;
 }
 
-.list-container
-{
+.list-container {
     display: flex;
+}
+
+.list-container .line {
+    width: 100%;
+    height: 1px;
+    background-color: #414141;
+    margin: 3rem 0;
+}
+
+#list-description {
+    width: 90%;
+    padding: 0 10px;
+}
+
+#list-description h3 {
+    margin-bottom: 1rem;
+}
+
+#list-description p {
+    margin-bottom: 2rem;
 }
 
 .movie-list-item {
@@ -191,7 +210,7 @@
 .search-form i {
     position: absolute;
     top: 50%;
-    left: 10%;
+    left: 0%;
     transform: translate(-50%, -50%);
 }
 
@@ -203,7 +222,7 @@
     font-family: "Electrolize", sans-serif;
     padding: 10px;
     padding-left: 20%;
-    margin-left: 10px;
+    margin-left: -10px;
     border: none;
     outline: none;
     font-size: 1.1rem;
@@ -273,6 +292,7 @@
 
 .filter-sidebar {
     flex: 1;
+    max-width: 300px;
     position: sticky;
     top: 10%; 
     align-self: flex-start;

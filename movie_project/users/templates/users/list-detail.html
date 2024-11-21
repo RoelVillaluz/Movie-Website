@@ -22,11 +22,14 @@
                     </div>
                     <h3 style="margin-top: 10px;">By <a href="{% url 'profile' list.profile.user.pk %}">{{ list.profile.user }}</a> • Created on {{ list.created_on|date:"F d Y" }}</h3>
                 </div>
-                <div class="wrapper">
-                    <h3>0 Views</h3>
-                    <h3>{{ list.movies.count }} Titles</h3>
-                    <h3>{{ list.privacy.title }}</h3>
-                    <i class="fa-solid fa-share-nodes"></i>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="wrapper">
+                        <h3>0 Views</h3>
+                        <h3>{{ list.movies.count }} Titles</h3>
+                        <h3>{{ list.privacy.title }}</h3>
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </div>
+                    <p>You've watched 0 out of {{ list_movies.count }}</p>
                 </div>
             </div>
             <div class="list-container">
@@ -34,11 +37,22 @@
                 {% include 'users/filter-sidebar.html' %}
             
                 <div class="content">
-                    
+
+                    <div id="list-description">
+                        {% if list.Description %}
+                            <h3>Description</h3>
+                            <p>{{ list.description }}</p>
+                        {% else %}
+                            <p>No description yet.</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="line"></div>
+
                     {% include 'users/form-wrapper.html' %} 
             
                     <ol>
-                        {% for movie in list.movies.all %}
+                        {% for movie in list_movies %}
                             {% if view_mode == 'grid' %}
                                 <li class="skeleton">
                                     {% include 'movies/card.html' %}
