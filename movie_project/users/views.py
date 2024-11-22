@@ -226,18 +226,23 @@ class CustomListDetailView(DetailView):
         form = CustomListForm(request.POST, instance=list)
         
         if form.is_valid():
-            form.save()
+            # Save the form but preserve the movies relationship
+            updated_list = form.save(commit=False)
+            updated_list.movies.set(list.movies.all())  # Keep the original list of movies
+            updated_list.save()
 
             return redirect(request.META.get('HTTP_REFERER', 'index'))
 
         return redirect(request.META.get('HTTP_REFERER', 'index'))
 
     def get(self, request, **kwargs):
-        list = self.get_object()
-        form = CustomListForm(instance=list)
-        list_movies = list.movies.all()
+        custom_list = self.get_object()
+        form = CustomListForm(instance=custom_list)
+        custom_list_movies = custom_list.movies.all()
 
-        genres_with_movies = get_available_genres(list_movies)
+        genres_with_movies = get_available_genres(custom_list_movies)
+        award_categories_with_winners = available_award_categories(custom_list_movies)
+        actors_with_movies = available_actors(custom_list_movies)
 
         # viewing mode (list view or grid view)
         view_mode = request.GET.get('view', 'list')
@@ -247,22 +252,63 @@ class CustomListDetailView(DetailView):
         search_form = SearchForm(request.GET or None)
         if search_form.is_valid():
             query = search_form.cleaned_data.get('query')
-            list_movies = list_movies.filter(title__icontains=query)
+            custom_list_movies = custom_list_movies.filter(title__icontains=query)
 
         # Sorting logic
         sort_form = MovieSortForm(request.GET or None)
         if sort_form.is_valid():
             sort_by = sort_form.cleaned_data.get('sort_by')
-            list_movies = sort(list_movies, sort_by)
+            custom_list_movies = sort(custom_list_movies, sort_by)
+
+        # Filtering logic
+        selected_genres = request.GET.getlist('genre')
+        selected_award_categories = request.GET.getlist('award_category')
+        selected_actors = request.GET.getlist('actor')
+
+        filters = Q()
+
+        # Add genre filters 
+        if selected_genres:
+            genre_q = Q()
+            for genre_name in selected_genres:
+                genre_q |= Q(genres__name=genre_name)
+            filters |= genre_q
+
+        # Add award category filters 
+        if selected_award_categories:
+            award_q = Q()
+            for award_category in selected_award_categories:
+                award_q |= Q(awards__category=award_category, awards__winner=True)
+            filters |= award_q
+
+        # Add actor filters 
+        if selected_actors:
+            actor_q = Q()
+            for actor in selected_actors:
+                actor_q |= Q(actors__name=actor)
+            filters |= actor_q
+
+        # Apply the combined filters to the queryset
+        if filters:
+            custom_list_movies = custom_list.movies.filter(filters).distinct()
+
+        # Get distinct award categories where the movie is a winner
+        award_categories = Award.objects.filter(winner=True).values_list('category', flat=True).distinct()
         
         context = {
-            'list': list,
-            'list_movies': list_movies,
-            'available_genres': genres_with_movies,
+            'custom_list': custom_list,
+            'custom_list_movies': custom_list_movies,
             'view_mode': view_mode,
             'show_layout_buttons': show_layout_buttons,
             'search_form': search_form,
             'sort_form': sort_form,
+            'available_genres': genres_with_movies,
+            'award_categories_with_winners': award_categories_with_winners,
+            'actors_with_movies': actors_with_movies,
+            'selected_award_categories': selected_award_categories,
+            'selected_genres': selected_genres,
+            'selected_actors': selected_actors,
+            'award_categories': award_categories,
             'form': form
         }
 
