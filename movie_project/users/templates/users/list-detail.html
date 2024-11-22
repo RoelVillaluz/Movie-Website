@@ -1,6 +1,6 @@
 {% extends 'movies/layout.html' %}
 
-{% block title %} {{ list.name }} {% endblock %}
+{% block title %} {{ custom_list.name }} {% endblock %}
 
 {% block body %}
     <section class="list-section">
@@ -9,62 +9,62 @@
             <div class="header" style="align-items: start;">
                 <div>
                     <div class="wrapper">
-                        <h1 id="list-name">{{ list.name }}</h1>
+                        <h1 id="list-name">{{ custom_list.name }}</h1>
                         <div class="wrapper" id="textarea-wrapper">
-                            <textarea class="edit-textarea" name="name" id="list-name-textarea">{{ list.name }}</textarea>
+                            <textarea class="edit-textarea" name="name" id="list-name-textarea">{{ custom_list.name }}</textarea>
                             {{ form.privacy.as_hidden }}
                             <button type="submit">Save</button>
                             <button type="button">Cancel</button>
                         </div>
-                        {% if request.user == list.profile.user %}
+                        {% if request.user == custom_list.profile.user %}
                             <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
                         {% endif %}
                     </div>
-                    <h3 style="margin-top: 10px;">By <a href="{% url 'profile' list.profile.user.pk %}">{{ list.profile.user }}</a> • Created on {{ list.created_on|date:"F d Y" }}</h3>
+                    <h3 style="margin-top: 10px;">By <a href="{% url 'profile' custom_list.profile.user.pk %}">{{ custom_list.profile.user }}</a> • Created on {{ custom_list.created_on|date:"F d Y" }}</h3>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                     <div class="wrapper">
                         <h3>0 Views</h3>
-                        <h3>{{ list.movies.count }} Titles</h3>
-                        <h3>{{ list.privacy.title }}</h3>
+                        <h3>{{ custom_list.movies.count }} Titles</h3>
+                        <h3>{{ custom_list.privacy.title }}</h3>
                         <i class="fa-solid fa-share-nodes"></i>
                     </div>
-                    <p>You've watched 0 out of {{ list_movies.count }}</p>
-                </div>
-            </div>
-            <div class="list-container">
-
-                {% include 'users/filter-sidebar.html' %}
-            
-                <div class="content">
-
-                    <div id="list-description">
-                        {% if list.Description %}
-                            <h3>Description</h3>
-                            <p>{{ list.description }}</p>
-                        {% else %}
-                            <p>No description yet.</p>
-                        {% endif %}
-                    </div>
-
-                    <div class="line"></div>
-
-                    {% include 'users/form-wrapper.html' %} 
-            
-                    <ol>
-                        {% for movie in list_movies %}
-                            {% if view_mode == 'grid' %}
-                                <li class="skeleton">
-                                    {% include 'movies/card.html' %}
-                                </li>
-                            {% else %}
-                                {% include 'movies/movie-list-item.html' %}
-                            {% endif %}
-                        {% endfor %}
-                    </ol>
-        
+                    <p>You've watched 0 out of {{ custom_list_movies.count }}</p>
                 </div>
             </div>
         </form>
+        <div class="list-container">
+
+            {% include 'users/filter-sidebar.html' %}
+        
+            <div class="content">
+
+                <div id="list-description">
+                    {% if custom_list.Description %}
+                        <h3>Description</h3>
+                        <p>{{ custom_list.description }}</p>
+                    {% else %}
+                        <p>No description yet.</p>
+                    {% endif %}
+                </div>
+
+                <div class="line"></div>
+
+                {% include 'users/form-wrapper.html' %} 
+        
+                <ol>
+                    {% for movie in custom_list_movies %}
+                        {% if view_mode == 'grid' %}
+                            <li class="skeleton">
+                                {% include 'movies/card.html' %}
+                            </li>
+                        {% else %}
+                            {% include 'movies/movie-list-item.html' %}
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+    
+            </div>
+        </div>
     </section>
 {% endblock %}
