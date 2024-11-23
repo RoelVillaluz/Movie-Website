@@ -1,4 +1,4 @@
-<li class="movie-list-item skeleton">
+ <li class="movie-list-item skeleton">
     <div class="card">
         <div class="image">
             <a href="{% url 'movie-detail' movie.pk %}">
@@ -29,7 +29,7 @@
             
         </div>
         <div class="tags">
-            <div class="genre-tag">{{ movie.genres.first }}</div>
+            <a href="{% url 'genre-detail' movie.genres.first.pk %}" class="genre-tag">{{ movie.genres.first }}</a>
             <div class="rating-tag 
                 {% if movie.avg_rating >= 8 %}
                     high-rating
