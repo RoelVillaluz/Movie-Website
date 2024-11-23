@@ -222,16 +222,22 @@ class CustomListDetailView(DetailView):
     context_object_name = 'list'
 
     def post(self, request, *args, **kwargs):
-        list = self.get_object()
-        form = CustomListForm(request.POST, instance=list)
+        custom_list = self.get_object()
+        form = CustomListForm(request.POST, instance=custom_list)
         
-        if form.is_valid():
-            # Save the form but preserve the movies relationship
-            updated_list = form.save(commit=False)
-            updated_list.movies.set(list.movies.all())  # Keep the original list of movies
-            updated_list.save()
+        if 'save_name' in request.POST:
+            if form.is_valid():
+                custom_list = form.save(commit=False)
+                custom_list.movies.set(custom_list.movies.all())  # Preserve movies relationship
+                custom_list.description = request.POST.get('description', custom_list.description)
+                custom_list.save()
+                return redirect(request.META.get('HTTP_REFERER', 'index'))
 
-            return redirect(request.META.get('HTTP_REFERER', 'index'))
+        elif 'save_description' in request.POST:
+            if form.is_valid():
+                custom_list.description = request.POST.get('description', custom_list.description)
+                custom_list.save()
+                return redirect(request.META.get('HTTP_REFERER', 'index'))
 
         return redirect(request.META.get('HTTP_REFERER', 'index'))
 
@@ -244,57 +250,47 @@ class CustomListDetailView(DetailView):
         award_categories_with_winners = available_award_categories(custom_list_movies)
         actors_with_movies = available_actors(custom_list_movies)
 
-        # viewing mode (list view or grid view)
         view_mode = request.GET.get('view', 'list')
         show_layout_buttons = True
 
-        # Search functionality
         search_form = SearchForm(request.GET or None)
         if search_form.is_valid():
             query = search_form.cleaned_data.get('query')
             custom_list_movies = custom_list_movies.filter(title__icontains=query)
 
-        # Sorting logic
         sort_form = MovieSortForm(request.GET or None)
         if sort_form.is_valid():
             sort_by = sort_form.cleaned_data.get('sort_by')
             custom_list_movies = sort(custom_list_movies, sort_by)
 
-        # Filtering logic
         selected_genres = request.GET.getlist('genre')
         selected_award_categories = request.GET.getlist('award_category')
         selected_actors = request.GET.getlist('actor')
 
         filters = Q()
-
-        # Add genre filters 
         if selected_genres:
             genre_q = Q()
             for genre_name in selected_genres:
                 genre_q |= Q(genres__name=genre_name)
             filters |= genre_q
 
-        # Add award category filters 
         if selected_award_categories:
             award_q = Q()
             for award_category in selected_award_categories:
                 award_q |= Q(awards__category=award_category, awards__winner=True)
             filters |= award_q
 
-        # Add actor filters 
         if selected_actors:
             actor_q = Q()
             for actor in selected_actors:
                 actor_q |= Q(actors__name=actor)
             filters |= actor_q
 
-        # Apply the combined filters to the queryset
         if filters:
             custom_list_movies = custom_list.movies.filter(filters).distinct()
 
-        # Get distinct award categories where the movie is a winner
         award_categories = Award.objects.filter(winner=True).values_list('category', flat=True).distinct()
-        
+
         context = {
             'custom_list': custom_list,
             'custom_list_movies': custom_list_movies,
