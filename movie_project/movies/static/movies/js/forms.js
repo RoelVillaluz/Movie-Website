@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     textareaWrapper.style.display = 'none';
                     if (listName) listName.style.display = 'block';
                     if (listDesc) listDesc.style.display = 'block';
+                    btn.style.display = 'block';
                 });
             }
         });

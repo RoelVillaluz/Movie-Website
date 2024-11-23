@@ -38,6 +38,13 @@
     line-height: 1.5rem;
 }
 
+.list-section #watched-movies-count {
+    background-color: rgb(39, 39, 39);
+    color: rgb(201, 201, 201);
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+
 .list-section i {
     cursor: pointer;
 }
@@ -64,6 +71,25 @@
     transition: 0.3s;
 }
 
+.list-section button {
+    font-family: 'Electrolize', sans-serif;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.list-section button[type="submit"] {
+    background-color: #087afc;
+    color: white;
+}
+
+.list-section button[type="button"] {
+    background-color: #eaf4ff;
+    color: black;
+}
+
 .list-container {
     display: flex;
 }
@@ -75,6 +101,21 @@
     margin: 3rem 0;
 }
 
+#list-desc-form .wrapper {
+    gap: 0.5rem;
+}
+
+#list-desc-form h3 {
+    margin-bottom: 0.5rem;
+}
+
+#list-desc-form #buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+/* 
 #list-description {
     width: 90%;
     padding: 0 10px;
@@ -86,7 +127,7 @@
 
 #list-description p {
     margin-bottom: 2rem;
-}
+} */
 
 .movie-list-item {
     display: flex;
@@ -169,7 +210,7 @@
     text-decoration: none;
 }
 
-.movie-list-item-details a::before {
+.movie-list-item-details a:not(.genre-tag) ::before {
     position: absolute;
     content: '';
     width: 0%;
@@ -181,7 +222,7 @@
     transition: 0.15s;
 }
 
-.movie-list-item-details a:hover::before {
+.movie-list-item-details a:not(.genre-tag) :hover::before {
     width: 100%;
 }
 
@@ -1491,25 +1532,6 @@ input[type="checkbox"] {
     gap: 0.5rem;
 }
 
-#textarea-wrapper button {
-    font-family: 'Electrolize', sans-serif;
-    padding: 5px 10px;
-    border-radius: 4px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-
-#textarea-wrapper button[type="submit"] {
-    background-color: #087afc;
-    color: white;
-}
-
-#textarea-wrapper button[type="button"] {
-    background-color: #eaf4ff;
-    color: black;
-}
-
 .edit-textarea {
     background-color: #2e2e2e;
     color: white;
@@ -1517,6 +1539,7 @@ input[type="checkbox"] {
     font-size: 1.5rem;
     padding: 10px;
     height: 3rem;
+    max-width: 1000px;
     border: solid 1px #087afc;
     resize: none;
     overflow: hidden;
