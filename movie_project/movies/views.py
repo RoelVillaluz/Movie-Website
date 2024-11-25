@@ -99,7 +99,7 @@ class MovieListView(ListView):
         if selected_award_categories:
             award_q = Q()
             for award_category in selected_award_categories:
-                award_q |= Q(awards__category=award_category)
+                award_q |= Q(awards__category=award_category, awards__winner=True)
             filters |= award_q
 
         # Add actor filters 
