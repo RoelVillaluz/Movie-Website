@@ -64,9 +64,7 @@ def available_award_categories(queryset):
         for award in movie.awards.filter(category__in=award_categories_with_winners):
             categories_with_movies[award.category].append(movie)
 
-    categories_with_movies = sorted(dict(categories_with_movies))
-
-    return categories_with_movies
+    return sorted(dict(categories_with_movies))
 
 def available_actors(queryset):
     """ Get only actors with movies for queryset """
