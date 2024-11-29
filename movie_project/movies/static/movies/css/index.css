@@ -262,8 +262,7 @@ and only apply hover filter effect once all animations have stopped
 .movies-and-tv .image {
     position: relative;
     flex: 1;
-    height: 100%;
-    height: 600px;
+    height: 75vh;
 }
 
 .movies-and-tv .image.show {
@@ -454,7 +453,6 @@ and only apply hover filter effect once all animations have stopped
     flex-direction: column;
     text-align: center;
     flex: 1;
-    height: 300px;
 }
 
 .popular-actors-list .item.show {
@@ -518,7 +516,7 @@ and only apply hover filter effect once all animations have stopped
 
 .top-rated-movies ol:hover li:not(:hover) .details, 
 .top-rated-movies ol:hover li:not(:hover)::before,
-.top-rated-movies ol:hover li:not(:hover) .watchlist-btn
+.top-rated-movies ol:hover li:not(:hover) .actions
 {
     opacity: 0;
 }
@@ -543,9 +541,9 @@ and only apply hover filter effect once all animations have stopped
     background-color: white;
     color: rgb(20, 20, 20);
     padding: 5px;
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
+    aspect-ratio: 1 / 1;
+    width: clamp(1rem, 2.5vw, 3.5rem);
+    font-size: clamp(12px, 1vw, 3rem);
     z-index: 2;
     transition: 0.3s;
 }
@@ -583,6 +581,37 @@ and only apply hover filter effect once all animations have stopped
     margin-top: 5px;
     font-weight: 200;
     color: rgb(177, 177, 177);
+}
+
+.card .actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px 0 0 5px;
+    width: auto;
+    padding: clamp(0.25rem, 2vw, 0.75rem);
+    pointer-events: auto;
+    transition: 0.3s;
+}
+
+.card .actions i {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: clamp(12px, 1vw, 3rem);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.card .actions i:hover {
+    color: white;
+}
+
+.card .actions i.fa-bookmark:hover {
+    color: yellow;
 }
 
 .tags {
