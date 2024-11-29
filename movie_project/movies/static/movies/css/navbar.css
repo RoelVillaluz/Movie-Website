@@ -12,7 +12,7 @@ nav {
 
 nav .logo {
     font-weight: 700;
-    font-size: clamp(28px, 2.5vw, 8rem);
+    font-size: clamp(28px, 2vw, 8rem);
     color: white;
     text-decoration: none;
 }
