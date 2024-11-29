@@ -251,7 +251,7 @@
 .search-form i {
     position: absolute;
     top: 50%;
-    left: 0%;
+    left: 5%;
     transform: translate(-50%, -50%);
 }
 
@@ -263,7 +263,6 @@
     font-family: "Electrolize", sans-serif;
     padding: 10px;
     padding-left: 20%;
-    margin-left: -10px;
     border: none;
     outline: none;
     font-size: 1.1rem;
@@ -358,7 +357,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    padding-left: 3%;
+    padding-left: 1rem;
 }
 
 .list-container ol.grid li {
