@@ -610,10 +610,6 @@ and only apply hover filter effect once all animations have stopped
     color: white;
 }
 
-.card .actions i.fa-bookmark:hover {
-    color: yellow;
-}
-
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -667,6 +663,14 @@ and only apply hover filter effect once all animations have stopped
     font-size: 1rem;
     font-weight: 200;
     margin-left: -10px;
+}
+
+.card .fa-eye.watched {
+    color: white;
+}
+
+.card .fa-bookmark.watchlisted {
+    color: yellow;
 }
 
 .watchlist-btn {

@@ -34,8 +34,22 @@
         </div>
     </div>
     <div class="actions">
-        <i class="fa-solid fa-eye"></i>
-        <i class="fa-solid fa-bookmark"></i>
+        {% with user.profile.watched_movies.all as watched_movies %}
+            {% if movie in watched_movies %}
+                <i class="fa-solid fa-eye watched" id="add-to-watched-movies-btn" data-id="{{ movie.id }}"></i>
+            {% else %}
+                <i class="fa-solid fa-eye" id="add-to-watched-movies-btn" data-id="{{ movie.id }}"></i>
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Watchlist button -->
+        {% with user.profile.watchlist.movies.all as user_watchlist %}
+            {% if movie in user_watchlist %}
+                <i class="fa-solid fa-bookmark watchlisted" data-id="{{ movie.id }}"></i>
+            {% else %}
+                <i class="fa-solid fa-bookmark" data-id="{{ movie.id }}"></i>
+            {% endif %}
+        {% endwith %}
         <i class="fa-solid fa-ellipsis"></i>
     </div>
 
