@@ -210,7 +210,7 @@
     text-decoration: none;
 }
 
-.movie-list-item-details a:not(.genre-tag) ::before {
+.movie-list-item-details a:not(.genre-tag)::before {
     position: absolute;
     content: '';
     width: 0%;
@@ -222,7 +222,7 @@
     transition: 0.15s;
 }
 
-.movie-list-item-details a:not(.genre-tag) :hover::before {
+.movie-list-item-details a:not(.genre-tag):hover::before {
     width: 100%;
 }
 

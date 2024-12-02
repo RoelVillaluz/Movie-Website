@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Watchlist buttons
-    document.querySelectorAll('.watchlist-btn').forEach(btn => {
+    document.querySelectorAll('#watchlist-btn').forEach(btn => {
         btn.onclick = function() {
             addToWatchlist(btn);
         };
@@ -60,6 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
             likeReview(btn);
         };
     });
+
+    // add to watched movies button
+    document.querySelectorAll('#watched-movie-btn').forEach(btn => {
+        btn.onclick = function() {
+            addToWatchedMovies(btn)
+        }
+    })
 
     function addToWatchlist(element, containsText = false) {
         fetch(`/add_to_watchlist/${element.dataset.id}/`)
@@ -84,6 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => {
                 console.error('Error:', error);
             });
+    }
+
+    function addToWatchedMovies(element) {
+        fetch(`/users/add_to_watched_movies/${element.dataset.id}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.watched) {
+                element.classList.add('watched');
+                showNotification('Added to watched movies', data.movie_image);
+            } else {
+                element.classList.remove('watched');
+                showNotification('Removed from watched movies', data.movie_image);
+            }
+        });
     }
 
     function likeReview(element) {
