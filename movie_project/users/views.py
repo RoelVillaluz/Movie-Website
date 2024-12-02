@@ -151,7 +151,18 @@ class MyWatchlistView(View):
     
 
 class ProfileDetailView(DetailView):
-    pass
+    model = Profile
+    template_name = 'users/profile.html'
+    context_object_name = 'profile'
+
+    def get(self, request, *args, **kwargs):
+        profile = self.get_object()
+
+        context = {
+            'profile': profile
+        }
+
+        return render(request, self.template_name, context)
 
 @login_required(login_url='login')
 def follow_content(request, model_name, object_id):
@@ -309,3 +320,23 @@ class CustomListDetailView(DetailView):
         }
 
         return render(request, self.template_name, context)
+
+@login_required(login_url='/login')
+@csrf_exempt    
+def add_to_watched_movies(request, id):
+    user = request.user
+    movie = Movie.objects.get(id=id)
+
+    profile, created = Profile.objects.get_or_create(user=user)
+
+    if movie not in profile.watched_movies.all():
+        profile.watched_movies.add(movie)
+        watched = True
+    else:
+        profile.watched_movies.remove(movie)
+        watched = False
+
+    return JsonResponse({
+        'watched': watched,
+        'movie_image': movie.poster_path.url # for notification 
+    })

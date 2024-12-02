@@ -94,6 +94,10 @@ def toggle_upcoming(queryset):
     return queryset.filter(release_date__gt=today)
 
 
+# def toggle_watched(queryset):
+#     return queryset.filter(movie__in=user.profile.watched_movies)
+
+
 def get_popular_actors_and_movies():
     """Get popular actors and their most popular movie."""
     popular_actors_and_movie = defaultdict(list)
