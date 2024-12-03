@@ -61,7 +61,7 @@ This project integrates with the TMDb API to fetch real-time movie and TV series
 
    ```bash
    git clone https://github.com/RoelVillaluz/Movie-Website.git
-   cd Movie-Website
+   cd movie_project
 2. **Create and Activate a Virtual Environment**
     ``` bash
     # Create a virtual environment
