@@ -3,10 +3,8 @@ import random
 from django import db
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
-from autoslug import AutoSlugField
 from django.db.models import Avg, F, Window, Count
 from django.db.models.functions import Rank
-from moviepy.editor import VideoFileClip
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.fields import GenericRelation

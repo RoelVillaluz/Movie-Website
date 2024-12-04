@@ -25,16 +25,17 @@ from django.db.models import Count, Avg, Prefetch, Q
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import ContentFile
 
-today = date.today()
-one_month_before = today - relativedelta(months=1)
+
 
 def index(request):
-    movies = Movie.objects.all()
     # random_rating(30) # for populating reviews
     # create_users(10)  # for populating users
-    popular_movies = movies.annotate(review_count=Count('reviews')).order_by('-review_count')[:20]
-    new_movies = movies.filter(release_date__gte=one_month_before, release_date__lte=today)
-    upcoming_movies = movies.filter(release_date__gt=today).order_by('release_date')
+    today = date.today()
+    one_month_before = today - relativedelta(months=1)
+
+    popular_movies = Movie.objects.annotate(review_count=Count('reviews')).order_by('-review_count')[:20]
+    new_movies = Movie.objects.filter(release_date__gte=one_month_before, release_date__lte=today)
+    upcoming_movies = Movie.objects.filter(release_date__gt=today).order_by('release_date')
     popular_genres = Genre.objects.annotate(movie_count=Count('movies')).order_by('-movie_count')[:4]
     popular_actors_and_movie = get_popular_actors_and_movies()
     genre_dict = get_genre_dict(popular_genres)
@@ -42,13 +43,12 @@ def index(request):
 
     most_popular_reviews = Review.objects.annotate(like_count=Count('likes')).order_by('-like_count').exclude(like_count__lt=1)[:2]
 
-    just_added = movies.order_by('-id').exclude(release_date__gt=today)[:20]
-    random_movie = random.choice(movies)
+    just_added = Movie.objects.filter(release_date__lte=today).order_by('-id')
+    random_movie = Movie.objects.order_by('?').first()
 
     upcoming_movie_and_date = get_movies_by_month_and_year(upcoming_movies, limit=2)
 
     context = {
-        'movies': movies,
         'popular_movies': popular_movies,
         'new_movies': new_movies,
         'upcoming_movies': upcoming_movies,
@@ -111,7 +111,7 @@ class MovieListView(ListView):
 
         # Apply the combined filters to the queryset
         if filters:
-            movies = movies.filter(filters)
+            movies = Movie.objects.filter(filters)
 
         # Search form
         search_form = SearchForm(self.request.GET or None)
@@ -225,6 +225,8 @@ class GenreListView(ListView):
         genre_set = set()
         genres = Genre.objects.all()
 
+
+        today = date.today()
 
         # get random movie images for genre page header
         movies = Movie.objects.exclude(release_date__gt=today)

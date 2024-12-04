@@ -29,7 +29,9 @@
             
         </div>
         <div class="tags">
-            <a href="{% url 'genre-detail' movie.genres.first.pk %}" class="genre-tag">{{ movie.genres.first }}</a>
+            {% if movie.genres.all %}
+                <a href="{% url 'genre-detail' movie.genres.first.pk %}" class="genre-tag">{{ movie.genres.first }}</a>
+            {% endif %}
             <div class="rating-tag 
                 {% if movie.avg_rating >= 8 %}
                     high-rating
