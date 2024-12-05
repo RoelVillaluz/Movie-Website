@@ -493,8 +493,14 @@ def add_to_watchlist(request, id):
     # Access the watchlist from the profile
     watchlist = profile.watchlist
 
+    watched = None
+
     if movie not in watchlist.movies.all():
         watchlist.movies.add(movie)
+        if movie in profile.watched_movies.all():
+            profile.watched_movies.remove(movie)
+            watched = False
+
         watchlisted = True
     else:
         watchlist.movies.remove(movie)
@@ -502,9 +508,12 @@ def add_to_watchlist(request, id):
 
     watchlist.save()
 
-    return JsonResponse(
-        {'watchlisted': watchlisted, 
-         'movie_image': movie.poster_path.url})
+    return JsonResponse({
+        'watchlisted': watchlisted,
+        'watched': watched,  # Add the watched status
+        'movie_image': movie.poster_path.url
+    })
+
 
 def like_review(request, id):
     user = request.user

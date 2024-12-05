@@ -328,6 +328,7 @@ def add_to_watched_movies(request, id):
     movie = Movie.objects.get(id=id)
 
     profile, created = Profile.objects.get_or_create(user=user)
+    watchlist = profile.watchlist
 
     if movie not in profile.watched_movies.all():
         profile.watched_movies.add(movie)

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" data-id="{{ movie.id }}">
     <div class="image">
         <a href="{% url 'movie-detail' movie.pk %}">
             <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
@@ -34,8 +34,8 @@
         </div>
     </div>
     <div class="actions">
-        {% with user.profile.watched_movies.all as watched_movies %}
-            {% if movie in watched_movies %}
+        {% with user.profile.watched_movies.all as watched_movies and user.profile.watchlist.movies.all as watchlist %}
+            {% if movie in watched_movies and movie not in watchlist %}
                 <i class="fa-solid fa-eye watched" id="watched-movie-btn" data-id="{{ movie.id }}"></i>
             {% else %}
                 <i class="fa-solid fa-eye" id="watched-movie-btn" data-id="{{ movie.id }}"></i>
