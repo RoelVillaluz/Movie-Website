@@ -330,8 +330,14 @@ def add_to_watched_movies(request, id):
     profile, created = Profile.objects.get_or_create(user=user)
     watchlist = profile.watchlist
 
+    watchlisted = None
+
     if movie not in profile.watched_movies.all():
         profile.watched_movies.add(movie)
+        if movie in watchlist.movies.all():
+            watchlist.movies.remove(movie)
+            watchlisted = False
+
         watched = True
     else:
         profile.watched_movies.remove(movie)
@@ -339,5 +345,6 @@ def add_to_watched_movies(request, id):
 
     return JsonResponse({
         'watched': watched,
+        'watchlisted': watchlisted,
         'movie_image': movie.poster_path.url # for notification 
     })

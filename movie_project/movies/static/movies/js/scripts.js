@@ -89,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     showNotification('1 Item Removed', data.movie_image);
                 }
    
-                // Update the watched class based on the server response
                 const watchedBtn = card.querySelector('.fa-eye')
                 if (data.watched) {
                     watchedBtn.classList.add('watched');
@@ -104,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
    
 
     function addToWatchedMovies(element) {
+        const card = element.closest('.card')
         fetch(`/users/add_to_watched_movies/${element.dataset.id}/`)
         .then(response => response.json())
         .then(data => {
@@ -113,6 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 element.classList.remove('watched');
                 showNotification('Removed from watched movies', data.movie_image);
+            }
+
+            const watchlistBtn = card.querySelector('.fa-bookmark')
+            if (data.watchlisted) {
+                watchlistBtn.classList.add('watchlisted')
+            } else {
+                watchlistBtn.classList.remove('watchlisted')
             }
         });
     }

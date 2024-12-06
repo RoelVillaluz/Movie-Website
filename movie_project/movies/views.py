@@ -510,7 +510,7 @@ def add_to_watchlist(request, id):
 
     return JsonResponse({
         'watchlisted': watchlisted,
-        'watched': watched,  # Add the watched status
+        'watched': watched, 
         'movie_image': movie.poster_path.url
     })
 
