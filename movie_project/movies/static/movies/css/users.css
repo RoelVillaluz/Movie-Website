@@ -145,6 +145,14 @@
     margin-right: 20px;
 }
 
+.movie-list-item .actions {
+    padding: clamp(0.2rem, 1.75vw, 0.7rem);
+}
+
+.movie-list-item .actions i {
+    font-size: clamp(16px, 0.75vw, 2.8rem);
+}
+
 .movie-list-item img {
     width: 100%;
     height: auto;

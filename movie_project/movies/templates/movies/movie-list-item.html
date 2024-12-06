@@ -5,18 +5,26 @@
                 <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
             </a>
         </div>
-        <!-- Watchlist Button -->
-        {% with user.profile.watchlist.movies.all as user_watchlist %}
-            {% if movie in user_watchlist %}
-                <div class="watchlist-btn watchlisted" data-id="{{ movie.id }}">
-                    <i class="fa-solid fa-bookmark"></i>
-                </div>
-            {% else %}
-                <div class="watchlist-btn" data-id="{{ movie.id }}">
-                    <i class="fa-solid fa-bookmark"></i>
-                </div>
-            {% endif %}
-        {% endwith %}
+        <div class="actions">
+            <!-- Watched button -->
+            {% with user.profile.watched_movies.all as watched_movies and user.profile.watchlist.movies.all as watchlist %}
+                {% if movie in watched_movies and movie not in watchlist %}
+                    <i class="fa-solid fa-eye watched" id="watched-movie-btn" data-id="{{ movie.id }}"></i>
+                {% else %}
+                    <i class="fa-solid fa-eye" id="watched-movie-btn" data-id="{{ movie.id }}"></i>
+                {% endif %}
+            {% endwith %}
+            
+            <!-- Watchlist button -->
+            {% with user.profile.watchlist.movies.all as user_watchlist %}
+                {% if movie in user_watchlist %}
+                    <i class="fa-solid fa-bookmark watchlisted" id="watchlist-btn" data-id="{{ movie.id }}"></i>
+                {% else %}
+                    <i class="fa-solid fa-bookmark" id="watchlist-btn" data-id="{{ movie.id }}"></i>
+                {% endif %}
+            {% endwith %}
+            <i class="fa-solid fa-ellipsis"></i>
+        </div>
     </div>
     <div class="movie-list-item-details">
         <div class="title">
