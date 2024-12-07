@@ -68,6 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    // toggle visibility for other card actions
+    document.querySelectorAll('#other-actions-btn').forEach(btn => {
+        btn.onclick = function() {
+            showOtherActions(btn)
+        }
+    })
+
     function addToWatchlist(element, containsText = false) {
         const card = element.closest('.card');
         fetch(`/add_to_watchlist/${element.dataset.id}/`)
@@ -122,6 +129,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 watchlistBtn.classList.remove('watchlisted')
             }
         });
+    }
+
+    function showOtherActions(element) {
+        const card = element.closest('.card')
+        const actions = card.querySelector('.actions')
+        const otherActions = card.querySelector('.other-actions')
+        
+        otherActions.style.display = 'flex';
+        actions.style.display = 'none';
+
+        document.addEventListener('click', function(event) {
+            if (!card.contains(event.target)) {
+                otherActions.style.display = 'none';
+                actions.style.display = 'flex';
+            }
+        })
     }
 
     function likeReview(element) {
