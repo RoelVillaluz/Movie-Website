@@ -11,6 +11,7 @@ class Profile(models.Model):
     watchlist = models.ForeignKey('Watchlist' ,related_name="profiles", on_delete=models.CASCADE)
     following = models.ManyToManyField('self', symmetrical=False, related_name='followers', blank=True)
     watched_movies = models.ManyToManyField('movies.Movie', blank=True, related_name='watched_by')
+    image = models.ImageField(upload_to="media", default="media/default.jfif")
 
     def __str__(self):
         return self.user.username
