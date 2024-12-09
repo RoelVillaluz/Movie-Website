@@ -1,7 +1,92 @@
 {% extends 'movies/layout.html' %}
 
+{% block title %} MovieVerse Profile - {{ profile }} {% endblock %}
 {% block body %}
-    <section class="user-profile">
-        <h1>{{ profile.user }}</h1>
+
+    <section class="profile">
+        <div class="profile-header skeleton">
+            
+            <div class="default-cover-photo"></div>
+
+            <div class="profile-wrapper">
+                <div class="profile-picture">
+                   <img src="{{ profile.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ profile.id }}" data-image="{{ profile.image.url }}" data-name="{{ profile.name }}"> 
+                   <i class="fa-solid fa-camera"></i>
+                   <div class="profile-pic-placeholder"></div>
+                </div>
+
+                <div class="profile-details">
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
+                       <div style="display: flex; align-items: center; gap: 10px;">
+
+                            <h1>{{ profile.user }}</h1>
+                            {% if request.user != profile.user %}
+                                <a href="{% url 'follow_content' model_name='profile' object_id=profile.id %}" class="follow-btn">
+                                    {% if is_following %}
+                                        <span>Unfollow</span>
+                                        <i class="fa-solid fa-minus"></i>
+                                    {% else %}
+                                        <span>Follow</span>
+                                        <i class="fa-solid fa-plus"></i>
+                                    {% endif %}
+                                </a> 
+                             {% endif %}
+
+                            <div class="profile-details-placeholder">
+                                <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                   <div class="profile-name-placeholder"></div>
+                                   {% if profile.user != request.user %}
+                                        <div class="follow-btn-placeholder"></div>
+                                   {% endif %}
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="stats-container">
+
+                            <div class="stat">
+                               <h3>0</h3>
+                               <p>Watched</p>
+                            </div>
+                            <div class="stat">
+                                <h3>0</h3>
+                                <p>Following</p>
+                            </div>
+                            <div class="stat">
+                                <h3>0</h3>
+                                <p>Followers</p>
+                            </div>
+                            <div class="stat">
+                                <h3>0</h3>
+                                <p>Reviews</p>
+                            </div>
+       
+                            <div class="stat-placeholder">
+                               <div></div>
+                               <div class="line-placeholder"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- social media links -->
+                    <div class="socials-container">
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fa-brands fa-instagram"></i>
+                     </div>
+
+                     <div class="social-links-placeholders">
+                        <div class="link-placeholder"></div>
+                        <div class="link-placeholder"></div>
+                        <div class="link-placeholder"></div>
+                     </div>
+
+                </div>
+
+            </div>
+        </div>
     </section>
 {% endblock %}

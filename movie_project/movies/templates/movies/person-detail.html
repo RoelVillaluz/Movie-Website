@@ -9,27 +9,33 @@
 
    <section class="profile">
       <div class="profile-header skeleton">
+
+         <!-- profile cover photo -->
          {% if most_popular_movie %}
             <img src="{{ most_popular_movie.backdrop_path.url }}" alt="" class="profile-cover-photo">
             <div class="cover-photo-placeholder"></div>
          {% endif %}
+
          <div class="profile-wrapper">
-            <div class="profile-picture">
-               <img src="{{ person.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ person.id }}" data-image="{{ person.image.url }}" data-name="{{ person.name }}"> 
-               <i class="fa-solid fa-camera"></i>
-               <div class="profile-pic-placeholder"></div>
-             </div>
+
+               <!-- profile picture -->
+               <div class="profile-picture">
+                  <img src="{{ person.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ person.id }}" data-image="{{ person.image.url }}" data-name="{{ person.name }}"> 
+                  <i class="fa-solid fa-camera"></i>
+                  <div class="profile-pic-placeholder"></div>
+               </div>
+
             <div class="profile-details">
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
                   <div style="display: flex; align-items: center; gap: 10px;">
                      <h1>{{ person.name }}</h1>
                      <a href="{% url 'follow_content' model_name='person' object_id=person.id %}" class="follow-btn">
                         {% if is_following %}
-                              <span>Unfollow</span>
-                              <i class="fa-solid fa-minus"></i>
+                           <span>Unfollow</span>
+                           <i class="fa-solid fa-minus"></i>
                         {% else %}
-                              <span>Follow</span>
-                              <i class="fa-solid fa-plus"></i>
+                           <span>Follow</span>
+                           <i class="fa-solid fa-plus"></i>
                         {% endif %}
                      </a>       
                      
@@ -42,6 +48,7 @@
                      </div>
                   </div>
 
+                  <!-- stats -->
                   <div class="stats-container">
                      <div class="stat">
                         <h3>{{ person.movies.count }}</h3>
@@ -79,12 +86,14 @@
                   </div>
                </div>
 
+               <!-- person type and most popular movie -->
                {% if most_popular_movie %}
-                  <h3>Actor • {{ most_popular_movie }}</h3>
+                  <h3>{{ person_type|title }} • {{ most_popular_movie }}</h3>
                {% else %}
-                  <h3>Actor • No movies yet</h3>
+                  <h3>{{ person_type }} • No movies yet</h3>
                {% endif %}
 
+               <!-- social media links -->
                <div class="socials-container">
                   <i class="fa-brands fa-facebook"></i>
                   <i class="fa-brands fa-twitter"></i>
@@ -96,10 +105,13 @@
                   <div class="link-placeholder"></div>
                   <div class="link-placeholder"></div>
                </div>
+
             </div>
          </div>
       </div>     
    </section>
+
+   <!-- about -->
    <section class="about skeleton">
       <div class="profile-bio">
          <div style="margin-bottom: 20px;">
@@ -167,6 +179,8 @@
          </ul>
       </div>
    </section>
+
+   <!-- often works with and known for movies -->
    <div style="display: flex;">
       {% if co_workers %}
          <section class="often-works-with skeleton">
@@ -204,6 +218,8 @@
          </ul>
       </section>
    </div>
+
+   <!-- gallery -->
    <section class="gallery skeleton">
       <div class="header">
          <div style="display: flex; align-items: center; gap: 10px;">
@@ -249,6 +265,8 @@
          {% endfor %}
       </ul>
    </section>
+
+   <!-- awards and nominations -->
    {% if accolades %}
       <section class="profile-awards">
          <h1>Awards and Nominations</h1>
@@ -278,6 +296,8 @@
          </ul>
       </section>
    {% endif %}
+
+   <!-- movies -->
    <section class="profile-movies">
       <h1>Films Starring <span>{{ person }}</span></h1>
       <ul>
