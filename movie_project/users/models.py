@@ -49,3 +49,13 @@ class CustomList(models.Model):
 
     def __str__(self):
         return f"'{self.name}' by {self.profile.user}"
+    
+
+class Favorite(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='favorites')
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE) # used content_type instead so it can apply to TV series model as well
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return f"{self.profile} added {self.content_object} to favorites"
