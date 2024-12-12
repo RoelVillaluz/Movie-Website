@@ -47,19 +47,19 @@
                         <div class="stats-container">
 
                             <div class="stat">
-                               <h3>0</h3>
+                               <h3>{{ profile.watched_movies.count }}</h3>
                                <p>Watched</p>
                             </div>
                             <div class="stat">
-                                <h3>0</h3>
+                                <h3>{{ following_count }}</h3>
                                 <p>Following</p>
                             </div>
                             <div class="stat">
-                                <h3>0</h3>
+                                <h3>{{ followers_count }}</h3>
                                 <p>Followers</p>
                             </div>
                             <div class="stat">
-                                <h3>0</h3>
+                                <h3>{{ review_count }}</h3>
                                 <p>Reviews</p>
                             </div>
        
@@ -88,5 +88,21 @@
 
             </div>
         </div>
+
+        <div style="display: flex;">
+            <section class="known-for skeleton">
+               <h1>Favorite Movies</h1>
+               <ul>
+                  {% for movie in favorite_movies %}
+                     <li>
+                        <a href="{% url 'movie-detail' movie.pk %}">
+                           <img src="{{ movie.poster_path.url }}" alt="">
+                        </a>
+                        <div class="image-placeholder"></div>
+                     </li>           
+                  {% endfor %}
+               </ul>
+            </section>
+         </div>
     </section>
 {% endblock %}
