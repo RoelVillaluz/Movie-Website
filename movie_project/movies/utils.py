@@ -1,9 +1,11 @@
 from collections import defaultdict
-from datetime import date
+from datetime import date, datetime
 import math
 import random
 import string
+from tempfile import NamedTemporaryFile
 from django.conf import settings
+from dotenv import load_dotenv
 import requests
 import os
 from decouple import config
@@ -15,7 +17,92 @@ from django.contrib.contenttypes.models import ContentType
 from itertools import islice
 
 from users.models import Follow, Profile
-today = date.today()
+
+# def fetch_tmdb_movies(endpoint, params):
+#     api_token = config('API_TOKEN')
+#     url = f"https://api.themoviedb.org/3/{endpoint}"
+#     headers = {
+#         "accept": "application/json",
+#         "Authorization": f"Bearer {api_token}"
+#     }
+#     response = requests.get(url, headers=headers, params=params)
+#     if response.status_code == 200:
+#         return response.json().get('results', [])
+#     else:
+#         return []  
+
+# if __name__ == "__main__":
+#     endpoint = "movie/upcoming"
+#     params = {"language": "en-US", "page": 1}
+#     data = fetch_tmdb_movies(endpoint, params)
+#     print(data)
+
+def create_movie_from_api():
+    # Define the API URL and headers using the API key from the .env file
+    url = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1"
+    headers = {
+        "accept": "application/json",
+        "Authorization": f"Bearer "
+    }
+
+    # Make the API request
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        data = response.json()
+        movies = data.get("results", [])
+
+        for movie_data in movies:
+            # Create the movie object and populate fields
+            title = movie_data.get("title")
+            overview = movie_data.get("overview", "No overview yet")
+            release_date = movie_data.get("release_date")
+            poster_path = movie_data.get("poster_path")
+            backdrop_path = movie_data.get("backdrop_path")
+
+            # Convert release_date to Date format
+            if release_date:
+                release_date = datetime.strptime(release_date, "%Y-%m-%d").date()
+
+            # Use the original resolution for images
+            poster_url = f"https://image.tmdb.org/t/p/original{poster_path}" if poster_path else None
+            backdrop_url = f"https://image.tmdb.org/t/p/original{backdrop_path}" if backdrop_path else None
+
+            # Handle image files
+            poster_file = None
+            backdrop_file = None
+
+            if poster_url:
+                poster_file = download_image(poster_url)
+
+            if backdrop_url:
+                backdrop_file = download_image(backdrop_url)
+
+            # Create movie instance
+            movie = Movie(
+                title=title,
+                overview=overview,
+                release_date=release_date,
+                poster_path=poster_file,
+                backdrop_path=backdrop_file
+            )
+            movie.save()
+
+def download_image(url):
+    """Download an image from the provided URL and return a Django File object."""
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            # Create a temporary file to save the image
+            img_temp = NamedTemporaryFile(delete=True)
+            img_temp.write(response.content)
+            img_temp.flush()
+
+            # Return a Django File object
+            return File(img_temp, name=os.path.basename(url))
+    except requests.exceptions.RequestException as e:
+        print(f"Error downloading image: {e}")
+        return None
 
 def sort(queryset, sort_by):
     if sort_by == 'title_asc':
@@ -90,6 +177,7 @@ def filter_queryset(queryset, genre_name=None, award_category=None, actor=None):
 
 
 def toggle_upcoming(queryset):
+    today = date.today()
     return queryset.filter(release_date__gt=today)
 
 
@@ -228,26 +316,6 @@ def convert_height_to_feet(person):
         return "N/A"
     
     return f"{feet}'{inches} ft"
-
-
-# def fetch_tmdb_movies(endpoint, params):
-#     api_token = config('API_TOKEN')
-#     url = f"https://api.themoviedb.org/3/{endpoint}"
-#     headers = {
-#         "accept": "application/json",
-#         "Authorization": f"Bearer {api_token}"
-#     }
-#     response = requests.get(url, headers=headers, params=params)
-#     if response.status_code == 200:
-#         return response.json().get('results', [])
-#     else:
-#         return []  
-
-# if __name__ == "__main__":
-#     endpoint = "movie/upcoming"
-#     params = {"language": "en-US", "page": 1}
-#     data = fetch_tmdb_movies(endpoint, params)
-#     print(data)
 
 def random_rating(num_of_reviews):
     users = User.objects.all()

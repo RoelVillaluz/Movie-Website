@@ -1,6 +1,9 @@
 from collections import OrderedDict, defaultdict
+import os
 import random
+from tempfile import NamedTemporaryFile
 from typing import Any
+from urllib.parse import urljoin
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.http import Http404, HttpRequest, HttpResponseRedirect, JsonResponse
@@ -14,20 +17,19 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required, permission_required
 from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, SearchForm
-from movies.utils import available_actors, available_award_categories, convert_height_to_feet, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
+from movies.utils import available_actors, available_award_categories, convert_height_to_feet, create_movie_from_api, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage, Role
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import DeleteView
-from datetime import date
+from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count, Avg, Prefetch, Q
 from django.contrib.contenttypes.models import ContentType
-from django.core.files.base import ContentFile
-
 
 
 def index(request):
+    # create_movie_from_api()
     # random_rating(30) # for populating reviews
     # create_users(10)  # for populating users
     today = date.today()
