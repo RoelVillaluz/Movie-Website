@@ -72,12 +72,12 @@ class MovieVideo(models.Model):
     def __str__(self):
         return self.name
     
-    @property
-    def duration(self):
-        if self.video:
-            video = VideoFileClip(self.video.path)
-            return video.duration
-        return 0
+    # @property
+    # def duration(self):
+    #     if self.video:
+    #         video = VideoFileClip(self.video.path)
+    #         return video.duration
+    #     return 0
     
     @property
     def duration_formatted(self):

@@ -187,4 +187,4 @@ class AwardAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('movie', 'user', 'rating')
-    search_fields = ('movie__title', 'rating')
+    search_fields = ('movie__title', 'rating', 'user__username')

@@ -15,8 +15,8 @@ from movies.utils import available_actors, available_award_categories, get_avail
 from users.models import CustomList, Follow, Profile, Watchlist
 from .forms import CustomUserCreationForm, CustomListForm
 from django.views.generic import ListView, DetailView, CreateView
-from django.db.models import Q
-from movies.models import Award, Movie, MovieImage, User
+from django.db.models import Q, Avg
+from movies.models import Award, Movie, MovieImage, Review, User
 
 
 # Create your views here.
@@ -157,9 +157,17 @@ class ProfileDetailView(DetailView):
 
     def get(self, request, *args, **kwargs):
         profile = self.get_object()
+        following_count = Follow.objects.filter(profile=profile).count() + profile.following.count()
+        followers_count = Profile.objects.filter(following=profile).count()
+        review_count = Review.objects.filter(user=profile.user).count()
+        favorite_movies = Movie.objects.filter(reviews__user=profile.user).order_by('-reviews__rating')[:4]
 
         context = {
-            'profile': profile
+            'profile': profile,
+            'following_count': following_count,
+            'followers_count': followers_count,
+            'review_count': review_count,
+            'favorite_movies': favorite_movies
         }
 
         return render(request, self.template_name, context)
