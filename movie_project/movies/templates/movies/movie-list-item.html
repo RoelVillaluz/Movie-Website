@@ -23,7 +23,14 @@
                     <i class="fa-solid fa-bookmark" id="watchlist-btn" data-id="{{ movie.id }}"></i>
                 {% endif %}
             {% endwith %}
-            <i class="fa-solid fa-ellipsis"></i>
+            <i class="fa-solid fa-ellipsis" id="other-actions-btn"></i>
+        </div>
+        <!-- other actions -->
+        <div class="other-actions">
+            <button>Add to favorites</button>
+            <button>Add to list</button>
+            <button>Rate this movie</button>
+            <button>Show in lists</button>
         </div>
     </div>
     <div class="movie-list-item-details">
