@@ -61,7 +61,8 @@ def index(request):
         'just_added': just_added,
         'random_movie': random_movie,
         'most_popular_reviews': most_popular_reviews,
-        'upcoming_movie_and_date': upcoming_movie_and_date
+        'upcoming_movie_and_date': upcoming_movie_and_date,
+        'profile': request.user.profile if request.user.is_authenticated else None
     }
 
     return render(request, 'movies/index.html', context)

@@ -74,6 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
             showOtherActions(btn)
         }
     })
+    
+    document.querySelectorAll('#add-to-favorites-btn').forEach(btn => {
+        btn.onclick = function() {
+            addToFavorites(btn);
+        };
+    });
 
     function addToWatchlist(element, containsText = false) {
         const card = element.closest('.card');
@@ -86,14 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         element.querySelector('span').textContent = 'Remove from Watchlist';
                         element.querySelector('button').textContent = '-';
                     }
-                    showNotification('1 Item Added', data.movie_image);
+                    showNotification('Added to watchlist', data.movie_image);
                 } else {
                     element.classList.remove('watchlisted');
                     if (containsText) {
                         element.querySelector('span').textContent = 'Add to Watchlist';
                         element.querySelector('button').textContent = '+';
                     }
-                    showNotification('1 Item Removed', data.movie_image);
+                    showNotification('Removed from watchlist', data.movie_image);
                 }
    
                 const watchedBtn = card.querySelector('.fa-eye')
@@ -161,6 +167,22 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => console.error("Error:", error));
     }
+
+    function addToFavorites(element) {
+        fetch(`users/add_to_favorites/${element.dataset.model}/${element.dataset.id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.favorited) {
+                element.textContent = 'Remove from favorites';
+                showNotification('Added to favorites', data.image)
+            } else {
+                element.textContent = 'Add to favorites';
+                showNotification('Removed from favorites', data.image)
+            }
+        })
+        .catch(error => console.error("Error: ", error));
+    }
+
 
     const starContainer = document.querySelectorAll('.stars');
     starContainer.forEach(container => {
