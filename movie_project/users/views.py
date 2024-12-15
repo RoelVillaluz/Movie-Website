@@ -160,14 +160,12 @@ class ProfileDetailView(DetailView):
         following_count = Follow.objects.filter(profile=profile).count() + profile.following.count()
         followers_count = Profile.objects.filter(following=profile).count()
         review_count = Review.objects.filter(user=profile.user).count()
-        favorite_movies = Movie.objects.filter(reviews__user=profile.user).order_by('-reviews__rating')[:4]
 
         context = {
             'profile': profile,
             'following_count': following_count,
             'followers_count': followers_count,
             'review_count': review_count,
-            'favorite_movies': favorite_movies
         }
 
         return render(request, self.template_name, context)
