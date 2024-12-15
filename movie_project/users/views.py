@@ -12,7 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from movies.forms import MovieSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, sort, toggle_upcoming
-from users.models import CustomList, Follow, Profile, Watchlist
+from users.models import CustomList, Favorite, Follow, Profile, Watchlist
 from .forms import CustomUserCreationForm, CustomListForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q, Avg
@@ -178,25 +178,19 @@ def follow_content(request, model_name, object_id):
 
     profile = get_object_or_404(Profile, user=request.user)
 
-    follow = Follow.objects.filter(
-        profile=profile,
-        content_type=content_type,
-        object_id=object_id,
-    ).first()
+    follow = Follow.objects.filter(profile=profile, content_type=content_type, object_id=object_id)
+    is_followed = follow.exists()
 
-    if follow:
+    if is_followed:
         follow.delete()
-        messages.success(request, f'You have unfollowed {follow.content_object}.')
+        followed = False
     else:
-        # Follow if the follow object does not exist
-        follow = Follow.objects.create(
-            profile=profile,
-            content_type=content_type,
-            object_id=object_id,
-        )
-        messages.success(request, f'You are now following {follow.content_object}.')
+        follow = Follow.objects.create(profile=profile, content_type=content_type, object_id=object_id)
+        followed = True
 
-    return redirect(request.META.get('HTTP_REFERER', 'index'))
+    return JsonResponse({
+        'followed': followed
+    })
 
 
 class CreateListView(CreateView):
@@ -355,4 +349,31 @@ def add_to_watched_movies(request, id):
         'watched': watched,
         'watchlisted': watchlisted,
         'movie_image': movie.poster_path.url # for notification 
+    })
+
+@login_required(login_url='/login')
+@csrf_exempt  
+def add_to_favorites(request, model_name, object_id):
+    user = request.user
+
+    content_type = get_object_or_404(ContentType, model=model_name)
+
+    profile, created = Profile.objects.get_or_create(user=user)
+
+    content = get_object_or_404(content_type.model_class(), id=object_id)
+
+    favorite = Favorite.objects.filter(profile=profile, content_type=content_type, object_id=object_id)
+    is_favorited = favorite.exists()
+
+    if is_favorited:
+        favorite.delete()
+        favorited = False
+
+    else:
+        favorite = Favorite.objects.create(profile=profile, content_type=content_type, object_id=object_id)
+        favorited = True
+        
+    return JsonResponse({
+        'favorited': favorited,
+        'image': content.poster_path.url
     })

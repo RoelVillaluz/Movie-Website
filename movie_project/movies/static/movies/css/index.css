@@ -617,6 +617,8 @@ and only apply hover filter effect once all animations have stopped
     top: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 1);
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .card .other-actions button {
@@ -639,7 +641,7 @@ and only apply hover filter effect once all animations have stopped
 }
 
 .card .other-actions button:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .tags {

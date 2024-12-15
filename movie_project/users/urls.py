@@ -11,4 +11,5 @@ urlpatterns = [
     path('create_list', views.CreateListView.as_view(), name='create-list'),
     path('lists/<int:pk>', views.CustomListDetailView.as_view(), name='list-detail'),
     path('add_to_watched_movies/<int:id>/', views.add_to_watched_movies, name='add_to_watched_movies'),
+    path('add_to_favorites/<str:model_name>/<int:object_id>/', views.add_to_favorites, name='add_to_favorites'),
 ]

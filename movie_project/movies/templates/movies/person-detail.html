@@ -29,7 +29,7 @@
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; margin-top: 2rem; width: 100%;">
                   <div style="display: flex; align-items: center; gap: 10px;">
                      <h1>{{ person.name }}</h1>
-                     <a href="{% url 'follow_content' model_name='person' object_id=person.id %}" class="follow-btn">
+                     <button type="button" class="follow-btn" data-id="{{ person.id }}" data-person_type="{{ person_type }}">
                         {% if is_following %}
                            <span>Unfollow</span>
                            <i class="fa-solid fa-minus"></i>
@@ -37,7 +37,7 @@
                            <span>Follow</span>
                            <i class="fa-solid fa-plus"></i>
                         {% endif %}
-                     </a>       
+                     </button>       
                      
                      <div class="profile-details-placeholder">
                         <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
@@ -55,7 +55,7 @@
                         <p>Movies</p>
                      </div>
                      <div class="stat">
-                        <h3>{{ follower_count }}</h3>
+                        <h3 id="follower-count">{{ follower_count }}</h3>
                         <p>Followers</p>
                      </div>
                      <div class="stat">

@@ -8,6 +8,7 @@ from django.db.models.functions import Rank
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.fields import GenericRelation
+from moviepy import VideoFileClip
 
 # Create your models here.
 class User(AbstractUser):
@@ -42,6 +43,10 @@ class Movie(models.Model):
     def avg_rating(self):
         avg_rating = self.reviews.aggregate(average=Avg('rating'))['average']
         return avg_rating or 0
+    
+    # use later to make dynamic function to display if content is movie or series
+    def get_class_name(self):
+        return self.__class__.__name__
 
     
 class MovieImage(models.Model):

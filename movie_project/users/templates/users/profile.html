@@ -104,5 +104,8 @@
                </ul>
             </section>
          </div>
+         {% for movie in profile.favorites.all %}
+            <p>{{ movie }}</p>
+         {% endfor %}
     </section>
 {% endblock %}

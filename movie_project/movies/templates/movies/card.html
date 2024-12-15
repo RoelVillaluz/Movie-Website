@@ -1,3 +1,5 @@
+{% load custom_filters %}
+
 <div class="card" data-id="{{ movie.id }}">
     <div class="image">
         <a href="{% url 'movie-detail' movie.pk %}">
@@ -30,7 +32,6 @@
             <!-- Skeleton placeholder for tags -->
             <div class="tag-placeholder"></div>
             <div class="tag-placeholder"></div>
-
         </div>
     </div>
     <div class="actions">
@@ -53,13 +54,16 @@
         {% endwith %}
         
         <i class="fa-solid fa-ellipsis" id="other-actions-btn"></i>
-
     </div>
     <!-- other actions -->
     <div class="other-actions">
-        <button>Add to favorites</button>
-        <button>Add to list</button>
-        <button>Rate this movie</button>
-        <button>Show in lists</button>
+        {% if profile|is_favorite:movie %}
+            <button type="button" class="action-btn" id="add-to-favorites-btn" data-id="{{ movie.id }}" data-model="movie">Remove from favorites</button>
+        {% else %}
+            <button type="button" class="action-btn" id="add-to-favorites-btn" data-id="{{ movie.id }}" data-model="movie">Add to favorites</button>
+        {% endif %}
+        <button class="action-btn">Add to list</button>
+        <button class="action-btn">Rate this movie</button>
+        <button class="action-btn">Show in lists</button>
     </div>
 </div>

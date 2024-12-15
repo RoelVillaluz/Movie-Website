@@ -9,7 +9,8 @@
 .skeleton .review-count,
 .skeleton p.runtime,
 .skeleton .director-and-cast,
-.skeleton .cast-list
+.skeleton .cast-list,
+.skeleton .follow-btn
 {
     display: none;
 }

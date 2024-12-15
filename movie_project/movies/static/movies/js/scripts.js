@@ -74,6 +74,20 @@ document.addEventListener('DOMContentLoaded', () => {
             showOtherActions(btn)
         }
     })
+    
+    // add titles to favorites
+    document.querySelectorAll('#add-to-favorites-btn').forEach(btn => {
+        btn.onclick = function() {
+            addToFavorites(btn);
+        };
+    });
+
+    // follow and unfollow
+    document.querySelectorAll('.follow-btn').forEach(btn => {
+        btn.onclick = function() {
+            toggleFollow(btn)
+        }
+    })
 
     function addToWatchlist(element, containsText = false) {
         const card = element.closest('.card');
@@ -86,14 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         element.querySelector('span').textContent = 'Remove from Watchlist';
                         element.querySelector('button').textContent = '-';
                     }
-                    showNotification('1 Item Added', data.movie_image);
+                    showNotification('Added to watchlist', data.movie_image);
                 } else {
                     element.classList.remove('watchlisted');
                     if (containsText) {
                         element.querySelector('span').textContent = 'Add to Watchlist';
                         element.querySelector('button').textContent = '+';
                     }
-                    showNotification('1 Item Removed', data.movie_image);
+                    showNotification('Removed from watchlist', data.movie_image);
                 }
    
                 const watchedBtn = card.querySelector('.fa-eye')
@@ -160,6 +174,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 likeCountSpan.textContent = `${data.like_count} likes`;
             })
             .catch(error => console.error("Error:", error));
+    }
+
+    function addToFavorites(element) {
+        fetch(`users/add_to_favorites/${element.dataset.model}/${element.dataset.id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.favorited) {
+                element.textContent = 'Remove from favorites';
+                showNotification('Added to favorites', data.image)
+            } else {
+                element.textContent = 'Add to favorites';
+                showNotification('Removed from favorites', data.image)
+            }
+        })
+        .catch(error => console.error("Error: ", error));
+    }
+
+    function toggleFollow(element) {
+        fetch(`/users/follow/${element.dataset.person_type}/${element.dataset.id}`)
+            .then(response => response.json())
+            .then(data => {
+                const status = element.querySelector('span');
+                const followIcon = element.querySelector('i')
+                const followerCountText = document.getElementById('follower-count');
+                const currentCount = parseInt(followerCountText.textContent, 10);
+                
+                if (data.followed) {
+                    status.textContent = 'Unfollow';
+                    followIcon.className = 'fa-solid fa-minus'
+                    followerCountText.textContent = currentCount + 1;
+                } else {
+                    status.textContent = 'Follow';
+                    followIcon.className = 'fa-solid fa-plus'
+                    followerCountText.textContent = currentCount - 1;
+                }
+            })
+            .catch(error => console.error("Error: ", error));
     }
 
     const starContainer = document.querySelectorAll('.stars');
