@@ -178,25 +178,19 @@ def follow_content(request, model_name, object_id):
 
     profile = get_object_or_404(Profile, user=request.user)
 
-    follow = Follow.objects.filter(
-        profile=profile,
-        content_type=content_type,
-        object_id=object_id,
-    ).first()
+    follow = Follow.objects.filter(profile=profile, content_type=content_type, object_id=object_id)
+    is_followed = follow.exists()
 
-    if follow:
+    if is_followed:
         follow.delete()
-        messages.success(request, f'You have unfollowed {follow.content_object}.')
+        followed = False
     else:
-        # Follow if the follow object does not exist
-        follow = Follow.objects.create(
-            profile=profile,
-            content_type=content_type,
-            object_id=object_id,
-        )
-        messages.success(request, f'You are now following {follow.content_object}.')
+        follow = Follow.objects.create(profile=profile, content_type=content_type, object_id=object_id)
+        followed = True
 
-    return redirect(request.META.get('HTTP_REFERER', 'index'))
+    return JsonResponse({
+        'followed': followed
+    })
 
 
 class CreateListView(CreateView):
@@ -366,7 +360,7 @@ def add_to_favorites(request, model_name, object_id):
 
     profile, created = Profile.objects.get_or_create(user=user)
 
-    movie = get_object_or_404(content_type.model_class(), id=object_id)
+    content = get_object_or_404(content_type.model_class(), id=object_id)
 
     favorite = Favorite.objects.filter(profile=profile, content_type=content_type, object_id=object_id)
     is_favorited = favorite.exists()
@@ -381,5 +375,5 @@ def add_to_favorites(request, model_name, object_id):
         
     return JsonResponse({
         'favorited': favorited,
-        'image': movie.poster_path.url
+        'image': content.poster_path.url
     })

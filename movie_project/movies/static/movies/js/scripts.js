@@ -75,11 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
     
+    // add titles to favorites
     document.querySelectorAll('#add-to-favorites-btn').forEach(btn => {
         btn.onclick = function() {
             addToFavorites(btn);
         };
     });
+
+    // follow and unfollow
+    document.querySelectorAll('.follow-btn').forEach(btn => {
+        btn.onclick = function() {
+            toggleFollow(btn)
+        }
+    })
 
     function addToWatchlist(element, containsText = false) {
         const card = element.closest('.card');
@@ -183,6 +191,27 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error("Error: ", error));
     }
 
+    function toggleFollow(element) {
+        fetch(`/users/follow/${element.dataset.person_type}/${element.dataset.id}`)
+            .then(response => response.json())
+            .then(data => {
+                const status = element.querySelector('span');
+                const followIcon = element.querySelector('i')
+                const followerCountText = document.getElementById('follower-count');
+                const currentCount = parseInt(followerCountText.textContent, 10);
+                
+                if (data.followed) {
+                    status.textContent = 'Unfollow';
+                    followIcon.className = 'fa-solid fa-minus'
+                    followerCountText.textContent = currentCount + 1;
+                } else {
+                    status.textContent = 'Follow';
+                    followIcon.className = 'fa-solid fa-plus'
+                    followerCountText.textContent = currentCount - 1;
+                }
+            })
+            .catch(error => console.error("Error: ", error));
+    }
 
     const starContainer = document.querySelectorAll('.stars');
     starContainer.forEach(container => {
