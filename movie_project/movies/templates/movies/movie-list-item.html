@@ -1,3 +1,5 @@
+ {% load custom_filters %}
+ 
  <li class="movie-list-item skeleton">
     <div class="card">
         <div class="image">
@@ -27,7 +29,14 @@
         </div>
         <!-- other actions -->
         <div class="other-actions">
-            <button>Add to favorites</button>
+
+            <!-- add to favorites -->
+            {% if profile|is_favorite:movie %}
+                <button type="button" class="action-btn" id="add-to-favorites-btn" data-id="{{ movie.id }}" data-model="movie">Remove from favorites</button>
+            {% else %}
+                <button type="button" class="action-btn" id="add-to-favorites-btn" data-id="{{ movie.id }}" data-model="movie">Add to favorites</button>
+            {% endif %}
+
             <button>Add to list</button>
             <button>Rate this movie</button>
             <button>Show in lists</button>
