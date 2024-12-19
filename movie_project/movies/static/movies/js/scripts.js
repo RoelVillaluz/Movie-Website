@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addToFavorites(element) {
-        fetch(`users/add_to_favorites/${element.dataset.model}/${element.dataset.id}`)
+        fetch(`${window.location.origin}/users/add_to_favorites/${element.dataset.model}/${element.dataset.id}`)
         .then(response => response.json())
         .then(data => {
             if (data.favorited) {
@@ -438,22 +438,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const checkboxes = document.querySelectorAll('.filter-button-list input[type="checkbox"]');
-    if (checkboxes) {
-        checkboxes.forEach(box => {
-            box.addEventListener('click', function(event) {
-                // Only prevent default behavior for specific cases
-                if (this.checked) {
-                    event.preventDefault(); // Prevent default checkbox behavior
-                }
-                const parentForm = this.closest('form');
-                if (parentForm) {
-                    parentForm.submit();
-                }
-            });
-        });
-    }
-
     const listViewBtn = document.getElementById('list-view-btn');
     if (listViewBtn) {
         listViewBtn.addEventListener('click', function() {
@@ -487,3 +471,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 });
+
+const checkboxes = document.querySelectorAll('.filter-button-list input[type="checkbox"]');
+    if (checkboxes) {
+        checkboxes.forEach(box => {
+            box.addEventListener('click', function(event) {
+                // Only prevent default behavior for specific cases
+                if (this.checked) {
+                    event.preventDefault(); // Prevent default checkbox behavior
+                }
+                const parentForm = this.closest('form');
+                if (parentForm) {
+                    parentForm.submit();
+                }
+            });
+        });
+    }
