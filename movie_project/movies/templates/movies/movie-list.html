@@ -5,16 +5,16 @@
 {% block body %}
     <div class="container">
 
-        {% include 'users/filter-sidebar.html' %}
+        {% include 'users/partials/filter-sidebar.html' %}
 
         <div class="content">
 
-            {% include 'users/form-wrapper.html' %}
+            {% include 'users/partials/form-wrapper.html' %}
 
             <ul class="all-movie-list">
                 {% for movie in movies %}
                     <li class="skeleton">
-                        {% include 'movies/card.html' %}
+                        {% include 'movies/partials/card.html' %}
                     </li>
                 {% endfor %}
             </ul>

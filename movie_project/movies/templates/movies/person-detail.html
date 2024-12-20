@@ -4,8 +4,8 @@
 
 {% block body %}
 
-   {% include 'movies/image-modal.html' with person=person %}
-   {% include 'movies/add-person-image.html' with person=person %}
+   {% include 'movies/partials/image-modal.html' with person=person %}
+   {% include 'movies/partials/add-person-image.html' with person=person %}
 
    <section class="profile">
       <div class="profile-header skeleton">
@@ -302,7 +302,7 @@
       <h1>Films Starring <span>{{ person }}</span></h1>
       <ul>
          {% for movie in movies %}
-            <li class="skeleton">{% include 'movies/card.html' %}</li>
+            <li class="skeleton">{% include 'movies/partials/card.html' %}</li>
          {% endfor %}
       </ul>
    </section>

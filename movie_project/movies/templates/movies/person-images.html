@@ -4,7 +4,7 @@
 
 {% block body %}
 
-   {% include 'movies/image-modal.html' %}
+   {% include 'movies/partials/image-modal.html' %}
    
    <div class="gallery-header">
       <img src="{{ person.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ person.id }}" data-image="{{ person.image.url }}" data-name="{{ person.name }}"> 

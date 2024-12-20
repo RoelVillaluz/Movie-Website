@@ -43,7 +43,7 @@
                     <h3 class="marker">Movies ({{ movies.count }})</h3>
                     <ul class="search-result-list">
                         {% for movie in movies %}
-                            <li>{% include 'movies/card.html' %}</li>
+                            <li>{% include 'movies/partials/card.html' %}</li>
                         {% endfor %}
                         <div class="button-container">
                             <button class="load-more-btn">Load More<i class="fa-solid fa-angle-down"></i></button>

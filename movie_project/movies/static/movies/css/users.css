@@ -85,7 +85,7 @@
     color: white;
 }
 
-.list-section button[type="button"] {
+.list-section button[type="button"]:not(.action-btn) {
     background-color: #eaf4ff;
     color: black;
 }

@@ -252,7 +252,7 @@
             <ol>
                 {% for movie in top_rated_movies %}
                     <li>
-                        {% include 'movies/card.html' with movie=movie %}
+                        {% include 'movies/partials/card.html' with movie=movie %}
                     </li>
                 {% endfor %}
             </ol>

@@ -4,7 +4,7 @@
 
 {% block body %}
 
-   {% include 'movies/image-modal.html' %}
+   {% include 'movies/partials/image-modal.html' %}
 
    <div class="gallery-header">
       <img src="{{ movie.poster_path.url }}" alt="Movie Poster" id="movie-poster" class="clickable-pic" data-id="{{ movie.id }}" data-image="{{ movie.poster_path.url }}" data-name="{{ movie.name }}"> 
@@ -34,5 +34,5 @@
          </ul>
       </div>   
    </div>
-   {% include 'movies/add-movie-image.html' %}
+   {% include 'movies/partials/add-movie-image.html' %}
 {% endblock %}

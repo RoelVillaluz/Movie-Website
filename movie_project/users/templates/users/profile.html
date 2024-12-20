@@ -95,7 +95,6 @@
                 <ul>
                     {% for favorite in profile.favorites.all %}
                         <li>
-                            {% include 'movies/card.html' with movie=favorite.content_object %}
                             <a href="{% url 'movie-detail' favorite.content_object.pk %}">
                                 <img src="{{ favorite.content_object.poster_path.url }}" alt="">
                             </a>

@@ -77,10 +77,10 @@
                 {% for movie in custom_list_movies %}
                     {% if view_mode == 'grid' %}
                         <li class="skeleton">
-                            {% include 'movies/card.html' %}
+                            {% include 'movies/partials/card.html' %}
                         </li>
                     {% else %}
-                        {% include 'movies/movie-list-item.html' %}
+                        {% include 'movies/partials/movie-list-item.html' %}
                     {% endif %}
                 {% endfor %}
             </ol>

@@ -1,6 +1,6 @@
 import random
 from django.conf import settings
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login, logout as auth_logout
@@ -16,7 +16,7 @@ from users.models import CustomList, Favorite, Follow, Profile, Watchlist
 from .forms import CustomUserCreationForm, CustomListForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q, Avg
-from movies.models import Award, Movie, MovieImage, Review, User
+from movies.models import Award, Genre, Movie, MovieImage, Review, User
 
 
 # Create your views here.
@@ -60,7 +60,6 @@ class CustomRegisterView(CreateView):
             'random_image': random.choice(movie_images)
         })
         return context
-
     
 def logout(request):
     auth_logout(request)
@@ -145,7 +144,7 @@ class MyWatchlistView(View):
             'selected_actors': selected_actors,
             'upcoming': request.GET.get('upcoming', 'off'),
             'view_mode': view_mode,
-            'show_layout_buttons': show_layout_buttons
+            'show_layout_buttons': show_layout_buttons,
         }
         return render(request, self.template_name, context)
     
