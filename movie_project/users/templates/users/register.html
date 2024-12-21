@@ -11,7 +11,12 @@
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
         <div class="input-group">
-            <input type="text" name="username" placeholder="Username" id="id_username" required>
+            <input type="text" name="username" placeholder="Username" id="id_username" required
+            hx-post="{% url 'check_username' %}"
+            hx-trigger="keyup changed delay:0.5s"
+            hx-target="#username-error"
+            >
+            <div id="username-error"></div>
             <input type="email" name="email" placeholder="Email" id="id_email" required>
             <input type="password" name="password1" placeholder="Password" minlength="8" id="id_password1" required>
             <input type="password" name="password2" placeholder="Confirm Password" minlength="8" id="id_password2" required>

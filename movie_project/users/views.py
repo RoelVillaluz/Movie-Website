@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout as auth_logout
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from django.views import View
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
@@ -60,11 +61,10 @@ class CustomRegisterView(CreateView):
             'random_image': random.choice(movie_images)
         })
         return context
-    
+        
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect("/")
-
 
 class MyWatchlistView(View):
     model = Watchlist
@@ -374,3 +374,27 @@ def add_to_favorites(request, model_name, object_id):
         'favorited': favorited,
         'image': content.poster_path.url
     })
+
+
+
+# HTMX VIEWS
+
+def check_username(request):
+    username = request.POST.get('username')
+    if get_user_model().objects.filter(username=username).exists():
+        return HttpResponse('<div id="username-error">Username already exists</div>')
+    else:
+        return HttpResponse('<div id="username-success">Username is available!</div>')
+
+# @login_required(login_url='/login')
+# def add_to_list(request, movie_id, list_id):
+#     user = request.user
+#     movie = Movie.objects.get(id=movie_id)
+#     custom_list = CustomList.objects.get(id=list_id) 
+
+#     if movie in custom_list.movies.all():
+#         custom_list.movies.add(movie)
+#     else:
+#         custom_list.movies.remove(movie)
+
+        

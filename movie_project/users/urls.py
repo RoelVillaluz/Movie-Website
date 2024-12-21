@@ -13,3 +13,9 @@ urlpatterns = [
     path('add_to_watched_movies/<int:id>/', views.add_to_watched_movies, name='add_to_watched_movies'),
     path('add_to_favorites/<str:model_name>/<int:object_id>/', views.add_to_favorites, name='add_to_favorites'),
 ]
+
+htmx_urlpatterns = [
+    path('check_username/', views.check_username, name="check_username"),
+]
+
+urlpatterns += htmx_urlpatterns
