@@ -149,6 +149,14 @@ button:hover {
     background-color: rgb(39, 39, 39);
 }
 
+#username-error {
+    color: red;
+}
+
+#username-success {
+    color: green;
+}
+
 .social-signin-divider {
     display: flex;
     justify-content: center;
