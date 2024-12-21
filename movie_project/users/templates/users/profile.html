@@ -3,6 +3,8 @@
 {% block title %} MovieVerse Profile - {{ profile }} {% endblock %}
 {% block body %}
 
+    {% include 'users/partials/edit-profile-photo-form.html' %}
+
     <section class="profile">
         <div class="profile-header skeleton">
             
@@ -11,7 +13,7 @@
             <div class="profile-wrapper">
                 <div class="profile-picture">
                    <img src="{{ profile.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ profile.id }}" data-image="{{ profile.image.url }}" data-name="{{ profile.name }}"> 
-                   <i class="fa-solid fa-camera"></i>
+                   <i class="fa-solid fa-camera" id="edit-profile-photo-btn"></i>
                    <div class="profile-pic-placeholder"></div>
                 </div>
 

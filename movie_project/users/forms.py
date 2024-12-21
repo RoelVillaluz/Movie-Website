@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from movies.models import User
-from users.models import CustomList
+from users.models import CustomList, Profile
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -37,3 +37,9 @@ class CustomListForm(forms.ModelForm):
                 'id': 'id_movies' 
             }),
         }
+
+class ProfileImageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+
+        fields = ['image']

@@ -14,7 +14,7 @@ from django.contrib import messages
 from movies.forms import MovieSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, get_available_genres, filter_queryset, sort, toggle_upcoming
 from users.models import CustomList, Favorite, Follow, Profile, Watchlist
-from .forms import CustomUserCreationForm, CustomListForm
+from .forms import CustomUserCreationForm, CustomListForm, ProfileImageForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q, Avg
 from movies.models import Award, Genre, Movie, MovieImage, Review, User
@@ -160,11 +160,14 @@ class ProfileDetailView(DetailView):
         followers_count = Profile.objects.filter(following=profile).count()
         review_count = Review.objects.filter(user=profile.user).count()
 
+        form = ProfileImageForm(instance=profile)
+
         context = {
             'profile': profile,
             'following_count': following_count,
             'followers_count': followers_count,
             'review_count': review_count,
+            'form': form
         }
 
         return render(request, self.template_name, context)
@@ -378,13 +381,25 @@ def add_to_favorites(request, model_name, object_id):
 
 
 # HTMX VIEWS
-
 def check_username(request):
     username = request.POST.get('username')
     if get_user_model().objects.filter(username=username).exists():
         return HttpResponse('<div id="username-error">Username already exists</div>')
     else:
         return HttpResponse('<div id="username-success">Username is available!</div>')
+
+@login_required
+def edit_profile_image(request):
+    profile = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = ProfileImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data["image"]
+            profile.image = image
+            profile.save()
+    else:
+        form = ProfileImageForm(instance=profile)
+            
 
 # @login_required(login_url='/login')
 # def add_to_list(request, movie_id, list_id):

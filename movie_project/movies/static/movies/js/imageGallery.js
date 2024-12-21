@@ -211,6 +211,7 @@ function toggleModal(modalElement, closeOther = false) {
     nav.style.display = anyModalVisible ? 'none' : 'flex';
 }
 
+
 document.addEventListener("DOMContentLoaded", function() {
     const imageResetBtn = document.querySelector('.form-actions button[type="reset"]');
     const imageNameDisplay = document.getElementById('image-name');
@@ -218,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const uploadIcon = document.querySelector('.fa-solid.fa-upload');
     const imageFormModal = document.querySelector('.image-form')
     const addPhotoBtn = document.querySelector('.add-photo-btn');
+
 
     if (addPhotoBtn) {
         addPhotoBtn.addEventListener('click', function() {
@@ -342,6 +344,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 formHeader.textContent = 'Add Image';
             }
         })
+    }
+
+    const editProfilePhotoBtn = document.getElementById('edit-profile-photo-btn');
+    const editProfilePhotoForm = document.getElementById('edit-profile-photo-form');
+
+    if (editProfilePhotoBtn && editProfilePhotoForm) {
+        editProfilePhotoBtn.addEventListener('click', function () {
+            toggleModal(editProfilePhotoForm, true);
+        });
     }
 
     const personListItems = document.querySelectorAll('.add-people-section li');

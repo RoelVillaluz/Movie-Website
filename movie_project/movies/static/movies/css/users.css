@@ -542,6 +542,12 @@ input[type="checkbox"] {
     transform: translate(-50%, -50%);
     bottom: 0%;
     right: 10%;
+    transition: 0.3s;
+}
+
+.profile-picture i:hover {
+    background-color: rgb(20, 20, 20);
+    color: rgb(255, 255, 255);
 }
 
 .default-cover-photo {
