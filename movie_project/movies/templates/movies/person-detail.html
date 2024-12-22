@@ -19,8 +19,10 @@
          <div class="profile-wrapper">
 
                <!-- profile picture -->
-               <div class="profile-picture">
-                  <img src="{{ person.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ person.id }}" data-image="{{ person.image.url }}" data-name="{{ person.name }}"> 
+               <div class="profile-picture-container">
+                  <div class="profile-picture">
+                     <img src="{{ person.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ person.id }}" data-image="{{ person.image.url }}" data-name="{{ person.name }}"> 
+                  </div>
                   <i class="fa-solid fa-camera"></i>
                   <div class="profile-pic-placeholder"></div>
                </div>

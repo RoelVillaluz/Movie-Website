@@ -59,13 +59,13 @@
     animation: skeleton-loading 3s infinite linear;
 }
 
-.skeleton #profile-pic {
+.skeleton .profile-picture {
     display: none;
 }
 
 .skeleton .profile-pic-placeholder {
-    height: 100%;
     width: 100%;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.7);
     animation: skeleton-loading 3s infinite linear;

@@ -13,10 +13,13 @@
 
             <div class="profile-wrapper">
                 
-                
                 <!-- Profile picture partial for HTMX -->
-                <div class="profile-picture">
-                    {% include 'users/partials/profile-picture.html' %}
+                <div class="profile-picture-container">
+                    <div class="profile-picture">
+                        {% include 'users/partials/profile-picture.html' %}
+                    </div>
+                    <i class="fa-solid fa-camera" id="edit-profile-photo-btn"></i>
+                    <div class="profile-pic-placeholder"></div>
                 </div>
 
                 <div class="profile-details">

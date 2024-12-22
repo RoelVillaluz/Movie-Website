@@ -514,11 +514,14 @@ input[type="checkbox"] {
     filter: brightness(0.8);
 }
 
-.profile-picture {
+.profile-picture-container {
     position: relative;
     width: 20vw; 
     min-width: 200px;
     height: auto; 
+}
+
+.profile-picture {
     aspect-ratio: 1 / 1; 
     border-radius: 50%;
     box-shadow: 4px 4px 4px rgb(20, 20, 20, 1);
@@ -532,7 +535,7 @@ input[type="checkbox"] {
     object-fit: cover;
 }
 
-.profile-picture i {
+.profile-picture-container i {
     position: absolute;
     font-size: 1rem;
     padding: 0.5rem;
@@ -541,11 +544,12 @@ input[type="checkbox"] {
     color: rgb(20, 20, 20);
     transform: translate(-50%, -50%);
     bottom: 0%;
-    right: 10%;
+    right: 0%;
     transition: 0.3s;
+    cursor: pointer;
 }
 
-.profile-picture i:hover {
+.profile-picture-container i:hover {
     background-color: rgb(20, 20, 20);
     color: rgb(255, 255, 255);
 }
