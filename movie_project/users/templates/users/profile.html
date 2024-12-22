@@ -1,6 +1,7 @@
 {% extends 'movies/layout.html' %}
 
 {% block title %} MovieVerse Profile - {{ profile }} {% endblock %}
+
 {% block body %}
 
     {% include 'users/partials/edit-profile-photo-form.html' %}
@@ -11,10 +12,11 @@
             <div class="default-cover-photo"></div>
 
             <div class="profile-wrapper">
+                
+                
+                <!-- Profile picture partial for HTMX -->
                 <div class="profile-picture">
-                   <img src="{{ profile.image.url }}" alt="Profile Pic" id="profile-pic" class="clickable-pic" data-id="{{ profile.id }}" data-image="{{ profile.image.url }}" data-name="{{ profile.name }}"> 
-                   <i class="fa-solid fa-camera" id="edit-profile-photo-btn"></i>
-                   <div class="profile-pic-placeholder"></div>
+                    {% include 'users/partials/profile-picture.html' %}
                 </div>
 
                 <div class="profile-details">

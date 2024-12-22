@@ -1,11 +1,3 @@
-const galleryImages = document.querySelectorAll('.gallery img')
-galleryImages.forEach(image => {
-    image.addEventListener('click', function() {
-        const dataId = this.getAttribute('data-id')
-        console.log(dataId)
-    })
-})
-
 const clickablePics = document.querySelectorAll('.clickable-pic');
 const imageModalContainer = document.querySelector('.image-modal-container');
 const modalImage = document.querySelector('.image-modal img');
@@ -203,7 +195,7 @@ function toggleModal(modalElement, closeOther = false) {
     // check if any modal is currently visible
     const anyModalVisible = document.querySelector('.image-form.visible') || 
                             document.querySelector('.image-modal-container.visible') ||
-                            document.querySelector('.delete-image-form.visible');
+                            document.querySelector('.delete-image-form.visible'); 
 
     document.body.classList.toggle('blurry', !!anyModalVisible);
 
@@ -218,11 +210,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const imagePreview = document.getElementById('image-preview');
     const uploadIcon = document.querySelector('.fa-solid.fa-upload');
     const imageFormModal = document.querySelector('.image-form')
+
     const addPhotoBtn = document.querySelector('.add-photo-btn');
-
-
     if (addPhotoBtn) {
         addPhotoBtn.addEventListener('click', function() {
+            toggleModal(imageFormModal, true);
+        });
+    }
+
+    const editProfilePhotoBtn = document.getElementById('edit-profile-photo-btn');
+    if (editProfilePhotoBtn) {
+        editProfilePhotoBtn.addEventListener('click', function () {
             toggleModal(imageFormModal, true);
         });
     }
@@ -346,14 +344,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
     }
 
-    const editProfilePhotoBtn = document.getElementById('edit-profile-photo-btn');
-    const editProfilePhotoForm = document.getElementById('edit-profile-photo-form');
-
-    if (editProfilePhotoBtn && editProfilePhotoForm) {
-        editProfilePhotoBtn.addEventListener('click', function () {
-            toggleModal(editProfilePhotoForm, true);
-        });
-    }
+    
 
     const personListItems = document.querySelectorAll('.add-people-section li');
     let checkedCount = document.querySelectorAll('.add-people-section input[type="checkbox"]:checked').length;

@@ -392,11 +392,12 @@ def check_username(request):
 def edit_profile_image(request):
     profile = Profile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = ProfileImageForm(request.POST, request.FILES)
+        form = ProfileImageForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            image = form.cleaned_data["image"]
-            profile.image = image
-            profile.save()
+            form.save()
+        return render(request, 'users/partials/profile-picture.html', {
+            'profile': profile
+        })
     else:
         form = ProfileImageForm(instance=profile)
             
