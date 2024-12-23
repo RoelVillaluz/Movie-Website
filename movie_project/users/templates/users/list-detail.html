@@ -30,13 +30,13 @@
                     <h3>{{ custom_list.privacy.title }}</h3>
                     <i class="fa-solid fa-share-nodes"></i>
                 </div>
-                <p id="watched-movies-count">You've watched 0 out of {{ custom_list_movies.count }}</p>
+                <p id="watched-movies-count">You've watched {{ watched_movies_count }} out of {{ custom_list_movies.count }}</p>
             </div>
         </div>
     </form>
     <div class="list-container">
 
-        {% include 'users/filter-sidebar.html' %}
+        {% include 'users/partials/filter-sidebar.html' %}
     
         <div class="content">
 
@@ -71,7 +71,7 @@
 
             <div class="line"></div>
 
-            {% include 'users/form-wrapper.html' %} 
+            {% include 'users/partials/form-wrapper.html' %} 
     
             <ol>
                 {% for movie in custom_list_movies %}

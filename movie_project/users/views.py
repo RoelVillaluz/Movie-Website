@@ -259,6 +259,8 @@ class CustomListDetailView(DetailView):
         form = CustomListForm(instance=custom_list)
         custom_list_movies = custom_list.movies.all()
 
+        watched_movies_count = custom_list_movies.filter(id__in=request.user.profile.watched_movies.values('id')).count()
+
         genres_with_movies = get_available_genres(custom_list_movies)
         award_categories_with_winners = available_award_categories(custom_list_movies)
         actors_with_movies = available_actors(custom_list_movies)
@@ -318,6 +320,7 @@ class CustomListDetailView(DetailView):
             'selected_genres': selected_genres,
             'selected_actors': selected_actors,
             'award_categories': award_categories,
+            'watched_movies_count': watched_movies_count,
             'form': form
         }
 
