@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const imageNameDisplay = document.getElementById('image-name');
     const imagePreview = document.getElementById('image-preview');
     const uploadIcon = document.querySelector('.fa-solid.fa-upload');
-    const imageFormModal = document.querySelector('.image-form')
+    const imageFormModal = document.querySelector('.image-form');
 
     const addPhotoBtn = document.querySelector('.add-photo-btn');
     if (addPhotoBtn) {
@@ -247,42 +247,50 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const fileInput = document.querySelector('.upload-image input[type="file"]');
     if (fileInput) {
-        document.querySelector('.upload-image input[type="file"]').addEventListener('change', function(event) {
-            const fileInput = event.target;
-        
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            
+            if (file) {
                 const fileName = file.name;
                 imageNameDisplay.textContent = `Image chosen: ${fileName}`;
-                imageNameDisplay.style.display = 'block'; 
-        
+                imageNameDisplay.style.display = 'block';
+            
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     imagePreview.src = e.target.result;
                     imagePreview.style.display = 'block';
-                }
-                reader.readAsDataURL(file)
-        
-                uploadIcon.style.display = 'none'
+                };
+                reader.readAsDataURL(file);
+            
+                uploadIcon.style.display = 'none';
             } else {
-                imageNameDisplay.style.display = 'none'; 
-                imagePreview.style.display = 'none'
-                uploadIcon.style.display = 'block'
+                resetImageForm(); // Reset UI if no file is chosen
             }
         });
     }
 
     if (imageResetBtn) {
-        imageResetBtn.addEventListener('click', function(event) {
-            const fileInput = event.target;
-        
-            fileInput.value = ''
-            imageNameDisplay.textContent = 'Upload an Image'; 
-            imagePreview.style.display = 'none'
-            uploadIcon.style.display = 'block';
+        imageResetBtn.addEventListener('click', resetImageForm);
+    }
 
-            // fix bug later where checkedCount doesnt revert when resetBtn is clicked
-        })
+    imageFormModal.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission (optional if using AJAX)
+        resetImageForm();
+        toggleModal(imageFormModal, true);
+    });
+
+    function resetImageForm() {
+        if (fileInput) fileInput.value = ''; // Clear the file input
+
+        imageNameDisplay.textContent = 'Upload an Image';
+        
+        if (imagePreview) {
+            imagePreview.src = ''; // Clear the preview image
+            imagePreview.style.display = 'none';
+        }
+        if (uploadIcon) {
+            uploadIcon.style.display = 'block';
+        }
     }
 
     const addPersonBtn = document.querySelector('.add-person-btn');
