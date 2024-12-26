@@ -95,21 +95,30 @@
 
             </div>
         </div>
+        
+        <div class="wrapper">
 
-        <div style="display: flex;">
-            <section class="known-for skeleton">
-                <h1>Favorite Movies</h1>
+            <!-- Favorite Movies -->
+            <div class="profile-section" id="profile-favorites">
+                <div class="banner">
+                    <h3>Favorites</h3>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
                 <ul>
-                    {% for favorite in profile.favorites.all %}
-                        <li>
-                            <a href="{% url 'movie-detail' favorite.content_object.pk %}">
-                                <img src="{{ favorite.content_object.poster_path.url }}" alt="">
-                            </a>
-                            <div class="image-placeholder"></div>
-                        </li> 
+                    {% for favorite in profile.favorites.all|slice:3 %}
+                        {% include 'movies/partials/card.html' with movie=favorite.content_object %}
                     {% endfor %}
                 </ul>
-            </section>
-         </div>
+            </div>
+
+            <div class="profile-section" id="profile-lists">
+                <div class="banner">
+                    <h3>Lists</h3>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </div>
+
+        </div>
+
     </section>
 {% endblock %}
