@@ -4,12 +4,19 @@
 
 {% block body %}
 <section class="list-section">
-    <form method="post">
+
+    <form method="post"
+        hx-post="{% url 'edit_custom_list' custom_list.id %}"
+        hx-target="#list-name" hx-swap="innerHTML">
+
         {% csrf_token %}
         <div class="header" style="align-items: start;">
             <div>
+                <!-- Custom list name -->
                 <div class="wrapper">
+
                     <h1 id="list-name">{{ custom_list.name }}</h1>
+
                     <div class="wrapper" id="textarea-wrapper">
                         <textarea class="edit-textarea" name="name" id="list-name-textarea">{{ custom_list.name }}</textarea>
                         {{ form.privacy.as_hidden }}
@@ -34,6 +41,7 @@
             </div>
         </div>
     </form>
+    
     <div class="list-container">
 
         {% include 'users/partials/filter-sidebar.html' %}
