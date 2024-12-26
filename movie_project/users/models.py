@@ -48,7 +48,7 @@ class CustomList(models.Model):
     created_on = models.DateTimeField(default=timezone.now, editable=False)
 
     def __str__(self):
-        return f"'{self.name}' by {self.profile.user}"
+        return self.name
     
 
 class Favorite(models.Model):

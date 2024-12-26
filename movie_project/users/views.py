@@ -234,25 +234,25 @@ class CustomListDetailView(DetailView):
     template_name = 'users/list-detail.html'
     context_object_name = 'list'
 
-    def post(self, request, *args, **kwargs):
-        custom_list = self.get_object()
-        form = CustomListForm(request.POST, instance=custom_list)
+    # def post(self, request, *args, **kwargs):
+    #     custom_list = self.get_object()
+    #     form = CustomListForm(request.POST, instance=custom_list)
         
-        if 'save_name' in request.POST:
-            if form.is_valid():
-                custom_list = form.save(commit=False)
-                custom_list.movies.set(custom_list.movies.all())  # Preserve movies relationship
-                custom_list.description = request.POST.get('description', custom_list.description)
-                custom_list.save()
-                return redirect(request.META.get('HTTP_REFERER', 'index'))
+    #     if 'save_name' in request.POST:
+    #         if form.is_valid():
+    #             custom_list = form.save(commit=False)
+    #             custom_list.movies.set(custom_list.movies.all())  # Preserve movies relationship
+    #             custom_list.description = request.POST.get('description', custom_list.description)
+    #             custom_list.save()
+    #             return redirect(request.META.get('HTTP_REFERER', 'index'))
 
-        elif 'save_description' in request.POST:
-            if form.is_valid():
-                custom_list.description = request.POST.get('description', custom_list.description)
-                custom_list.save()
-                return redirect(request.META.get('HTTP_REFERER', 'index'))
+    #     elif 'save_description' in request.POST:
+    #         if form.is_valid():
+    #             custom_list.description = request.POST.get('description', custom_list.description)
+    #             custom_list.save()
+    #             return redirect(request.META.get('HTTP_REFERER', 'index'))
 
-        return redirect(request.META.get('HTTP_REFERER', 'index'))
+    #     return redirect(request.META.get('HTTP_REFERER', 'index'))
 
     def get(self, request, **kwargs):
         custom_list = self.get_object()
@@ -403,7 +403,46 @@ def edit_profile_image(request):
         })
     else:
         form = ProfileImageForm(instance=profile)
-            
+
+
+@login_required
+def edit_custom_list(request, id):
+    custom_list = CustomList.objects.get(id=id)
+    form = CustomListForm(request.POST, instance=custom_list)
+    
+    if request.method == 'POST':
+        if 'save_name' in request.POST:
+            if form.is_valid():
+                custom_list = form.save(commit=False)
+                custom_list.movies.set(custom_list.movies.all()) # Preserve movies relationship
+                custom_list.description = request.POST.get('description', custom_list.description)
+                custom_list.save()
+                return HttpResponse(custom_list.name)
+    else:
+        form = CustomListForm(instance=custom_list)
+
+def movies_list(request):
+    movies = Movie.objects.all()
+    genres = Genre.objects.all()
+
+    return render(request, 'users/partials/movies-list.html', {
+        'movies': movies,  # Limit to 20 movies after filtering
+        'genres': genres
+    })
+
+
+def filtered_movies(request):
+    movies = Movie.objects.all()
+    genres = Genre.objects.all()
+
+    selected_genres = request.GET.getlist('genre')
+    if selected_genres:
+        movies = movies.filter(genres__id__in=selected_genres).distinct()
+
+    return render(request, 'users/partials/filtered-movies.html', {
+        'movies': movies,  # Limit to 20 movies after filtering
+        'genres': genres
+    })
 
 # @login_required(login_url='/login')
 # def add_to_list(request, movie_id, list_id):

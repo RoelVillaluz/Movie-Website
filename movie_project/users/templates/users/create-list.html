@@ -16,6 +16,7 @@
                 <h4>Name</h4>
                 {{ form.name }}
 
+                <!-- Privacy -->
                 <h4>Who can see?</h4>
                 <div id="id_privacy">
                     <button type=button id="privacy-btn">
@@ -35,6 +36,14 @@
                     </button>
                 </div>
 
+                <!-- Movies -->
+                <div>
+                    <h4>Select Movies</h4>
+                    {{ form.movies }}
+                </div>
+                
+                
+                <!-- Ranked List or Not-->
                 <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
                     <input type="checkbox" name="ranked_list" id="id_ranked_list">
                     <label for="id_ranked_list" id="ranked_list-label">Ranked List</label>
