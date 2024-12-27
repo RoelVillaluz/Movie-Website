@@ -408,18 +408,18 @@ def edit_profile_image(request):
 @login_required
 def edit_custom_list(request, id):
     custom_list = CustomList.objects.get(id=id)
-    form = CustomListForm(request.POST, instance=custom_list)
     
     if request.method == 'POST':
-        if 'save_name' in request.POST:
-            if form.is_valid():
-                custom_list = form.save(commit=False)
-                custom_list.movies.set(custom_list.movies.all()) # Preserve movies relationship
-                custom_list.description = request.POST.get('description', custom_list.description)
-                custom_list.save()
-                return HttpResponse(custom_list.name)
+        form = CustomListForm(request.POST, instance=custom_list)
+        if form.is_valid():
+            custom_list = form.save(commit=False)
+            custom_list.movies.set(custom_list.movies.all())
+            custom_list.save()
+            return HttpResponse(custom_list)
     else:
-        form = CustomListForm(instance=custom_list)
+        return render(request, 'users/partials/list-form.html', {
+            'form': CustomListForm(instance=custom_list)
+        })
 
 def movies_list(request):
     movies = Movie.objects.all()

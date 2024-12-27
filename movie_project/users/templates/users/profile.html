@@ -116,6 +116,13 @@
                     <h3>Lists</h3>
                     <i class="fa-solid fa-angle-right"></i>
                 </div>
+                <ul>
+                    {% for list in profile.lists.all|slice:2 %}
+                        <li>
+                            <a href="{% url 'list-detail' list.id %}">{{ list }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
 
         </div>
