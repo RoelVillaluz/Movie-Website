@@ -574,12 +574,14 @@ and only apply hover filter effect once all animations have stopped
 }
 
 .card .details h3 {
+    font-size: clamp(8px, 1.1vw, 4rem);
     max-width: 90%;
 }
 
 .card .details h4 {
     margin-top: 5px;
     font-weight: 200;
+    font-size: clamp(8px, 1vw, 2.5rem);
     color: rgb(177, 177, 177);
 }
 
@@ -653,9 +655,9 @@ and only apply hover filter effect once all animations have stopped
 }
 
 .tags > * {
-    font-size: 0.8rem;
+    font-size: clamp(8px, 0.9vw, 2rem);
     font-weight: 700;
-    padding: 5px 15px;
+    padding: clamp(5px, 0.25vw, 2rem) clamp(5px, 1vw, 3rem);
     border-radius: 30px;
     color: black;
 }
