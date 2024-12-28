@@ -19,3 +19,11 @@ $(document).ready(function () {
     });
 });
 
+const privacyBtns = document.querySelectorAll('#privacy-btn');
+privacyBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        privacyBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        btn.querySelector('input[type="radio"]').checked = true;
+    });
+});
