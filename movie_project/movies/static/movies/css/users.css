@@ -704,8 +704,8 @@ input[type="checkbox"] {
 }
 
 #profile-section-wrapper {
-    gap: 1rem;
-    margin: 2rem;
+    margin: 20px;
+    margin-top: 15%;
 }
 
 .profile-section {
@@ -725,6 +725,7 @@ input[type="checkbox"] {
 
 .profile-section ul {
     display: flex;
+    list-style-type: none;
     flex: 0 0 50%;
     gap: 1rem;
     margin-top: 1rem;
@@ -735,56 +736,77 @@ input[type="checkbox"] {
     width: 100%;
 }
 
-#profile-lists ul {
-    display: flex;
-    gap: 2rem;
-    list-style-type: none;
+#profile-lists {
+    flex: 0 0 50%;
 }
 
-#profile-lists .custom-list-item {
+#profile-lists a {
+    text-decoration: none;
+}
+
+.custom-list-item {
+    position: relative;
     width: 100%;
 }
 
-#profile-lists .list-poster-stack {
-    position: relative;
-    flex: 0 0 30%;
+.custom-list-item img {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
-#profile-lists .list-poster-stack li {
-    flex-grow: 0;
-}
-
-.list-poster-stack a {
+.custom-list-item .details {
+    position: absolute;
+    bottom: 5%;
+    left: 2.5%;
     display: flex;
+    align-items: end;
+    margin-top: 10px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: rgba(20, 20, 20, 0.75);
 }
 
-.list-poster-stack li {
-    box-shadow: 5px 0px 5px 0px rgba(0,0,0,0.5);
+.custom-list-item .details i {
+    margin-right: 0.7rem;
 }
 
-.list-poster-stack li:nth-child(1) {
+.custom-list-item .details h3 {
+    font-size: clamp(8px, 1.1vw, 4rem);
+    padding-right: 0.7rem;
+    border-right: solid 1px #ffffff;
+}
+
+.custom-list-item .details p {
+    padding-left: 0.7rem;
+    font-size: clamp(8px, 1vw, 2.5rem);
+}
+
+.custom-list-item .overlay img {
+    position: absolute;
+    bottom: 5%;
+    width: 7.5vw;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+}
+
+.custom-list-item .overlay img:nth-child(1) {
+    right: 10%;
     z-index: 4;
 }
 
-.list-poster-stack li:not(:nth-child(1)) {
-    margin-left: -10rem;
-}
-
-.list-poster-stack li:nth-child(2) {
+.custom-list-item .overlay img:nth-child(2) {
+    right: 7.5%;
     z-index: 3;
 }
 
-.list-poster-stack li:nth-child(3) {
+.custom-list-item .overlay img:nth-child(3) {
+    right: 5%;
     z-index: 2;
 }
 
-.list-poster-stack li:nth-child(4) {
+.custom-list-item .overlay img:nth-child(4) {
+    right: 2.5%;
     z-index: 1;
-}
-
-.list-poster-stack img {
-    width: 100%;
-    object-fit: contain;
 }
 
 .personal-info ul {
@@ -1401,6 +1423,9 @@ input[type="checkbox"] {
 
 .image-form h3 {
     color: #2e2e2e;
+}
+
+#image-name {
     max-width: 75%;
     white-space: nowrap;
     overflow: hidden;
@@ -1607,6 +1632,8 @@ input[type="checkbox"] {
     margin-bottom: 10px;
 }
 
+
+
 .custom-list-form {
     position: fixed;
     top: 50%;
@@ -1617,6 +1644,7 @@ input[type="checkbox"] {
     background-color: white;
     padding: 1rem;
     border-radius: 10px;
+    z-index: 100;
 }
 
 .custom-list-form .header i {

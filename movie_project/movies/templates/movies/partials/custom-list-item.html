@@ -1,0 +1,17 @@
+<div class="custom-list-item">
+    <div>
+        {% for movie in list.movies.all|slice:1 %}
+            <img src="{{ movie.backdrop_path.url }}" alt="" id="main-list-image">
+        {% endfor %}
+        <div class="details">
+            <i class="fa-solid fa-list-ul"></i>
+            <h3>{{ list.name }}</h3>
+            <p>{{ list.movies.count }} Movies</p>
+        </div>
+        <div class="overlay">
+            {% for movie in list.movies.all|slice:4 %}
+                <img src="{{ movie.poster_path.url }}" alt="">
+            {% endfor %}
+        </div>
+    </div>
+</div>
