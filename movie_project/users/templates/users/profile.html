@@ -4,7 +4,9 @@
 
 {% block body %}
 
-    {% include 'users/partials/edit-profile-photo-form.html' %}
+    {% if request.user == profile.user %}
+        {% include 'users/partials/edit-profile-photo-form.html' %}
+    {% endif %}
 
     <section class="profile">
         <div class="profile-header skeleton">
@@ -18,7 +20,9 @@
                     <div class="profile-picture">
                         {% include 'users/partials/profile-picture.html' %}
                     </div>
-                    <i class="fa-solid fa-camera" id="edit-profile-photo-btn"></i>
+                    {% if request.user == profile.user %}
+                        <i class="fa-solid fa-camera" id="edit-profile-photo-btn"></i>
+                    {% endif %}
                     <div class="profile-pic-placeholder"></div>
                 </div>
 
@@ -104,11 +108,15 @@
                     <h3>Favorites</h3>
                     <i class="fa-solid fa-angle-right"></i>
                 </div>
-                <ul>
-                    {% for favorite in profile.favorites.all|slice:3 %}
-                        {% include 'movies/partials/card.html' with movie=favorite.content_object %}
-                    {% endfor %}
-                </ul>
+                {% if profile.favorites.all %}
+                    <ul>
+                        {% for favorite in profile.favorites.all|slice:3 %}
+                            {% include 'movies/partials/card.html' with movie=favorite.content_object %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h4>No Favorites yet.</h4>
+                {% endif %}
             </div>
 
             <div class="profile-section" id="profile-lists">
@@ -116,15 +124,19 @@
                     <h3>Lists</h3>
                     <i class="fa-solid fa-angle-right"></i>
                 </div>
-                <ul>
-                    {% for list in profile.lists.all|slice:1 %}
-                        <li>
-                            <a href="{% url 'list-detail' list.id %}">
-                                {% include 'movies/partials/custom-list-item.html' %}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if profile.lists.all  %}
+                    <ul>
+                        {% for list in profile.lists.all|slice:1 %}
+                            <li>
+                                <a href="{% url 'list-detail' list.id %}">
+                                    {% include 'movies/partials/custom-list-item.html' %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h4>No lists yet.</h4>
+                {% endif %}
             </div>
 
         </div>

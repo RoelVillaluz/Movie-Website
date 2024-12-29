@@ -736,6 +736,12 @@ input[type="checkbox"] {
     width: 100%;
 }
 
+.profile-section h4 {
+    margin-top: 1rem;
+    font-weight: 200;
+    color: #a3a3a3;
+}
+
 #profile-lists {
     flex: 0 0 50%;
 }

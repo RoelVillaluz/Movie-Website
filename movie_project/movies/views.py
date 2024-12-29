@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required, permission_required
 from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, SearchForm
 from movies.utils import available_actors, available_award_categories, convert_height_to_feet, create_movie_from_api, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
-from users.models import Follow, Profile, Watchlist
+from users.models import CustomList, Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage, Role
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import DeleteView
