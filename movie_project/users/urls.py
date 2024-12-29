@@ -17,7 +17,7 @@ urlpatterns = [
 htmx_urlpatterns = [
     path('check_username/', views.check_username, name="check_username"),
     path('edit_profile_image', views.edit_profile_image, name="edit_profile_image"),
-    path('edit_custom_list/<int:id>', views.edit_custom_list, name="edit_custom_list"),
+    path('edit_custom_list/<int:id>/', views.edit_custom_list, name="edit_custom_list"),
 ]
 
 urlpatterns += htmx_urlpatterns

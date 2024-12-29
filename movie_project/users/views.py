@@ -234,26 +234,6 @@ class CustomListDetailView(DetailView):
     template_name = 'users/list-detail.html'
     context_object_name = 'list'
 
-    # def post(self, request, *args, **kwargs):
-    #     custom_list = self.get_object()
-    #     form = CustomListForm(request.POST, instance=custom_list)
-        
-    #     if 'save_name' in request.POST:
-    #         if form.is_valid():
-    #             custom_list = form.save(commit=False)
-    #             custom_list.movies.set(custom_list.movies.all())  # Preserve movies relationship
-    #             custom_list.description = request.POST.get('description', custom_list.description)
-    #             custom_list.save()
-    #             return redirect(request.META.get('HTTP_REFERER', 'index'))
-
-    #     elif 'save_description' in request.POST:
-    #         if form.is_valid():
-    #             custom_list.description = request.POST.get('description', custom_list.description)
-    #             custom_list.save()
-    #             return redirect(request.META.get('HTTP_REFERER', 'index'))
-
-    #     return redirect(request.META.get('HTTP_REFERER', 'index'))
-
     def get(self, request, **kwargs):
         custom_list = self.get_object()
         form = CustomListForm(instance=custom_list)
@@ -307,6 +287,7 @@ class CustomListDetailView(DetailView):
         award_categories = Award.objects.filter(winner=True).values_list('category', flat=True).distinct()
 
         context = {
+            'profile': request.user.profile if request.user.is_authenticated else None,
             'custom_list': custom_list,
             'custom_list_movies': custom_list_movies,
             'view_mode': view_mode,
@@ -413,36 +394,16 @@ def edit_custom_list(request, id):
         form = CustomListForm(request.POST, instance=custom_list)
         if form.is_valid():
             custom_list = form.save(commit=False)
-            custom_list.movies.set(custom_list.movies.all())
+
+            movies = form.cleaned_data.get('movies')
+            custom_list.movies.set(movies)
+            
             custom_list.save()
             return HttpResponse(custom_list)
     else:
         return render(request, 'users/partials/list-form.html', {
             'form': CustomListForm(instance=custom_list)
         })
-
-def movies_list(request):
-    movies = Movie.objects.all()
-    genres = Genre.objects.all()
-
-    return render(request, 'users/partials/movies-list.html', {
-        'movies': movies,  # Limit to 20 movies after filtering
-        'genres': genres
-    })
-
-
-def filtered_movies(request):
-    movies = Movie.objects.all()
-    genres = Genre.objects.all()
-
-    selected_genres = request.GET.getlist('genre')
-    if selected_genres:
-        movies = movies.filter(genres__id__in=selected_genres).distinct()
-
-    return render(request, 'users/partials/filtered-movies.html', {
-        'movies': movies,  # Limit to 20 movies after filtering
-        'genres': genres
-    })
 
 # @login_required(login_url='/login')
 # def add_to_list(request, movie_id, list_id):

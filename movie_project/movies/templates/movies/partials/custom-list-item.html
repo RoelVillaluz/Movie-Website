@@ -6,7 +6,11 @@
         <div class="details">
             <i class="fa-solid fa-list-ul"></i>
             <h3>{{ list.name }}</h3>
-            <p>{{ list.movies.count }} Movies</p>
+            {% if list.movies.count > 1 %}
+                <p>{{ list.movies.count }} Movies</p>
+            {% else %}
+                <p>{{ list.movies.count }} Movie</p>
+            {% endif %}
         </div>
         <div class="overlay">
             {% for movie in list.movies.all|slice:4 %}
