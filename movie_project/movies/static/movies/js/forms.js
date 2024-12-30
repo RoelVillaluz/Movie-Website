@@ -1,3 +1,5 @@
+import { toggleModal } from "./imageGallery.js";
+
 $(document).ready(function () {
     $('#id_movies').select2({
         placeholder: "Select movies",
@@ -26,4 +28,18 @@ privacyBtns.forEach(btn => {
         btn.classList.add('selected');
         btn.querySelector('input[type="radio"]').checked = true;
     });
+});
+
+const editListBtn = document.getElementById('edit-list-btn');
+const formModal = document.querySelector('.form-modal');
+
+editListBtn.addEventListener('click', function() {
+    toggleModal(formModal, true)
+})
+
+// close formModal
+document.addEventListener('click', function(event) {
+    if (formModal.classList.contains('visible') && !formModal.contains(event.target) && event.target !== editListBtn) {
+        toggleModal(formModal, false)
+    }
 });

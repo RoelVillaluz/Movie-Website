@@ -40,9 +40,11 @@ if (rightArrow) {
     })
 }
 
-closeImageModalBtn.addEventListener('click', function() {
-    toggleModal(imageModalContainer, true)
-})
+if (closeImageModalBtn) {
+    closeImageModalBtn.addEventListener('click', function() {
+        toggleModal(imageModalContainer, true)
+    })
+}
 
 document.addEventListener('keyup', function(event) {
     const modalElement = document.querySelector('.image-modal-container'); 
