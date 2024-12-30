@@ -6,6 +6,7 @@ const rightArrow = document.querySelector('.fa-chevron-right');
 const imageCountSpan = document.querySelector('.image-count');
 const imageHeader = document.querySelector('.image-header');
 const peopleContainer = document.querySelector('.people-in-image');
+const closeImageModalBtn = document.querySelector('.image-modal .fa-solid.fa-xmark');
 
 let currentIndex = 0;
 let allImages = Array.from(clickablePics).map(pic => ({
@@ -36,8 +37,12 @@ if (leftArrow) {
 if (rightArrow) {
     rightArrow.addEventListener('click', function() {
     nextImage()
-})
+    })
 }
+
+closeImageModalBtn.addEventListener('click', function() {
+    toggleModal(imageModalContainer, true)
+})
 
 document.addEventListener('keyup', function(event) {
     const modalElement = document.querySelector('.image-modal-container'); 
@@ -178,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function toggleModal(modalElement, closeOther = false) {
+export function toggleModal(modalElement, closeOther = false) {
     // close other models once another is opened
     if (closeOther) {
         const otherModals = [document.querySelector('.image-modal-container')];
@@ -195,7 +200,8 @@ function toggleModal(modalElement, closeOther = false) {
     // check if any modal is currently visible
     const anyModalVisible = document.querySelector('.image-form.visible') || 
                             document.querySelector('.image-modal-container.visible') ||
-                            document.querySelector('.delete-image-form.visible'); 
+                            document.querySelector('.delete-image-form.visible') ||
+                            document.querySelector('.form-modal.visible')
 
     document.body.classList.toggle('blurry', !!anyModalVisible);
 
@@ -273,11 +279,13 @@ document.addEventListener("DOMContentLoaded", function() {
         imageResetBtn.addEventListener('click', resetImageForm);
     }
 
-    imageFormModal.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission (optional if using AJAX)
-        resetImageForm();
-        toggleModal(imageFormModal, true);
-    });
+    if (imageFormModal) {
+        imageFormModal.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission (optional if using AJAX)
+            resetImageForm();
+            toggleModal(imageFormModal, true);
+        });
+    }
 
     function resetImageForm() {
         if (fileInput) fileInput.value = ''; // Clear the file input
