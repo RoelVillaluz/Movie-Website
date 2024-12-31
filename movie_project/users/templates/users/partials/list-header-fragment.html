@@ -1,0 +1,22 @@
+<div>
+    <div class="wrapper">
+
+        <h1 id="list-name">{{ custom_list.name }}</h1>
+        {% if request.user == custom_list.profile.user %}
+            <i class="fa-regular fa-pen-to-square" id="edit-list-btn"></i>
+        {% endif %}
+
+    </div>
+    <h3 style="margin-top: 10px;">By <a href="{% url 'profile' custom_list.profile.user.pk %}">{{ custom_list.profile.user }}</a> • Created on {{ custom_list.created_on|date:"F d Y" }}</h3>
+
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 1rem;">
+    <div class="wrapper">
+        <h3>0 Views</h3>
+        <h3>{{ custom_list.movies.count }} Titles</h3>
+        <h3>{{ custom_list.get_privacy_display }}</h3>
+        <i class="fa-solid fa-share-nodes"></i>
+    </div>
+    <p id="watched-movies-count">You've watched {{ watched_movies_count }} out of {{ custom_list_movies.count }}</p>
+</div>

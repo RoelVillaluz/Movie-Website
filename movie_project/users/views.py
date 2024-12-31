@@ -18,6 +18,7 @@ from .forms import CustomUserCreationForm, CustomListForm, ProfileImageForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q, Avg
 from movies.models import Award, Genre, Movie, MovieImage, Review, User
+from django.template.loader import render_to_string
 
 
 # Create your views here.
@@ -399,10 +400,19 @@ def edit_custom_list(request, id):
             custom_list.movies.set(movies)
             
             custom_list.save()
-            return HttpResponse(custom_list)
+
+            header_html = render_to_string('users/partials/list-header-fragment.html', {
+                'custom_list': custom_list,
+                'custom_list_movies': custom_list.movies.all(),
+                'watched_movies_count': custom_list.movies.values('id').filter(id__in=request.user.profile.watched_movies.all()).count(),
+                'request': request
+            })
+
+            return HttpResponse(f"""<div class="header" hx-swap-oob="true" id="list-header">{header_html}</div>""")
     else:
         return render(request, 'users/partials/list-form.html', {
-            'form': CustomListForm(instance=custom_list)
+            'form': CustomListForm(instance=custom_list),
+            'custom_list': custom_list
         })
 
 # @login_required(login_url='/login')

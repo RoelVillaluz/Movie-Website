@@ -4,9 +4,13 @@
 
 {% block body %}
 
+<div class="form-modal">
+    {% include 'users/partials/list-form.html' %}
+</div>
+
 <section class="list-section">
 
-    <div class="header" style="align-items: start;">
+    <div class="header" id="list-header">
 
         <div>
             <div class="wrapper">
@@ -25,7 +29,7 @@
             <div class="wrapper">
                 <h3>0 Views</h3>
                 <h3>{{ custom_list.movies.count }} Titles</h3>
-                <h3>{{ custom_list.privacy.title }}</h3>
+                <h3>{{ custom_list.get_privacy_display }}</h3>
                 <i class="fa-solid fa-share-nodes"></i>
             </div>
             <p id="watched-movies-count">You've watched {{ watched_movies_count }} out of {{ custom_list_movies.count }}</p>

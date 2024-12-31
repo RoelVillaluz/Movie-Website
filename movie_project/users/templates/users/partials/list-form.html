@@ -1,0 +1,64 @@
+<form class="custom-list-form" method="POST" hx-post="{% url 'edit_custom_list' custom_list.id %}" hx-target="#list-header">
+    {% csrf_token %}
+    <div class="header">
+        <h1>New List</h1>
+        <p>Start your custom movie library.</p>
+    </div>
+    <div class="line"></div>
+
+    <div class="wrapper">
+        <div>
+            <h4>Name</h4>
+            {{ form.name }}
+
+            <!-- Privacy -->
+            <h4>Who can see?</h4>
+            <div id="id_privacy">
+                <button type=button id="privacy-btn" {% if custom_list.privacy == 'friends' %} class="selected" {% endif %}>
+                    <input type="radio" name="privacy" value="friends" class="form-check-input" id="id_privacy_0"
+                    {% if custom_list.privacy == 'friends' %} checked {% endif %}>
+                    <i class="fa-solid fa-user-group"></i>
+                    <label for="id_privacy_0">Friends</label>
+                </button>
+                <button type=button id="privacy-btn" {% if custom_list.privacy == 'everyone' %} class="selected" {% endif %}>
+                    <input type="radio" name="privacy" value="everyone" class="form-check-input" id="id_privacy_1"
+                    {% if custom_list.privacy == 'everyone' %} checked {% endif %}>
+                    <i class="fa-solid fa-globe"></i>
+                    <label for="id_privacy_1">Everyone</label>
+                </button>
+                <button type=button id="privacy-btn" {% if custom_list.privacy == 'only_me' %} class="selected" {% endif %}>
+                    <input type="radio" name="privacy" value="only_me" class="form-check-input" id="id_privacy_2"
+                    {% if custom_list.privacy == 'only_me' %} checked {% endif %}>
+                    <i class="fa-solid fa-user"></i>
+                    <label for="id_privacy_2">Only Me</label>
+                </button>
+            </div>
+
+            <!-- Movies -->
+            <div>
+                <h4>Select Movies</h4>
+                {{ form.movies }}
+            </div>
+            
+            
+            <!-- Ranked List or Not-->
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+                <input type="checkbox" name="ranked_list" id="id_ranked_list">
+                <label for="id_ranked_list" id="ranked_list-label">Ranked List</label>
+                <p>(Show position for each film)</p>
+            </div>
+
+        </div>
+
+        <div>
+            <h4>Description</h4>
+            {{ form.description }}
+        </div>
+    </div>
+    <div>
+        <div class="form-actions">
+            <button type="reset">Reset</button>
+            <button type="submit">Save</button>
+        </div>
+    </div>
+</form>
