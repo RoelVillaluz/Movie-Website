@@ -592,7 +592,7 @@ and only apply hover filter effect once all animations have stopped
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 100;
+    z-index: 10;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px 0 0 5px;
     width: auto;

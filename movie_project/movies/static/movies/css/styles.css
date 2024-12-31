@@ -380,7 +380,27 @@ nav a {
     font-size: 1.3rem;
 }
 
-.add-watchlist-btn {
+.movie-overview .actions {
+    display: flex;
+    margin-top: 3rem;
+}
+
+.movie-overview .actions button {
+    background-color: white;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.movie-overview .actions span, 
+.movie-overview .actions i {
+    font-family: "Electrolize", sans-serif;
+    color: black;
+    font-weight: 700;
+}
+
+/* .add-watchlist-btn {
     display: flex;
     align-items: center;
     font-family: "News Cycle", sans-serif;
@@ -422,7 +442,7 @@ nav a {
 .add-watchlist-btn button:hover {
     background-color: white;
     color: black;
-}
+} */
 
 .movie-rating {
     display: flex;
