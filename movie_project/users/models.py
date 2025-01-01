@@ -46,6 +46,7 @@ class CustomList(models.Model):
     privacy = models.TextField(choices=PRIVACY_CHOICES, default='everyone')
     ranked_list = models.BooleanField(default=False)
     created_on = models.DateTimeField(default=timezone.now, editable=False)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

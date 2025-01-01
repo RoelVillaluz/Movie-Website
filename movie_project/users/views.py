@@ -240,6 +240,9 @@ class CustomListDetailView(DetailView):
         form = CustomListForm(instance=custom_list)
         custom_list_movies = custom_list.movies.all()
 
+        custom_list.views += 1
+        custom_list.save()
+
         watched_movies_count = custom_list_movies.filter(id__in=request.user.profile.watched_movies.values('id')).count()
 
         genres_with_movies = get_available_genres(custom_list_movies)
@@ -291,6 +294,7 @@ class CustomListDetailView(DetailView):
             'profile': request.user.profile if request.user.is_authenticated else None,
             'custom_list': custom_list,
             'custom_list_movies': custom_list_movies,
+            'watched_movies_count': watched_movies_count,
             'view_mode': view_mode,
             'show_layout_buttons': show_layout_buttons,
             'search_form': search_form,
@@ -302,7 +306,6 @@ class CustomListDetailView(DetailView):
             'selected_genres': selected_genres,
             'selected_actors': selected_actors,
             'award_categories': award_categories,
-            'watched_movies_count': watched_movies_count,
             'form': form
         }
 
@@ -408,7 +411,20 @@ def edit_custom_list(request, id):
                 'request': request
             })
 
-            return HttpResponse(f"""<div class="header" hx-swap-oob="true" id="list-header">{header_html}</div>""")
+            list_container_html = render_to_string('users/partials/list-content-fragment.html', {
+                'custom_list': custom_list,
+            })
+
+            form_modal_html = render_to_string('users/partials/list-form.html', {
+                'custom_list': custom_list,
+                "form": CustomListForm(instance=custom_list)
+            })
+
+            return HttpResponse(f"""
+                                <div class="header" hx-swap-oob="true" id="list-header">{header_html}</div>
+                                <div class="content" hx-swap-oob="true" id="list-content">{list_container_html}</div>
+                                <form class="custom-list-form" hx-swap="innerHTML">{form_modal_html}</div>
+                                """)
     else:
         return render(request, 'users/partials/list-form.html', {
             'form': CustomListForm(instance=custom_list),
