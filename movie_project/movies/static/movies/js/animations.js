@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Intersection Observer setup
+    // Observer callback
     const observerOptions = {
         root: null, // Use the viewport as the root
         rootMargin: '0px',
@@ -115,12 +116,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Initialize the observer
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // Observe hidden and skeleton elements
-    const elementsToObserve = document.querySelectorAll('.hidden, .skeleton');
-    elementsToObserve.forEach(element => observer.observe(element));
+    // Function to start observing new content after HTMX swaps
+    function initializeObserver() {
+        // Observe newly added elements (those with .hidden or .skeleton class)
+        const elementsToObserve = document.querySelectorAll('.hidden, .skeleton');
+        elementsToObserve.forEach(element => observer.observe(element));
+    }
 
+    // Listen for HTMX events and reinitialize the observer for new content
+    document.body.addEventListener('htmx:afterSwap', (event) => {
+        initializeObserver();  // Reinitialize the observer after content swap
+    });
+
+    // Initial observer setup for any pre-existing elements
+    initializeObserver();
+    
     // Apply animation delay to genre cards
     const genreCards = document.querySelectorAll('.genre-card.hidden');
     if (genreCards.length > 0) {
