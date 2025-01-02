@@ -1,8 +1,7 @@
-<form class="custom-list-form" method="POST" hx-post="{% url 'edit_custom_list' custom_list.id %}" hx-target="#list-header">
+<form class="custom-list-form" method="POST" hx-post="{% url 'edit_custom_list' custom_list.id %}">
     {% csrf_token %}
     <div class="header">
-        <h1>New List</h1>
-        <p>Start your custom movie library.</p>
+        <h1>Edit List</h1>
     </div>
     <div class="line"></div>
 
@@ -39,7 +38,6 @@
                 <h4>Select Movies</h4>
                 {{ form.movies }}
             </div>
-            
             
             <!-- Ranked List or Not-->
             <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
