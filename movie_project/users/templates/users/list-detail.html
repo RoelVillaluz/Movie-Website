@@ -26,11 +26,28 @@
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <div class="wrapper">
-                <h3>0 Views</h3>
-                <h3>{{ custom_list.movies.count }} Titles</h3>
-                <h3>{{ custom_list.get_privacy_display }}</h3>
-                <i class="fa-solid fa-share-nodes"></i>
+            <div class="wrapper" id="list-stat-wrapper">
+                <div class="list-statistic">
+                    <i class="fa-solid fa-eye"></i>
+                    <p>{{ custom_list.views }} views</p>
+                </div>
+                <div class="list-statistic">
+                    <i class="fa-solid fa-film"></i>
+                    <p>{{ custom_list.movies.count }} Titles</p>
+                </div>
+                <div class="list-statistic">
+                    {% if custom_list.privacy == 'everyone' %}
+                        <i class="fa-solid fa-globe"></i>
+                    {% elif custom_list.privacy == 'friends' %}
+                        <i class="fa-solid fa-user-group"></i>
+                    {% elif custom_list.privacy == 'only_me' %}
+                        <i class="fa-solid fa-lock"></i>
+                    {% endif %}
+                    <p>{{ custom_list.get_privacy_display }}</p>
+                </div>
+                <div>
+                    <i class="fa-solid fa-share-nodes" id="share-btn"></i>
+                </div>
             </div>
             <p id="watched-movies-count">You've watched {{ watched_movies_count }} out of {{ custom_list_movies.count }}</p>
         </div>
@@ -41,7 +58,7 @@
 
         {% include 'users/partials/filter-sidebar.html' %}
     
-        <div class="content">
+        <div class="content" id="list-content" hx-swap-oob="true">
 
             {% if custom_list.description %}
                 <h3>Description</h3>
@@ -57,7 +74,7 @@
             <ol>
                 {% for movie in custom_list_movies %}
                     {% if view_mode == 'grid' %}
-                        <li class="skeleton">
+                        <li>
                             {% include 'movies/partials/card.html' %}
                         </li>
                     {% else %}

@@ -5,7 +5,7 @@
 .list-section .header {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
     position: relative;
     margin-top: 100px;
     margin-bottom: 50px;
@@ -24,7 +24,6 @@
 .list-section .header .wrapper {
     display: flex;
     align-items: start;
-    gap: 0.5rem;
 }
 
 .list-section .header h3 {
@@ -33,20 +32,48 @@
     font-weight: 200;
 }
 
-.list-section p {
+.list-section .header i {
+    cursor: pointer;
+}
+
+.list-section .header i {
+    padding: 0 1rem;
+}
+
+.list-section #list-stat-wrapper {
+    align-items: center;
+}
+
+.list-section .list-statistic {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-direction: column;
+    padding: 0 1rem;
+    border-right: solid 1px rgba(255, 255, 255, 0.5);
+}
+
+.list-section .list-statistic i {
     color: #b1b1b1;
-    line-height: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.list-section .list-statistic p {
+    color: #b1b1b1;
+    font-size: 0.9rem;
+}
+
+.list-section #share-btn {
+    font-size: 1.25rem;
 }
 
 .list-section #watched-movies-count {
+    display: inline-block;
     background-color: rgb(39, 39, 39);
     color: rgb(201, 201, 201);
     padding: 5px 20px;
     border-radius: 5px;
-}
-
-.list-section i {
-    cursor: pointer;
+    align-self: flex-end;  
 }
 
 .list-section .header a {
