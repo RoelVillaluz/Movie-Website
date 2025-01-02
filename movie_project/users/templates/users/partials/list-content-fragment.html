@@ -1,0 +1,22 @@
+{% if custom_list.description %}
+    <h3>Description</h3>
+    <p id="list-desc">{{ custom_list.description }}</p>
+{% else %}
+    <p id="list-desc">No description yet.</p>
+{% endif %}
+
+<div class="line"></div>
+
+{% include 'users/partials/form-wrapper.html' %} 
+
+<ol>
+    {% for movie in custom_list.movies.all %}
+        {% if view_mode == 'grid' %}
+            <li class="skeleton">
+                {% include 'movies/partials/card.html' %}
+            </li>
+        {% else %}
+            {% include 'movies/partials/movie-list-item.html' %}
+        {% endif %}
+    {% endfor %}
+</ol>
