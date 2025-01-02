@@ -43,3 +43,7 @@ document.addEventListener('click', function(event) {
         toggleModal(formModal, false)
     }
 });
+
+// formModal.addEventListener('submit', function() {
+//     toggleModal(formModal, false)
+// })
