@@ -40,53 +40,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Watchlist buttons
-    document.querySelectorAll('#watchlist-btn').forEach(btn => {
-        btn.onclick = function() {
-            addToWatchlist(btn);
-        };
-    });
+    function initializeActions() {
+        // Watchlist buttons
+        document.querySelectorAll('#watchlist-btn').forEach(btn => {
+            btn.onclick = function() {
+                addToWatchlist(btn);
+            };
+        });
 
-    // Text and plus icon watchlist button
-    document.querySelectorAll('.add-watchlist-btn').forEach(btn => {
-        btn.onclick = function() {
-            addToWatchlist(btn, true);
-        };
-    });
+        // Text and plus icon watchlist button
+        document.querySelectorAll('.add-watchlist-btn').forEach(btn => {
+            btn.onclick = function() {
+                addToWatchlist(btn, true);
+            };
+        });
 
-    // Like button
-    document.querySelectorAll('#like-btn').forEach(btn => {
-        btn.onclick = function() {
-            likeReview(btn);
-        };
-    });
+        // Like button
+        document.querySelectorAll('#like-btn').forEach(btn => {
+            btn.onclick = function() {
+                likeReview(btn);
+            };
+        });
 
-    // add to watched movies button
-    document.querySelectorAll('#watched-movie-btn').forEach(btn => {
-        btn.onclick = function() {
-            addToWatchedMovies(btn)
-        }
-    })
+        // add to watched movies button
+        document.querySelectorAll('#watched-movie-btn').forEach(btn => {
+            btn.onclick = function() {
+                addToWatchedMovies(btn)
+            }
+        })
 
-    // toggle visibility for other card actions
-    document.querySelectorAll('#other-actions-btn').forEach(btn => {
-        btn.onclick = function() {
-            showOtherActions(btn)
-        }
-    })
-    
-    // add titles to favorites
-    document.querySelectorAll('#add-to-favorites-btn').forEach(btn => {
-        btn.onclick = function() {
-            addToFavorites(btn);
-        };
-    });
+        // toggle visibility for other card actions
+        document.querySelectorAll('#other-actions-btn').forEach(btn => {
+            btn.onclick = function() {
+                showOtherActions(btn)
+            }
+        })
+        
+        // add titles to favorites
+        document.querySelectorAll('#add-to-favorites-btn').forEach(btn => {
+            btn.onclick = function() {
+                addToFavorites(btn);
+            };
+        });
 
-    // follow and unfollow
-    document.querySelectorAll('.follow-btn').forEach(btn => {
-        btn.onclick = function() {
-            toggleFollow(btn)
-        }
+        // follow and unfollow
+        document.querySelectorAll('.follow-btn').forEach(btn => {
+            btn.onclick = function() {
+                toggleFollow(btn)
+            }
+        })
+    }
+
+    initializeActions()
+
+    // ensure event listeners for card actions are reinitialized after DOM is updated
+    document.addEventListener('htmx:afterSwap', function() {
+        initializeActions()
     })
 
     function addToWatchlist(element, containsText = false) {
