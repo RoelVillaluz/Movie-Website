@@ -21,6 +21,44 @@ $(document).ready(function () {
     });
 });
 
+document.addEventListener('htmx:beforeSwap', (event) => {
+    // Find the old movies field
+    const oldMoviesField = document.querySelector('#id_movies');
+    if (oldMoviesField && $(oldMoviesField).data('select2')) {
+        // Destroy the old select2 instance
+        $(oldMoviesField).select2('destroy');
+        // Remove the old movies field from the DOM
+        oldMoviesField.remove();
+    }
+});
+
+
+document.addEventListener('htmx:afterSwap', (event) => {
+    // Check if the swapped content includes the form with the select2 field
+    const newMoviesField = event.target.querySelector('#id_movies');
+    if (newMoviesField) {
+        $('#id_movies').select2({
+            placeholder: "Select movies",
+            allowClear: true,
+            containerCssClass: 'custom-select2-container',
+            dropdownCssClass: 'custom-select2-dropdown',
+            selectionCssClass: 'custom-select2-selection',
+            templateResult: function (data) {
+                if (!data.id) { return data.text; }
+                const imgUrl = $(data.element).data('poster');
+                const $container = $(
+                    '<span class="custom-select2-item"><img src="' + imgUrl + '" class="custom-select2-poster" />' + data.text + '</span>'
+                );
+                return $container;
+            },
+            templateSelection: function (data) {
+                return data.text;
+            }
+        });
+    }
+});
+
+
 const privacyBtns = document.querySelectorAll('#privacy-btn');
 privacyBtns.forEach(btn => {
     btn.addEventListener('click', function() {
@@ -44,6 +82,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// formModal.addEventListener('submit', function() {
-//     toggleModal(formModal, false)
-// })
+formModal.addEventListener('submit', function() {
+    toggleModal(formModal, false)
+})
