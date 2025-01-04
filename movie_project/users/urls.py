@@ -12,6 +12,7 @@ urlpatterns = [
     path('lists/<int:pk>', views.CustomListDetailView.as_view(), name='list-detail'),
     path('add_to_watched_movies/<int:id>/', views.add_to_watched_movies, name='add_to_watched_movies'),
     path('add_to_favorites/<str:model_name>/<int:object_id>/', views.add_to_favorites, name='add_to_favorites'),
+    path('add_to_list/<int:custom_list_id>/<int:movie_id>', views.add_to_list, name="add_to_list"),
 ]
 
 htmx_urlpatterns = [

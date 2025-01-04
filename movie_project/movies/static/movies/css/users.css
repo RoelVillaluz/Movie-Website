@@ -1535,17 +1535,21 @@ input[type="checkbox"] {
     color: #2e2e2e;
 }
 
-.image-form .add-people-section {
+.add-people-section {
     display: none;
 }
 
-.image-form .add-people-section ul {
+.add-people-section ul,
+.choose-list-section ul
+{
     max-height: 300px;
     overflow: scroll;
     list-style-type: none;
 }
 
-.image-form .add-people-section h3 {
+.add-people-section h3,
+.choose-list-section h3
+{
     width: 100%;
     background-color: #f1f1f1; 
     margin-top: 1rem;
@@ -1554,20 +1558,28 @@ input[type="checkbox"] {
     border-bottom: solid 1px #c4c4c4;
 }
 
-.image-form .add-people-section ul::-webkit-scrollbar {
+.add-people-section ul::-webkit-scrollbar,
+.choose-list-section ul::-webkit-scrollbar
+{
     width: 8px; 
 }
 
-.image-form .add-people-section ul::-webkit-scrollbar-track {
+.add-people-section ul::-webkit-scrollbar-track,
+.choose-list-section ul::-webkit-scrollbar-track
+{
     background-color: #f1f1f1; 
 }
 
-.image-form .add-people-section ul::-webkit-scrollbar-thumb {
+.add-people-section ul::-webkit-scrollbar-thumb,
+.choose-list-section ul::-webkit-scrollbar-thumb
+{
     background-color: #888; 
     border-radius: 4px; 
 }
 
-.image-form .add-people-section ul li {
+.add-people-section ul li,
+.choose-list-section ul li
+{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1578,25 +1590,37 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-.image-form .add-people-section ul li p {
+.add-people-section ul li p,
+.choose-list-section ul li p
+{
     font-size: 1rem;
     color: #5a5a5a;
     margin-top: 2px;
 }
 
-.image-form .add-people-section ul li:hover {
+.add-people-section ul li:hover,
+.choose-list-section ul li:hover
+{
     background-color: rgb(241, 241, 241);
 }
 
-.image-form .add-people-section input[type="checkbox"] {
+.add-people-section input[type="checkbox"],
+.choose-list-section input[type="checkbox"]
+{
     transform: scale(1.5);
     margin: 1rem;
 }
 
-.image-form .add-people-section img {
+.add-people-section img {
     width: 60px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    border-radius: 5px;
+}
+
+.choose-list-section img {
+    width: 60px;
+    object-fit: contain;
     border-radius: 5px;
 }
 
@@ -1625,9 +1649,9 @@ input[type="checkbox"] {
     margin-top: 1rem;
 }
 
-.image-form button,
-.custom-list-form button
-{
+/* .image-form button,
+.custom-list-form button, */
+.form-actions button {
     font-family: 'Electrolize', sans-serif;
     padding: 10px 20px;
     border: none;
@@ -1673,8 +1697,6 @@ input[type="checkbox"] {
     color: #2e2e2e;
     margin-bottom: 10px;
 }
-
-
 
 .custom-list-form {
     position: fixed;
@@ -1818,3 +1840,42 @@ input[type="checkbox"] {
 .select2-results__option {
     color: black;
 } 
+
+.add-to-list-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: auto;
+    background-color: white;
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 10%;
+    z-index: 100; 
+    border-radius: 10px;
+}
+
+.add-to-list-form.visible {
+    display: block;
+}
+
+.add-to-list-form * {
+    color: black;
+}
+
+.add-to-list-form .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+}
+
+.add-to-list-form h2 {
+    font-size: 1.25rem;
+}
+
+.add-to-list-form i {
+    cursor: pointer;
+}

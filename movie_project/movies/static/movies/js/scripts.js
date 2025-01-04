@@ -1,3 +1,5 @@
+import { toggleModal } from "./imageGallery.js";
+
 document.addEventListener('DOMContentLoaded', () => {
     // Menu toggle
     const menuBars = document.querySelector('.menu-bars');
@@ -87,6 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.follow-btn').forEach(btn => {
             btn.onclick = function() {
                 toggleFollow(btn)
+            }
+        })
+
+        // add titles to list
+        document.querySelectorAll('#add-to-list-btn').forEach(btn => {
+            btn.onclick = function() {
+                addOrRemoveFromList(btn)
             }
         })
     }
@@ -221,6 +230,18 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => console.error("Error: ", error));
     }
+
+    function addOrRemoveFromList(element) {
+        // toggle add to list form modal first
+        const addToListForm = document.querySelector('.add-to-list-form');
+        toggleModal(addToListForm, true);
+
+        // fetch(`/users/add_to_list/${element.dataset.id}`)
+
+        // const formHeader = addToListForm.querySelector('h2')
+        // formHeader.style.display = 
+    }
+    
 
     const starContainer = document.querySelectorAll('.stars');
     starContainer.forEach(container => {

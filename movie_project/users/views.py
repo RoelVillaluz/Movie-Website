@@ -367,6 +367,27 @@ def add_to_favorites(request, model_name, object_id):
     })
 
 
+@login_required(login_url='/login')
+@csrf_exempt  
+def add_to_list(request, custom_list_id, movie_id):
+    profile = request.user.profile if request.user.is_authenticated else None
+    movie = Movie.objects.get(id=movie_id)
+    custom_list = CustomList.objects.get(profile=profile, id=custom_list_id)
+
+    in_custom_list = None
+
+    if movie in custom_list:
+        custom_list.movies.add(movie)
+        in_custom_list = True
+    else:
+        custom_list.movies.remove(movie)
+        in_custom_list = False
+
+    return JsonResponse({
+        'movie': movie,
+        'in_custom_list': in_custom_list
+    })
+
 
 # HTMX VIEWS
 def check_username(request):
@@ -430,16 +451,4 @@ def edit_custom_list(request, id):
             'form': CustomListForm(instance=custom_list),
             'custom_list': custom_list
         })
-
-# @login_required(login_url='/login')
-# def add_to_list(request, movie_id, list_id):
-#     user = request.user
-#     movie = Movie.objects.get(id=movie_id)
-#     custom_list = CustomList.objects.get(id=list_id) 
-
-#     if movie in custom_list.movies.all():
-#         custom_list.movies.add(movie)
-#     else:
-#         custom_list.movies.remove(movie)
-
-        
+   

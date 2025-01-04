@@ -1,0 +1,34 @@
+<form action="" class="add-to-list-form">
+    <div class="header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="{{ movie.poster_path.url }}" class="poster" alt="{{ movie }}">
+            <div>
+                <h2>Add {{ movie }} to list.</h2>
+            </div>
+        </div>
+        <i class="fa-solid fa-xmark" id="close-form-btn"></i>
+    </div>
+    <div class="choose-list-section">
+        <h3>Select from your custom lists</h3>
+        <ul>
+            {% for list in profile.lists.all %}
+                <li>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        {% for movie in list.movies.all|slice:"1" %}
+                            <img src="{{ movie.poster_path.url }}" alt="">
+                        {% endfor %}
+                        <div>
+                            <h4>{{ list.name }}</h4>
+                            <p>{{ list.movies.count }} Titles</p>
+                        </div>
+                    </div>
+                    <input type="checkbox" data-id="{{ list.id }}" value="{{ list.name }}">
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="form-actions">
+        <button type="reset">Reset</button>
+        <button type="submit">Save</button>
+    </div>
+</form>

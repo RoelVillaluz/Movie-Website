@@ -203,7 +203,8 @@ export function toggleModal(modalElement, closeOther = false) {
     const anyModalVisible = document.querySelector('.image-form.visible') || 
                             document.querySelector('.image-modal-container.visible') ||
                             document.querySelector('.delete-image-form.visible') ||
-                            document.querySelector('.form-modal.visible')
+                            document.querySelector('.form-modal.visible') ||
+                            document.querySelector('.add-to-list-form.visible');
 
     document.body.classList.toggle('blurry', !!anyModalVisible);
 
@@ -237,7 +238,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (closeFormButtons.length > 0) {
         closeFormButtons.forEach(closeButton => {
             closeButton.addEventListener('click', function() {
-                const modalElement = closeButton.closest('.image-form');
+                const modalElement = closeButton.closest('.image-form') ||
+                                     closeButton.closest('.add-to-list-form');
                 toggleModal(modalElement, true);
             });
         });
