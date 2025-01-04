@@ -240,8 +240,10 @@ class CustomListDetailView(DetailView):
         form = CustomListForm(instance=custom_list)
         custom_list_movies = custom_list.movies.all()
 
-        custom_list.views += 1
-        custom_list.save()
+        # Only increment view count if it's the first time this request is being made (not a view_mode toggle)
+        if 'view' not in request.GET:
+            custom_list.views += 1
+            custom_list.save()
 
         watched_movies_count = custom_list_movies.filter(id__in=request.user.profile.watched_movies.values('id')).count()
 
@@ -310,6 +312,9 @@ class CustomListDetailView(DetailView):
         }
 
         return render(request, self.template_name, context)
+
+
+# JSONRESPONSE VIEWS
 
 @login_required(login_url='/login')
 @csrf_exempt    
@@ -432,7 +437,7 @@ def edit_custom_list(request, id):
                 'request': request
             })
 
-            list_container_html = render_to_string('users/partials/list-content-fragment.html', {
+            list_content_html = render_to_string('users/partials/list-content-fragment.html', {
                 'custom_list': custom_list,
             })
 
@@ -443,8 +448,8 @@ def edit_custom_list(request, id):
 
             return HttpResponse(f"""
                                 <div class="header" hx-swap-oob="true" id="list-header">{header_html}</div>
-                                <div class="content" hx-swap-oob="true" id="list-content">{list_container_html}</div>
-                                <form class="custom-list-form" hx-swap="innerHTML">{form_modal_html}</div>
+                                <div class="content" hx-swap-oob="true" id="list-content">{list_content_html}</div>
+                                {form_modal_html}
                                 """)
     else:
         return render(request, 'users/partials/list-form.html', {
