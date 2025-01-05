@@ -366,48 +366,56 @@ document.addEventListener("DOMContentLoaded", function() {
 
     
 
-    const personListItems = document.querySelectorAll('.add-people-section li');
-    let checkedCount = document.querySelectorAll('.add-people-section input[type="checkbox"]:checked').length;
+    const formListItems = document.querySelectorAll('.add-people-section li, .choose-list-section li');
+    let checkedCount = document.querySelectorAll(
+        '.add-people-section input[type="checkbox"]:checked, .choose-list-section input[type="checkbox"]:checked'
+    ).length;
 
-    personListItems.forEach((listItem) =>  {
+    formListItems.forEach((listItem) => {
         const checkbox = listItem.querySelector('input[type="checkbox"]');
 
-        checkbox.addEventListener('click', function(event) {
-            event.stopPropagation()
+        checkbox.addEventListener('click', function (event) {
+            event.stopPropagation();
             if (checkbox.checked) {
-                checkedCount ++;
+                checkedCount++;
             } else {
-                checkedCount --;
+                checkedCount--;
             }
-            updateCheckedCount()
-        })
+            updateCheckedCount();
+        });
 
-        listItem.addEventListener('click', function(event) {
-            if (event.target.tagName != 'INPUT') {
+        listItem.addEventListener('click', function (event) {
+            if (event.target.tagName !== 'INPUT') {
                 if (checkbox) {
                     checkbox.checked = !checkbox.checked;
                     if (checkbox.checked) {
-                        checkedCount ++;
+                        checkedCount++;
                     } else {
-                        checkedCount --;
+                        checkedCount--;
                     }
                 }
-                updateCheckedCount()
+                updateCheckedCount();
             }
-        })
-    })
+        });
+    });
 
     function updateCheckedCount() {
-    const checkedCountHeader = document.querySelector('.add-people-section h3');
-        if (checkedCountHeader) {
+        const addPersonHeader = document.querySelector('.add-people-section h3');
+        const addListHeader = document.querySelector('.choose-list-section h3');
+        if (addPersonHeader || addListHeader) {
             if (checkedCount === 0) {
-                checkedCountHeader.textContent = `Select from cast and crew`
+                if (addPersonHeader) addPersonHeader.textContent = `Select from cast and crew`;
+                if (addListHeader) addListHeader.textContent = `Select from your custom lists`;
             } else {
-                checkedCountHeader.textContent = `Select from cast and crew (${checkedCount})`
+                if (addPersonHeader) addPersonHeader.textContent = `Select from cast and crew (${checkedCount})`;
+                if (addListHeader) addListHeader.textContent = `Select from your custom lists (${checkedCount})`;
             }
         }
     }
-    updateCheckedCount()
+
+    // Initial call to update the checked count
+    updateCheckedCount();
+
 
     // didn't use the toggleModal() function for these since i want the navbar to still appear for these ones
     const deleteImageBtn = document.getElementById('delete-image-btn');
