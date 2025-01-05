@@ -93,10 +93,21 @@ document.addEventListener('DOMContentLoaded', () => {
         })
 
         // add titles to list
-        document.querySelectorAll('#add-to-list-btn').forEach(btn => {
-            btn.onclick = function() {
+        const addToListButtons = document.querySelectorAll("#add-to-list-btn");
+        const addToListForm = document.querySelector('.add-to-list-form');
+        
+        addToListButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+
                 addOrRemoveFromList(btn)
-            }
+                
+                const card = btn.closest('.card');
+                const movieTitle = card.dataset.title;
+
+                const movieToAdd = addToListForm.querySelector('h2');
+                movieToAdd.textContent = `Add ${movieTitle} to list.`
+
+            })
         })
     }
 
