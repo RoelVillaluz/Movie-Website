@@ -1,4 +1,4 @@
-<form class="custom-list-form" method="POST" hx-post="{% url 'edit_custom_list' custom_list.id %}">
+<form class="custom-list-form" method="POST" hx-post="{% url 'edit_custom_list' custom_list.id %}" hx-target=".form-modal">
     {% csrf_token %}
     <div class="header">
         <h1>Edit List</h1>
