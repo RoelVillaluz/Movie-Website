@@ -4,6 +4,7 @@
             <img src="{{ movie.poster_path.url }}" class="poster" alt="{{ movie }}">
             <div>
                 <h2>Add {{ movie }} to list.</h2>
+                <input type="hidden" name="movie_id" id="movie-id-input">
             </div>
         </div>
         <i class="fa-solid fa-xmark" id="close-form-btn"></i>
@@ -14,7 +15,7 @@
             {% for list in profile.lists.all %}
                 <li>
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        {% for movie in list.movies.all|slice:"1" %}
+                        {% for movie in list.movies.all|slice:"3" %}
                             <img src="{{ movie.poster_path.url }}" alt="">
                         {% endfor %}
                         <div>
