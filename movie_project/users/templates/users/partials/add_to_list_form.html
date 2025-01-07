@@ -16,8 +16,12 @@
             {% for list in profile.lists.all %}
                 <li>
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        {% for movie in list.movies.all|slice:"3" %}
-                            <img src="{{ movie.poster_path.url }}" alt="">
+                        {% for movie in list.movies.all %}
+                            {% if forloop.counter <= 4 %}
+                                <img src="{{ movie.poster_path.url }}" alt="" data-id="{{ movie.id }}" data-movie-in-list="true">
+                            {% endif %} 
+                            <!-- Hidden input for storing the movie ID to manage checkbox state -->
+                            <input type="hidden" data-id="{{ movie.id }}"> 
                         {% endfor %}
                         <div>
                             <h4>{{ list.name }}</h4>

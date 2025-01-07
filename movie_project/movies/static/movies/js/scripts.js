@@ -110,6 +110,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const movieInput = addToListForm.querySelector('#movie-id-input');
                 movieInput.value = movieId;
         
+                const listItems = addToListForm.querySelectorAll('li');
+                listItems.forEach(item => {
+                    const listItemIds = Array.from(item.querySelectorAll('[data-id]')).map(el => el.dataset.id);
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+
+                    if (listItemIds.includes(movieId)) {
+                        checkbox.checked = true;
+                    } else {
+                        checkbox.checked = false;
+                    }
+                })
+        
                 // Open modal
                 toggleModal(addToListForm, true);
             });
