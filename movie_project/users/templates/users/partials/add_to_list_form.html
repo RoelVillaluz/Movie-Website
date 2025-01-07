@@ -1,4 +1,5 @@
 <form action="" class="add-to-list-form">
+    {% csrf_token %}
     <div class="header">
         <div style="display: flex; align-items: center; gap: 10px;">
             <img src="{{ movie.poster_path.url }}" class="poster" alt="{{ movie }}">

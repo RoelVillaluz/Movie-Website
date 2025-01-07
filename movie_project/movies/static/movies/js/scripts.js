@@ -97,18 +97,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const addToListForm = document.querySelector('.add-to-list-form');
         
         addToListButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-
-                addOrRemoveFromList(btn)
-                
+            btn.addEventListener('click', function () {
                 const card = btn.closest('.card');
+                const movieId = card.dataset.id;
                 const movieTitle = card.dataset.title;
-
+        
+                // Update modal content
                 const movieToAdd = addToListForm.querySelector('h2');
-                movieToAdd.textContent = `Add ${movieTitle} to list.`
+                movieToAdd.textContent = `Add ${movieTitle} to list.`;
+        
+                // Pass movie id to hidden input
+                const movieInput = addToListForm.querySelector('#movie-id-input');
+                movieInput.value = movieId;
+        
+                // Open modal
+                toggleModal(addToListForm, true);
+            });
+        });
 
-            })
-        })
+        addToListForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+        
+            const movieId = addToListForm.querySelector("#movie-id-input").value;
+        
+            // Get selected list checkboxes
+            const listCheckBoxes = document.querySelectorAll(
+                ".choose-list-section input[type='checkbox']:checked"
+            );
+            const listIds = Array.from(listCheckBoxes).map((checkbox) => checkbox.dataset.id);
+        
+            if (listIds.length === 0) {
+                alert("Please select at least one list.");
+                return;
+            }
+        
+            // Add or remove the movie from the selected lists
+            addOrRemoveFromList(movieId, listIds);
+        
+            // Close the modal after submission
+            toggleModal(addToListForm, false);
+        
+            // Clear checkboxes after submission
+            listCheckBoxes.forEach((checkbox) => (checkbox.checked = false));
+        });
     }
 
     initializeActions()
@@ -242,17 +273,35 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error("Error: ", error));
     }
 
-    function addOrRemoveFromList(element) {
-        // toggle add to list form modal first
-        const addToListForm = document.querySelector('.add-to-list-form');
-        toggleModal(addToListForm, true);
-
-        // fetch(`/users/add_to_list/${element.dataset.id}`)
-
-        // const formHeader = addToListForm.querySelector('h2')
-        // formHeader.style.display = 
+    // Function to add or remove movies from lists
+    function addOrRemoveFromList(movieId, listIds) {
+        listIds.forEach((listId) => {
+            const url = `/users/add_to_list/${listId}/${movieId}/`; // Corrected URL pattern
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrftoken,
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Failed to add/remove from list");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(
+                        `Successfully updated list ${listId} for movie ${movieId}:`,
+                        data
+                    );
+                })
+                .catch((error) => {
+                    console.error(`Error updating list ${listId} for movie ${movieId}:`, error);
+                    alert("Failed to update the list. Please try again.");
+                });
+        });
     }
-    
 
     const starContainer = document.querySelectorAll('.stars');
     starContainer.forEach(container => {

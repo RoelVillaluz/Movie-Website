@@ -1683,7 +1683,9 @@ input[type="checkbox"] {
     border: solid 1px #464646;
 }
 
-.form-actions button[type="submit"] {
+.form-actions button[type="submit"],
+.form-actions button[type="button"]
+{
     background-color: rgb(0, 110, 255);
     color: white;
 }

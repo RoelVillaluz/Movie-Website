@@ -19,6 +19,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q, Avg
 from movies.models import Award, Genre, Movie, MovieImage, Review, User
 from django.template.loader import render_to_string
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -373,26 +374,32 @@ def add_to_favorites(request, model_name, object_id):
 
 
 @login_required(login_url='/login')
-@csrf_exempt  
+@csrf_exempt
 def add_to_list(request, custom_list_id, movie_id):
-    profile = request.user.profile if request.user.is_authenticated else None
-    movie = Movie.objects.get(id=movie_id)
-    custom_list = CustomList.objects.get(profile=profile, id=custom_list_id)
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-    in_custom_list = None
+    try:
+        profile = request.user.profile
+        movie = Movie.objects.get(id=movie_id)
+        custom_list = CustomList.objects.get(profile=profile, id=custom_list_id)
 
-    if movie in custom_list:
-        custom_list.movies.add(movie)
-        in_custom_list = True
-    else:
-        custom_list.movies.remove(movie)
-        in_custom_list = False
+        if movie in custom_list.movies.all():
+            custom_list.movies.remove(movie)
+            in_custom_list = False
+        else:
+            custom_list.movies.add(movie)
+            in_custom_list = True
 
-    return JsonResponse({
-        'movie': movie,
-        'in_custom_list': in_custom_list
-    })
+        return JsonResponse({
+            'movie': {'id': movie.id, 'title': movie.title},
+            'in_custom_list': in_custom_list
+        })
 
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'Invalid custom list or movie'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 # HTMX VIEWS
 def check_username(request):
