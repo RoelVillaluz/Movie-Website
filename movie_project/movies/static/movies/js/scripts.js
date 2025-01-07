@@ -528,3 +528,16 @@ const checkboxes = document.querySelectorAll('.filter-button-list input[type="ch
             });
         });
     }
+
+    function getCSRFToken() {
+        const cookies = document.cookie.split(';');
+        for (const cookie of cookies) {
+            const [key, value] = cookie.trim().split('=');
+            if (key === 'csrftoken') {
+                return value;
+            }
+        }
+        return null;
+    }
+    
+    const csrftoken = getCSRFToken();
