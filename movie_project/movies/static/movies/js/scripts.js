@@ -537,6 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+});
 
     // Sorting form submission
     const sortForm = document.querySelector('.sort-form');
