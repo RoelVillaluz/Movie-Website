@@ -95,13 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // add titles to list
         const addToListButtons = document.querySelectorAll("#add-to-list-btn");
         const addToListForm = document.querySelector('.add-to-list-form');
-        
+
         addToListButtons.forEach(btn => {
             btn.addEventListener('click', function () {
                 const card = btn.closest('.card');
                 const movieId = card.dataset.id;
                 const movieTitle = card.dataset.title;
-        
+                
                 // Update modal content
                 const movieToAdd = addToListForm.querySelector('h2');
                 movieToAdd.textContent = `Add ${movieTitle} to list.`;
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Pass movie id to hidden input
                 const movieInput = addToListForm.querySelector('#movie-id-input');
                 movieInput.value = movieId;
-        
+
                 const listItems = addToListForm.querySelectorAll('li');
                 listItems.forEach(item => {
                     const listItemIds = Array.from(item.querySelectorAll('[data-id]')).map(el => el.dataset.id);
@@ -147,10 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             addOrRemoveFromList(movieId, listIds);
         
             // Close the modal after submission
-            toggleModal(addToListForm, false);
-        
-            // Clear checkboxes after submission
-            listCheckBoxes.forEach((checkbox) => (checkbox.checked = false));
+            toggleModal(addToListForm, false);                
         });
     }
 
@@ -288,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to add or remove movies from lists
     function addOrRemoveFromList(movieId, listIds) {
         listIds.forEach((listId) => {
-            const url = `/users/add_to_list/${listId}/${movieId}/`; // Corrected URL pattern
+            const url = `/users/add_to_list/${listId}/${movieId}/`;
             fetch(url, {
                 method: "POST",
                 headers: {
@@ -303,10 +300,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.json();
                 })
                 .then((data) => {
-                    console.log(
-                        `Successfully updated list ${listId} for movie ${movieId}:`,
-                        data
-                    );
+                    // Debug the response data
+                    console.log(`Response for list ${listId}:`, data);
+    
+                    // Update movie count
+                    document.getElementById("list-movies-count").textContent = `${data.movie_count} Titles`;
+    
+                    // Create a new hidden input element for the movie and append it to the DOM.
+                    // This is used to track movies that are in the list, so their checkboxes can remain checked. 
+                    const newMovieInList = document.createElement('input');
+                    newMovieInList.type = "hidden"; // Set the type attribute
+                    newMovieInList.setAttribute("data-id", data.movie.id); // Set the data-id attribute
+                    const moviesInList = document.getElementById('movies-in-list');
+
+                    moviesInList.appendChild(newMovieInList)
                 })
                 .catch((error) => {
                     console.error(`Error updating list ${listId} for movie ${movieId}:`, error);
@@ -314,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     }
+    
 
     const starContainer = document.querySelectorAll('.stars');
     starContainer.forEach(container => {
