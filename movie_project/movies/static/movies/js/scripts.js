@@ -117,8 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (listItemIds.includes(movieId)) {
                         checkbox.checked = true;
+                        checkbox.dataset.currentlyInList = "true";
                     } else {
                         checkbox.checked = false;
+                        checkbox.dataset.currentlyInList = "false";
                     }
                 })
         
@@ -134,17 +136,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
             // Get selected list checkboxes
             const listCheckBoxes = document.querySelectorAll(
-                ".choose-list-section input[type='checkbox']:checked"
+                ".choose-list-section input[type='checkbox']"
             );
-            const listIds = Array.from(listCheckBoxes).map((checkbox) => checkbox.dataset.id);
+
+            const addListIds = Array.from(listCheckBoxes)
+                .filter((checkbox) => checkbox.checked && checkbox.dataset.currentlyInList === "false")
+                .map((checkbox) => checkbox.dataset.id)
+
+            const removeListIds = Array.from(listCheckBoxes)
+                .filter((checkbox) => !checkbox.checked && checkbox.dataset.currentlyInList === "true")
+                .map((checkbox) => checkbox.dataset.id)
         
-            if (listIds.length === 0) {
-                alert("Please select at least one list.");
-                return;
-            }
-        
-            // Add or remove the movie from the selected lists
-            addOrRemoveFromList(movieId, listIds);
+            // Add this movie to these lists
+            addOrRemoveFromList(movieId, addListIds, "add");
+
+            // remove this movie from these lists
+            addOrRemoveFromList(movieId, removeListIds, "remove")
         
             // Close the modal after submission
             toggleModal(addToListForm, false);                
@@ -283,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to add or remove movies from lists
-    function addOrRemoveFromList(movieId, listIds) {
+    function addOrRemoveFromList(movieId, listIds, action) {
         listIds.forEach((listId) => {
             const url = `/users/add_to_list/${listId}/${movieId}/`;
             fetch(url, {
@@ -295,25 +302,31 @@ document.addEventListener('DOMContentLoaded', () => {
             })
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error("Failed to add/remove from list");
+                        throw new Error(`Failed to ${action} movie in list`);
                     }
                     return response.json();
                 })
-                .then((data) => {
-                    // Debug the response data
-                    console.log(`Response for list ${listId}:`, data);
+                .then((data) => {    
+                    if (action === "add") {
+                        // Update movie count
     
-                    // Update movie count
-                    document.getElementById("list-movies-count").textContent = `${data.movie_count} Titles`;
-    
-                    // Create a new hidden input element for the movie and append it to the DOM.
-                    // This is used to track movies that are in the list, so their checkboxes can remain checked. 
-                    const newMovieInList = document.createElement('input');
-                    newMovieInList.type = "hidden"; // Set the type attribute
-                    newMovieInList.setAttribute("data-id", data.movie.id); // Set the data-id attribute
-                    const moviesInList = document.getElementById('movies-in-list');
+                        // Create a new hidden input element for the movie and append it to the DOM.
+                        const newMovieInList = document.createElement("input");
+                        newMovieInList.type = "hidden";
+                        newMovieInList.setAttribute("data-id", data.movie.id);
+                        const moviesInList = document.getElementById("movies-in-list");
+                        moviesInList.appendChild(newMovieInList);
 
-                    moviesInList.appendChild(newMovieInList)
+                        console.log(`Movie ${movieId} added to list ${listId}`);
+                    } else if (action === "remove") {
+                        // remove hidden input element for the movie 
+                        const moviesInList = document.getElementById("movies-in-list");
+                        const movieElements = moviesInList.querySelectorAll(`[data-id="${movieId}"]`);
+                        movieElements.forEach((element) => element.remove());
+
+                        console.log(`Movie ${movieId} removed from list ${listId}`);
+                    }
+                    document.getElementById("list-movies-count").textContent = `${data.movie_count} Titles`;
                 })
                 .catch((error) => {
                     console.error(`Error updating list ${listId} for movie ${movieId}:`, error);
@@ -539,49 +552,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-    // Sorting form submission
-    const sortForm = document.querySelector('.sort-form');
-    const sortSelect = document.querySelector('.sort-form select');
+// Sorting form submission
+const sortForm = document.querySelector('.sort-form');
+const sortSelect = document.querySelector('.sort-form select');
 
-    if (sortForm && sortSelect) {
-        sortSelect.addEventListener('change', function() {
-            sortForm.submit();
-        });
-    }
+if (sortForm && sortSelect) {
+    sortSelect.addEventListener('change', function() {
+        sortForm.submit();
+    });
+}
 
-    const listViewBtn = document.getElementById('list-view-btn');
-    if (listViewBtn) {
-        listViewBtn.addEventListener('click', function() {
-            console.log("List view button clicked");
-            window.location.search = '?view=list';
-        });
-    }
-    
-    const gridViewBtn = document.getElementById('grid-view-btn');
-    if (gridViewBtn) {
-        gridViewBtn.addEventListener('click', function() {
-            console.log("Grid view button clicked");
-            window.location.search = '?view=grid';
-        });
-    }
+const listViewBtn = document.getElementById('list-view-btn');
+if (listViewBtn) {
+    listViewBtn.addEventListener('click', function() {
+        console.log("List view button clicked");
+        window.location.search = '?view=list';
+    });
+}
 
-    window.onload = function() {
-        const params = new URLSearchParams(window.location.search);
-        const viewMode = params.get('view') || 'list';
-    
-        const watchlist = document.querySelector('.list-container ol')
-    
-        console.log("Current view mode:", viewMode);
-    
-        if (viewMode === 'grid') {
-            gridViewBtn.classList.add('active');
-            watchlist.classList.add('grid')
-        } else {
-            listViewBtn.classList.add('active');
-            watchlist.classList.remove('grid')
-        }
-    };
-});
+const gridViewBtn = document.getElementById('grid-view-btn');
+if (gridViewBtn) {
+    gridViewBtn.addEventListener('click', function() {
+        console.log("Grid view button clicked");
+        window.location.search = '?view=grid';
+    });
+}
+
+window.onload = function() {
+    const params = new URLSearchParams(window.location.search);
+    const viewMode = params.get('view') || 'list';
+
+    const watchlist = document.querySelector('.list-container ol')
+
+    console.log("Current view mode:", viewMode);
+
+    if (viewMode === 'grid') {
+        gridViewBtn.classList.add('active');
+        watchlist.classList.add('grid')
+    } else {
+        listViewBtn.classList.add('active');
+        watchlist.classList.remove('grid')
+    }
+};
 
 const checkboxes = document.querySelectorAll('.filter-button-list input[type="checkbox"]');
     if (checkboxes) {
