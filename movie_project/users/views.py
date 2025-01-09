@@ -392,14 +392,16 @@ def add_to_list(request, custom_list_id, movie_id):
             in_custom_list = True
 
         return JsonResponse({
-            'movie': {'id': movie.id, 'title': movie.title},
-            'in_custom_list': in_custom_list
+            'movie': {'id': movie.id, 'title': movie.title, 'image': movie.poster_path.url},
+            'in_custom_list': in_custom_list,
+            'movie_count': custom_list.movies.count()
         })
 
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Invalid custom list or movie'}, status=400)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
 
 # HTMX VIEWS
 def check_username(request):
