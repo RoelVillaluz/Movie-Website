@@ -1564,12 +1564,6 @@ input[type="checkbox"] {
     width: 8px; 
 }
 
-.add-people-section ul::-webkit-scrollbar-track,
-.choose-list-section ul::-webkit-scrollbar-track
-{
-    background-color: #f1f1f1; 
-}
-
 .add-people-section ul::-webkit-scrollbar-thumb,
 .choose-list-section ul::-webkit-scrollbar-thumb
 {
@@ -1624,20 +1618,20 @@ input[type="checkbox"] {
     border-radius: 5px;
 }
 
-.choose-list-section img:nth-child(1) {
-    z-index: 4;
-}
-
 .choose-list-section img:not(:nth-child(1)) {
     margin-left: -50px;
 }
 
-.choose-list-section img:nth-child(2) {
+.choose-list-section img:nth-child(1) {
     z-index: 3;
 }
 
-.choose-list-section img:nth-child(3) {
+.choose-list-section img:nth-child(2) {
     z-index: 2;
+}
+
+.choose-list-section img:nth-child(3) {
+    z-index: 1;
 }
 
 .image-form .back-btn {
@@ -1890,10 +1884,30 @@ input[type="checkbox"] {
     width: 100%;
 }
 
+.add-to-list-form .header p {
+    font-weight: 700;
+    color: #535353;
+}
+
+.add-to-list-form .poster {
+    width: 45px;
+    border-radius: 5px;
+    object-fit: contain;
+}
+
 .add-to-list-form h2 {
     font-size: 1.25rem;
 }
 
 .add-to-list-form i {
     cursor: pointer;
+}
+
+.add-to-list-form #create-list-link,
+.add-to-list-form #create-list-link i
+{
+    color: #414141;
+    margin-left: 5px;
+    font-weight: 700;
+    text-decoration: none;
 }

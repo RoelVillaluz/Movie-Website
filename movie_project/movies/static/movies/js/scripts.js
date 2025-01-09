@@ -101,14 +101,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const card = btn.closest('.card');
                 const movieId = card.dataset.id;
                 const movieTitle = card.dataset.title;
+                const movieYear = card.dataset.year;
                 
                 // Update modal content
-                const movieToAdd = addToListForm.querySelector('h2');
-                movieToAdd.textContent = `Add ${movieTitle} to list.`;
+                const movieToAdd = addToListForm.querySelector('p');
+                movieToAdd.textContent = `${movieTitle} (${movieYear})`;
         
                 // Pass movie id to hidden input
                 const movieInput = addToListForm.querySelector('#movie-id-input');
                 movieInput.value = movieId;
+
+                // pass card movie poster to form
+                const moviePoster = card.querySelector('.image img'); 
+                const modalImage = addToListForm.querySelector('.poster');
+                modalImage.src = moviePoster.src; 
 
                 const listItems = addToListForm.querySelectorAll('li');
                 listItems.forEach(item => {

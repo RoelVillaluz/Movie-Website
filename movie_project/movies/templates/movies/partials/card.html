@@ -1,6 +1,6 @@
 {% load custom_filters %}
 
-<div class="card" data-id="{{ movie.id }}" data-title="{{ movie.title }}">
+<div class="card" data-id="{{ movie.id }}" data-title="{{ movie.title }}" data-year="{{ movie.release_date.year }}">
     <div class="image">
         <a href="{% url 'movie-detail' movie.pk %}">
             <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">

@@ -4,7 +4,8 @@
         <div style="display: flex; align-items: center; gap: 10px;">
             <img src="{{ movie.poster_path.url }}" class="poster" alt="{{ movie }}">
             <div>
-                <h2>Add {{ movie }} to list.</h2>
+                <h2>Add movie to list.</h2>
+                <p>{{ movie }} ({{ movie.release_date.year }})</p>
                 <input type="hidden" name="movie_id" id="movie-id-input">
             </div>
         </div>
@@ -32,6 +33,11 @@
                 </li>
             {% endfor %}
         </ul>
+        <a href="{% url 'create-list' %}" id="create-list-link">
+            Create new list instead
+            <i class="fa-solid fa-angle-right"></i>
+        </a>
+
     </div>
     <div class="form-actions">
         <button type="reset">Reset</button>

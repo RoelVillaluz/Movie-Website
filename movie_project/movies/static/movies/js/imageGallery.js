@@ -368,8 +368,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const formListItems = document.querySelectorAll('.add-people-section li, .choose-list-section li');
     let checkedCount = document.querySelectorAll(
-        '.add-people-section input[type="checkbox"]:checked, .choose-list-section input[type="checkbox"]:checked'
-    ).length;
+        '.add-people-section input[type="checkbox"]:checked').length;
 
     formListItems.forEach((listItem) => {
         const checkbox = listItem.querySelector('input[type="checkbox"]');
@@ -401,14 +400,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateCheckedCount() {
         const addPersonHeader = document.querySelector('.add-people-section h3');
-        const addListHeader = document.querySelector('.choose-list-section h3');
-        if (addPersonHeader || addListHeader) {
+        if (addPersonHeader) {
             if (checkedCount === 0) {
                 if (addPersonHeader) addPersonHeader.textContent = `Select from cast and crew`;
-                if (addListHeader) addListHeader.textContent = `Select from your custom lists`;
             } else {
                 if (addPersonHeader) addPersonHeader.textContent = `Select from cast and crew (${checkedCount})`;
-                if (addListHeader) addListHeader.textContent = `Select from your custom lists (${checkedCount})`;
             }
         }
     }
