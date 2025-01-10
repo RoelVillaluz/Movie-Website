@@ -297,9 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to add or remove movies from lists
     function addOrRemoveFromList(movieId, listIds, action) {
-        listIds.forEach((listId) => {
+        const fetchPromises = listIds.map((listId) => {
             const url = `/users/add_to_list/${listId}/${movieId}/`;
-            fetch(url, {
+            return fetch(url, {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": csrftoken,
@@ -308,36 +308,58 @@ document.addEventListener('DOMContentLoaded', () => {
             })
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error(`Failed to ${action} movie in list`);
+                        throw new Error(`Failed to ${action} movie in list ${listId}`);
                     }
                     return response.json();
                 })
-                .then((data) => {    
-                    if (action === "add") {
-                        // Update movie count
+                .then((data) => ({ success: true, data, listId }))
+                .catch((error) => ({ success: false, error, listId }));
+        });
     
-                        // Create a new hidden input element for the movie and append it to the DOM.
+        Promise.all(fetchPromises).then((results) => {
+            let updatedListCount = 0;
+    
+            results.forEach((result) => {
+                if (result.success) {
+                    const { data, listId } = result;
+    
+                    // Target the specific list's container
+                    const moviesInList = document.getElementById(`movies-in-list-${listId}`);
+    
+                    if (action === "add") {
+                        // Add hidden input for the movie in the specific list's container
                         const newMovieInList = document.createElement("input");
                         newMovieInList.type = "hidden";
                         newMovieInList.setAttribute("data-id", data.movie.id);
-                        const moviesInList = document.getElementById("movies-in-list");
                         moviesInList.appendChild(newMovieInList);
 
                         console.log(`Movie ${movieId} added to list ${listId}`);
                     } else if (action === "remove") {
-                        // remove hidden input element for the movie 
-                        const moviesInList = document.getElementById("movies-in-list");
+                        // Remove hidden input for the movie from the specific list's container
                         const movieElements = moviesInList.querySelectorAll(`[data-id="${movieId}"]`);
                         movieElements.forEach((element) => element.remove());
 
                         console.log(`Movie ${movieId} removed from list ${listId}`);
                     }
-                    document.getElementById("list-movies-count").textContent = `${data.movie_count} Titles`;
-                })
-                .catch((error) => {
-                    console.error(`Error updating list ${listId} for movie ${movieId}:`, error);
-                    alert("Failed to update the list. Please try again.");
-                });
+    
+                    updatedListCount++;
+    
+                    // Update the count for the specific list
+                    const listMoviesCount = document.getElementById(`list-movies-count-${listId}`);
+                    listMoviesCount.textContent = `${data.movie_count} Titles`;
+                } else {
+                    console.error(`Error updating list ${result.listId} for movie ${movieId}:`, result.error);
+                }
+            });
+    
+            // Show notification only for successful updates
+            if (updatedListCount > 0) {
+                const successfulUpdate = results.find((result) => result.success);
+                showNotification(
+                    `${updatedListCount} ${updatedListCount > 1 ? "lists" : "list"} changed`,
+                    successfulUpdate ? successfulUpdate.data.movie.image : null
+                );
+            }
         });
     }
     

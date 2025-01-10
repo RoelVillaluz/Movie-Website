@@ -16,17 +16,17 @@
         <ul>
             {% for list in profile.lists.all %}
                 <li>
-                    <div style="display: flex; align-items: center; gap: 10px;" id="movies-in-list">
+                    <div style="display: flex; align-items: center; gap: 10px;" id="movies-in-list-{{ list.id }}">
                         {% for movie in list.movies.all %}
                             {% if forloop.counter <= 3 %}
                                 <img src="{{ movie.poster_path.url }}" alt="" data-id="{{ movie.id }}">
-                            {% endif %} 
-                            <!-- Hidden input for storing the movie ID to manage checkbox state -->
-                            <input type="hidden" data-id="{{ movie.id }}"> 
+                            {% endif %}
+                            <!-- Hidden input for storing the movie ID -->
+                            <input type="hidden" data-id="{{ movie.id }}">
                         {% endfor %}
                         <div>
                             <h4>{{ list.name }}</h4>
-                            <p id="list-movies-count">{{ list.movies.count }} Titles</p>
+                            <p id="list-movies-count-{{ list.id }}">{{ list.movies.count }} Titles</p>
                         </div>
                     </div>
                     <input type="checkbox" data-id="{{ list.id }}" value="{{ list.name }}">
