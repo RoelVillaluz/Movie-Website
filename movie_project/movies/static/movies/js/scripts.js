@@ -45,51 +45,42 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeActions() {
         // Watchlist buttons
         document.querySelectorAll('#watchlist-btn').forEach(btn => {
-            btn.onclick = function() {
-                addToWatchlist(btn);
-            };
+            btn.addEventListener('click', () => addToWatchlist(btn)) 
         });
 
         // Text and plus icon watchlist button
         document.querySelectorAll('.add-watchlist-btn').forEach(btn => {
-            btn.onclick = function() {
-                addToWatchlist(btn, true);
-            };
+            btn.addEventListener('click', () => addToWatchlist(btn, true))
         });
 
         // Like button
         document.querySelectorAll('#like-btn').forEach(btn => {
-            btn.onclick = function() {
-                likeReview(btn);
-            };
+            btn.addEventListener('click', () => likeReview(btn))
         });
 
         // add to watched movies button
         document.querySelectorAll('#watched-movie-btn').forEach(btn => {
-            btn.onclick = function() {
-                addToWatchedMovies(btn)
-            }
+            btn.addEventListener('click', () => addToWatchedMovies(btn))
         })
 
         // toggle visibility for other card actions
         document.querySelectorAll('#other-actions-btn').forEach(btn => {
-            btn.onclick = function() {
-                showOtherActions(btn)
-            }
+            btn.addEventListener('click', () => showOtherActions(btn))
         })
         
         // add titles to favorites
         document.querySelectorAll('#add-to-favorites-btn').forEach(btn => {
-            btn.onclick = function() {
-                addToFavorites(btn);
-            };
+            btn.addEventListener('click', () => addToFavorites(btn))
         });
 
         // follow and unfollow
         document.querySelectorAll('.follow-btn').forEach(btn => {
-            btn.onclick = function() {
-                toggleFollow(btn)
-            }
+            btn.addEventListener('click', () => toggleFollow(btn))
+        })
+
+        // create a review
+        document.querySelectorAll('#add-review-btn').forEach(btn => {
+            btn.addEventListener('click', () => addReview(btn ))
         })
 
         // add titles to list
@@ -332,13 +323,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         newMovieInList.type = "hidden";
                         newMovieInList.setAttribute("data-id", data.movie.id);
                         moviesInList.appendChild(newMovieInList);
-
+    
                         console.log(`Movie ${movieId} added to list ${listId}`);
                     } else if (action === "remove") {
                         // Remove hidden input for the movie from the specific list's container
                         const movieElements = moviesInList.querySelectorAll(`[data-id="${movieId}"]`);
                         movieElements.forEach((element) => element.remove());
-
+    
                         console.log(`Movie ${movieId} removed from list ${listId}`);
                     }
     
@@ -362,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
 
     const starContainer = document.querySelectorAll('.stars');
     starContainer.forEach(container => {
