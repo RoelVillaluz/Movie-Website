@@ -204,7 +204,8 @@ export function toggleModal(modalElement, closeOther = false) {
                             document.querySelector('.image-modal-container.visible') ||
                             document.querySelector('.delete-image-form.visible') ||
                             document.querySelector('.form-modal.visible') ||
-                            document.querySelector('.add-to-list-form.visible');
+                            document.querySelector('.add-to-list-form.visible') ||
+                            document.querySelector('.add-review-form.visible');
 
     document.body.classList.toggle('blurry', !!anyModalVisible);
 
