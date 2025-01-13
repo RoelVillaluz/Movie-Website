@@ -247,6 +247,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    const closeImageModalBtn = document.querySelector('.close-modal-btn');
+    closeImageModalBtn.addEventListener('click', () => {
+        toggleModal(imageModalContainer, false)
+    })
+
     const imageBox = document.querySelector('.image-box');
     if (imageBox) {
         imageBox.addEventListener('click', function() {
