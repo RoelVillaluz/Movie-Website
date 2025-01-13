@@ -240,7 +240,8 @@ document.addEventListener("DOMContentLoaded", function() {
         closeFormButtons.forEach(closeButton => {
             closeButton.addEventListener('click', function() {
                 const modalElement = closeButton.closest('.image-form') ||
-                                     closeButton.closest('.add-to-list-form');
+                                     closeButton.closest('.add-to-list-form') ||
+                                     closeButton.closest('.add-review-form');
                 toggleModal(modalElement, true);
             });
         });
