@@ -302,6 +302,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (fileInput) fileInput.value = ''; // Clear the file input
 
         imageNameDisplay.textContent = 'Upload an Image';
+        }
         
         if (imagePreview) {
             imagePreview.src = ''; // Clear the preview image
