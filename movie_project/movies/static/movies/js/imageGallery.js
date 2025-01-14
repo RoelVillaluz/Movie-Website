@@ -294,7 +294,8 @@ document.addEventListener("DOMContentLoaded", function() {
         imageFormModal.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the default form submission (optional if using AJAX)
             resetImageForm();
-            toggleModal(imageFormModal, true);
+                toggleModal(imageFormModal); 
+            }, 0);
         });
     }
 
