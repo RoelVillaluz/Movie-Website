@@ -248,9 +248,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const closeImageModalBtn = document.querySelector('.close-modal-btn');
-    closeImageModalBtn.addEventListener('click', () => {
-        toggleModal(imageModalContainer, false)
-    })
+   if (closeImageModalBtn) {
+        closeImageModalBtn.addEventListener('click', () => {
+            toggleModal(imageModalContainer, true)
+        })
+   }
 
     const imageBox = document.querySelector('.image-box');
     if (imageBox) {
@@ -291,9 +293,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (imageFormModal) {
-        imageFormModal.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission (optional if using AJAX)
-            resetImageForm();
+        imageFormModal.addEventListener('submit', function() {
+            setTimeout(() => {
+                resetImageForm(); 
                 toggleModal(imageFormModal); 
             }, 0);
         });
@@ -302,7 +304,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function resetImageForm() {
         if (fileInput) fileInput.value = ''; // Clear the file input
 
-        imageNameDisplay.textContent = 'Upload an Image';
+        if (imageNameDisplay) {
+            imageNameDisplay.textContent = 'Upload an Image';
         }
         
         if (imagePreview) {
