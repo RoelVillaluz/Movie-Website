@@ -71,17 +71,23 @@ privacyBtns.forEach(btn => {
 const editListBtn = document.getElementById('edit-list-btn');
 const formModal = document.querySelector('.form-modal');
 
-editListBtn.addEventListener('click', function() {
-    toggleModal(formModal, true)
-})
+if (editListBtn) {
+    editListBtn.addEventListener('click', function() {
+        toggleModal(formModal, true)
+    })
+}
 
 // close formModal
 document.addEventListener('click', function(event) {
-    if (formModal.classList.contains('visible') && !formModal.contains(event.target) && event.target !== editListBtn) {
-        toggleModal(formModal, false)
+    if (formModal) {
+        if (formModal.classList.contains('visible') && !formModal.contains(event.target) && event.target !== editListBtn) {
+            toggleModal(formModal, false)
+        }
     }
 });
 
-formModal.addEventListener('submit', function() {
-    toggleModal(formModal, false)
-})
+if (formModal) {
+    formModal.addEventListener('submit', function() {
+        toggleModal(formModal, false)
+    })
+}
