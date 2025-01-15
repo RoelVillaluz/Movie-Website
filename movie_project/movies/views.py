@@ -1,4 +1,5 @@
 from collections import OrderedDict, defaultdict
+import json
 import os
 import random
 from tempfile import NamedTemporaryFile
@@ -16,7 +17,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required, permission_required
-from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, SearchForm
+from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, ReviewForm, SearchForm
 from movies.utils import available_actors, available_award_categories, convert_height_to_feet, create_movie_from_api, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
 from users.models import CustomList, Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage, Role
@@ -746,7 +747,6 @@ class EditMovieImageView(DetailView):
     context_object_name = 'image'
 
     @method_decorator(login_required)  # Ensure the user is logged in
-    @method_decorator(permission_required('movies.change_movieimage', raise_exception=True))  # Check permission
     def post(self, request, *args, **kwargs):
         image = self.get_object()
         form = MovieImageForm(request.POST, request.FILES, instance=image)
@@ -863,3 +863,24 @@ class DeletePersonImageView(DeleteView):
     def delete(self):
         self.object = self.get_object()
         self.object.delete()
+
+@login_required
+def add_review(request, id):
+    movie = Movie.objects.get(id=id)
+    # if not movie.reviews.filter(user=request.user).exists():
+    if request.method == 'POST':
+        try:
+            # Parse JSON body
+            data = json.loads(request.body)
+            description = data.get('description')
+            rating = data.get('rating')
+
+            if rating:
+                review = Review.objects.create(user=request.user, movie=movie, description=description, rating=rating)
+                return JsonResponse({'success': True, 'message': f'Review for {movie.title} created successfuly'})
+            else:
+                return JsonResponse({'success': False, 'message': 'Error: missing rating'})
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'message': 'Invalid JSON format'}, status=400)
+        
+    return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)

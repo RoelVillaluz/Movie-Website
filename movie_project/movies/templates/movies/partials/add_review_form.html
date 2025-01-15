@@ -1,0 +1,26 @@
+<form class="add-review-form">
+    <div class="header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="{{ movie.poster_path.url }}" class="poster" alt="{{ movie }}">
+            <div>
+                <h2>Create Review</h2>
+                <p>{{ movie }} ({{ movie.release_date.year }})</p>
+                <input type="hidden" name="movie_id" id="movie-id-input" data-id="">
+            </div>
+        </div>
+        <i class="fa-solid fa-xmark" id="close-form-btn"></i>
+    </div>
+    <div class="details">
+        <textarea name="description" id="review-description"></textarea>
+        <div class="line"></div>
+        <div class="star-container">
+            <input type="hidden" class="rating-value" name="rating" value="">
+            <!-- stars are dynamically generated through js -->
+            <span>0</span>
+        </div>
+    </div>
+    <div class="form-actions">
+        <button type="reset">Reset</button>
+        <button type="submit">Save</button>
+    </div>
+</form>

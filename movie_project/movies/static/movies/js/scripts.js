@@ -141,33 +141,46 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        addToListForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-        
-            const movieId = addToListForm.querySelector("#movie-id-input").value;
-        
-            // Get selected list checkboxes
-            const listCheckBoxes = document.querySelectorAll(
-                ".choose-list-section input[type='checkbox']"
-            );
+        if (addToListForm) {
+            addToListForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+            
+                const movieId = addToListForm.querySelector("#movie-id-input").value;
+            
+                // Get selected list checkboxes
+                const listCheckBoxes = document.querySelectorAll(
+                    ".choose-list-section input[type='checkbox']"
+                );
+    
+                const addListIds = Array.from(listCheckBoxes)
+                    .filter((checkbox) => checkbox.checked && checkbox.dataset.currentlyInList === "false")
+                    .map((checkbox) => checkbox.dataset.id)
+    
+                const removeListIds = Array.from(listCheckBoxes)
+                    .filter((checkbox) => !checkbox.checked && checkbox.dataset.currentlyInList === "true")
+                    .map((checkbox) => checkbox.dataset.id)
+            
+                // Add this movie to these lists
+                addOrRemoveFromList(movieId, addListIds, "add");
+    
+                // remove this movie from these lists
+                addOrRemoveFromList(movieId, removeListIds, "remove")
+            
+                // Close the modal after submission
+                toggleModal(addToListForm, false);                
+            });
+        }
 
-            const addListIds = Array.from(listCheckBoxes)
-                .filter((checkbox) => checkbox.checked && checkbox.dataset.currentlyInList === "false")
-                .map((checkbox) => checkbox.dataset.id)
+        if (addReviewForm) {
+            addReviewForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const movieId = addReviewForm.querySelector("#movie-id-input");
+                movieId.dataset.id = movieId.value;
+                
+                addReview(movieId)
+            })
+        }
 
-            const removeListIds = Array.from(listCheckBoxes)
-                .filter((checkbox) => !checkbox.checked && checkbox.dataset.currentlyInList === "true")
-                .map((checkbox) => checkbox.dataset.id)
-        
-            // Add this movie to these lists
-            addOrRemoveFromList(movieId, addListIds, "add");
-
-            // remove this movie from these lists
-            addOrRemoveFromList(movieId, removeListIds, "remove")
-        
-            // Close the modal after submission
-            toggleModal(addToListForm, false);                
-        });
     }
 
     initializeActions()
