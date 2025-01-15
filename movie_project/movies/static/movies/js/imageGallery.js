@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         if (uploadIcon) {
             uploadIcon.style.display = 'block';
-        }
+        }        
     }
 
     const addPersonBtn = document.querySelector('.add-person-btn');

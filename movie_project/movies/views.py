@@ -877,7 +877,12 @@ def add_review(request, id):
 
             if rating:
                 review = Review.objects.create(user=request.user, movie=movie, description=description, rating=rating)
-                return JsonResponse({'success': True, 'message': f'Review for {movie.title} created successfuly'})
+                return JsonResponse({
+                        'success': True, 
+                        'message': f'Review for {movie.title} created successfuly',
+                        'movie': {'title': movie.title, 'image': movie.poster_path.url},
+                        'rating': review.rating
+                    })
             else:
                 return JsonResponse({'success': False, 'message': 'Error: missing rating'})
         except json.JSONDecodeError:

@@ -178,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 movieId.dataset.id = movieId.value;
                 
                 addReview(movieId)
+                toggleModal(addReviewForm, false)
             })
         }
 
@@ -404,6 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             console.log('success', data)
+            showNotification(`Review created for ${data.movie.title}: ${data.rating} Stars`, data.movie.image)
         })
         .catch(error => {
             console.error('Error', error)
@@ -423,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateStarContainer() {
         const starContainer = document.querySelector('.star-container');
-        const starSpan = starContainer.querySelector('span')
+        const starSpan = document.querySelector('.star-container span')
 
         for (let i = 0; i < 10; i++) {
             const star = document.createElement('i');
@@ -431,10 +433,12 @@ document.addEventListener('DOMContentLoaded', () => {
             star.dataset.index = i;
 
     
-            starContainer.insertBefore(star, starSpan);
+            if (starContainer && starSpan) {
+                starContainer.insertBefore(star, starSpan);
+            }
         }
     
-        const stars = starContainer.querySelectorAll('i');
+        const stars = document.querySelectorAll('.star-container i');
         let isClicked = false; // Flag to check if a star has been clicked
     
         stars.forEach(star => {
