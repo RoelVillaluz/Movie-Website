@@ -1911,3 +1911,96 @@ input[type="checkbox"] {
     font-weight: 700;
     text-decoration: none;
 }
+
+.add-review-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: auto;
+    background-color: white;
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 10%;
+    z-index: 100; 
+    border-radius: 10px;
+}
+
+.add-review-form.visible {
+    display: block;
+}
+
+.add-review-form * {
+    color: black;
+}
+
+.add-review-form .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+}
+
+.add-review-form .header p {
+    font-weight: 700;
+    color: #535353;
+}
+
+.add-review-form .poster {
+    width: 45px;
+    border-radius: 5px;
+    object-fit: contain;
+}
+
+.add-review-form i {
+    cursor: pointer;
+}
+
+.add-review-form .details {
+    margin-top: 1.2rem;
+}
+
+.add-review-form .line {
+    margin: 1rem 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(20, 20, 20, 0.3);
+}
+
+.add-review-form textarea {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 5px 10px;
+    resize: none;
+}
+
+.add-review-form .star-container {
+    margin: 0 auto;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.star-container .fa-star {
+    color: rgb(20, 20, 20);
+    font-size: 1.25rem;
+}
+
+.star-container .fa-solid.fa-star {
+    color: gold;
+}
+
+.star-container span {
+    padding: 5px 15px;
+    margin-left: 0.5rem;
+    border-radius: 5px;
+    background-color: rgb(20, 20, 20);
+    color: white;
+    outline: none;
+    border: none;
+}
