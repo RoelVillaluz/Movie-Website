@@ -1,6 +1,6 @@
 from django import forms
 
-from movies.models import MovieImage, PersonImage
+from movies.models import MovieImage, PersonImage, Review
 
 class SearchForm(forms.Form):
     query = forms.CharField(
@@ -31,13 +31,19 @@ class MovieImageForm(forms.ModelForm):
     class Meta:
         model = MovieImage
         fields = ['image', 'actors', 'directors']
-        
-        def __init__(self, *args, **kwargs):
-            super(MovieImageForm, self).__init__(*args, **kwargs)
-            self.fields["image"].required = False
+    
+    def __init__(self, *args, **kwargs):
+        super(MovieImageForm, self).__init__(*args, **kwargs)
+        self.fields["image"].required = True
 
 class PersonImageForm(forms.ModelForm):
     class Meta:
         model = PersonImage
 
         fields = ['image']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+
+        fields = ['description', 'rating']
