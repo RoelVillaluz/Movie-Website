@@ -10,7 +10,7 @@
 
 <section class="list-section">
 
-    <div class="header" id="list-header">
+    <header class="header" id="list-header">
 
         <div>
             <div class="wrapper">
@@ -52,9 +52,9 @@
             <p id="watched-movies-count">You've watched {{ watched_movies_count }} out of {{ custom_list_movies.count }}</p>
         </div>
         
-    </div>
+    </header>
     
-    <div class="list-container">
+    <main class="list-container">
 
         {% include 'users/partials/filter-sidebar.html' %}
     
@@ -84,6 +84,6 @@
             </ol>
 
         </div>
-    </div>
+    </main>
 </section>
 {% endblock %}

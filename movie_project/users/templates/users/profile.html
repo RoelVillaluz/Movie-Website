@@ -9,7 +9,7 @@
     {% endif %}
 
     <section class="profile">
-        <div class="profile-header skeleton">
+        <header class="profile-header skeleton">
             
             <div class="default-cover-photo"></div>
 
@@ -98,7 +98,7 @@
                 </div>
 
             </div>
-        </div>
+        </header>
         
         <div class="wrapper" id="profile-section-wrapper">
 
@@ -119,7 +119,7 @@
                 {% endif %}
             </div>
 
-            <div class="profile-section" id="profile-lists">
+            <section class="profile-section" id="profile-lists" aria-labelledby="lists-heading">
                 <div class="banner">
                     <h3>Lists</h3>
                     <i class="fa-solid fa-angle-right"></i>
@@ -137,7 +137,7 @@
                 {% else %}
                     <h4>No lists yet.</h4>
                 {% endif %}
-            </div>
+            </section>
 
         </div>
 

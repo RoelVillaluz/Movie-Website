@@ -4,7 +4,7 @@
 
 {% block body %}
 <section class="list-section">
-    <div class="header">
+    <header class="header">
         <div>
             <h1>Watchlist</h1>
             <h3 style="margin-top: 10px;">Your Movie Picks, All in One Place.</h3>
@@ -12,11 +12,11 @@
         <div>
             <h3>{{ watchlist_movies.count }} Titles</h3>
         </div>
-    </div>
+    </header>
 
     
 
-    <div class="list-container">
+    <main class="list-container">
 
         {% include 'users/partials/filter-sidebar.html' %}
     
@@ -37,7 +37,7 @@
             </ol>
 
         </div>
-    </div>
+    </main>
     
 </section>
 {% endblock %}
