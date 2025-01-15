@@ -86,26 +86,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // add titles to list
         const addToListButtons = document.querySelectorAll("#add-to-list-btn");
         const addToListForm = document.querySelector('.add-to-list-form');
+        const addReviewForm = document.querySelector('.add-review-form');
 
-        addToListButtons.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const card = btn.closest('.card');
+        cardFormButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const card = button.closest('.card');
                 const movieId = card.dataset.id;
                 const movieTitle = card.dataset.title;
                 const movieYear = card.dataset.year;
                 
-                // Update modal content
-                const movieToAdd = addToListForm.querySelector('p');
-                movieToAdd.textContent = `${movieTitle} (${movieYear})`;
+                if (button.id === 'add-to-list-btn') {
+                    // Handle "Add to List" logic
+                    const movieToAddElement = addToListForm.querySelector('p');
+                    movieToAddElement.textContent = `${movieTitle} (${movieYear})`;
         
-                // Pass movie id to hidden input
-                const movieInput = addToListForm.querySelector('#movie-id-input');
-                movieInput.value = movieId;
+                    const hiddenMovieIdInput = addToListForm.querySelector('#movie-id-input');
+                    hiddenMovieIdInput.value = movieId;
 
-                // pass card movie poster to form
-                const moviePoster = card.querySelector('.image img'); 
-                const modalImage = addToListForm.querySelector('.poster');
-                modalImage.src = moviePoster.src; 
+                    const moviePosterElement = card.querySelector('.image img');
+                    const modalPosterElement = addToListForm.querySelector('.poster');
+                    modalPosterElement.src = moviePosterElement.src;
 
                 const listItems = addToListForm.querySelectorAll('li');
                 listItems.forEach(item => {
@@ -119,10 +119,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         checkbox.checked = false;
                         checkbox.dataset.currentlyInList = "false";
                     }
-                })
+                    });
         
-                // Open modal
+                    // Open "Add to List" modal
                 toggleModal(addToListForm, true);
+                } else if (button.id === 'add-review-btn') {
+                    // Handle "Add Review" logic
+                    const movieToReviewElement = addReviewForm.querySelector('p');
+                    movieToReviewElement.textContent = `${movieTitle} (${movieYear})`;
+
+                    const hiddenMovieIdInput = addReviewForm.querySelector('#movie-id-input');
+                    hiddenMovieIdInput.value = movieId;
+
+                    const moviePosterElement = card.querySelector('.image img');
+                    const modalPosterElement = addReviewForm.querySelector('.poster');
+                    modalPosterElement.src = moviePosterElement.src;
+
+                    // Open "Add Review" modal
+                    toggleModal(addReviewForm, true);
+                }
             });
         });
 
