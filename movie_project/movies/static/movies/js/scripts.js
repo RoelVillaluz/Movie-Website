@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
 
         // add titles to list
-        const addToListButtons = document.querySelectorAll("#add-to-list-btn");
+        const cardFormButtons = document.querySelectorAll("#add-to-list-btn, #add-review-btn");
         const addToListForm = document.querySelector('.add-to-list-form');
         const addReviewForm = document.querySelector('.add-review-form');
 
@@ -94,12 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const movieId = card.dataset.id;
                 const movieTitle = card.dataset.title;
                 const movieYear = card.dataset.year;
-                
+
                 if (button.id === 'add-to-list-btn') {
                     // Handle "Add to List" logic
                     const movieToAddElement = addToListForm.querySelector('p');
                     movieToAddElement.textContent = `${movieTitle} (${movieYear})`;
-        
+
                     const hiddenMovieIdInput = addToListForm.querySelector('#movie-id-input');
                     hiddenMovieIdInput.value = movieId;
 
@@ -107,22 +107,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     const modalPosterElement = addToListForm.querySelector('.poster');
                     modalPosterElement.src = moviePosterElement.src;
 
-                const listItems = addToListForm.querySelectorAll('li');
-                listItems.forEach(item => {
-                    const listItemIds = Array.from(item.querySelectorAll('[data-id]')).map(el => el.dataset.id);
-                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    const listItems = addToListForm.querySelectorAll('li');
+                    listItems.forEach(item => {
+                        const listItemIds = Array.from(item.querySelectorAll('[data-id]')).map(el => el.dataset.id);
+                        const checkbox = item.querySelector('input[type="checkbox"]');
 
-                    if (listItemIds.includes(movieId)) {
-                        checkbox.checked = true;
-                        checkbox.dataset.currentlyInList = "true";
-                    } else {
-                        checkbox.checked = false;
-                        checkbox.dataset.currentlyInList = "false";
-                    }
+                        if (listItemIds.includes(movieId)) {
+                            checkbox.checked = true;
+                            checkbox.dataset.currentlyInList = "true";
+                        } else {
+                            checkbox.checked = false;
+                            checkbox.dataset.currentlyInList = "false";
+                        }
                     });
-        
+
                     // Open "Add to List" modal
-                toggleModal(addToListForm, true);
+                    toggleModal(addToListForm, true);
                 } else if (button.id === 'add-review-btn') {
                     // Handle "Add Review" logic
                     const movieToReviewElement = addReviewForm.querySelector('p');
@@ -382,6 +382,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function addReview(element) {
+        const data = {
+            description: document.getElementById('review-description').value,
+            rating: document.querySelector('.star-container .rating-value').value
+        }
+
+        fetch(`/add_review/${element.dataset.id}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Response was not ok')
+            }
+            return response.json()
+        })
+        .then(data => {
+            console.log('success', data)
+        })
+        .catch(error => {
+            console.error('Error', error)
+        })
+    }
 
     const starContainer = document.querySelectorAll('.stars');
     starContainer.forEach(container => {
@@ -393,6 +420,62 @@ document.addEventListener('DOMContentLoaded', () => {
             container.insertBefore(star, container.querySelector('h4'));
         }
     });
+
+    function generateStarContainer() {
+        const starContainer = document.querySelector('.star-container');
+        const starSpan = starContainer.querySelector('span')
+
+        for (let i = 0; i < 10; i++) {
+            const star = document.createElement('i');
+            star.classList.add('fa-regular', 'fa-star');
+            star.dataset.index = i;
+
+    
+            starContainer.insertBefore(star, starSpan);
+        }
+    
+        const stars = starContainer.querySelectorAll('i');
+        let isClicked = false; // Flag to check if a star has been clicked
+    
+        stars.forEach(star => {
+            star.addEventListener('mouseover', () => {
+                if (!isClicked) { // Only change on hover if no star has been clicked yet
+                    const index = parseInt(star.dataset.index, 10);
+                    stars.forEach((s, idx) => {
+                        if (idx <= index) {
+                            s.classList.remove('fa-regular');
+                            s.classList.add('fa-solid');
+                        } else {
+                            s.classList.remove('fa-solid');
+                            s.classList.add('fa-regular');
+                        }
+                    });
+                }
+            });
+    
+            star.addEventListener('click', () => {
+                isClicked = true; // Set flag to true when clicked
+                const index = parseInt(star.dataset.index, 10);
+                stars.forEach((s, idx) => {
+                    if (idx <= index) {
+                        s.classList.remove('fa-regular');
+                        s.classList.add('fa-solid');
+                    } else {
+                        s.classList.remove('fa-solid');
+                        s.classList.add('fa-regular');
+                    }
+                });
+                // add the value of the rating to the container to pass it to the form
+                const ratingValue = starContainer.querySelector('.rating-value');
+                ratingValue.value = index + 1;
+
+                // update value of span to show your rating
+                starSpan.textContent = ratingValue.value;
+            });
+        });
+    }
+
+    generateStarContainer()
 
     function showNotification(message, imageUrl) {
         let notification = document.querySelector('.notification');
@@ -668,5 +751,5 @@ const checkboxes = document.querySelectorAll('.filter-button-list input[type="ch
         }
         return null;
     }
-    
+
     const csrftoken = getCSRFToken();
