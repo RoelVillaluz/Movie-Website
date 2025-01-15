@@ -651,7 +651,7 @@ nav a {
     color: black;
 }
 
-.movie-director .link {
+.movie-detail-link {
     position: relative;
     display: inline-block;
     justify-content: center;
@@ -660,12 +660,12 @@ nav a {
     margin-bottom: 5%;
 }
 
-.movie-director .link a {
+.movie-detail-link a {
     text-decoration: none;
     margin-right: 4px;
 }
 
-.movie-director .link::before {
+.movie-detail-link::before {
     position: absolute;
     content: '';
     width: 0%;
@@ -677,7 +677,7 @@ nav a {
     transform-origin: left;
 }
 
-.movie-director .link:hover::before {
+.movie-detail-link:hover::before {
     width: 100%;
 }
 

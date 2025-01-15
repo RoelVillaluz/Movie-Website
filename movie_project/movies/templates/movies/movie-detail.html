@@ -121,7 +121,7 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <div class="link hidden">
+                    <div class="movie-detail-link hidden">
                         <a href="{% url 'person-detail' 'directors' director.pk %}">View All</a>
                         <i class="fa-solid fa-angle-right"></i>
                     </div>
@@ -143,6 +143,12 @@
                         </div>
                     </div>
                     {% endfor %}
+                </div>
+                <div style="text-align: center;">
+                    <div class="movie-detail-link hidden">
+                        <a href="{% url 'movie-reviews' movie.pk %}">View All</a>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </div>
                 </div>
             </div>
         {% endif %}
