@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.fields import GenericRelation
 from moviepy import VideoFileClip
+from django.utils.timezone import now
 
 # Create your models here.
 class User(AbstractUser):
@@ -102,6 +103,7 @@ class Review(models.Model):
     description = models.TextField(max_length=255, blank=True, null=True)
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 11)])
     likes = models.ManyToManyField(User, related_name="liked_reviews", blank=True)
+    created_on = models.DateTimeField(default=now)
 
     def __str__(self):
         return f"{self.user}'s Review for {self.movie}: {self.rating} stars"
