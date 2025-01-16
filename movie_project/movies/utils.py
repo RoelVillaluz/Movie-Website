@@ -260,7 +260,7 @@ def get_top_rated_movies(num_of_movies):
     top_rated_movies = Movie.objects.annotate(
         avg_rating=Avg('reviews__rating'),
         review_count=Count('reviews')
-    ).order_by('-avg_rating', '-review_count').exclude(review_count__lt=5)[:num_of_movies]
+    ).order_by('-avg_rating', '-review_count').exclude(review_count__lt=4)[:num_of_movies]
 
     return top_rated_movies
 
