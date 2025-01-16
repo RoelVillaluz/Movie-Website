@@ -627,7 +627,7 @@ and only apply hover filter effect once all animations have stopped
     display: inline-block;
     font-family: 'Electrolize', sans-serif;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.8rem;
     background-color: transparent;
     color: white;
     border: none;
@@ -635,7 +635,7 @@ and only apply hover filter effect once all animations have stopped
     white-space: nowrap;
     cursor: pointer;
     transition: 0.3s;
-    padding: 1rem;
+    padding: 0.8rem;
 }
 
 .card .other-actions button:not(:last-of-type) {
@@ -808,6 +808,7 @@ and only apply hover filter effect once all animations have stopped
     display: flex;
     align-items: center;
     margin-top: 10px;
+    margin-bottom: 1rem;
     gap: 5px;
 }
 
@@ -816,14 +817,6 @@ and only apply hover filter effect once all animations have stopped
     height: 1.2rem;
     background-color: #D9D9D9;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-
-.popular-review p {
-    color: #B9B9B9;
-    margin-top: 24px;
-    max-width: 90%;
-    line-height: 1.4rem;
-    font-size: 1.1rem;
 }
 
 .popular-review .review-user {
@@ -853,7 +846,14 @@ and only apply hover filter effect once all animations have stopped
     font-weight: 200;
 }
 
-.popular-review .like-count {
+.like-btn {
+    color: #B9B9B9;
+    margin-top: 24px;
+    max-width: 90%;
+    font-size: 1.1rem;
+}
+
+.like-count {
     display: flex;
     align-items: center;
     margin-top: 10px;
@@ -861,7 +861,7 @@ and only apply hover filter effect once all animations have stopped
     color: #919191;
 }
 
-.popular-review .like-count i {
+.like-count i {
     color: #919191;
     cursor: pointer;
     padding: 8px;
@@ -869,14 +869,14 @@ and only apply hover filter effect once all animations have stopped
     transition: 0.3s;
 }
 
-.popular-review .like-count i:hover,
-.popular-review .like-count i.liked
+.like-count i:hover,
+.like-count i.liked
 {
     color: rgb(0, 0, 0);
     background-color: #ffffff;
 }
 
-.popular-review .like-count i.liked:hover {
+.like-count i.liked:hover {
     color: rgb(0, 0, 0);
     background-color: #b8b8b8;
 }

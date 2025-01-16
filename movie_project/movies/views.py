@@ -889,3 +889,19 @@ def add_review(request, id):
             return JsonResponse({'success': False, 'message': 'Invalid JSON format'}, status=400)
         
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
+
+class MovieReviewListView(ListView):
+    model = Movie
+    template_name = 'movies/review-list.html'
+    context_object_name = 'review'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        movie = get_object_or_404(Movie, pk=self.kwargs.get('pk'))
+
+        context.update({
+            'movie': movie,
+            'reviews': movie.reviews.annotate(count=Count('likes')).order_by('-count')
+        })
+
+        return context

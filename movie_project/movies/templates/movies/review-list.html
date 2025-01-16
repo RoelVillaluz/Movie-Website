@@ -1,0 +1,51 @@
+{% extends 'movies/layout.html' %}
+
+{% block title %} Reviews for {{ movie }}{% endblock %}
+
+{% block body %}
+    <section class="list-section" id="review-list-section">
+        <header class="header">
+            <div>
+                <h1>Reviews for {{ movie }}</h1>
+            </div>
+            <div>
+                <h3>{{ movie.reviews.count }} Reviews</h3>
+            </div>
+        </header>
+    </section>
+    <main class="list-container">
+        <ul class="review-list">
+            {% for review in reviews %}
+                <li class="review-list-item">
+
+                    <div class="details">
+                        <span class="review-rating"><i class="fa-solid fa-star"></i>{{ review.rating }}</span>
+                        <span class="review-date">{{ review.formatted_date }}</span>
+                        <div class="wrapper">
+                            <p class="description">{{ review.description }}</p>
+                        </div>
+                    </div>
+
+                    <div class="wrapper">
+
+                        <div class="like-count">
+                            {% if user in review.likes.all %}
+                                <i class="fa-solid fa-heart liked" id="like-btn" data-id="{{ review.id }}"></i>
+                            {% else %}
+                                <i class="fa-solid fa-heart" id="like-btn" data-id="{{ review.id }}"></i>
+                            {% endif %}
+                            <span>{{ review.likes.count }} likes</span>
+                        </div>
+
+                        <div class="review-user">
+                            <a href="{% url 'profile' review.user.id %}">{{ review.user }}</a>
+                            <i class="fa-solid fa-angle-right"></i>
+                            <img src="{{ review.user.profile.image.url }}" alt="">
+                        </div>
+
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock %}
