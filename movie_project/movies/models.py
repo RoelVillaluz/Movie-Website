@@ -29,7 +29,7 @@ class Movie(models.Model):
     overview = models.TextField(default="No overview yet")
     poster_path = models.ImageField(upload_to="media")
     backdrop_path = models.ImageField(upload_to="media")
-    release_date = models.DateField()
+    release_date = models.DateField(default=now)
     genres = models.ManyToManyField('Genre', blank=True, related_name="movies")
     actors = models.ManyToManyField('Actor', blank=True, related_name="movies")
     hours = models.PositiveIntegerField(default=0)
