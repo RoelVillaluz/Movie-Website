@@ -111,6 +111,9 @@ class Review(models.Model):
     def total_likes(self):
         return self.likes.count()
     
+    def formatted_date(self):
+        return self.created_on.strftime('%B %d, %Y') # string format example: January 16, 2025 
+    
 class PersonImage(models.Model):
     image = models.ImageField(upload_to="person_images")
 
