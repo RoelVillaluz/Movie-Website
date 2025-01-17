@@ -18,7 +18,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required, permission_required
 from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, ReviewForm, SearchForm
-from movies.utils import available_actors, available_award_categories, convert_height_to_feet, create_movie_from_api, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_top_rated_movies, often_works_with, sort
+from movies.utils import available_actors, available_award_categories, convert_height_to_feet, create_movie_from_api, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_similar_movies, get_top_rated_movies, often_works_with, sort
 from users.models import CustomList, Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage, Role
 from django.views.generic import ListView, DetailView
@@ -192,7 +192,6 @@ class MovieDetailView(DetailView):
 
         all_images_count = len(movie.images.all())
 
-
         context.update({
             'director': director,
             'director_movies': director.movies.exclude(id=movie.id) if director else None,
@@ -203,6 +202,7 @@ class MovieDetailView(DetailView):
             'actor_roles': actor_roles,
             'all_images_count': all_images_count,
             'more_images_count': max(all_images_count - 4, 0),
+            'similar_movies': get_similar_movies(movie),
             'form': MovieImageForm()
         })
 

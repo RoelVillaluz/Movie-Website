@@ -15,6 +15,8 @@ from PIL import Image
 from django.db.models import Avg, Count, F
 from django.contrib.contenttypes.models import ContentType
 from itertools import islice
+from django.db.models import Count, Q
+import difflib
 
 from users.models import Follow, Profile
 
@@ -483,3 +485,26 @@ def get_movies_by_month_and_year(queryset, limit=None):
         return dict(islice(movies_by_month_and_year.items(), limit))
 
     return dict(movies_by_month_and_year)
+
+def get_similar_movies(movie):
+    """Gets similar movies based on mutual genres and checks if their name is similar."""
+    
+    # Step 1: Find movies with the same genres and exclude the current movie and then order by number of matching genres    
+    similar_movies = Movie.objects.filter(genres__in=movie.genres.all()) \
+                                  .exclude(id=movie.id)                  \
+                                  .annotate(genre_count=Count('genres')) \
+                                  .order_by('-genre_count')
+
+    # Step 2: Sort the similar movies by title similarity (using substring matching)
+    def title_similarity(m):
+        """Simple function to return a measure of name similarity based on substring occurrence."""
+        title = m.title.lower()
+        movie_title = movie.title.lower()
+        return sum(1 for word in movie_title.split() if word in title)
+
+    # Step 3: Sort by title similarity (most important) and genre count (secondary)
+    similar_movies = sorted(similar_movies, key=lambda m: (title_similarity(m), m.genre_count), reverse=True)
+
+    # Step 4: Limit to the top 5 most similar movies
+    return similar_movies[:5]
+

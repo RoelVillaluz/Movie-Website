@@ -26,6 +26,9 @@
             <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
         </div>
     </section>
+    {% for movie in similar_movies %}
+        <p>{{ movie }}</p>
+    {% endfor %}
     <section class="movie-details">
         <div class="movie-overview">
             <div class="description hidden">
