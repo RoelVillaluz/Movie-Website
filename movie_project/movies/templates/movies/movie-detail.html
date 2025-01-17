@@ -10,29 +10,29 @@
 
     <section class="movie">
         <img class="movie-backdrop" src="{{ movie.backdrop_path.url }}" alt="{{ movie.title }}">
-        <div class="movie-header">
+        <header class="movie-header">
             <h1 class="movie-title">{{ movie.title }}</h1>
-            <div class="movie-genre-list">
+            <nav class="movie-genre-list">
                 {% for genre in movie.genres.all %}
                     <a href="{% url 'genre-detail' genre.pk %}" class="movie-genre">{{ genre }}</a>
                 {% endfor %}
-            </div>
+            </nav>
             <div class="sub-info">
                 <p class="movie-date">Release Date: {{ movie.release_date }}</p>
                 <p class="movie-runtime">Runtime: {{ movie.runtime }}</p>
             </div>
-        </div>
-        <div class="movie-poster">
+        </header>
+        <figure class="movie-poster">
             <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
-        </div>
+        </figure>
     </section>
-    {% for movie in similar_movies %}
-        <p>{{ movie }}</p>
-    {% endfor %}
+
     <section class="movie-details">
-        <div class="movie-overview">
+        <section class="movie-overview">
             <div class="description hidden">
-                <h1>Overview</h1>
+                <header>
+                    <h1>Overview</h1>
+                </header>
                 <p>{{ movie.overview }}</p>
                 <!-- {% with user.profile.watchlist.movies.all as user_watchlist %}
                     {% if movie in user_watchlist %}
@@ -64,25 +64,31 @@
                 </div>
             </div>
             {% if overview_images %}
-                <div class="images">
+                <section class="images">
                 {% for image in overview_images %}
-                    <img src="{{ image.image.url }}" alt="" class="hidden">
+                    <img src="{{ image.image.url }}" alt="{{ image }}" class="hidden">
                 {% endfor %}
-                </div>
+                </section>
             {% endif %}
-        </div>
-        <div class="movie-rating hidden">
-            <h3>Rating: </h3>
+        </section>
+
+        <section class="movie-rating hidden">
+            <header>
+                <h3>Rating: </h3>
+            </header>
             <span>{{ movie.avg_rating|floatformat:2 }}</span>
-        </div>
+        </section>
+
         {% if movie.actors.all %}
-            <div class="cast">
-                <h1 class="hidden">Cast</h1>
+            <section class="cast">
+                <header>
+                    <h1 class="hidden">Cast</h1>
+                </header>
                 <div class="cast-wrapper">
                     {% for actor in movie.actors.all %}
                         <div class="cast-actor hidden">
                             <a href="{% url 'person-detail' 'actors' actor.pk %}">
-                                <img src="{{ actor.image.url }}" alt="">
+                                <img src="{{ actor.image.url }}" alt="{{ actor.name }}">
                             </a>
                             <span class="cast-actor-name">{{ actor }}</span>
                             {% if actor_roles|get_item:actor.pk %}
@@ -91,19 +97,22 @@
                         </div>
                     {% endfor %}
                 </div>
-            </div>
+            </section>
         {% else %}
-            <div class="cast">
-                <h1 class="hidden">No Cast Added Yet</h1>
-            </div>
+            <section class="cast">
+                <header>
+                    <h1 class="hidden">No Cast Added Yet</h1>
+                </header>
+            </section>
         {% endif %}
+
         {% if director %}
-        <div class="movie-director hidden">
+        <section class="movie-director hidden">
             <h1>Director</h1>
             <div class="image">
                 <div class="line"></div>
                 <a href="{% url 'person-detail' 'directors' director.pk %}">
-                    <img src="{{ director.image.url }}" alt="">
+                    <img src="{{ director.image.url }}" alt="{{ director.name }}">
                 </a>
                 <div class="line"></div>
             </div>
@@ -115,7 +124,7 @@
                         {% for movie in director_movies %}
                             <div class="card hidden">
                                 <a href="{% url 'movie-detail' movie.pk %}">
-                                    <img src="{{ movie.poster_path.url }}" alt="">
+                                    <img src="{{ movie.poster_path.url }}" alt="{{ movie.title }}">
                                     <div class="card-overlay">
                                         <h3>{{ movie.title }}</h3>
                                         <button>Add to Watchlist</button>
@@ -130,11 +139,14 @@
                     </div>
                 </div>
             {% endif %}
-        </div>
+        </section>
         {% endif %}
+
         {% if top_reviews %}
-            <div class="reviews">
-                <h1 class="hidden">Top Reviews</h1>
+            <section class="reviews">
+                <header>
+                    <h1 class="hidden">Top Reviews</h1>
+                </header>
                 <div class="wrapper">
                     {% for review in top_reviews %}
                     <div class="top-review hidden">
@@ -153,10 +165,12 @@
                         <i class="fa-solid fa-angle-right"></i>
                     </div>
                 </div>
-            </div>
+            </section>
         {% endif %}
-        <div class="awards">
-            <h1 class="hidden">Awards and Nominations</h1>
+        <section class="awards">
+            <header>
+                <h1 class="hidden">Awards and Nominations</h1>
+            </header>
             {% if awards_by_name.items %}
             <ul>
                 {% for award_name, award_data in awards_by_name.items %}
@@ -206,7 +220,7 @@
                             <a href="{% url 'movie-images' movie.id %}">
                                <img 
                                src="{{ image.image.url }}" 
-                               alt="" 
+                               alt="{{ image }}" 
                                class="clickable-pic last" 
                                data-image="{{ image.image.url }}" data-id="{{ image.id }}">
                                <div class="overlay">
@@ -219,7 +233,7 @@
                          <li>
                             <img 
                                src="{{ image.image.url }}" 
-                               alt="" 
+                               alt="{{ image }}" 
                                class="clickable-pic" 
                                data-image="{{ image.image.url }}" data-id="{{ image.id }}">
                          </li>
@@ -227,6 +241,6 @@
                    {% endfor %}
                 </ul>
             </div>
-        </div>
+        </section>
     </section>
 {% endblock %}
