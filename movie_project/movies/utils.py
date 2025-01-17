@@ -488,7 +488,7 @@ def get_movies_by_month_and_year(queryset, limit=None):
 
 def get_similar_movies(movie):
     """Gets similar movies based on mutual genres and checks if their name is similar."""
-    
+
     # Step 1: Find movies with the same genres and exclude the current movie and then order by number of matching genres    
     similar_movies = Movie.objects.filter(genres__in=movie.genres.all()) \
                                   .exclude(id=movie.id)                  \
@@ -498,9 +498,11 @@ def get_similar_movies(movie):
     # Step 2: Sort the similar movies by title similarity (using substring matching)
     def title_similarity(m):
         """Simple function to return a measure of name similarity based on substring occurrence."""
+        words_to_ignore = ['the', 'of', 'as', 'in']
+
         title = m.title.lower()
         movie_title = movie.title.lower()
-        return sum(1 for word in movie_title.split() if word in title)
+        return sum(1 for word in movie_title.split() if word in title and word not in words_to_ignore)
 
     # Step 3: Sort by title similarity (most important) and genre count (secondary)
     similar_movies = sorted(similar_movies, key=lambda m: (title_similarity(m), m.genre_count), reverse=True)
