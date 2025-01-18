@@ -681,8 +681,33 @@ nav a {
     width: 100%;
 }
 
+.similar-movies {
+    margin-top: 4rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+.similar-movies h1 {
+    font-size: 2rem;
+}
+
+.similar-movie-list {
+    list-style-type: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 2rem;
+    pointer-events: none;
+}
+
+.similar-movie-list li {
+    flex: 0 0 calc(20% - 1rem);
+}
+
+
+
 .reviews {
-    margin-top: 60px;
+    margin-top: 12rem;
 }
 
 .reviews h1 {

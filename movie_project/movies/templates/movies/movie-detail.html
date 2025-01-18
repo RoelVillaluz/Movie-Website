@@ -142,6 +142,19 @@
         </section>
         {% endif %}
 
+        <section class="similar-movies hidden">
+            <header>
+                <h1>Similar Movies</h1>
+            </header>
+            <ul class="similar-movie-list">
+                {% for movie in similar_movies %}
+                    <li>
+                        {% include 'movies/partials/card.html' %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
         {% if top_reviews %}
             <section class="reviews">
                 <header>
