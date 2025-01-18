@@ -704,7 +704,16 @@ nav a {
     flex: 0 0 calc(20% - 1rem);
 }
 
+.similar-movie-list:hover li:not(:hover) img {
+    opacity: 0.3;
+}
 
+.similar-movie-list:hover li:not(:hover) .details,
+.similar-movie-list:hover li:not(:hover)::before,
+.similar-movie-list:hover li:not(:hover) .actions
+{
+    opacity: 0;
+}
 
 .reviews {
     margin-top: 12rem;
