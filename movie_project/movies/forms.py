@@ -27,6 +27,19 @@ class MovieSortForm(forms.Form):
 
     sort_by = forms.ChoiceField(choices=SORT_CHOICES, required=False, label="Sort by")
 
+class ReviewSortForm(forms.Form):
+    SORT_CHOICES = [
+        ('created_on_asc', 'Date Reviewed (Oldest First)'),
+        ('created_on_desc', 'Date Reviewed (Newest First)'),
+        ('popularity', 'Popularity'),
+        ('rating_desc', 'Rating (Highest First)'),
+        ('rating_asc', 'Rating (Lowest First)'),
+        ('description_length_desc', 'Description (Longest First)'),
+        ('description_length_asc', 'Description (Shortest First)'),
+    ]
+
+    sort_by = forms.ChoiceField(choices=SORT_CHOICES, required=False, label="Sort by")
+
 class MovieImageForm(forms.ModelForm):
     class Meta:
         model = MovieImage

@@ -14,6 +14,16 @@
         </header>
     </section>
     <main class="list-container">
+
+        <div class="form-wrapper">
+
+            <!-- Sort form -->
+            <form action="" class="sort-form">
+                {{ sort_form.as_p }}
+            </form>
+
+        </div>
+
         <ul class="review-list">
             {% for review in reviews %}
                 <li class="review-list-item">

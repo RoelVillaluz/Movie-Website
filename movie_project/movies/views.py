@@ -893,12 +893,24 @@ def add_review(request, id):
 class MovieReviewListView(ListView):
     model = Movie
     template_name = 'movies/review-list.html'
-    context_object_name = 'review'
+    context_object_name = 'reviews'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         movie = get_object_or_404(Movie, pk=self.kwargs.get('pk'))
 
+        # Get the `sort_by` parameter from the GET request
+        sort_by = self.request.GET.get('sort_by', None)
+        
+        # Retrieve all reviews for the movie
+        reviews = movie.reviews.all()
+
+        # Sort the reviews if a valid `sort_by` parameter is provided
+        if sort_by:
+            reviews = sort_reviews(reviews, sort_by)
+
+        # Prepare the form and context
+        sort_form = ReviewSortForm(initial={'sort_by': sort_by})
         context.update({
             'movie': movie,
             'reviews': movie.reviews.annotate(count=Count('likes')).order_by('-count')
