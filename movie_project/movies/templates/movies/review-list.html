@@ -9,17 +9,33 @@
                 <h1>Reviews for {{ movie }}</h1>
             </div>
             <div>
-                <h3>{{ movie.reviews.count }} Reviews</h3>
+                <h3>{{ review_count }} Reviews</h3>
             </div>
         </header>
     </section>
-    <main class="list-container">
+    <main class="list-container" id="review-list-container">
 
         <div class="form-wrapper">
 
             <!-- Sort form -->
-            <form action="" class="sort-form">
+            <form action="" class="sort-form" id="reviews-sort-form">
                 {{ sort_form.as_p }}
+
+                <div class="toggle-slider">
+                    <span>Hide Spoilers</span>
+                    <div class="slider-track">
+                        <div class="slider-thumb {% if hide_spoilers %}active{% endif %}"></div>
+                        {% if not hide_spoilers %}
+                            <i class="fa-solid fa-angle-right"></i>
+                            <i class="fa-solid fa-angle-right"></i>
+                            <i class="fa-solid fa-angle-right"></i>
+                        {% endif %}
+                    </div>
+                    <input type="checkbox" 
+                        name="hide_spoilers" 
+                        id="hide-spoilers-checkbox"
+                        {% if hide_spoilers %}checked{% endif %}>
+                </div>
             </form>
 
         </div>
@@ -31,8 +47,13 @@
                     <div class="details">
                         <span class="review-rating"><i class="fa-solid fa-star"></i>{{ review.rating }}</span>
                         <span class="review-date">{{ review.formatted_date }}</span>
+                        {% if review.has_spoilers %}<span class="spoiler-warning">Has Spoilers</span>{% endif %}
                         <div class="wrapper">
-                            <p class="description">{{ review.description }}</p>
+                            {% if review.has_spoilers %}
+                                <button>See review anyway<i class="fa-solid fa-angle-down"></i></button>
+                            {% else %}
+                                <p class="description">{{ review.description }}</p>
+                            {% endif %}
                         </div>
                     </div>
 

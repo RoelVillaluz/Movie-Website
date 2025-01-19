@@ -309,6 +309,15 @@
     font-size: 1.25rem;
 }
 
+#reviews-sort-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.sort-form label {
+    font-size: 1rem;
+}
+
 .sort-form select {
     font-family: "Electrolize", sans-serif;
     padding: 10px;
@@ -316,7 +325,7 @@
     background-color: transparent;
     border: none;
     outline: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
     -webkit-appearance: none; 
     -moz-appearance: none; 

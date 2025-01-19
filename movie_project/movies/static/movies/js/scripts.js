@@ -676,6 +676,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    document.querySelector('.slider-track').addEventListener('click', function() {
+        const form = this.closest('form')
+        
+        const checkbox = form.querySelector('input[type="checkbox"]')
+        checkbox.checked = !checkbox.checked
+ 
+        const toggleSlider = form.querySelector('.slider-thumb')
+        toggleSlider.classList.toggle('active', checkbox.checked)
+
+        form.submit()
+    })
+
     const radioBtns = document.querySelectorAll('.search-filters input[type="radio"]');
     if (radioBtns) {
         radioBtns.forEach(btn => {
