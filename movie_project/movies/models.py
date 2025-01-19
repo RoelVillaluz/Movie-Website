@@ -105,6 +105,11 @@ class Review(models.Model):
     likes = models.ManyToManyField(User, related_name="liked_reviews", blank=True)
     created_on = models.DateTimeField(default=now)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'movie'], name='unique_user_movie_review')
+        ]
+
     def __str__(self):
         return f"{self.user}'s Review for {self.movie}: {self.rating} stars"
 
