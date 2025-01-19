@@ -15,7 +15,8 @@ from PIL import Image
 from django.db.models import Avg, Count, F
 from django.contrib.contenttypes.models import ContentType
 from itertools import islice
-from django.db.models import Count, Q
+from django.db.models import Count, Q, F
+from django.db.models.functions import Length
 import difflib
 
 from users.models import Follow, Profile
@@ -107,6 +108,7 @@ def download_image(url):
         return None
 
 def sort(queryset, sort_by):
+    """ Helper function for sorting movies """
     if sort_by == 'title_asc':
         return queryset.order_by('title')
     elif sort_by == 'title_desc':
@@ -125,6 +127,24 @@ def sort(queryset, sort_by):
         return queryset.order_by(-(F('hours') * 60 + F('minutes')))
     elif sort_by == 'popularity':
         return queryset.annotate(review_count=Count('reviews')).order_by('-review_count')
+    return queryset
+
+def sort_reviews(queryset, sort_by):
+    """ Helper function for sorting reviews """
+    if sort_by == 'created_on_asc':
+        return queryset.order_by('created_on')
+    elif sort_by == 'created_on_desc':
+        return queryset.order_by('-created_on')
+    elif sort_by == 'popularity':
+        return queryset.annotate(like_count=Count('likes')).order_by('-like_count')
+    elif sort_by == 'rating_desc':
+        return queryset.order_by('-rating')
+    elif sort_by == 'rating_asc':
+        return queryset.order_by('rating')
+    elif sort_by == 'description_length_desc':
+        return queryset.annotate(length=Length('description')).order_by('-length')
+    elif sort_by == 'description_length_asc':
+        return queryset.annotate(length=Length('description')).order_by('length')
     return queryset
 
 def get_available_genres(queryset):
