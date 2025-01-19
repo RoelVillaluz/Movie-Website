@@ -104,6 +104,7 @@ class Review(models.Model):
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 11)])
     likes = models.ManyToManyField(User, related_name="liked_reviews", blank=True)
     created_on = models.DateTimeField(default=now)
+    has_spoilers = models.BooleanField(default=False)
 
     class Meta:
         constraints = [
