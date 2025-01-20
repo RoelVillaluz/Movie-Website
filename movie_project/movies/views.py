@@ -17,8 +17,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required, permission_required
-from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, ReviewForm, SearchForm
-from movies.utils import available_actors, available_award_categories, convert_height_to_feet, create_movie_from_api, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_similar_movies, get_top_rated_movies, often_works_with, sort
+from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, ReviewForm, ReviewSortForm, SearchForm
+from movies.utils import available_actors, available_award_categories, convert_height_to_feet, create_movie_from_api, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_similar_movies, get_top_rated_movies, often_works_with, sort, sort_reviews
 from users.models import CustomList, Follow, Profile, Watchlist
 from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage, Role
 from django.views.generic import ListView, DetailView
@@ -27,7 +27,6 @@ from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count, Avg, Prefetch, Q
 from django.contrib.contenttypes.models import ContentType
-
 
 def index(request):
     # create_movie_from_api()
@@ -899,21 +898,25 @@ class MovieReviewListView(ListView):
         context = super().get_context_data(**kwargs)
         movie = get_object_or_404(Movie, pk=self.kwargs.get('pk'))
 
-        # Get the `sort_by` parameter from the GET request
         sort_by = self.request.GET.get('sort_by', None)
+        hide_spoilers = self.request.GET.get('hide_spoilers')
         
-        # Retrieve all reviews for the movie
         reviews = movie.reviews.all()
 
-        # Sort the reviews if a valid `sort_by` parameter is provided
         if sort_by:
             reviews = sort_reviews(reviews, sort_by)
 
-        # Prepare the form and context
         sort_form = ReviewSortForm(initial={'sort_by': sort_by})
+        
+        if hide_spoilers:
+            reviews = reviews.exclude(has_spoilers=True)
+
         context.update({
             'movie': movie,
-            'reviews': movie.reviews.annotate(count=Count('likes')).order_by('-count')
+            'reviews': reviews,
+            'review_count': reviews.count,
+            'sort_form': sort_form,
+            'hide_spoilers': hide_spoilers,
         })
 
         return context
