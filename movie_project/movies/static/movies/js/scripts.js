@@ -676,16 +676,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.querySelector('.slider-track').addEventListener('click', function() {
-        const form = this.closest('form')
-        
-        const checkbox = form.querySelector('input[type="checkbox"]')
-        checkbox.checked = !checkbox.checked
- 
-        const toggleSlider = form.querySelector('.slider-thumb')
-        toggleSlider.classList.toggle('active', checkbox.checked)
+    const toggleSliders = document.querySelectorAll('.slider-track');
+    toggleSliders.forEach(slider => {
+        slider.addEventListener('click', (event) => {
+            const form = event.target.closest('form')
 
-        form.submit()
+            if (!form) return; // Ensure the form exists
+        
+            const parentToggleSlider = slider.closest('.toggle-slider')
+            const toggleSlider = parentToggleSlider.querySelector('.slider-thumb')
+
+            const checkbox = parentToggleSlider.querySelector('input[type="checkbox"]')
+            checkbox.checked = !checkbox.checked
+     
+            toggleSlider.classList.toggle('active', checkbox.checked)
+    
+            form.submit()
+        })
     })
 
     const radioBtns = document.querySelectorAll('.search-filters input[type="radio"]');
