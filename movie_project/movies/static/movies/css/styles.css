@@ -683,7 +683,6 @@ nav a {
 
 .similar-movies {
     margin-top: 4rem;
-    padding: 1rem;
     width: 100%;
 }
 
@@ -696,6 +695,7 @@ nav a {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
+    padding: 0.5rem;
     margin-top: 2rem;
     pointer-events: none;
 }
@@ -1225,6 +1225,109 @@ img.last {
     padding: 1rem 2rem;
 }
 
+#review-list-container {
+    flex-direction: column;
+}
+
+#review-list-container .form-wrapper {
+    padding: 1rem 2rem;
+}
+
+.toggle-slider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle-slider span {
+    font-size: 1rem;
+}
+
+.slider-track {
+    position: relative;
+    width: clamp(72px, 6vw, 86px);
+    height: clamp(32px, 3.5vh, 100px);
+    background-color: rgb(53, 52, 52);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.slider-track:hover {
+    background-color: rgb(70, 70, 70);
+}
+
+.slider-thumb {
+    position: absolute;
+    transform: translate(0, -50%);
+    top: 50%;
+    left: 4px;
+    background-color: white;
+    height: 80%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+}
+
+.slider-thumb.active {
+    left: calc(60% - 4px);
+}
+
+.slider-track .fa-angle-right {
+    position: absolute;
+    font-size: 0.75rem;
+    transform: translate(0, -50%);
+    top: 50%;
+    left: 45%;
+    opacity: 0;
+    transition: 0.7s;
+}
+
+.slider-track .fa-angle-right:nth-child(2) {
+    left: 60%;
+    animation-delay: 0.3s;
+}
+
+.slider-track .fa-angle-right:nth-child(3) {
+    left: 75%;
+    animation-delay: 0.6s;
+}
+
+.slider-track:hover .fa-angle-right {
+    opacity: 1;
+    animation: arrow-fade 1s  ease-in-out infinite;
+}
+
+@keyframes arrow-fade {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes arrow-slide-to-right {
+    0% {
+        opacity: 0;
+        transform: translate(0, -50%);
+    }
+    75% {
+        opacity: 0.5;
+        transform: translate(100%, -50%);
+    }
+    100% {
+        opacity: 0.5;
+        transform: translate(100%, -50%);
+    }
+}
+
+.toggle-slider input[type="checkbox"] {
+    display: none;
+}
+
 .review-list-item {
     width: 100%;
     overflow: hidden;
@@ -1270,6 +1373,38 @@ img.last {
 
 .review-list-item  .like-count i {
     margin-left: -8px;
+}
+
+.review-list-item .spoiler-warning {
+    background-color: rgb(255, 17, 17);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 6px 16px;
+    margin-left: 1rem;
+    border-radius: 5px;
+}
+
+.review-list-item button {
+    font-family: 'Electrolize', sans-serif;
+    background-color: rgba(123, 123, 123, 0.1);
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.review-list-item button i {
+    margin-left: 0.5rem;
+}
+
+.review-list-item button:hover {
+    background-color: rgba(123, 123, 123, 0.5);
+    color: white;
 }
 
 .review-list-item .description {
@@ -1327,7 +1462,7 @@ img.last {
 }
 
 .review-list-item img {
-    width: 2.5vw;
+    width: clamp(30px, 2.5vw, 40px);
     aspect-ratio: 1 / 1;
     border: solid 1px rgba(255, 255, 255, 0.3);
     border-radius: 50%;
