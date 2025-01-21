@@ -14,40 +14,69 @@
             </div>
         </header>
     </section>
-    <main class="list-container" id="review-list-container">
+    <section class="list-container" id="review-list-container">
 
-        <div class="form-wrapper">
-
-            <!-- Sort form -->
-            <form action="" class="sort-form" id="reviews-sort-form">
-                {{ sort_form.as_p }}
-
-                <!-- Hide reviews with spoilers -->
-                <div class="toggle-slider {% if hide_spoilers %}active{% endif %}">
-                    <span>{% if hide_spoilers %} Unhide Spoilers {% else %} Hide Spoilers {% endif %}</span>
-                    <div class="slider-track">
-                        <div class="slider-thumb"></div>
-                        {% for i in 3|range_template %}
-                            {% if not hide_spoilers %}
-                                <i class="fa-solid fa-angle-right" id="slide-right-icon"></i>
-                            {% else %}
-                                <i class="fa-solid fa-angle-left" id="slide-left-icon"></i>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    <input type="checkbox" 
-                        name="hide_spoilers" 
-                        id="hide-spoilers-checkbox"
-                        {% if hide_spoilers %}checked{% endif %}>
+        <figure>
+            <a href="{% url 'movie-detail' movie.id %}">
+                <img src="{{ movie.poster_path.url }}" alt="">
+            </a>
+            <div class="tags">
+                <div class="genre-tag">{{ movie.genres.first }}</div>
+                <div class="
+                    rating-tag 
+                    {% if movie.avg_rating >= 8 %}
+                        high-rating
+                    {% elif movie.avg_rating >= 5 %}
+                        medium-rating
+                    {% elif movie.avg_rating < 5 and movie.avg_rating > 0 %}
+                        low-rating
+                    {% elif movie.avg_rating == 0 %}
+                        unrated
+                    {% endif %}">
+                    <i class="fa-solid fa-star"></i>
+                    {{ movie.avg_rating|floatformat:2 }}
                 </div>
+                            
+                <!-- Skeleton placeholder for tags -->
+                <div class="tag-placeholder"></div>
+                <div class="tag-placeholder"></div>
+            </div>
+        </figure>
 
-                <!-- Show reviews where user is followed -->
-                {% if request.user.is_authenticated %}
-                    <div class="toggle-slider {% if following %}active{% endif %}">
-                        <span>Following</span>
+
+        <main class="reviews-main">
+
+            <div class="form-wrapper">
+
+            
+
+                <form action="" class="sort-form" id="reviews-sort-form">
+                    {{ sort_form.as_p }}
+    
+                    <div class="toggle-slider {% if hide_spoilers %}active{% endif %}">
+                        <span>{% if hide_spoilers %} Unhide Spoilers {% else %} Hide Spoilers {% endif %}</span>
                         <div class="slider-track">
                             <div class="slider-thumb"></div>
-                            {% if request.user.is_authenticated %}
+                            {% for i in 3|range_template %}
+                                {% if not hide_spoilers %}
+                                    <i class="fa-solid fa-angle-right" id="slide-right-icon"></i>
+                                {% else %}
+                                    <i class="fa-solid fa-angle-left" id="slide-left-icon"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <input type="checkbox" 
+                            name="hide_spoilers" 
+                            id="hide-spoilers-checkbox"
+                            {% if hide_spoilers %}checked{% endif %}>
+                    </div>
+    
+                    {% if request.user.is_authenticated %}
+    
+                        <div class="toggle-slider {% if following %}active{% endif %}">
+                            <span>Following</span>
+                            <div class="slider-track">
+                                <div class="slider-thumb"></div>
                                 {% for i in 3|range_template %}
                                     {% if not following %}
                                         <i class="fa-solid fa-angle-right" id="slide-right-icon"></i>
@@ -55,55 +84,74 @@
                                         <i class="fa-solid fa-angle-left" id="slide-left-icon"></i>
                                     {% endif %}
                                 {% endfor %}
-                            {% endif %}
+                            </div>
+                            <input type="checkbox" 
+                                name="following" 
+                                id="hide-spoilers-checkbox"
+                                {% if following %}checked{% endif %}>
                         </div>
-                        <input type="checkbox" 
-                            name="following" 
-                            id="hide-spoilers-checkbox"
-                            {% if following %}checked{% endif %}>
-                    </div>
-                {% endif %}
-            </form>
+    
+                        <div class="toggle-slider {% if my_reviews %}active{% endif %}">
+                            <span>My Review</span>
+                            <div class="slider-track">
+                                <div class="slider-thumb"></div>
+                                {% for i in 3|range_template %}
+                                    {% if not my_reviews %}
+                                        <i class="fa-solid fa-angle-right" id="slide-right-icon"></i>
+                                    {% else %}
+                                        <i class="fa-solid fa-angle-left" id="slide-left-icon"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <input type="checkbox" 
+                                name="my_reviews" 
+                                id="my-reviews-checkbox"
+                                {% if my_reviews %}checked{% endif %}>
+                        </div>
+    
+                    {% endif %}
+                </form>
+    
+            </div>
 
-        </div>
-
-        <ul class="review-list">
-            {% for review in reviews %}
-                <li class="review-list-item">
-
-                    <div class="details">
-                        <span class="review-rating"><i class="fa-solid fa-star"></i>{{ review.rating }}</span>
-                        <span class="review-date">{{ review.formatted_date }}</span>
-                        {% if review.has_spoilers %}<span class="spoiler-warning">Has Spoilers</span>{% endif %}
+            <ul class="review-list">
+                {% for review in reviews %}
+                    <li class="review-list-item">
+    
+                        <div class="details">
+                            <span class="review-rating"><i class="fa-solid fa-star"></i>{{ review.rating }}</span>
+                            <span class="review-date">{{ review.formatted_date }}</span>
+                            {% if review.has_spoilers %}<span class="spoiler-warning">Has Spoilers</span>{% endif %}
+                            <div class="wrapper">
+                                {% if review.has_spoilers %}
+                                    <button>See review anyway<i class="fa-solid fa-angle-down"></i></button>
+                                {% else %}
+                                    <p class="description">{{ review.description }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+    
                         <div class="wrapper">
-                            {% if review.has_spoilers %}
-                                <button>See review anyway<i class="fa-solid fa-angle-down"></i></button>
-                            {% else %}
-                                <p class="description">{{ review.description }}</p>
-                            {% endif %}
+    
+                            <div class="like-count">
+                                {% if user in review.likes.all %}
+                                    <i class="fa-solid fa-heart liked" id="like-btn" data-id="{{ review.id }}"></i>
+                                {% else %}
+                                    <i class="fa-solid fa-heart" id="like-btn" data-id="{{ review.id }}"></i>
+                                {% endif %}
+                                <span>{{ review.likes.count }} likes</span>
+                            </div>
+    
+                            <div class="review-user">
+                                <a href="{% url 'profile' review.user.id %}">{{ review.user }}</a>
+                                <i class="fa-solid fa-angle-right"></i>
+                                <img src="{{ review.user.profile.image.url }}" alt="">
+                            </div>
+    
                         </div>
-                    </div>
-
-                    <div class="wrapper">
-
-                        <div class="like-count">
-                            {% if user in review.likes.all %}
-                                <i class="fa-solid fa-heart liked" id="like-btn" data-id="{{ review.id }}"></i>
-                            {% else %}
-                                <i class="fa-solid fa-heart" id="like-btn" data-id="{{ review.id }}"></i>
-                            {% endif %}
-                            <span>{{ review.likes.count }} likes</span>
-                        </div>
-
-                        <div class="review-user">
-                            <a href="{% url 'profile' review.user.id %}">{{ review.user }}</a>
-                            <i class="fa-solid fa-angle-right"></i>
-                            <img src="{{ review.user.profile.image.url }}" alt="">
-                        </div>
-
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    </main>
+                    </li>
+                {% endfor %}
+            </ul>
+        </main>
+    </section>
 {% endblock %}
