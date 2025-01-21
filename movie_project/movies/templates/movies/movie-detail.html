@@ -157,11 +157,11 @@
             </section>
         {% endif %}
 
-        {% if top_reviews %}
-            <section class="reviews">
-                <header>
-                    <h1 class="hidden">Top Reviews</h1>
-                </header>
+        <section class="reviews">
+            <header>
+                <h1 class="hidden">{% if top_reviews %} Top Reviews {% else %} No Reviews Yet {% endif %}</h1>
+            </header>
+            {% if top_reviews %}
                 <div class="wrapper">
                     {% for review in top_reviews %}
                     <div class="top-review hidden">
@@ -180,8 +180,9 @@
                         <i class="fa-solid fa-angle-right"></i>
                     </div>
                 </div>
-            </section>
-        {% endif %}
+            {% endif %}
+        </section>
+        
         <section class="awards">
             <header>
                 <h1 class="hidden">Awards and Nominations</h1>

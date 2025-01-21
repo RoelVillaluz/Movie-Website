@@ -1,4 +1,5 @@
 {% extends 'movies/layout.html' %}
+{% load custom_filters %}
 
 {% block title %} Reviews for {{ movie }}{% endblock %}
 
@@ -21,15 +22,18 @@
             <form action="" class="sort-form" id="reviews-sort-form">
                 {{ sort_form.as_p }}
 
-                <div class="toggle-slider">
-                    <span>Hide Spoilers</span>
+                <!-- Hide reviews with spoilers -->
+                <div class="toggle-slider {% if hide_spoilers %}active{% endif %}">
+                    <span>{% if hide_spoilers %} Unhide Spoilers {% else %} Hide Spoilers {% endif %}</span>
                     <div class="slider-track">
-                        <div class="slider-thumb {% if hide_spoilers %}active{% endif %}"></div>
-                        {% if not hide_spoilers %}
-                            <i class="fa-solid fa-angle-right"></i>
-                            <i class="fa-solid fa-angle-right"></i>
-                            <i class="fa-solid fa-angle-right"></i>
-                        {% endif %}
+                        <div class="slider-thumb"></div>
+                        {% for i in 3|range_template %}
+                            {% if not hide_spoilers %}
+                                <i class="fa-solid fa-angle-right" id="slide-right-icon"></i>
+                            {% else %}
+                                <i class="fa-solid fa-angle-left" id="slide-left-icon"></i>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                     <input type="checkbox" 
                         name="hide_spoilers" 

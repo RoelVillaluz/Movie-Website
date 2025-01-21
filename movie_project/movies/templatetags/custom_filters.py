@@ -22,3 +22,7 @@ def is_director(person):
 @register.filter
 def is_favorite(profile, movie):
     return Favorite.objects.filter(profile=profile, content_type=ContentType.objects.get_for_model(Movie), object_id=movie.id).exists()
+
+@register.filter
+def range_template(value):
+    return range(value)
