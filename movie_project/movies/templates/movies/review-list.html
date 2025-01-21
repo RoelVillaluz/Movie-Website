@@ -36,6 +36,29 @@
                         id="hide-spoilers-checkbox"
                         {% if hide_spoilers %}checked{% endif %}>
                 </div>
+
+                <!-- Show reviews where user is followed -->
+                {% if request.user.is_authenticated %}
+                    <div class="toggle-slider {% if following %}active{% endif %}">
+                        <span>Following</span>
+                        <div class="slider-track">
+                            <div class="slider-thumb"></div>
+                            {% if request.user.is_authenticated %}
+                                {% for i in 3|range_template %}
+                                    {% if not following %}
+                                        <i class="fa-solid fa-angle-right" id="slide-right-icon"></i>
+                                    {% else %}
+                                        <i class="fa-solid fa-angle-left" id="slide-left-icon"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <input type="checkbox" 
+                            name="following" 
+                            id="hide-spoilers-checkbox"
+                            {% if following %}checked{% endif %}>
+                    </div>
+                {% endif %}
             </form>
 
         </div>

@@ -20,7 +20,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from movies.forms import MovieImageForm, MovieSortForm, PersonImageForm, ReviewForm, ReviewSortForm, SearchForm
 from movies.utils import available_actors, available_award_categories, convert_height_to_feet, create_movie_from_api, get_person_accolades, get_available_genres, filter_queryset, get_actors_and_most_popular_movies, get_directors_and_most_popular_movies, get_genre_dict, get_movies_by_month_and_year, get_movies_by_year, get_popular_actors_and_movies, get_similar_movies, get_top_rated_movies, often_works_with, sort, sort_reviews
 from users.models import CustomList, Follow, Profile, Watchlist
-from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage, Role
+from .models import Actor, Movie, Genre, Director, MovieImage, Review, PersonImage, Role, User
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import DeleteView
 from datetime import date, datetime
@@ -900,6 +900,7 @@ class MovieReviewListView(ListView):
 
         sort_by = self.request.GET.get('sort_by', None)
         hide_spoilers = self.request.GET.get('hide_spoilers')
+        following = self.request.GET.get('following')
         
         reviews = movie.reviews.all()
 
@@ -911,12 +912,30 @@ class MovieReviewListView(ListView):
         if hide_spoilers:
             reviews = reviews.exclude(has_spoilers=True)
 
+        for review in reviews:
+            reviewer = review.user
+
+        # show reviews where user is followed
+        if following:
+            # get content type for profile first 
+            profile_content_type = ContentType.objects.get_for_model(Profile)
+
+            # filter follow objects that have content type of profile
+            followed_profiles = self.request.user.profile.follows.filter(content_type=profile_content_type)
+
+            # get profile IDs
+            profile_ids = [profile.content_object.id for profile in followed_profiles]
+
+            reviews = reviews.filter(user__id__in=profile_ids)
+
+
         context.update({
             'movie': movie,
             'reviews': reviews,
             'review_count': reviews.count,
             'sort_form': sort_form,
             'hide_spoilers': hide_spoilers,
+            'following': following
         })
 
         return context
