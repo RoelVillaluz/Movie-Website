@@ -81,6 +81,7 @@
     </section>
 
     <!-- New Movies Section -->
+    {% if new_movies %}
     <section class="movie-list hidden">
         <div class="section-title">
             <h3 class="marker">New Movies</h3>
@@ -102,6 +103,7 @@
             </div>
         </div>
     </section>
+    {% endif %}
 
     <!-- Just Added Section -->
     <section class="movie-list hidden">
@@ -126,6 +128,7 @@
         </div>
     </section>
 
+    <!-- Popular lists -->
     <section class="popular-lists">
         <div class="section-title hidden">
             <h3 class="marker">Custom Lists</h3>
