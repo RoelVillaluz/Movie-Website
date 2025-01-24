@@ -50,6 +50,9 @@ def index(request):
 
     upcoming_movie_and_date = get_movies_by_month_and_year(upcoming_movies, limit=2)
 
+    popular_lists = CustomList.objects.order_by('-views')[:3]
+
+
     context = {
         'popular_movies': popular_movies,
         'new_movies': new_movies,
@@ -62,6 +65,8 @@ def index(request):
         'random_movie': random_movie,
         'most_popular_reviews': most_popular_reviews,
         'upcoming_movie_and_date': upcoming_movie_and_date,
+        'popular_lists': popular_lists,
+        'featured_list': popular_lists.first(),
         'profile': request.user.profile if request.user.is_authenticated else None
     }
 
@@ -868,11 +873,19 @@ def add_review(request, id):
     movie = Movie.objects.get(id=id)
     # if not movie.reviews.filter(user=request.user).exists():
     if request.method == 'POST':
+        reviewed = movie.reviews.filter(user__id=request.user.id).exists()
         try:
             # Parse JSON body
             data = json.loads(request.body)
             description = data.get('description')
             rating = data.get('rating')
+
+            if reviewed:
+                return JsonResponse({
+                    'success': False,
+                    'message': 'You have already reviewed this movie',
+                    'reviewed': reviewed,
+                })
 
             if rating:
                 review = Review.objects.create(user=request.user, movie=movie, description=description, rating=rating)
@@ -901,6 +914,7 @@ class MovieReviewListView(ListView):
         sort_by = self.request.GET.get('sort_by', None)
         hide_spoilers = self.request.GET.get('hide_spoilers')
         following = self.request.GET.get('following')
+        my_reviews = self.request.GET.get('my_reviews')
         
         reviews = movie.reviews.all()
 
@@ -928,6 +942,9 @@ class MovieReviewListView(ListView):
 
             reviews = reviews.filter(user__id__in=profile_ids)
 
+        if my_reviews:
+            reviews = reviews.filter(user__id=self.request.user.id)
+
 
         context.update({
             'movie': movie,
@@ -935,7 +952,24 @@ class MovieReviewListView(ListView):
             'review_count': reviews.count,
             'sort_form': sort_form,
             'hide_spoilers': hide_spoilers,
-            'following': following
+            'following': following,
+            'my_reviews': my_reviews
         })
+
+        return context
+
+
+class CustomListListView(ListView):
+    model = CustomList
+    template_name = 'movies/custom-lists.html'
+    context_object_name = 'custom_list'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context.update({
+            "custom_lists": CustomList.objects.all()
+        })
+        
 
         return context

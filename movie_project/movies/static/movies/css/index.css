@@ -191,6 +191,95 @@ h3.marker::after {
     animation: fadeIn 0.5s ease-in-out forwards;
 }
 
+.popular-lists {
+    margin: 5rem 0;
+    padding: 20px;
+}
+
+.popular-lists .wrapper {
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.popular-lists .main-list {
+    flex: 2;
+}
+
+.popular-lists .main-list img {
+    width: 100%;
+}
+
+.popular-lists .other-lists {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+}
+
+.popular-lists .other-lists li {
+    display: flex;
+    gap: 1rem;
+    border: solid 1px #2b2929;
+    padding: 1rem;
+}
+
+.popular-lists .other-lists figure {
+    flex: 1;
+}
+
+.popular-lists .other-lists .details {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.popular-lists .other-lists h3 {
+    font-size: 1rem;
+}
+
+.popular-lists .other-lists img {
+    width: 100%;
+}
+
+.popular-lists .fa-list {
+    color: #ececec;
+    margin-right: 0.5rem;
+}
+
+.popular-lists .other-lists h3 {
+    color: #ececec;
+}
+
+.popular-lists .other-lists span {
+    color: #adadad;
+}
+
+.popular-lists .other-lists a {
+    text-decoration: none;
+    display: inline-block;
+    align-self: start;
+    width: auto;
+    margin-top: 2rem;
+    background-color: white;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    color: rgb(20, 20, 20);
+    transition: 0.3s;
+}
+
+.popular-lists .other-lists a:hover {
+    background-color: #ececec;
+}
+
+.popular-lists .other-lists a i {
+    margin-left: 0.1rem;
+    color: rgb(20, 20, 20);
+}
+
 .popular-genres {
     padding: 20px;
 }

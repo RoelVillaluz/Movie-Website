@@ -126,6 +126,46 @@
         </div>
     </section>
 
+    <section class="popular-lists">
+        <div class="section-title hidden">
+            <h3 class="marker">Custom Lists</h3>
+            <div class="section-link">
+                <a href="{% url 'all-custom-lists' %}">View All Lists</a>
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="main-list">
+                {% with list=featured_list %}
+                    <a href="{% url 'list-detail' featured_list.id %}">
+                        {% include 'movies/partials/custom-list-item.html' %}
+                    </a>
+                {% endwith %}
+            </div>
+            <ul class="other-lists">
+                {% for list in popular_lists %}
+                    {% if not forloop.counter == 1 %}
+                        <li>
+                            <figure>
+                                {% for movie in list.movies.all|slice:"1" %}
+                                    <img src="{{ movie.poster_path.url }}" alt="">
+                                {% endfor %}
+                            </figure>
+                            <div class="details">
+                                <h3><i class="fa-solid fa-list"></i>{{ list.name }}</h3>
+                                <span>{{ list.movies.count }} Movies</span>
+                                <a href="{% url 'list-detail' list.id %}">
+                                    View List
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
     <!-- Popular Genres Section -->
     <section class="popular-genres">
         <div class="section-title hidden">
