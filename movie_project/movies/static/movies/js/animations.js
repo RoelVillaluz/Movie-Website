@@ -181,11 +181,31 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => {
         pageHasLoaded = true;
     });
+
+    const genreLinks = document.querySelectorAll('.genre-names a');
+    const genreImage = document.getElementById('genre-image');
     const genreList = document.querySelector('.genre-names');
     const scrollIcon = document.querySelector('.scroll-icon');
 
     // Apply transition effect initially
     genreImage.style.transition = 'opacity 0.3s ease';
+
+    genreLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            const backdropPath = link.getAttribute('data-backdrop');
+            if (backdropPath) {
+                // Fade out the image
+                genreImage.style.opacity = '0';
+
+                // Wait for the fade-out transition, then change the image and fade in
+                setTimeout(() => {
+                    genreImage.src = backdropPath;
+                    genreImage.style.opacity = '1';
+                }, 200); 
+            }
+        });
+    });
+
     genreList.addEventListener('mouseenter', () => {
         scrollIcon.style.opacity = '0.5';  
     });

@@ -3,32 +3,25 @@
 {% block title %} MovieVerse Genres {% endblock %}
     
 {% block body %}
-    <section class="all-genres-list">
-        <div class="header">
-            <div class="image-container">
-                {% for movie in random_images %}
-                    <img src="{{ movie.backdrop_path.url }}" alt="">
-                {% endfor %}
+    <div class="all-genre-list">
+        <ul class="genre-names">
+            <h1>All Genres</h1>
+            {% for genre in genres %}
+                <li>
+                    <a href="{% url 'genre-detail' genre.id %}" 
+                        data-backdrop="{{ genre.backdrop_path }}">
+                        {{ genre.name }}
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                </li>
+            {% endfor %}
+            <div class="scroll-icon">
+                <i class="fa-solid fa-angle-up"></i>
+                <i class="fa-solid fa-angle-down"></i>
             </div>
-            <div class="overlay">
-                <h1>All Genres</h1>
-            </div>
-        </div>  
-        <ul>
-            {% for first_letter, genre_list in first_letter_and_genre.items %}
-                <h3 class="first-letter">{{ first_letter }}</h3>
-                <div class="first-letter-wrapper">
-                    {% for genre_info in genre_list %}
-                        <li>
-                            <a href="{% url 'genre-detail' genre_info.2 %}">
-                                <img src="{{ genre_info.1 }}" alt="">
-                                <h1>{{ genre_info.0 }}</h1>
-                                <p>{{ genre_info.3 }} Movies</p>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </div>
-            {% endfor %}   
-        </ul>   
-    </section>
+        </ul>
+        <figure class="genre-movie">
+            <img src="" id="genre-image">
+        </figure>
+    </div>
 {% endblock %}
