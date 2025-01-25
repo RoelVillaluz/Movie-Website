@@ -203,7 +203,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     genreImage.style.opacity = '1';
                 }, 200); 
             }
+            scrollIcon.innerHTML = '<i class="fa-solid fa-hand-pointer"></i>'
+            scrollIcon.querySelector('i').style.opacity = '1';
         });
+        link.addEventListener('mouseleave', () => {
+            scrollIcon.innerHTML = `
+                <i class="fa-solid fa-angle-up"></i>
+                <i class="fa-solid fa-angle-down"></i>
+            `
+        })
     });
 
     genreList.addEventListener('mouseenter', () => {

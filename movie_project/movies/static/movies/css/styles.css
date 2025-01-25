@@ -1133,7 +1133,7 @@ img.last {
     padding: 1rem;
     width: 6vw;
     aspect-ratio: 1 / 1;
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.5vw, 4rem);
     border-radius: 50%;
     background-color: rgb(20, 20, 20);
     border: solid 1px rgb(255, 255, 255, 0.1);
