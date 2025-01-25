@@ -1080,135 +1080,116 @@ img.last {
     margin-bottom: 5px;
 }
 
-.all-genres-list .header {
-    position: relative;
-    width: 100%;
-    height: 70vh;
+.all-genre-list {
+    flex: 0 0 30%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
 }
 
-.all-genres-list .image-container::after {
-    position: absolute;
-    content: '';
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40%;
-    background-image: linear-gradient(to top, rgb(20, 20, 20, 1) 0%, rgb(20, 20, 20, 0) 100%);
-    z-index: 1;
+.all-genre-list h1 {
+    font-size: 3rem;
+    position: sticky;
 }
 
-.header .image-container {
+.all-genre-list .genre-names {
     position: relative;
     display: flex;
-    width: 100%;
-    height: 100%;
-}
-
-.header .image-container img {
-    width: calc(100% / 5); 
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.8);
-}
-
-.header .image-container::before {
-    position: absolute;
-    content: '';
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgba(22, 1, 17, 0.3);
-    z-index: 1;
-}
-
-.all-genres-list .header .overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-}
-
-.all-genres-list .header .overlay h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    font-style: italic;
-    text-transform: uppercase;
-    background-color: white;
-    color: black;
-    padding: 1rem 4rem;
-    transform: rotate(-5deg);
-    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
-}
-
-.all-genres-list ul {
-    padding: 20px;
+    flex-direction: column;
+    gap: 2rem;
     list-style-type: none;
-    margin-top: 3rem;
+    overflow-y: scroll;
+    padding: 2rem;
+    padding-top: 7rem;
+
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+
+    cursor: none; 
 }
 
-.first-letter {
+.all-genre-list .genre-names::-webkit-scrollbar {
+    display: none;
+}
+
+.all-genre-list .genre-names:hover .scroll-icon {
+    opacity: 1; 
+}
+
+.all-genre-list .genre-names:hover {
+    cursor: ns-resize; 
+}
+
+.scroll-icon {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
-    color: black;
-    padding: 10px;
-    width: 3rem;
-    height: 3rem;
-    margin: 5px;
-    clip-path: polygon(20% 0%, 80% 0%, 100% 0, 100% 80%, 80% 100%, 0 100%, 0% 80%, 0% 20%);
-}
-
-.first-letter-wrapper {
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
     padding: 1rem;
+    width: 6vw;
+    aspect-ratio: 1 / 1;
+    font-size: 1rem;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: solid 1px rgb(255, 255, 255, 0.1);
+    color: rgb(255, 255, 255, 0.5);
 }
 
-.all-genres-list li {
-    position: relative;
-    flex: 0 0 calc((100% / 3) - 10px);
-    margin-bottom: 2rem;
-}
-
-.all-genres-list li a {
+.all-genre-list .genre-names a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2rem;
     text-decoration: none;
+    color: #888;
+    transition: 0.3s ease;
+    cursor: none;
 }
 
-.all-genres-list li img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.all-genres-list li h1 {
-    display: inline-block;
-    position: relative;
-    margin: 0.5em 0em;
-}
-
-.all-genres-list li h1::before {
-    position: absolute;
-    content: '';
-    bottom: -6px;
-    left: 0;
-    width: 0%;
-    height: 3px;
-    background-color: white;
-    transform-origin: left;
+.all-genre-list .genre-names i:not(.scroll-icon i) {
+    font-size: 1rem;
+    color: white;
+    opacity: 0;
     transition: 0.3s;
 }
 
-.all-genres-list li:hover h1::before {
-    width: 100%;
+.all-genre-list .genre-names a:hover {
+    font-size: 4rem;
+    color: white;
 }
 
-.all-genres-list li p {
-    color: rgb(117, 117, 117);
+.all-genre-list .genre-names a:hover i:not(.scroll-icon) {
+    opacity: 1;
+    font-size: 2rem;
+}
+
+.all-genre-list .genre-movie {
+    flex: 0 0 70%;
+    overflow: hidden;
+    position: relative;
+}
+
+.all-genre-list .genre-movie img {
+    position: relative;
+    height: 100vh;
+    width: auto;
+    object-fit: contain;
+}
+
+.all-genre-list .genre-movie::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(20, 20, 20, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    z-index: 1; 
 }
 
 #review-list-section header {
@@ -1242,6 +1223,7 @@ img.last {
 
 .reviews-main {
     flex: 4;
+    overflow: hidden;
 }
 
 .review-list {

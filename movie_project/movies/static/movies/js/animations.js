@@ -181,4 +181,29 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => {
         pageHasLoaded = true;
     });
+    const genreList = document.querySelector('.genre-names');
+    const scrollIcon = document.querySelector('.scroll-icon');
+
+    // Apply transition effect initially
+    genreImage.style.transition = 'opacity 0.3s ease';
+    genreList.addEventListener('mouseenter', () => {
+        scrollIcon.style.opacity = '0.5';  
+    });
+
+    genreList.addEventListener('mouseleave', () => {
+        scrollIcon.style.opacity = '0'; 
+    });
+
+    genreList.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        const rect = genreList.getBoundingClientRect();  
+        const scrollTop = genreList.scrollTop;  
+
+        scrollIcon.style.left = `${mouseX - rect.left}px`;  
+        scrollIcon.style.top = `${mouseY - rect.top + scrollTop}px`;  
+    });
+
+    genreList.style.cursor = 'none';
 });
