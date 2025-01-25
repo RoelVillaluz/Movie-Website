@@ -229,35 +229,32 @@ class GenreListView(ListView):
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
 
-        first_letter_and_genre = defaultdict(list)
+        genres_with_backdrops = []
         genre_set = set()
         genres = Genre.objects.all()
-
-
         today = date.today()
 
-        # get random movie images for genre page header
-        movies = Movie.objects.exclude(release_date__gt=today)
-        random_images = random.sample(list(movies), 5)
-
-        # dictionary for first letters and genre 
+        # Assign random movie backdrop_path to each genre
         for genre in genres:
             movies_in_genre = genre.movies.exclude(pk__in=genre_set)
             if movies_in_genre.exists():
-                first_letter = genre.name[0].upper()
                 random_movie = random.choice(movies_in_genre)
-                genre_info = [genre.name, random_movie.backdrop_path.url, genre.pk, genre.movies.count]
-                first_letter_and_genre[first_letter].append(genre_info)
                 genre_set.add(random_movie.pk)
+                genres_with_backdrops.append({
+                    'id': genre.pk,
+                    'name': genre.name,
+                    'backdrop_path': random_movie.backdrop_path.url,
+                })
 
-        first_letter_and_genre = OrderedDict(sorted(first_letter_and_genre.items()))
+        # Filter out genres without movies and order by name
+        genres_with_backdrops = sorted(genres_with_backdrops, key=lambda x: x['name'])
 
         context.update({
-            'random_images': random_images,
-            'first_letter_and_genre': first_letter_and_genre
+            'genres': genres_with_backdrops,
         })
 
         return context
+
 
 class GenreDetailView(DetailView):
     model = Genre
