@@ -57,13 +57,20 @@
     </div>
     <!-- other actions -->
     <div class="other-actions">
+
+        <!-- add movie to favorites -->
         {% if profile|is_favorite:movie %}
             <button type="button" class="action-btn" id="add-to-favorites-btn" data-id="{{ movie.id }}" data-model="movie">Remove from favorites</button>
         {% else %}
             <button type="button" class="action-btn" id="add-to-favorites-btn" data-id="{{ movie.id }}" data-model="movie">Add to favorites</button>
         {% endif %}
+
+        <!-- add movie to list -->
         <button type="button" class="action-btn" id="add-to-list-btn" data-id="{{ movie.id }}">Add to list</button>
+
+        <!-- create review for movie -->
         <button class="action-btn" id="add-review-btn" data-id="{{ movie.id }}">Rate this movie</button>
+
         <button class="action-btn">Show in lists</button>
     </div>
 </div>
