@@ -22,7 +22,7 @@ urlpatterns = [
     
     # People
     path("people/<str:model_name>/<int:pk>/", views.PersonDetailView.as_view(), name="person-detail"),
-    path("people/<str:model_name>/images", views.PersonImagesView.as_view(), name="person-images"),
+    path("people/<str:model_name>/<int:pk>/images", views.PersonImagesView.as_view(), name="person-images"),
     path("people/<str:model_name>/edit_image/<int:pk>", views.EditPersonImageView.as_view(), name="edit-person-image"),
     path("people/<str:model_name>/delete_image/<int:pk>", views.DeletePersonImageView.as_view(), name="delete-person-image"),
     

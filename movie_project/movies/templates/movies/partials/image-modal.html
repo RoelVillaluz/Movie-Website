@@ -24,15 +24,15 @@
            <div style="display: flex; align-items: center; gap: 1rem;">
                 {% if person %}
                     {% if person_type == 'director' %}
-                            <a href="{% url 'person-images' 'directors' person.id %}">
-                                <i class="fa-solid fa-grip"></i>
-                            </a>
+                        <a href="{% url 'person-images' 'directors' person.id %}">
+                            <i class="fa-solid fa-grip"></i>
+                        </a>
                     {% elif person_type == 'actor' %}
-                            <a href="{% url 'person-images' 'actors' person.id %}">
-                                <i class="fa-solid fa-grip"></i>
-                            </a>
+                        <a href="{% url 'person-images' 'actors' person.id %}">
+                            <i class="fa-solid fa-grip"></i>
+                        </a>
                     {% endif %}
-                {% else %}
+                {% else %}        
                     <a href="{% url 'movie-images' movie.id %}">
                         <i class="fa-solid fa-grip"></i>
                     </a>
