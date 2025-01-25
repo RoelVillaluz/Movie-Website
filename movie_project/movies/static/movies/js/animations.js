@@ -234,4 +234,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     genreList.style.cursor = 'none';
+
+    const genreMovie = document.querySelector('.genre-movie');
+
+    // Sync scroll between genre image and genre list
+    genreMovie.addEventListener('wheel', (event) => {
+        const scrollDelta = event.deltaY; 
+        genreList.scrollTop += scrollDelta; 
+
+        event.preventDefault();
+    });
 });

@@ -1081,7 +1081,7 @@ img.last {
 }
 
 .all-genre-list {
-    flex: 0 0 30%;
+    flex: 0 0 40%;
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -1099,18 +1099,16 @@ img.last {
     flex-direction: column;
     gap: 2rem;
     list-style-type: none;
-    overflow-y: scroll;
     padding: 2rem;
     padding-top: 7rem;
-
+    overflow-y: scroll;
     scrollbar-width: none; 
     -ms-overflow-style: none; 
-
-    cursor: none; 
+    cursor: none;
 }
 
 .all-genre-list .genre-names::-webkit-scrollbar {
-    display: none;
+    display: none; /* Hide scrollbar */
 }
 
 .all-genre-list .genre-names:hover .scroll-icon {
@@ -1169,7 +1167,7 @@ img.last {
 }
 
 .all-genre-list .genre-movie {
-    flex: 0 0 70%;
+    flex: 0 0 60%;
     overflow: hidden;
     position: relative;
 }
